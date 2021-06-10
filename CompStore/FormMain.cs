@@ -58,7 +58,12 @@ namespace CompStore
         {
             if (!panelFilials.Visible) return;
             //Потом проверить почему это событие вызывается два раза
+            FilialsRefresh();
+            FilialsSelChange(null, null);
+        }
 
+        void FilialsRefresh()
+        {
             filials.Clear();
             listFilials.BeginUpdate();
             listFilials.Items.Clear();
@@ -84,7 +89,6 @@ namespace CompStore
             }
             listFilials.EndUpdate();
         }
-        #endregion
 
         private void buttonFAdd_Click(object sender, EventArgs e)
         {
@@ -104,6 +108,15 @@ namespace CompStore
                     connect.Close();
                 }
             }
+            FilialsRefresh();
         }
+        private void FilialsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listFilials.SelectedIndices.Count > 0;
+            buttonFEdit.Enabled = sel;
+            buttonFDel.Enabled = sel;
+        }
+
+        #endregion
     }
 }
