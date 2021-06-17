@@ -15,6 +15,7 @@ namespace CompStore
     {
         List<Filial> filials;
         List<Room> rooms;
+        List<Post> posts;
         public FormMain()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace CompStore
             panelFilials.Location = defLoc;
             panelRooms.Location = defLoc;
             panelUsers.Location = defLoc;
+            panelPosts.Location = defLoc;
             panelEquipment.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
@@ -37,6 +39,7 @@ namespace CompStore
             panelFilials.Visible = treeMenu.SelectedNode.Name == "nodeFilials";
             panelRooms.Visible = treeMenu.SelectedNode.Name == "nodeRooms";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
+            panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
         }
 
@@ -172,6 +175,73 @@ namespace CompStore
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.RoomDelete(room);
+                RoomsRefresh();
+            }
+        }
+        #endregion
+        
+        #region Должности
+        private void panelPosts_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!panelRooms.Visible) return;
+            PostsRefresh();
+            PostsSelChange(null, null);
+        }
+
+        void PostsRefresh()
+        {
+            posts = DB.PostsLoad();
+            PostsDraw(null, null);
+        }
+
+        private void PostsDraw(object sender, EventArgs e)
+        {
+            listPosts.BeginUpdate();
+            listPosts.Items.Clear();
+            foreach (Post post in posts)
+                if (post.Contains(textRoomFilter.Text))
+                    listPosts.Items.Add(post.ToListView());
+            listPosts.EndUpdate();
+            FilialsSelChange(null, null);
+        }
+        private void PostsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listPosts.SelectedIndices.Count > 0;
+            buttonPostEdit.Enabled = sel;
+            buttonPostDelete.Enabled = sel;
+        }
+        private void PostFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void PostAdd(object sender, EventArgs e)
+        {
+            Post post = new Post();
+            /*FormPost form = new FormPost(post);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.PostAdd(room);
+                PostsRefresh();
+            }*/
+        }
+        private void PostEdit(object sender, EventArgs e)
+        {
+            if (listPosts.SelectedIndices.Count == 0) return;
+            Post post = (Post)listPosts.SelectedItems[0].Tag;
+            /*FormPost form = new FormPost(post);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.PostUpdate(post);
+                PostsRefresh();
+            }*/
+        }
+
+        private void PostDelete(object sender, EventArgs e)
+        {
+            if (listPosts.SelectedIndices.Count == 0) return;
+            Post post = (Post)listPosts.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + post.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.PostDelete(post);
                 RoomsRefresh();
             }
         }

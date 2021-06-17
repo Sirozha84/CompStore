@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace CompStore
@@ -32,6 +27,11 @@ namespace CompStore
                     "[filial] INTEGER, " +
                     "[name] TEXT, " +
                     "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [posts] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[name] TEXT)";
                 com.ExecuteNonQuery();
 
                 connect.Close();
@@ -116,7 +116,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [rooms] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM [rooms] ORDER BY [filial], [name]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -171,6 +171,65 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [rooms] WHERE ID = " + room.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Должности
+        public static List<Post> PostsLoad()
+        {
+            List<Post> posts = new List<Post>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [posts] ORDER BY [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Post post = new Post();
+                        post.ID = reader.GetInt32(0);
+                        post.name = reader.GetString(1);
+                        posts.Add(post);
+                    }
+                }
+                connect.Close();
+            }
+            return posts;
+        }
+        public static void PostAdd(Post post)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [post] (name) VALUES ('" + post.name + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void PostUpdate(Post post)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [posts] SET " + "[name] = '" + post.name + "' WHERE ID = " + post.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void PostDelete(Post post)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [posts] WHERE ID = " + post.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
