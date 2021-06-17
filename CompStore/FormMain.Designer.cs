@@ -55,6 +55,9 @@ namespace CompStore
             this.panelEquipment = new System.Windows.Forms.Panel();
             this.labelEquipment = new System.Windows.Forms.Label();
             this.panelFilials = new System.Windows.Forms.Panel();
+            this.labelFilialFilter = new System.Windows.Forms.Label();
+            this.buttonFilialResetFilter = new System.Windows.Forms.Button();
+            this.textFilialFilter = new System.Windows.Forms.TextBox();
             this.buttonFDel = new System.Windows.Forms.Button();
             this.buttonFEdit = new System.Windows.Forms.Button();
             this.buttonFAdd = new System.Windows.Forms.Button();
@@ -119,14 +122,14 @@ namespace CompStore
             // инициализацияToolStripMenuItem
             // 
             this.инициализацияToolStripMenuItem.Name = "инициализацияToolStripMenuItem";
-            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.инициализацияToolStripMenuItem.Text = "Инициализация";
             this.инициализацияToolStripMenuItem.Click += new System.EventHandler(this.инициализацияToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             // 
             // справкаToolStripMenuItem
@@ -200,6 +203,9 @@ namespace CompStore
             this.panelFilials.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFilials.Controls.Add(this.labelFilialFilter);
+            this.panelFilials.Controls.Add(this.buttonFilialResetFilter);
+            this.panelFilials.Controls.Add(this.textFilialFilter);
             this.panelFilials.Controls.Add(this.buttonFDel);
             this.panelFilials.Controls.Add(this.buttonFEdit);
             this.panelFilials.Controls.Add(this.buttonFAdd);
@@ -212,6 +218,36 @@ namespace CompStore
             this.panelFilials.Visible = false;
             this.panelFilials.VisibleChanged += new System.EventHandler(this.panelFilials_VisibleChanged);
             // 
+            // labelFilialFilter
+            // 
+            this.labelFilialFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelFilialFilter.AutoSize = true;
+            this.labelFilialFilter.Location = new System.Drawing.Point(575, 28);
+            this.labelFilialFilter.Name = "labelFilialFilter";
+            this.labelFilialFilter.Size = new System.Drawing.Size(47, 13);
+            this.labelFilialFilter.TabIndex = 8;
+            this.labelFilialFilter.Text = "Фильтр";
+            // 
+            // buttonFilialResetFilter
+            // 
+            this.buttonFilialResetFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFilialResetFilter.Location = new System.Drawing.Point(934, 23);
+            this.buttonFilialResetFilter.Name = "buttonFilialResetFilter";
+            this.buttonFilialResetFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonFilialResetFilter.TabIndex = 7;
+            this.buttonFilialResetFilter.Text = "Очистить";
+            this.buttonFilialResetFilter.UseVisualStyleBackColor = true;
+            this.buttonFilialResetFilter.Click += new System.EventHandler(this.buttonFilialResetFilter_Click);
+            // 
+            // textFilialFilter
+            // 
+            this.textFilialFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textFilialFilter.Location = new System.Drawing.Point(628, 25);
+            this.textFilialFilter.Name = "textFilialFilter";
+            this.textFilialFilter.Size = new System.Drawing.Size(300, 20);
+            this.textFilialFilter.TabIndex = 6;
+            this.textFilialFilter.TextChanged += new System.EventHandler(this.FilialDraw);
+            // 
             // buttonFDel
             // 
             this.buttonFDel.Enabled = false;
@@ -221,6 +257,7 @@ namespace CompStore
             this.buttonFDel.TabIndex = 5;
             this.buttonFDel.Text = "Удалить";
             this.buttonFDel.UseVisualStyleBackColor = true;
+            this.buttonFDel.Click += new System.EventHandler(this.FilialDelete);
             // 
             // buttonFEdit
             // 
@@ -231,6 +268,7 @@ namespace CompStore
             this.buttonFEdit.TabIndex = 4;
             this.buttonFEdit.Text = "Править";
             this.buttonFEdit.UseVisualStyleBackColor = true;
+            this.buttonFEdit.Click += new System.EventHandler(this.FilialEdit);
             // 
             // buttonFAdd
             // 
@@ -261,6 +299,7 @@ namespace CompStore
             this.listFilials.UseCompatibleStateImageBehavior = false;
             this.listFilials.View = System.Windows.Forms.View.Details;
             this.listFilials.SelectedIndexChanged += new System.EventHandler(this.FilialsSelChange);
+            this.listFilials.DoubleClick += new System.EventHandler(this.FilialEdit);
             // 
             // colFilName
             // 
@@ -338,6 +377,9 @@ namespace CompStore
         private System.Windows.Forms.Button buttonFEdit;
         private System.Windows.Forms.Button buttonFAdd;
         private System.Windows.Forms.ToolStripMenuItem инициализацияToolStripMenuItem;
+        private System.Windows.Forms.TextBox textFilialFilter;
+        private System.Windows.Forms.Label labelFilialFilter;
+        private System.Windows.Forms.Button buttonFilialResetFilter;
     }
 }
 

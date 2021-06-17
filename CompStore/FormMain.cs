@@ -38,11 +38,11 @@ namespace CompStore
             SQLiteConnection.CreateFile(FileDB);
             using (SQLiteConnection connect = new SQLiteConnection("DataSource=" + FileDB + "; Version=3;"))
             {
-                string comText = "CREATE TABLE IF NOT EXISTS [Филиалы] ( " +
+                string comText = "CREATE TABLE IF NOT EXISTS [filials] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[Название] TEXT, " +
-                    "[Адрес] TEXT, " +
-                    "[Примечание] TEXT)";
+                    "[name] TEXT, " +
+                    "[adress] TEXT, " +
+                    "[comment] TEXT)";
                 SQLiteCommand com = new SQLiteCommand(comText, connect);
                 connect.Open();
                 com.ExecuteNonQuery();
@@ -65,12 +65,10 @@ namespace CompStore
         void FilialsRefresh()
         {
             filials.Clear();
-            listFilials.BeginUpdate();
-            listFilials.Items.Clear();
             using (SQLiteConnection connect = new SQLiteConnection("DataSource=" + FileDB + "; Version=3;"))
             {
                 connect.Open();
-                string comText = "SELECT * FROM [Филиалы]";
+                string comText = "SELECT * FROM [filials] ORDER BY [name]";
                 SQLiteCommand com = new SQLiteCommand(comText, connect);
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
@@ -82,13 +80,33 @@ namespace CompStore
                         filial.adress = reader.GetString(2);
                         filial.comment = reader.GetString(3);
                         filials.Add(filial);
-                        listFilials.Items.Add(filial.ToListView());
+                        //listFilials.Items.Add(filial.ToListView());
                     }
                 }
                 connect.Close();
             }
-            listFilials.EndUpdate();
+            FilialDraw(null, null);
         }
+
+        private void FilialDraw(object sender, EventArgs e)
+        {
+            listFilials.BeginUpdate();
+            listFilials.Items.Clear();
+            foreach (Filial filial in filials)
+            {
+                if (filial.Contains(textFilialFilter.Text))
+                    listFilials.Items.Add(filial.ToListView());
+            }
+            listFilials.EndUpdate();
+            FilialsSelChange(null, null);
+        }
+        private void FilialsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listFilials.SelectedIndices.Count > 0;
+            buttonFEdit.Enabled = sel;
+            buttonFDel.Enabled = sel;
+        }
+        private void buttonFilialResetFilter_Click(object sender, EventArgs e) { textFilialFilter.Text = ""; }
 
         private void buttonFAdd_Click(object sender, EventArgs e)
         {
@@ -98,7 +116,7 @@ namespace CompStore
             {
                 using (SQLiteConnection connect = new SQLiteConnection("DataSource=" + FileDB + "; Version=3;"))
                 {
-                    string comText = "INSERT INTO [Филиалы] (Название, Адрес, Примечание) VALUES ('" +
+                    string comText = "INSERT INTO [filials] (name, adress, comment) VALUES ('" +
                         filial.name + "', '" +
                         filial.adress + "', '" +
                         filial.comment + "')";
@@ -110,13 +128,48 @@ namespace CompStore
             }
             FilialsRefresh();
         }
-        private void FilialsSelChange(object sender, EventArgs e)
+
+        private void FilialEdit(object sender, EventArgs e)
         {
-            bool sel = listFilials.SelectedIndices.Count > 0;
-            buttonFEdit.Enabled = sel;
-            buttonFDel.Enabled = sel;
+            if (listFilials.SelectedIndices.Count == 0) return;
+            Filial filial = (Filial)listFilials.SelectedItems[0].Tag;
+            FormFilial form = new FormFilial(filial);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                using (SQLiteConnection connect = new SQLiteConnection("DataSource=" + FileDB + "; Version=3;"))
+                {
+                    string comText = "UPDATE [filials] SET " +
+                        "[name] = '" + filial.name + "', " +
+                        "[adress] = '" + filial.adress + "', " +
+                        "[comment] = '" + filial.comment + "' WHERE ID = " + filial.ID;
+                    SQLiteCommand com = new SQLiteCommand(comText, connect);
+                    connect.Open();
+                    com.ExecuteNonQuery();
+                    connect.Close();
+                }
+                FilialsRefresh();
+            }
         }
 
+        private void FilialDelete(object sender, EventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            Filial filial = (Filial)listFilials.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + filial.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                using (SQLiteConnection connect = new SQLiteConnection("DataSource=" + FileDB + "; Version=3;"))
+                {
+                    string comText = "DELETE FROM [filials] WHERE ID = " + filial.ID;
+                    SQLiteCommand com = new SQLiteCommand(comText, connect);
+                    connect.Open();
+                    com.ExecuteNonQuery();
+                    connect.Close();
+                }
+                FilialsRefresh();
+            }
+        }
         #endregion
+
     }
 }

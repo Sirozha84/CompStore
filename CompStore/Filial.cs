@@ -23,5 +23,13 @@ namespace CompStore
             str.Tag = this;
             return str;
         }
+
+        public bool Contains(string search)
+        {
+            search = search.ToLower();
+            return (name.ToLower().Contains(search) |
+                adress.ToLower().Contains(search) |
+                comment.ToLower().Contains(search));
+        }
     }
 }
