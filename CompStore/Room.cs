@@ -7,17 +7,17 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public class Filial
+    public class Room
     {
         public int ID;
+        public int filial;
+        public string filialText;
         public string name;
-        public string adress;
         public string comment;
-
         public ListViewItem ToListView()
         {
-            ListViewItem str = new ListViewItem(name);
-            str.SubItems.Add(adress);
+            ListViewItem str = new ListViewItem(filialText);
+            str.SubItems.Add(name);
             str.SubItems.Add(comment);
             str.Tag = this;
             return str;
@@ -26,9 +26,10 @@ namespace CompStore
         public bool Contains(string search)
         {
             search = search.ToLower();
-            return (name.ToLower().Contains(search) |
-                adress.ToLower().Contains(search) |
+            return (filialText.ToLower().Contains(search) |
+                name.ToLower().Contains(search) |
                 comment.ToLower().Contains(search));
         }
     }
 }
+

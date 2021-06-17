@@ -38,6 +38,7 @@ namespace CompStore
             }
         }
 
+        #region Филиалы
         public static List<Filial> FilialsLoad()
         {
             List<Filial> filials = new List<Filial>();
@@ -63,7 +64,7 @@ namespace CompStore
             return filials;
         }
 
-        public static void FilialsAdd(Filial filial)
+        public static void FilialAdd(Filial filial)
         {
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
@@ -104,5 +105,74 @@ namespace CompStore
                 connect.Close();
             }
         }
+        #endregion
+        
+        #region Помещения
+        public static List<Room> RoomsLoad()
+        {
+            List<Room> rooms = new List<Room>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [rooms] ORDER BY [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Room room = new Room();
+                        room.ID = reader.GetInt32(0);
+                        room.filial = reader.GetInt32(1);
+                        room.filialText = "";
+                        room.name = reader.GetString(2);
+                        room.comment = reader.GetString(3);
+                        rooms.Add(room);
+                    }
+                }
+                connect.Close();
+            }
+            return rooms;
+        }
+        public static void RoomAdd(Room room)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [rooms] (filial, name, comment) VALUES ('" +
+                    room.filial + "', '" +
+                    room.name + "', '" +
+                    room.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void RoomUpdate(Room room)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [rooms] SET " +
+                    "[filial] = '" + room.filial + "', " +
+                    "[name] = '" + room.name + "', " +
+                    "[comment] = '" + room.comment + "' WHERE ID = " + room.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void RoomDelete(Room room)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [rooms] WHERE ID = " + room.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
     }
 }

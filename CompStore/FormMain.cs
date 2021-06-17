@@ -13,8 +13,8 @@ namespace CompStore
 {
     public partial class FormMain : Form
     {
-        List<Filial> filials = new List<Filial>();
-
+        List<Filial> filials;
+        List<Room> rooms;
         public FormMain()
         {
             InitializeComponent();
@@ -43,7 +43,6 @@ namespace CompStore
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
 
         #region Филиалы
-
         private void panelFilials_VisibleChanged(object sender, EventArgs e)
         {
             if (!panelFilials.Visible) return;
@@ -54,10 +53,10 @@ namespace CompStore
         void FilialsRefresh()
         {
             filials = DB.FilialsLoad();
-            FilialDraw(null, null);
+            FilialsDraw(null, null);
         }
 
-        private void FilialDraw(object sender, EventArgs e)
+        private void FilialsDraw(object sender, EventArgs e)
         {
             listFilials.BeginUpdate();
             listFilials.Items.Clear();
@@ -73,15 +72,15 @@ namespace CompStore
             buttonFEdit.Enabled = sel;
             buttonFDel.Enabled = sel;
         }
-        private void buttonFilialResetFilter_Click(object sender, EventArgs e) { textFilialFilter.Text = ""; }
+        private void FilialFilterReset(object sender, EventArgs e) { textFilialFilter.Text = ""; }
 
-        private void buttonFAdd_Click(object sender, EventArgs e)
+        private void FilialAdd(object sender, EventArgs e)
         {
             Filial filial = new Filial();
             FormFilial form = new FormFilial(filial);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.FilialsAdd(filial);
+                DB.FilialAdd(filial);
                 FilialsRefresh();
             }
         }
@@ -112,8 +111,71 @@ namespace CompStore
         #endregion
 
         #region Помещения
-        
-        
+        private void panelRooms_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!panelRooms.Visible) return;
+            RoomsRefresh();
+            RoomsSelChange(null, null);
+        }
+
+        void RoomsRefresh()
+        {
+            rooms = DB.RoomsLoad();
+            RoomsDraw(null, null);
+        }
+
+        private void RoomsDraw(object sender, EventArgs e)
+        {
+            listRooms.BeginUpdate();
+            listRooms.Items.Clear();
+            foreach (Room room in rooms)
+                if (room.Contains(textRoomFilter.Text))
+                    listRooms.Items.Add(room.ToListView());
+            listRooms.EndUpdate();
+            FilialsSelChange(null, null);
+        }
+        private void RoomsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listRooms.SelectedIndices.Count > 0;
+            buttonRoomEdit.Enabled = sel;
+            buttonRoomDelete.Enabled = sel;
+        }
+        private void buttonRoomsFilterReset_Click(object sender, EventArgs e) { textRoomFilter.Text = ""; }
+
+        private void RoomAdd(object sender, EventArgs e)
+        {
+            Room room = new Room();
+            FormRoom form = new FormRoom(room);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.RoomAdd(room);
+                RoomsRefresh();
+            }
+        }
+        private void RoomEdit(object sender, EventArgs e)
+        {
+            if (listRooms.SelectedIndices.Count == 0) return;
+            Room room = (Room)listRooms.SelectedItems[0].Tag;
+            FormRoom form = new FormRoom(room);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.RoomUpdate(room);
+                RoomsRefresh();
+            }
+        }
+
+        private void RoomDelete(object sender, EventArgs e)
+        {
+            if (listRooms.SelectedIndices.Count == 0) return;
+            Room room = (Room)listRooms.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + room.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.RoomDelete(room);
+                RoomsRefresh();
+            }
+        }
         #endregion
+
     }
 }

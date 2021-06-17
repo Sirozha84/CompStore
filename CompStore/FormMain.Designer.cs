@@ -29,19 +29,19 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode11,
-            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
+            treeNode17});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode19});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode16,
+            treeNode18,
+            treeNode20});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +69,7 @@ namespace CompStore
             this.panelRooms = new System.Windows.Forms.Panel();
             this.labelRoomsFilter = new System.Windows.Forms.Label();
             this.buttonRoomsFilterReset = new System.Windows.Forms.Button();
-            this.textRoomsFilter = new System.Windows.Forms.TextBox();
+            this.textRoomFilter = new System.Windows.Forms.TextBox();
             this.buttonRoomDelete = new System.Windows.Forms.Button();
             this.buttonRoomEdit = new System.Windows.Forms.Button();
             this.buttonRoomAdd = new System.Windows.Forms.Button();
@@ -92,22 +92,22 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode8.Name = "nodeFilials";
-            treeNode8.Text = "Филиалы";
-            treeNode9.Name = "nodeRooms";
-            treeNode9.Text = "Помещения";
-            treeNode10.Name = "nodePosts";
-            treeNode10.Text = "Должности";
-            treeNode11.Name = "nodeUsers";
-            treeNode11.Text = "Сотрудники";
-            treeNode12.Name = "nodeMoves";
-            treeNode12.Text = "Перемещения";
-            treeNode13.Name = "nodeEquipment";
-            treeNode13.Text = "Оборудование";
-            treeNode14.Name = "nodeCompany";
-            treeNode14.Text = "Предприятие";
+            treeNode15.Name = "nodeFilials";
+            treeNode15.Text = "Филиалы";
+            treeNode16.Name = "nodeRooms";
+            treeNode16.Text = "Помещения";
+            treeNode17.Name = "nodePosts";
+            treeNode17.Text = "Должности";
+            treeNode18.Name = "nodeUsers";
+            treeNode18.Text = "Сотрудники";
+            treeNode19.Name = "nodeMoves";
+            treeNode19.Text = "Перемещения";
+            treeNode20.Name = "nodeEquipment";
+            treeNode20.Text = "Оборудование";
+            treeNode21.Name = "nodeCompany";
+            treeNode21.Text = "Предприятие";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode14});
+            treeNode21});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -224,7 +224,7 @@ namespace CompStore
             this.panelFilials.Controls.Add(this.buttonFAdd);
             this.panelFilials.Controls.Add(this.listFilials);
             this.panelFilials.Controls.Add(this.labelFilials);
-            this.panelFilials.Location = new System.Drawing.Point(544, 171);
+            this.panelFilials.Location = new System.Drawing.Point(711, 27);
             this.panelFilials.Name = "panelFilials";
             this.panelFilials.Size = new System.Drawing.Size(1021, 709);
             this.panelFilials.TabIndex = 6;
@@ -250,7 +250,7 @@ namespace CompStore
             this.buttonFilialResetFilter.TabIndex = 7;
             this.buttonFilialResetFilter.Text = "Очистить";
             this.buttonFilialResetFilter.UseVisualStyleBackColor = true;
-            this.buttonFilialResetFilter.Click += new System.EventHandler(this.buttonFilialResetFilter_Click);
+            this.buttonFilialResetFilter.Click += new System.EventHandler(this.FilialFilterReset);
             // 
             // textFilialFilter
             // 
@@ -259,7 +259,7 @@ namespace CompStore
             this.textFilialFilter.Name = "textFilialFilter";
             this.textFilialFilter.Size = new System.Drawing.Size(300, 20);
             this.textFilialFilter.TabIndex = 6;
-            this.textFilialFilter.TextChanged += new System.EventHandler(this.FilialDraw);
+            this.textFilialFilter.TextChanged += new System.EventHandler(this.FilialsDraw);
             // 
             // buttonFDel
             // 
@@ -291,7 +291,7 @@ namespace CompStore
             this.buttonFAdd.TabIndex = 3;
             this.buttonFAdd.Text = "Добавить";
             this.buttonFAdd.UseVisualStyleBackColor = true;
-            this.buttonFAdd.Click += new System.EventHandler(this.buttonFAdd_Click);
+            this.buttonFAdd.Click += new System.EventHandler(this.FilialAdd);
             // 
             // listFilials
             // 
@@ -346,7 +346,7 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRooms.Controls.Add(this.labelRoomsFilter);
             this.panelRooms.Controls.Add(this.buttonRoomsFilterReset);
-            this.panelRooms.Controls.Add(this.textRoomsFilter);
+            this.panelRooms.Controls.Add(this.textRoomFilter);
             this.panelRooms.Controls.Add(this.buttonRoomDelete);
             this.panelRooms.Controls.Add(this.buttonRoomEdit);
             this.panelRooms.Controls.Add(this.buttonRoomAdd);
@@ -357,6 +357,7 @@ namespace CompStore
             this.panelRooms.Size = new System.Drawing.Size(1021, 709);
             this.panelRooms.TabIndex = 10;
             this.panelRooms.Visible = false;
+            this.panelRooms.VisibleChanged += new System.EventHandler(this.panelRooms_VisibleChanged);
             // 
             // labelRoomsFilter
             // 
@@ -377,14 +378,16 @@ namespace CompStore
             this.buttonRoomsFilterReset.TabIndex = 7;
             this.buttonRoomsFilterReset.Text = "Очистить";
             this.buttonRoomsFilterReset.UseVisualStyleBackColor = true;
+            this.buttonRoomsFilterReset.Click += new System.EventHandler(this.buttonRoomsFilterReset_Click);
             // 
-            // textRoomsFilter
+            // textRoomFilter
             // 
-            this.textRoomsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textRoomsFilter.Location = new System.Drawing.Point(628, 25);
-            this.textRoomsFilter.Name = "textRoomsFilter";
-            this.textRoomsFilter.Size = new System.Drawing.Size(300, 20);
-            this.textRoomsFilter.TabIndex = 6;
+            this.textRoomFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textRoomFilter.Location = new System.Drawing.Point(628, 25);
+            this.textRoomFilter.Name = "textRoomFilter";
+            this.textRoomFilter.Size = new System.Drawing.Size(300, 20);
+            this.textRoomFilter.TabIndex = 6;
+            this.textRoomFilter.TextChanged += new System.EventHandler(this.RoomsDraw);
             // 
             // buttonRoomDelete
             // 
@@ -395,6 +398,7 @@ namespace CompStore
             this.buttonRoomDelete.TabIndex = 5;
             this.buttonRoomDelete.Text = "Удалить";
             this.buttonRoomDelete.UseVisualStyleBackColor = true;
+            this.buttonRoomDelete.Click += new System.EventHandler(this.RoomDelete);
             // 
             // buttonRoomEdit
             // 
@@ -405,6 +409,7 @@ namespace CompStore
             this.buttonRoomEdit.TabIndex = 4;
             this.buttonRoomEdit.Text = "Править";
             this.buttonRoomEdit.UseVisualStyleBackColor = true;
+            this.buttonRoomEdit.Click += new System.EventHandler(this.RoomEdit);
             // 
             // buttonRoomAdd
             // 
@@ -414,6 +419,7 @@ namespace CompStore
             this.buttonRoomAdd.TabIndex = 3;
             this.buttonRoomAdd.Text = "Добавить";
             this.buttonRoomAdd.UseVisualStyleBackColor = true;
+            this.buttonRoomAdd.Click += new System.EventHandler(this.RoomAdd);
             // 
             // listRooms
             // 
@@ -433,6 +439,8 @@ namespace CompStore
             this.listRooms.TabIndex = 2;
             this.listRooms.UseCompatibleStateImageBehavior = false;
             this.listRooms.View = System.Windows.Forms.View.Details;
+            this.listRooms.SelectedIndexChanged += new System.EventHandler(this.RoomsSelChange);
+            this.listRooms.DoubleClick += new System.EventHandler(this.RoomEdit);
             // 
             // columnRoomFilial
             // 
@@ -442,12 +450,12 @@ namespace CompStore
             // columnRoomName
             // 
             this.columnRoomName.Text = "Название";
-            this.columnRoomName.Width = 400;
+            this.columnRoomName.Width = 200;
             // 
             // columnRoomCom
             // 
             this.columnRoomCom.Text = "Примечание";
-            this.columnRoomCom.Width = 390;
+            this.columnRoomCom.Width = 590;
             // 
             // labelRooms
             // 
@@ -464,9 +472,9 @@ namespace CompStore
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelEquipment);
             this.Controls.Add(this.panelFilials);
-            this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeMenu);
@@ -519,7 +527,7 @@ namespace CompStore
         private System.Windows.Forms.Panel panelRooms;
         private System.Windows.Forms.Label labelRoomsFilter;
         private System.Windows.Forms.Button buttonRoomsFilterReset;
-        private System.Windows.Forms.TextBox textRoomsFilter;
+        private System.Windows.Forms.TextBox textRoomFilter;
         private System.Windows.Forms.Button buttonRoomDelete;
         private System.Windows.Forms.Button buttonRoomEdit;
         private System.Windows.Forms.Button buttonRoomAdd;
