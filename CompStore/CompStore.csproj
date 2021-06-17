@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB.cs" />
     <Compile Include="Filial.cs" />
     <Compile Include="FormFilial.cs">
       <SubType>Form</SubType>
