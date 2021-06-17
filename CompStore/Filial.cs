@@ -9,8 +9,8 @@ namespace CompStore
 {
     public class Filial
     {
-        public int ID;
-        public string name;
+        public int ID { get; set; }
+        public string name { get; set; }
         public string adress;
         public string comment;
 

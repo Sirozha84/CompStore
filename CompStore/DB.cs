@@ -111,6 +111,7 @@ namespace CompStore
         public static List<Room> RoomsLoad()
         {
             List<Room> rooms = new List<Room>();
+            List<Filial> filials = FilialsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
@@ -123,7 +124,8 @@ namespace CompStore
                         Room room = new Room();
                         room.ID = reader.GetInt32(0);
                         room.filial = reader.GetInt32(1);
-                        room.filialText = "";
+                        Filial f = filials.Find(o => o.ID == room.filial);
+                        room.filialText = f != null ? f.name : "";
                         room.name = reader.GetString(2);
                         room.comment = reader.GetString(3);
                         rooms.Add(room);
