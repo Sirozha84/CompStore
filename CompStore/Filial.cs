@@ -6,8 +6,8 @@ namespace CompStore
     {
         public int ID { get; set; }
         public string name { get; set; }
-        public string adress;
-        public string comment;
+        public string adress { get; set; }
+        public string comment { get; set; }
 
         public ListViewItem ToListView()
         {

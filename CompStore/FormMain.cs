@@ -183,7 +183,7 @@ namespace CompStore
         #region Должности
         private void panelPosts_VisibleChanged(object sender, EventArgs e)
         {
-            if (!panelRooms.Visible) return;
+            if (!panelPosts.Visible) return;
             PostsRefresh();
             PostsSelChange(null, null);
         }
@@ -215,23 +215,23 @@ namespace CompStore
         private void PostAdd(object sender, EventArgs e)
         {
             Post post = new Post();
-            /*FormPost form = new FormPost(post);
+            FormPost form = new FormPost(post);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.PostAdd(room);
+                DB.PostAdd(post);
                 PostsRefresh();
-            }*/
+            }
         }
         private void PostEdit(object sender, EventArgs e)
         {
             if (listPosts.SelectedIndices.Count == 0) return;
             Post post = (Post)listPosts.SelectedItems[0].Tag;
-            /*FormPost form = new FormPost(post);
+            FormPost form = new FormPost(post);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.PostUpdate(post);
                 PostsRefresh();
-            }*/
+            }
         }
 
         private void PostDelete(object sender, EventArgs e)
@@ -242,7 +242,7 @@ namespace CompStore
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.PostDelete(post);
-                RoomsRefresh();
+                PostsRefresh();
             }
         }
         #endregion

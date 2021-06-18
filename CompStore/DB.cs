@@ -206,7 +206,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [post] (name) VALUES ('" + post.name + "')";
+                com.CommandText = "INSERT INTO [posts] (name) VALUES ('" + post.name + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
             }

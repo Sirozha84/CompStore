@@ -10,10 +10,12 @@ namespace CompStore
     public class Room
     {
         public int ID;
-        public int filial;
+        public int filial { get; set; }
+        public string name { get; set; }
+        public string comment { get; set; }
+        
         public string filialText;
-        public string name;
-        public string comment;
+        
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(filialText);
