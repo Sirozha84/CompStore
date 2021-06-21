@@ -14,7 +14,9 @@ namespace CompStore
     public partial class FormMain : Form
     {
         List<Filial> filials;
+        List<Building> buildings;
         List<Room> rooms;
+        List<Dep> deps;
         List<Post> posts;
         public FormMain()
         {
@@ -25,9 +27,11 @@ namespace CompStore
             //а при старте сдвигаем все в одноу точку
             Point defLoc = new Point(163, 27);
             panelFilials.Location = defLoc;
+            panelBuildings.Location = defLoc;
             panelRooms.Location = defLoc;
-            panelUsers.Location = defLoc;
+            panelDeps.Location = defLoc;
             panelPosts.Location = defLoc;
+            panelUsers.Location = defLoc;
             panelEquipment.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
@@ -37,9 +41,11 @@ namespace CompStore
         private void TabChange(object sender, TreeViewEventArgs e)
         {
             panelFilials.Visible = treeMenu.SelectedNode.Name == "nodeFilials";
+            panelBuildings.Visible = treeMenu.SelectedNode.Name == "nodeBuildings";
             panelRooms.Visible = treeMenu.SelectedNode.Name == "nodeRooms";
-            panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
+            panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
+            panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
             panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
         }
 
@@ -48,9 +54,7 @@ namespace CompStore
         #region Филиалы
         private void panelFilials_VisibleChanged(object sender, EventArgs e)
         {
-            if (!panelFilials.Visible) return;
-            FilialsRefresh();
-            FilialsSelChange(null, null);
+            if (panelFilials.Visible) FilialsRefresh();
         }
 
         void FilialsRefresh()
@@ -116,9 +120,7 @@ namespace CompStore
         #region Помещения
         private void panelRooms_VisibleChanged(object sender, EventArgs e)
         {
-            if (!panelRooms.Visible) return;
-            RoomsRefresh();
-            RoomsSelChange(null, null);
+            if (panelRooms.Visible) RoomsRefresh();
         }
 
         void RoomsRefresh()
@@ -183,9 +185,7 @@ namespace CompStore
         #region Должности
         private void panelPosts_VisibleChanged(object sender, EventArgs e)
         {
-            if (!panelPosts.Visible) return;
-            PostsRefresh();
-            PostsSelChange(null, null);
+            if (panelPosts.Visible) PostsRefresh();
         }
 
         void PostsRefresh()
@@ -247,5 +247,134 @@ namespace CompStore
         }
         #endregion
 
+        #region Отделы
+        private void panelDeps_VisibleChanged(object sender, EventArgs e)
+        {
+            if (panelDeps.Visible) DepsRefresh();
+        }
+
+        void DepsRefresh()
+        {
+            deps = DB.DepsLoad();
+            DepsDraw(null, null);
+        }
+
+        private void DepsDraw(object sender, EventArgs e)
+        {
+            listDeps.BeginUpdate();
+            listDeps.Items.Clear();
+            foreach (Dep dep in deps)
+                if (dep.Contains(textRoomFilter.Text))
+                    listDeps.Items.Add(dep.ToListView());
+            listDeps.EndUpdate();
+            DepsSelChange(null, null);
+        }
+        private void DepsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listDeps.SelectedIndices.Count > 0;
+            buttonDepEdit.Enabled = sel;
+            buttonDepDelete.Enabled = sel;
+        }
+        private void DepFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void DepAdd(object sender, EventArgs e)
+        {
+            Dep dep = new Dep();
+            FormDep form = new FormDep(dep);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.DepAdd(dep);
+                DepsRefresh();
+            }
+        }
+        private void DepEdit(object sender, EventArgs e)
+        {
+            if (listDeps.SelectedIndices.Count == 0) return;
+            Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
+            FormDep form = new FormDep(dep);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.DepUpdate(dep);
+                DepsRefresh();
+            }
+        }
+
+        private void DepDelete(object sender, EventArgs e)
+        {
+            if (listDeps.SelectedIndices.Count == 0) return;
+            Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить отдел \"" + dep.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.DepDelete(dep);
+                DepsRefresh();
+            }
+        }
+        #endregion
+
+        #region Здания
+        private void panelBuildings_VisibleChanged(object sender, EventArgs e)
+        {
+            if (panelBuildings.Visible) BuildingsRefresh();
+        }
+
+        void BuildingsRefresh()
+        {
+            buildings = DB.BuildingsLoad();
+            BuildingsDraw(null, null);
+        }
+
+        private void BuildingsDraw(object sender, EventArgs e)
+        {
+            listBuildings.BeginUpdate();
+            listBuildings.Items.Clear();
+            foreach (Building building in buildings)
+                if (building.Contains(textBuildingFilter.Text))
+                    listBuildings.Items.Add(building.ToListView());
+            listBuildings.EndUpdate();
+            FilialsSelChange(null, null);
+        }
+        private void BuildingsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listBuildings.SelectedIndices.Count > 0;
+            buttonBuildingEdit.Enabled = sel;
+            buttonBuildingDelete.Enabled = sel;
+        }
+        private void buttonBuildingsFilterReset_Click(object sender, EventArgs e) { textBuildingFilter.Text = ""; }
+
+        private void BuildingAdd(object sender, EventArgs e)
+        {
+            Building building = new Building();
+            FormBuilding form = new FormBuilding(building);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BuildingAdd(building);
+                BuildingsRefresh();
+            }
+        }
+        private void BuildingEdit(object sender, EventArgs e)
+        {
+            if (listBuildings.SelectedIndices.Count == 0) return;
+            Building building = (Building)listBuildings.SelectedItems[0].Tag;
+            FormBuilding form = new FormBuilding(building);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BuildingUpdate(building);
+                BuildingsRefresh();
+            }
+        }
+
+        private void BuildingDelete(object sender, EventArgs e)
+        {
+            if (listBuildings.SelectedIndices.Count == 0) return;
+            Building building = (Building)listBuildings.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + building.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.BuildingDelete(building);
+                BuildingsRefresh();
+            }
+        }
+        #endregion
     }
 }
