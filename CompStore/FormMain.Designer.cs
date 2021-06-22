@@ -29,23 +29,23 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Помещения", new System.Windows.Forms.TreeNode[] {
-            treeNode37});
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Отделы");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
-            treeNode40});
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Филиалы", new System.Windows.Forms.TreeNode[] {
-            treeNode38,
-            treeNode39,
-            treeNode41});
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode43});
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode42,
-            treeNode44});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Помещения", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отделы");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Филиалы", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode8});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,6 +115,7 @@ namespace CompStore
             this.columnDepName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDepComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelDeps = new System.Windows.Forms.Label();
+            this.columnRoomBuilding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panelUsers.SuspendLayout();
             this.panelEquipment.SuspendLayout();
@@ -132,26 +133,26 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode37.Name = "nodeBuildings";
-            treeNode37.Text = "Здания";
-            treeNode38.Name = "nodeRooms";
-            treeNode38.Text = "Помещения";
-            treeNode39.Name = "nodeDeps";
-            treeNode39.Text = "Отделы";
-            treeNode40.Name = "nodePosts";
-            treeNode40.Text = "Должности";
-            treeNode41.Name = "nodeUsers";
-            treeNode41.Text = "Сотрудники";
-            treeNode42.Name = "nodeFilials";
-            treeNode42.Text = "Филиалы";
-            treeNode43.Name = "nodeMoves";
-            treeNode43.Text = "Перемещения";
-            treeNode44.Name = "nodeEquipment";
-            treeNode44.Text = "Оборудование";
-            treeNode45.Name = "nodeCompany";
-            treeNode45.Text = "Предприятие";
+            treeNode1.Name = "nodeBuildings";
+            treeNode1.Text = "Здания";
+            treeNode2.Name = "nodeRooms";
+            treeNode2.Text = "Помещения";
+            treeNode3.Name = "nodeDeps";
+            treeNode3.Text = "Отделы";
+            treeNode4.Name = "nodePosts";
+            treeNode4.Text = "Должности";
+            treeNode5.Name = "nodeUsers";
+            treeNode5.Text = "Сотрудники";
+            treeNode6.Name = "nodeFilials";
+            treeNode6.Text = "Филиалы";
+            treeNode7.Name = "nodeMoves";
+            treeNode7.Text = "Перемещения";
+            treeNode8.Name = "nodeEquipment";
+            treeNode8.Text = "Оборудование";
+            treeNode9.Name = "nodeCompany";
+            treeNode9.Text = "Предприятие";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode45});
+            treeNode9});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -396,7 +397,7 @@ namespace CompStore
             this.panelRooms.Controls.Add(this.buttonRoomAdd);
             this.panelRooms.Controls.Add(this.listRooms);
             this.panelRooms.Controls.Add(this.labelRooms);
-            this.panelRooms.Location = new System.Drawing.Point(744, 55);
+            this.panelRooms.Location = new System.Drawing.Point(163, 27);
             this.panelRooms.Name = "panelRooms";
             this.panelRooms.Size = new System.Drawing.Size(1021, 709);
             this.panelRooms.TabIndex = 10;
@@ -472,6 +473,7 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listRooms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnRoomFilial,
+            this.columnRoomBuilding,
             this.columnRoomName,
             this.columnRoomCom});
             this.listRooms.FullRowSelect = true;
@@ -499,7 +501,7 @@ namespace CompStore
             // columnRoomCom
             // 
             this.columnRoomCom.Text = "Примечание";
-            this.columnRoomCom.Width = 590;
+            this.columnRoomCom.Width = 390;
             // 
             // labelRooms
             // 
@@ -874,15 +876,20 @@ namespace CompStore
             this.labelDeps.TabIndex = 1;
             this.labelDeps.Text = "Отделы";
             // 
+            // columnRoomBuilding
+            // 
+            this.columnRoomBuilding.Text = "Здание";
+            this.columnRoomBuilding.Width = 200;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelPosts);
-            this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelEquipment);
             this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelUsers);
@@ -985,6 +992,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnDepName;
         private System.Windows.Forms.ColumnHeader columnDepComment;
         private System.Windows.Forms.Label labelDeps;
+        private System.Windows.Forms.ColumnHeader columnRoomBuilding;
     }
 }
 

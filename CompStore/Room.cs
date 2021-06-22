@@ -27,7 +27,7 @@ namespace CompStore
         {
             search = search.ToLower();
             return (filialText.ToLower().Contains(search) |
-                //buildingText.ToLower().Contains(search) |
+                buildingText.ToLower().Contains(search) |
                 name.ToLower().Contains(search) |
                 comment.ToLower().Contains(search));
         }

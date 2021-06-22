@@ -37,12 +37,14 @@ namespace CompStore
             this.labelAdress = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.comboFilial = new System.Windows.Forms.ComboBox();
+            this.comboBuilding = new System.Windows.Forms.ComboBox();
+            this.labelBuilding = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(166, 126);
+            this.buttonOK.Location = new System.Drawing.Point(166, 146);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 16;
@@ -54,7 +56,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(247, 126);
+            this.buttonCancel.Location = new System.Drawing.Point(247, 146);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 15;
@@ -66,16 +68,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(90, 65);
+            this.textCom.Location = new System.Drawing.Point(90, 92);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 55);
+            this.textCom.Size = new System.Drawing.Size(232, 48);
             this.textCom.TabIndex = 14;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(11, 68);
+            this.labelCom.Location = new System.Drawing.Point(11, 95);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 13;
@@ -85,7 +87,7 @@ namespace CompStore
             // 
             this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.Location = new System.Drawing.Point(90, 39);
+            this.textName.Location = new System.Drawing.Point(90, 66);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 12;
@@ -102,7 +104,7 @@ namespace CompStore
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(24, 42);
+            this.labelName.Location = new System.Drawing.Point(24, 69);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(60, 13);
             this.labelName.TabIndex = 9;
@@ -116,6 +118,25 @@ namespace CompStore
             this.comboFilial.Name = "comboFilial";
             this.comboFilial.Size = new System.Drawing.Size(232, 21);
             this.comboFilial.TabIndex = 17;
+            this.comboFilial.SelectedIndexChanged += new System.EventHandler(this.FilialSelect);
+            // 
+            // comboBuilding
+            // 
+            this.comboBuilding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBuilding.FormattingEnabled = true;
+            this.comboBuilding.Location = new System.Drawing.Point(90, 39);
+            this.comboBuilding.Name = "comboBuilding";
+            this.comboBuilding.Size = new System.Drawing.Size(232, 21);
+            this.comboBuilding.TabIndex = 19;
+            // 
+            // labelBuilding
+            // 
+            this.labelBuilding.AutoSize = true;
+            this.labelBuilding.Location = new System.Drawing.Point(37, 42);
+            this.labelBuilding.Name = "labelBuilding";
+            this.labelBuilding.Size = new System.Drawing.Size(47, 13);
+            this.labelBuilding.TabIndex = 18;
+            this.labelBuilding.Text = "Здание:";
             // 
             // FormRoom
             // 
@@ -123,7 +144,9 @@ namespace CompStore
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(334, 161);
+            this.ClientSize = new System.Drawing.Size(334, 181);
+            this.Controls.Add(this.comboBuilding);
+            this.Controls.Add(this.labelBuilding);
             this.Controls.Add(this.comboFilial);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -154,5 +177,7 @@ namespace CompStore
         private System.Windows.Forms.Label labelAdress;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ComboBox comboFilial;
+        private System.Windows.Forms.ComboBox comboBuilding;
+        private System.Windows.Forms.Label labelBuilding;
     }
 }

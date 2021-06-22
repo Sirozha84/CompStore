@@ -4,7 +4,7 @@ namespace CompStore
 {
     public class Building
     {
-        public int ID;
+        public int ID { get; set; }
         public int filial { get; set; }
         public string name { get; set; }
         public string comment { get; set; }

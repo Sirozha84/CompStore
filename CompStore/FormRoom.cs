@@ -5,15 +5,23 @@ namespace CompStore
 {
     public partial class FormRoom : Form
     {
+        Room room;
+        object oldBuilding;
         public FormRoom(Room room)
         {
             InitializeComponent();
+            this.room = room;
+            
             comboFilial.DataSource = DB.FilialsLoad();
             comboFilial.DisplayMember = "name";
             comboFilial.ValueMember = "ID";
-            comboFilial.DataBindings.Add("SelectedValue", room, "filial");
-            textName.DataBindings.Add("Text", room, "name");
-            textCom.DataBindings.Add("Text", room, "comment");
+            if (room.filial != 0) comboFilial.SelectedValue = room.filial; else comboFilial.SelectedValue = "";
+            comboBuilding.DataSource = DB.BuildingsLoad("");
+            comboBuilding.DisplayMember = "name";
+            comboBuilding.ValueMember = "ID";
+            if (room.building != 0) comboBuilding.SelectedValue = room.building; else comboBuilding.SelectedValue = "";
+            textName.Text = room.name;
+            textCom.Text = room.comment;
 
             if (room.name != null)
                 Text = "Редактирование помещения \"" + room.name + "\"";
@@ -22,8 +30,21 @@ namespace CompStore
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            comboFilial.DataBindings[0].WriteValue(); //Грёбаный костыль, но без этого данные не меняются если крутить колесом
+            if (comboFilial.SelectedValue != null) room.filial = (int)comboFilial.SelectedValue;
+            if (comboBuilding.SelectedValue != null) room.building = (int)comboBuilding.SelectedValue;
+            room.name = textName.Text;
+            room.comment = textCom.Text;
             DialogResult = DialogResult.OK;
+        }
+
+        private void FilialSelect(object sender, EventArgs e)
+        {
+            if (comboFilial.SelectedValue is int)
+            {
+                if (comboBuilding.SelectedValue != null) oldBuilding = comboBuilding.SelectedValue;
+                comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
+                if (oldBuilding != null) comboBuilding.SelectedValue = oldBuilding;
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace CompStore
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [rooms] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[filial] INTEGER, " +
+                    "[building] INTEGER, " +
                     "[name] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
@@ -120,16 +121,17 @@ namespace CompStore
         }
         #endregion
         
-        #region Помещения
+        #region Помещения [rooms]
         public static List<Room> RoomsLoad()
         {
             List<Room> rooms = new List<Room>();
             List<Filial> filials = FilialsLoad();
+            List<Building> buildings = BuildingsLoad("");
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [rooms] ORDER BY [filial], [name]";
+                com.CommandText = "SELECT * FROM [rooms] ORDER BY [filial], [building], [name]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -139,8 +141,11 @@ namespace CompStore
                         room.filial = reader.GetInt32(1);
                         Filial f = filials.Find(o => o.ID == room.filial);
                         room.filialText = f != null ? f.name : "";
-                        room.name = reader.GetString(2);
-                        room.comment = reader.GetString(3);
+                        room.building = reader.GetInt32(2);
+                        Building b = buildings.Find(o => o.ID == room.building);
+                        room.buildingText = b != null ? b.name : "";
+                        room.name = reader.GetString(3);
+                        room.comment = reader.GetString(4);
                         rooms.Add(room);
                     }
                 }
@@ -154,8 +159,9 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [rooms] (filial, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO [rooms] (filial, building, name, comment) VALUES ('" +
                     room.filial + "', '" +
+                    room.building + "', '" +
                     room.name + "', '" +
                     room.comment + "')";
                 com.ExecuteNonQuery();
@@ -170,6 +176,7 @@ namespace CompStore
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "UPDATE [rooms] SET " +
                     "[filial] = '" + room.filial + "', " +
+                    "[building] = '" + room.building + "', " +
                     "[name] = '" + room.name + "', " +
                     "[comment] = '" + room.comment + "' WHERE ID = " + room.ID;
                 com.ExecuteNonQuery();
@@ -316,7 +323,7 @@ namespace CompStore
         #endregion
 
         #region Здания
-        public static List<Building> BuildingsLoad()
+        public static List<Building> BuildingsLoad(string filial)
         {
             List<Building> buildings = new List<Building>();
             List<Filial> filials = FilialsLoad();
@@ -324,7 +331,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [buildings] ORDER BY [filial], [name]";
+                com.CommandText = "SELECT * FROM [buildings]" + (filial != "" ? " WHERE [filial] = " + filial : "") + " ORDER BY [filial], [name]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())

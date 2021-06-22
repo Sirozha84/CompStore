@@ -320,7 +320,7 @@ namespace CompStore
 
         void BuildingsRefresh()
         {
-            buildings = DB.BuildingsLoad();
+            buildings = DB.BuildingsLoad("");
             BuildingsDraw(null, null);
         }
 
