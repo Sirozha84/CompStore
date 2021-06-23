@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace CompStore
 {
     static class DB
     {
-        const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\Test.db; Version=3;";
-
+        const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
+        
+        #region Инициализация таблиц
         public static void Init()
         {
             //SQLiteConnection.CreateFile(FileDB); 
@@ -48,11 +50,29 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [users] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[f] TEXT, " +
+                    "[i] TEXT, " +
+                    "[o] TEXT, " +
+                    "[post] INTEGER, " +
+                    "[dep] INTEGER, " +
+                    "[filial] INTEGER, " +
+                    "[building] INTEGER, " +
+                    "[room] INTEGER, " +
+                    "[emp] BOOLEAN, " +
+                    "[empdate] TEXT, " +
+                    "[dis] BOOLEAN, " +
+                    "[disdate] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
                 connect.Close();
             }
         }
+        #endregion
 
-        #region Филиалы
+        #region Филиалы [filials]
         public static List<Filial> FilialsLoad()
         {
             List<Filial> filials = new List<Filial>();
@@ -122,7 +142,7 @@ namespace CompStore
         #endregion
         
         #region Помещения [rooms]
-        public static List<Room> RoomsLoad()
+        public static List<Room> RoomsLoad(string building)
         {
             List<Room> rooms = new List<Room>();
             List<Filial> filials = FilialsLoad();
@@ -131,7 +151,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [rooms] ORDER BY [filial], [building], [name]";
+                com.CommandText = "SELECT * FROM [rooms]" + (building != "" ? " WHERE [building] = " + building : "") + " ORDER BY [filial], [building], [name]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -197,7 +217,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Должности
+        #region Должности [posts]
         public static List<Post> PostsLoad()
         {
             List<Post> posts = new List<Post>();
@@ -256,7 +276,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Отделы
+        #region Отделы [deps]
         public static List<Dep> DepsLoad()
         {
             List<Dep> deps = new List<Dep>();
@@ -322,7 +342,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Здания
+        #region Здания [buildings]
         public static List<Building> BuildingsLoad(string filial)
         {
             List<Building> buildings = new List<Building>();
@@ -386,6 +406,129 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [buildings] WHERE ID = " + building.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Сотрудники [users]
+        public static List<User> UsersLoad()
+        {
+            List<User> users = new List<User>();
+            List<Post> posts = PostsLoad();
+            List<Dep> deps = DepsLoad();
+            List<Filial> filials = FilialsLoad();
+            List<Building> buildings = BuildingsLoad("");
+            List<Room> rooms = RoomsLoad("");
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                //com.CommandText = "SELECT * FROM [buildings]" + (filial != "" ? " WHERE [filial] = " + filial : "") + " ORDER BY [filial], [name]";
+                com.CommandText = "SELECT * FROM [users] ORDER BY [f], [i], [o]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.ID = reader.GetInt32(0);
+                        user.f = reader.GetString(1);
+                        user.i = reader.GetString(2);
+                        user.o = reader.GetString(3);
+                        user.post = reader.GetInt32(4);
+                        user.dep = reader.GetInt32(5);
+                        user.filial = reader.GetInt32(6);
+                        user.building = reader.GetInt32(7);
+                        user.room = reader.GetInt32(8);
+                        user.emp = (bool)reader.GetValue(9);
+                        user.empDate = DateTime.Parse(reader.GetString(10));
+                        user.dis = (bool)reader.GetValue(11);
+                        user.disDate = DateTime.Parse(reader.GetString(10));
+                        user.comment = reader.GetString(13);
+
+                        user.fioText = (user.f != "" ? user.f + " " : "") +
+                                       (user.i != "" ? user.i + " " : "") +
+                                       (user.o != "" ? user.o : "");
+
+                        Post p = posts.Find(o => o.ID == user.post);
+                        user.postText = (p != null ? p.name : "");
+
+                        Dep d = deps.Find(o => o.ID == user.dep);
+                        user.depText = (d != null ? d.name : "");
+
+                        Filial f = filials.Find(o => o.ID == user.filial);
+                        Building b = buildings.Find(o => o.ID == user.building);
+                        Room r = rooms.Find(o => o.ID == user.room);
+                        user.roomText = (f != null ? f.name + ", " : "") +
+                                        (b != null ? b.name + ", " : "") +
+                                        (r != null ? r.name : "");
+
+
+                        users.Add(user);
+                    }
+                }
+                connect.Close();
+            }
+            return users;
+        }
+        public static void UserAdd(User user)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [users] (f, i, o, post, dep, filial, building, room, " +
+                                  "emp, empdate, dis, disdate, comment) VALUES ('" +
+                                  user.f + "', '" +
+                                  user.i + "', '" +
+                                  user.o + "', '" +
+                                  user.post + "', '" +
+                                  user.dep + "', '" +
+                                  user.filial + "', '" +
+                                  user.building + "', '" +
+                                  user.room + "', '" +
+                                  user.emp + "', '" +
+                                  user.empDate + "', '" +
+                                  user.dis + "', '" +
+                                  user.disDate + "', '" +
+                                  user.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void UserUpdate(User user)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [users] SET " +
+                                  "[f] = '" + user.f + "', " +
+                                  "[i] = '" + user.i + "', " +
+                                  "[o] = '" + user.o + "', " +
+                                  "[post] = '" + user.post + "', " +
+                                  "[dep] = '" + user.dep + "', " +
+                                  "[filial] = '" + user.filial + "', " +
+                                  "[building] = '" + user.building + "', " +
+                                  "[room] = '" + user.room + "', " +
+                                  "[emp] = '" + user.emp + "', " +
+                                  "[empdate] = '" + user.empDate + "', " +
+                                  "[dis] = '" + user.dis + "', " +
+                                  "[disdate] = '" + user.disDate + "', " +
+                                  "[comment] = '" + user.comment + "' WHERE ID = " + user.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void UserDelete(User user)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [users] WHERE ID = " + user.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }

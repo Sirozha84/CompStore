@@ -18,6 +18,8 @@ namespace CompStore
         List<Room> rooms;
         List<Dep> deps;
         List<Post> posts;
+        List<User> users;
+
         public FormMain()
         {
             InitializeComponent();
@@ -125,7 +127,7 @@ namespace CompStore
 
         void RoomsRefresh()
         {
-            rooms = DB.RoomsLoad();
+            rooms = DB.RoomsLoad("");
             RoomsDraw(null, null);
         }
 
@@ -373,6 +375,71 @@ namespace CompStore
             {
                 DB.BuildingDelete(building);
                 BuildingsRefresh();
+            }
+        }
+        #endregion
+
+        #region Сотрудники
+        private void panelUsers_VisibleChanged(object sender, EventArgs e)
+        {
+            if (panelUsers.Visible) UsersRefresh();
+        }
+
+        void UsersRefresh()
+        {
+            users = DB.UsersLoad();
+            UsersDraw(null, null);
+        }
+
+        private void UsersDraw(object sender, EventArgs e)
+        {
+            listUsers.BeginUpdate();
+            listUsers.Items.Clear();
+            foreach (User user in users)
+                if (user.Contains(textUserFilter.Text))
+                    listUsers.Items.Add(user.ToListView());
+            listUsers.EndUpdate();
+            UsersSelChange(null, null);
+        }
+        private void UsersSelChange(object sender, EventArgs e)
+        {
+            bool sel = listUsers.SelectedIndices.Count > 0;
+            buttonUserEdit.Enabled = sel;
+            buttonUserDelete.Enabled = sel;
+        }
+        private void UserFilterReset(object sender, EventArgs e) { textUserFilter.Text = ""; }
+
+        private void UserAdd(object sender, EventArgs e)
+        {
+            User user = new User();
+            FormUser form = new FormUser(user);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.UserAdd(user);
+                UsersRefresh();
+            }
+        }
+        private void UserEdit(object sender, EventArgs e)
+        {
+            if (listUsers.SelectedIndices.Count == 0) return;
+            User user = (User)listUsers.SelectedItems[0].Tag;
+            FormUser form = new FormUser(user);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.UserUpdate(user);
+                UsersRefresh();
+            }
+        }
+
+        private void UserDelete(object sender, EventArgs e)
+        {
+            if (listUsers.SelectedIndices.Count == 0) return;
+            User user = (User)listUsers.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить сотрудника \"" + user.fioText + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.UserDelete(user);
+                UsersRefresh();
             }
         }
         #endregion

@@ -6,7 +6,7 @@ namespace CompStore
     public partial class FormRoom : Form
     {
         Room room;
-        object oldBuilding;
+
         public FormRoom(Room room)
         {
             InitializeComponent();
@@ -16,7 +16,7 @@ namespace CompStore
             comboFilial.DisplayMember = "name";
             comboFilial.ValueMember = "ID";
             if (room.filial != 0) comboFilial.SelectedValue = room.filial; else comboFilial.SelectedValue = "";
-            comboBuilding.DataSource = DB.BuildingsLoad("");
+            FilialSelect(null, null);
             comboBuilding.DisplayMember = "name";
             comboBuilding.ValueMember = "ID";
             if (room.building != 0) comboBuilding.SelectedValue = room.building; else comboBuilding.SelectedValue = "";
@@ -28,6 +28,7 @@ namespace CompStore
             else
                 Text = "Добавление нового помещения";
         }
+
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (comboFilial.SelectedValue != null) room.filial = (int)comboFilial.SelectedValue;
@@ -40,11 +41,7 @@ namespace CompStore
         private void FilialSelect(object sender, EventArgs e)
         {
             if (comboFilial.SelectedValue is int)
-            {
-                if (comboBuilding.SelectedValue != null) oldBuilding = comboBuilding.SelectedValue;
                 comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
-                if (oldBuilding != null) comboBuilding.SelectedValue = oldBuilding;
-            }
         }
     }
 }

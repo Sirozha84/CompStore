@@ -29,23 +29,23 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Помещения", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отделы");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Филиалы", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Помещения", new System.Windows.Forms.TreeNode[] {
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Отделы");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Сотрудники", new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Филиалы", new System.Windows.Forms.TreeNode[] {
+            treeNode11,
+            treeNode12,
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode17});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +54,6 @@ namespace CompStore
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.panelUsers = new System.Windows.Forms.Panel();
-            this.labelUsers = new System.Windows.Forms.Label();
             this.panelEquipment = new System.Windows.Forms.Panel();
             this.labelEquipment = new System.Windows.Forms.Label();
             this.panelFilials = new System.Windows.Forms.Panel();
@@ -79,6 +77,7 @@ namespace CompStore
             this.buttonRoomAdd = new System.Windows.Forms.Button();
             this.listRooms = new System.Windows.Forms.ListView();
             this.columnRoomFilial = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRoomBuilding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnRoomName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnRoomCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelRooms = new System.Windows.Forms.Label();
@@ -115,15 +114,28 @@ namespace CompStore
             this.columnDepName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDepComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelDeps = new System.Windows.Forms.Label();
-            this.columnRoomBuilding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panelUsers = new System.Windows.Forms.Panel();
+            this.labelUserFilter = new System.Windows.Forms.Label();
+            this.buttonUserFilterReset = new System.Windows.Forms.Button();
+            this.textUserFilter = new System.Windows.Forms.TextBox();
+            this.buttonUserDelete = new System.Windows.Forms.Button();
+            this.buttonUserEdit = new System.Windows.Forms.Button();
+            this.buttonUserAdd = new System.Windows.Forms.Button();
+            this.listUsers = new System.Windows.Forms.ListView();
+            this.columnUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserPost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserDep = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUserCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelUsers = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            this.panelUsers.SuspendLayout();
             this.panelEquipment.SuspendLayout();
             this.panelFilials.SuspendLayout();
             this.panelRooms.SuspendLayout();
             this.panelPosts.SuspendLayout();
             this.panelBuildings.SuspendLayout();
             this.panelDeps.SuspendLayout();
+            this.panelUsers.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -133,26 +145,26 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.Name = "nodeBuildings";
-            treeNode1.Text = "Здания";
-            treeNode2.Name = "nodeRooms";
-            treeNode2.Text = "Помещения";
-            treeNode3.Name = "nodeDeps";
-            treeNode3.Text = "Отделы";
-            treeNode4.Name = "nodePosts";
-            treeNode4.Text = "Должности";
-            treeNode5.Name = "nodeUsers";
-            treeNode5.Text = "Сотрудники";
-            treeNode6.Name = "nodeFilials";
-            treeNode6.Text = "Филиалы";
-            treeNode7.Name = "nodeMoves";
-            treeNode7.Text = "Перемещения";
-            treeNode8.Name = "nodeEquipment";
-            treeNode8.Text = "Оборудование";
-            treeNode9.Name = "nodeCompany";
-            treeNode9.Text = "Предприятие";
+            treeNode10.Name = "nodeBuildings";
+            treeNode10.Text = "Здания";
+            treeNode11.Name = "nodeRooms";
+            treeNode11.Text = "Помещения";
+            treeNode12.Name = "nodeDeps";
+            treeNode12.Text = "Отделы";
+            treeNode13.Name = "nodePosts";
+            treeNode13.Text = "Должности";
+            treeNode14.Name = "nodeUsers";
+            treeNode14.Text = "Сотрудники";
+            treeNode15.Name = "nodeFilials";
+            treeNode15.Text = "Филиалы";
+            treeNode16.Name = "nodeMoves";
+            treeNode16.Text = "Перемещения";
+            treeNode17.Name = "nodeEquipment";
+            treeNode17.Text = "Оборудование";
+            treeNode18.Name = "nodeCompany";
+            treeNode18.Text = "Предприятие";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9});
+            treeNode18});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -211,28 +223,6 @@ namespace CompStore
             this.statusStrip1.Size = new System.Drawing.Size(1184, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // panelUsers
-            // 
-            this.panelUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelUsers.Controls.Add(this.labelUsers);
-            this.panelUsers.Location = new System.Drawing.Point(171, 367);
-            this.panelUsers.Name = "panelUsers";
-            this.panelUsers.Size = new System.Drawing.Size(1021, 709);
-            this.panelUsers.TabIndex = 4;
-            this.panelUsers.Visible = false;
-            // 
-            // labelUsers
-            // 
-            this.labelUsers.AutoSize = true;
-            this.labelUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelUsers.Location = new System.Drawing.Point(3, 0);
-            this.labelUsers.Name = "labelUsers";
-            this.labelUsers.Size = new System.Drawing.Size(110, 20);
-            this.labelUsers.TabIndex = 0;
-            this.labelUsers.Text = "Сотрудники";
             // 
             // panelEquipment
             // 
@@ -397,7 +387,7 @@ namespace CompStore
             this.panelRooms.Controls.Add(this.buttonRoomAdd);
             this.panelRooms.Controls.Add(this.listRooms);
             this.panelRooms.Controls.Add(this.labelRooms);
-            this.panelRooms.Location = new System.Drawing.Point(163, 27);
+            this.panelRooms.Location = new System.Drawing.Point(414, 179);
             this.panelRooms.Name = "panelRooms";
             this.panelRooms.Size = new System.Drawing.Size(1021, 709);
             this.panelRooms.TabIndex = 10;
@@ -492,6 +482,11 @@ namespace CompStore
             // 
             this.columnRoomFilial.Text = "Филиал";
             this.columnRoomFilial.Width = 200;
+            // 
+            // columnRoomBuilding
+            // 
+            this.columnRoomBuilding.Text = "Здание";
+            this.columnRoomBuilding.Width = 200;
             // 
             // columnRoomName
             // 
@@ -876,23 +871,158 @@ namespace CompStore
             this.labelDeps.TabIndex = 1;
             this.labelDeps.Text = "Отделы";
             // 
-            // columnRoomBuilding
+            // panelUsers
             // 
-            this.columnRoomBuilding.Text = "Здание";
-            this.columnRoomBuilding.Width = 200;
+            this.panelUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUsers.Controls.Add(this.labelUserFilter);
+            this.panelUsers.Controls.Add(this.buttonUserFilterReset);
+            this.panelUsers.Controls.Add(this.textUserFilter);
+            this.panelUsers.Controls.Add(this.buttonUserDelete);
+            this.panelUsers.Controls.Add(this.buttonUserEdit);
+            this.panelUsers.Controls.Add(this.buttonUserAdd);
+            this.panelUsers.Controls.Add(this.listUsers);
+            this.panelUsers.Controls.Add(this.labelUsers);
+            this.panelUsers.Location = new System.Drawing.Point(163, 27);
+            this.panelUsers.Name = "panelUsers";
+            this.panelUsers.Size = new System.Drawing.Size(1021, 709);
+            this.panelUsers.TabIndex = 13;
+            this.panelUsers.Visible = false;
+            this.panelUsers.VisibleChanged += new System.EventHandler(this.panelUsers_VisibleChanged);
+            // 
+            // labelUserFilter
+            // 
+            this.labelUserFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUserFilter.AutoSize = true;
+            this.labelUserFilter.Location = new System.Drawing.Point(575, 28);
+            this.labelUserFilter.Name = "labelUserFilter";
+            this.labelUserFilter.Size = new System.Drawing.Size(47, 13);
+            this.labelUserFilter.TabIndex = 8;
+            this.labelUserFilter.Text = "Фильтр";
+            // 
+            // buttonUserFilterReset
+            // 
+            this.buttonUserFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUserFilterReset.Location = new System.Drawing.Point(934, 23);
+            this.buttonUserFilterReset.Name = "buttonUserFilterReset";
+            this.buttonUserFilterReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserFilterReset.TabIndex = 7;
+            this.buttonUserFilterReset.Text = "Очистить";
+            this.buttonUserFilterReset.UseVisualStyleBackColor = true;
+            this.buttonUserFilterReset.Click += new System.EventHandler(this.UserFilterReset);
+            // 
+            // textUserFilter
+            // 
+            this.textUserFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textUserFilter.Location = new System.Drawing.Point(628, 25);
+            this.textUserFilter.Name = "textUserFilter";
+            this.textUserFilter.Size = new System.Drawing.Size(300, 20);
+            this.textUserFilter.TabIndex = 6;
+            this.textUserFilter.TextChanged += new System.EventHandler(this.UsersDraw);
+            // 
+            // buttonUserDelete
+            // 
+            this.buttonUserDelete.Enabled = false;
+            this.buttonUserDelete.Location = new System.Drawing.Point(162, 23);
+            this.buttonUserDelete.Name = "buttonUserDelete";
+            this.buttonUserDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserDelete.TabIndex = 5;
+            this.buttonUserDelete.Text = "Удалить";
+            this.buttonUserDelete.UseVisualStyleBackColor = true;
+            this.buttonUserDelete.Click += new System.EventHandler(this.UserDelete);
+            // 
+            // buttonUserEdit
+            // 
+            this.buttonUserEdit.Enabled = false;
+            this.buttonUserEdit.Location = new System.Drawing.Point(81, 23);
+            this.buttonUserEdit.Name = "buttonUserEdit";
+            this.buttonUserEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserEdit.TabIndex = 4;
+            this.buttonUserEdit.Text = "Править";
+            this.buttonUserEdit.UseVisualStyleBackColor = true;
+            this.buttonUserEdit.Click += new System.EventHandler(this.UserEdit);
+            // 
+            // buttonUserAdd
+            // 
+            this.buttonUserAdd.Location = new System.Drawing.Point(0, 23);
+            this.buttonUserAdd.Name = "buttonUserAdd";
+            this.buttonUserAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonUserAdd.TabIndex = 3;
+            this.buttonUserAdd.Text = "Добавить";
+            this.buttonUserAdd.UseVisualStyleBackColor = true;
+            this.buttonUserAdd.Click += new System.EventHandler(this.UserAdd);
+            // 
+            // listUsers
+            // 
+            this.listUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listUsers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnUserName,
+            this.columnUserPost,
+            this.columnUserDep,
+            this.columnUserPlace,
+            this.columnUserCom});
+            this.listUsers.FullRowSelect = true;
+            this.listUsers.HideSelection = false;
+            this.listUsers.Location = new System.Drawing.Point(0, 52);
+            this.listUsers.MultiSelect = false;
+            this.listUsers.Name = "listUsers";
+            this.listUsers.Size = new System.Drawing.Size(1021, 657);
+            this.listUsers.TabIndex = 2;
+            this.listUsers.UseCompatibleStateImageBehavior = false;
+            this.listUsers.View = System.Windows.Forms.View.Details;
+            this.listUsers.SelectedIndexChanged += new System.EventHandler(this.UsersSelChange);
+            this.listUsers.DoubleClick += new System.EventHandler(this.UserEdit);
+            // 
+            // columnUserName
+            // 
+            this.columnUserName.Text = "ФИО";
+            this.columnUserName.Width = 240;
+            // 
+            // columnUserPost
+            // 
+            this.columnUserPost.Text = "Должность";
+            this.columnUserPost.Width = 200;
+            // 
+            // columnUserDep
+            // 
+            this.columnUserDep.Text = "Отдел";
+            this.columnUserDep.Width = 200;
+            // 
+            // columnUserPlace
+            // 
+            this.columnUserPlace.Text = "Расположение";
+            this.columnUserPlace.Width = 200;
+            // 
+            // columnUserCom
+            // 
+            this.columnUserCom.Text = "Примечание";
+            this.columnUserCom.Width = 150;
+            // 
+            // labelUsers
+            // 
+            this.labelUsers.AutoSize = true;
+            this.labelUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelUsers.Location = new System.Drawing.Point(3, 0);
+            this.labelUsers.Name = "labelUsers";
+            this.labelUsers.Size = new System.Drawing.Size(110, 20);
+            this.labelUsers.TabIndex = 1;
+            this.labelUsers.Text = "Сотрудники";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelPosts);
             this.Controls.Add(this.panelEquipment);
             this.Controls.Add(this.panelFilials);
-            this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeMenu);
             this.Controls.Add(this.menuStrip1);
@@ -902,8 +1032,6 @@ namespace CompStore
             this.Text = "CompStore";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panelUsers.ResumeLayout(false);
-            this.panelUsers.PerformLayout();
             this.panelEquipment.ResumeLayout(false);
             this.panelEquipment.PerformLayout();
             this.panelFilials.ResumeLayout(false);
@@ -916,6 +1044,8 @@ namespace CompStore
             this.panelBuildings.PerformLayout();
             this.panelDeps.ResumeLayout(false);
             this.panelDeps.PerformLayout();
+            this.panelUsers.ResumeLayout(false);
+            this.panelUsers.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -930,8 +1060,6 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.Panel panelUsers;
-        private System.Windows.Forms.Label labelUsers;
         private System.Windows.Forms.Panel panelEquipment;
         private System.Windows.Forms.Label labelEquipment;
         private System.Windows.Forms.Panel panelFilials;
@@ -993,6 +1121,20 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnDepComment;
         private System.Windows.Forms.Label labelDeps;
         private System.Windows.Forms.ColumnHeader columnRoomBuilding;
+        private System.Windows.Forms.Panel panelUsers;
+        private System.Windows.Forms.Label labelUserFilter;
+        private System.Windows.Forms.Button buttonUserFilterReset;
+        private System.Windows.Forms.TextBox textUserFilter;
+        private System.Windows.Forms.Button buttonUserDelete;
+        private System.Windows.Forms.Button buttonUserEdit;
+        private System.Windows.Forms.Button buttonUserAdd;
+        private System.Windows.Forms.ListView listUsers;
+        private System.Windows.Forms.ColumnHeader columnUserName;
+        private System.Windows.Forms.ColumnHeader columnUserPost;
+        private System.Windows.Forms.ColumnHeader columnUserDep;
+        private System.Windows.Forms.ColumnHeader columnUserPlace;
+        private System.Windows.Forms.ColumnHeader columnUserCom;
+        private System.Windows.Forms.Label labelUsers;
     }
 }
 
