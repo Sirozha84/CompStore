@@ -14,7 +14,7 @@ namespace CompStore
         public int filial;
         public int building;
         public int room;
-        public bool emp = true;
+        public bool emp;
         public DateTime empDate = DateTime.Now;
         public bool dis;
         public DateTime disDate = DateTime.Now;

@@ -52,6 +52,7 @@ namespace CompStore
 
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [users] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[type] TEXT, " +
                     "[f] TEXT, " +
                     "[i] TEXT, " +
                     "[o] TEXT, " +
@@ -60,9 +61,9 @@ namespace CompStore
                     "[filial] INTEGER, " +
                     "[building] INTEGER, " +
                     "[room] INTEGER, " +
-                    "[emp] BOOLEAN, " +
+                    "[emp] TEXT, " +
                     "[empdate] TEXT, " +
-                    "[dis] BOOLEAN, " +
+                    "[dis] TEXT, " +
                     "[disdate] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
@@ -426,26 +427,26 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 //com.CommandText = "SELECT * FROM [buildings]" + (filial != "" ? " WHERE [filial] = " + filial : "") + " ORDER BY [filial], [name]";
-                com.CommandText = "SELECT * FROM [users] ORDER BY [f], [i], [o]";
+                com.CommandText = "SELECT * FROM [users] WHERE type = 'u' ORDER BY [f], [i], [o]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         User user = new User();
                         user.ID = reader.GetInt32(0);
-                        user.f = reader.GetString(1);
-                        user.i = reader.GetString(2);
-                        user.o = reader.GetString(3);
-                        user.post = reader.GetInt32(4);
-                        user.dep = reader.GetInt32(5);
-                        user.filial = reader.GetInt32(6);
-                        user.building = reader.GetInt32(7);
-                        user.room = reader.GetInt32(8);
-                        user.emp = (bool)reader.GetValue(9);
-                        user.empDate = DateTime.Parse(reader.GetString(10));
-                        user.dis = (bool)reader.GetValue(11);
-                        user.disDate = DateTime.Parse(reader.GetString(10));
-                        user.comment = reader.GetString(13);
+                        user.f = reader.GetString(2);
+                        user.i = reader.GetString(3);
+                        user.o = reader.GetString(4);
+                        user.post = reader.GetInt32(5);
+                        user.dep = reader.GetInt32(6);
+                        user.filial = reader.GetInt32(7);
+                        user.building = reader.GetInt32(8);
+                        user.room = reader.GetInt32(9);
+                        user.emp = reader.GetString(10) == "1";
+                        user.empDate = DateTime.Parse(reader.GetString(11));
+                        user.dis = reader.GetString(12) == "1";
+                        user.disDate = DateTime.Parse(reader.GetString(13));
+                        user.comment = reader.GetString(14);
 
                         user.fioText = (user.f != "" ? user.f + " " : "") +
                                        (user.i != "" ? user.i + " " : "") +
@@ -478,8 +479,8 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [users] (f, i, o, post, dep, filial, building, room, " +
-                                  "emp, empdate, dis, disdate, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO [users] (type, f, i, o, post, dep, filial, building, room, " +
+                                  "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
                                   user.f + "', '" +
                                   user.i + "', '" +
                                   user.o + "', '" +
@@ -488,10 +489,10 @@ namespace CompStore
                                   user.filial + "', '" +
                                   user.building + "', '" +
                                   user.room + "', '" +
-                                  user.emp + "', '" +
-                                  user.empDate + "', '" +
-                                  user.dis + "', '" +
-                                  user.disDate + "', '" +
+                                  (user.emp ? "1" : "0") + "', '" +
+                                  user.empDate.ToString("dd.MM.yyyy") + "', '" +
+                                  (user.dis ? "1" : "0") + "', '" +
+                                  user.disDate.ToString("dd.MM.yyyy") + "', '" +
                                   user.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -512,10 +513,10 @@ namespace CompStore
                                   "[filial] = '" + user.filial + "', " +
                                   "[building] = '" + user.building + "', " +
                                   "[room] = '" + user.room + "', " +
-                                  "[emp] = '" + user.emp + "', " +
-                                  "[empdate] = '" + user.empDate + "', " +
-                                  "[dis] = '" + user.dis + "', " +
-                                  "[disdate] = '" + user.disDate + "', " +
+                                  "[emp] = '" + (user.emp ? "1" : "0") + "', " +
+                                  "[empdate] = '" + user.empDate.ToString("dd.MM.yyyy") + "', " +
+                                  "[dis] = '" + (user.dis ? "1" : "0") + "', " +
+                                  "[disdate] = '" + user.disDate.ToString("dd.MM.yyyy") + "', " +
                                   "[comment] = '" + user.comment + "' WHERE ID = " + user.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
