@@ -20,6 +20,7 @@ namespace CompStore
         List<Post> posts;
         List<User> users;
         List<Brand> brands;
+        List<EqType> eqTypes;
 
         public FormMain()
         {
@@ -37,6 +38,7 @@ namespace CompStore
             panelUsers.Location = defLoc;
             panelEquipment.Location = defLoc;
             panelBrands.Location = defLoc;
+            panelEqTypes.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeRooms", true)[0];
@@ -52,6 +54,7 @@ namespace CompStore
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
             panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
+            panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
         }
 
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
@@ -178,7 +181,7 @@ namespace CompStore
         {
             if (listRooms.SelectedIndices.Count == 0) return;
             Room room = (Room)listRooms.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + room.name + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить помещение \"" + room.name + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.RoomDelete(room);
@@ -243,7 +246,7 @@ namespace CompStore
         {
             if (listPosts.SelectedIndices.Count == 0) return;
             Post post = (Post)listPosts.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + post.name + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить должность \"" + post.name + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.PostDelete(post);
@@ -308,7 +311,7 @@ namespace CompStore
         {
             if (listDeps.SelectedIndices.Count == 0) return;
             Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить отдел \"" + dep.name + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить подразделение \"" + dep.name + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.DepDelete(dep);
@@ -373,7 +376,7 @@ namespace CompStore
         {
             if (listBuildings.SelectedIndices.Count == 0) return;
             Building building = (Building)listBuildings.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + building.name + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить здание \"" + building.name + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.BuildingDelete(building);
@@ -464,7 +467,7 @@ namespace CompStore
             listBrands.BeginUpdate();
             listBrands.Items.Clear();
             foreach (Brand brand in brands)
-                if (brand.Contains(textRoomFilter.Text))
+                if (brand.Contains(textBrandFilter.Text))
                     listBrands.Items.Add(brand.ToListView());
             listBrands.EndUpdate();
             BrandsSelChange(null, null);
@@ -503,11 +506,76 @@ namespace CompStore
         {
             if (listBrands.SelectedIndices.Count == 0) return;
             Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить отдел \"" + brand.name + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить производителя \"" + brand.name + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.BrandDelete(brand);
                 BrandsRefresh();
+            }
+        }
+        #endregion
+
+        #region Типы оборудования
+        private void EqTypesView(object sender, EventArgs e)
+        {
+            if (panelEqTypes.Visible) EqTypesRefresh();
+        }
+
+        void EqTypesRefresh()
+        {
+            eqTypes = DB.EqTypesLoad();
+            EqTypesDraw(null, null);
+        }
+
+        private void EqTypesDraw(object sender, EventArgs e)
+        {
+            listEqTypes.BeginUpdate();
+            listEqTypes.Items.Clear();
+            foreach (EqType eqType in eqTypes)
+                if (eqType.Contains(textEqTypeFilter.Text))
+                    listEqTypes.Items.Add(eqType.ToListView());
+            listEqTypes.EndUpdate();
+            EqTypesSelChange(null, null);
+        }
+        private void EqTypesSelChange(object sender, EventArgs e)
+        {
+            bool sel = listEqTypes.SelectedIndices.Count > 0;
+            buttonEqTypeEdit.Enabled = sel;
+            buttonEqTypeDelete.Enabled = sel;
+        }
+        private void EqTypeFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void EqTypeAdd(object sender, EventArgs e)
+        {
+            EqType eqType = new EqType();
+            FormEqType form = new FormEqType(eqType);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EqTypeAdd(eqType);
+                EqTypesRefresh();
+            }
+        }
+        private void EqTypeEdit(object sender, EventArgs e)
+        {
+            if (listEqTypes.SelectedIndices.Count == 0) return;
+            EqType eqType = (EqType)listEqTypes.SelectedItems[0].Tag;
+            FormEqType form = new FormEqType(eqType);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EqTypeUpdate(eqType);
+                EqTypesRefresh();
+            }
+        }
+
+        private void EqTypeDelete(object sender, EventArgs e)
+        {
+            if (listEqTypes.SelectedIndices.Count == 0) return;
+            EqType eqType = (EqType)listEqTypes.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить тип оборудования \"" + eqType.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.EqTypeDelete(eqType);
+                EqTypesRefresh();
             }
         }
         #endregion

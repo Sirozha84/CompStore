@@ -75,6 +75,11 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [eqtypes] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[name] TEXT)";
+                com.ExecuteNonQuery();
+
                 connect.Close();
             }
         }
@@ -543,7 +548,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Производители [prands]
+        #region Производители [brands]
         public static List<Brand> BrandsLoad()
         {
             List<Brand> brands = new List<Brand>();
@@ -603,6 +608,65 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [brands] WHERE ID = " + brand.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Должности [eqtypes]
+        public static List<EqType> EqTypesLoad()
+        {
+            List<EqType> eqTypes = new List<EqType>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [eqtypes] ORDER BY [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        EqType eqType = new EqType();
+                        eqType.ID = reader.GetInt32(0);
+                        eqType.name = reader.GetString(1);
+                        eqTypes.Add(eqType);
+                    }
+                }
+                connect.Close();
+            }
+            return eqTypes;
+        }
+        public static void EqTypeAdd(EqType eqType)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [eqtypes] (name) VALUES ('" + eqType.name + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void EqTypeUpdate(EqType eqType)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [eqtypes] SET " + "[name] = '" + eqType.name + "' WHERE ID = " + eqType.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void EqTypeDelete(EqType eqType)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [eqtypes] WHERE ID = " + eqType.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }

@@ -15,7 +15,7 @@ namespace CompStore
                 Text = "Добавление новой должности";
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void OK(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
         }

@@ -1,7 +1,7 @@
 ﻿
 namespace CompStore
 {
-    partial class FormPost
+    partial class FormEqType
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@ namespace CompStore
             this.buttonOK.Location = new System.Drawing.Point(166, 46);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 16;
+            this.buttonOK.TabIndex = 20;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -53,7 +53,7 @@ namespace CompStore
             this.buttonCancel.Location = new System.Drawing.Point(247, 46);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 15;
+            this.buttonCancel.TabIndex = 19;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -64,7 +64,7 @@ namespace CompStore
             this.textName.Location = new System.Drawing.Point(90, 12);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
-            this.textName.TabIndex = 10;
+            this.textName.TabIndex = 18;
             // 
             // labelName
             // 
@@ -72,10 +72,10 @@ namespace CompStore
             this.labelName.Location = new System.Drawing.Point(24, 15);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(60, 13);
-            this.labelName.TabIndex = 9;
+            this.labelName.TabIndex = 17;
             this.labelName.Text = "Название:";
             // 
-            // FormPost
+            // FormEqType
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -89,7 +89,7 @@ namespace CompStore
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormPost";
+            this.Name = "FormEqType";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
