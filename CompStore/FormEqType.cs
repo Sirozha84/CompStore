@@ -12,7 +12,7 @@ namespace CompStore
             if (eqtype.name != null)
                 Text = "Редактирование типа оборудования \"" + eqtype.name + "\"";
             else
-                Text = "Добавление новой типа оборудования";
+                Text = "Добавление нового типа оборудования";
         }
 
         private void OK(object sender, EventArgs e)

@@ -1,7 +1,7 @@
 ﻿
 namespace CompStore
 {
-    partial class FormRoom
+    partial class FormModel
     {
         /// <summary>
         /// Required designer variable.
@@ -29,22 +29,49 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.comboBrand = new System.Windows.Forms.ComboBox();
+            this.labelBrand = new System.Windows.Forms.Label();
+            this.comboEqType = new System.Windows.Forms.ComboBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textCom = new System.Windows.Forms.TextBox();
             this.labelCom = new System.Windows.Forms.Label();
             this.textName = new System.Windows.Forms.TextBox();
-            this.labelAdress = new System.Windows.Forms.Label();
+            this.labelEqType = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
-            this.comboFilial = new System.Windows.Forms.ComboBox();
-            this.comboBuilding = new System.Windows.Forms.ComboBox();
-            this.labelBuilding = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // comboBrand
+            // 
+            this.comboBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBrand.FormattingEnabled = true;
+            this.comboBrand.Location = new System.Drawing.Point(120, 39);
+            this.comboBrand.Name = "comboBrand";
+            this.comboBrand.Size = new System.Drawing.Size(232, 21);
+            this.comboBrand.TabIndex = 1;
+            // 
+            // labelBrand
+            // 
+            this.labelBrand.AutoSize = true;
+            this.labelBrand.Location = new System.Drawing.Point(25, 42);
+            this.labelBrand.Name = "labelBrand";
+            this.labelBrand.Size = new System.Drawing.Size(89, 13);
+            this.labelBrand.TabIndex = 38;
+            this.labelBrand.Text = "Производитель:";
+            // 
+            // comboEqType
+            // 
+            this.comboEqType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEqType.FormattingEnabled = true;
+            this.comboEqType.Location = new System.Drawing.Point(120, 12);
+            this.comboEqType.Name = "comboEqType";
+            this.comboEqType.Size = new System.Drawing.Size(232, 21);
+            this.comboEqType.TabIndex = 0;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(166, 146);
+            this.buttonOK.Location = new System.Drawing.Point(196, 146);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 4;
@@ -56,7 +83,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(247, 146);
+            this.buttonCancel.Location = new System.Drawing.Point(277, 146);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -68,7 +95,7 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(90, 92);
+            this.textCom.Location = new System.Drawing.Point(120, 92);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
             this.textCom.Size = new System.Drawing.Size(232, 48);
@@ -77,88 +104,60 @@ namespace CompStore
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(11, 95);
+            this.labelCom.Location = new System.Drawing.Point(41, 95);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
-            this.labelCom.TabIndex = 13;
+            this.labelCom.TabIndex = 33;
             this.labelCom.Text = "Примечание:";
             // 
             // textName
             // 
             this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.Location = new System.Drawing.Point(90, 66);
+            this.textName.Location = new System.Drawing.Point(120, 66);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 2;
             // 
-            // labelAdress
+            // labelEqType
             // 
-            this.labelAdress.AutoSize = true;
-            this.labelAdress.Location = new System.Drawing.Point(33, 15);
-            this.labelAdress.Name = "labelAdress";
-            this.labelAdress.Size = new System.Drawing.Size(51, 13);
-            this.labelAdress.TabIndex = 11;
-            this.labelAdress.Text = "Филиал:";
+            this.labelEqType.AutoSize = true;
+            this.labelEqType.Location = new System.Drawing.Point(11, 15);
+            this.labelEqType.Name = "labelEqType";
+            this.labelEqType.Size = new System.Drawing.Size(103, 13);
+            this.labelEqType.TabIndex = 31;
+            this.labelEqType.Text = "Тип оборудования:";
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(24, 69);
+            this.labelName.Location = new System.Drawing.Point(54, 69);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(60, 13);
-            this.labelName.TabIndex = 9;
+            this.labelName.TabIndex = 30;
             this.labelName.Text = "Название:";
             // 
-            // comboFilial
-            // 
-            this.comboFilial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboFilial.FormattingEnabled = true;
-            this.comboFilial.Location = new System.Drawing.Point(90, 12);
-            this.comboFilial.Name = "comboFilial";
-            this.comboFilial.Size = new System.Drawing.Size(232, 21);
-            this.comboFilial.TabIndex = 0;
-            this.comboFilial.SelectedIndexChanged += new System.EventHandler(this.FilialSelect);
-            // 
-            // comboBuilding
-            // 
-            this.comboBuilding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBuilding.FormattingEnabled = true;
-            this.comboBuilding.Location = new System.Drawing.Point(90, 39);
-            this.comboBuilding.Name = "comboBuilding";
-            this.comboBuilding.Size = new System.Drawing.Size(232, 21);
-            this.comboBuilding.TabIndex = 1;
-            // 
-            // labelBuilding
-            // 
-            this.labelBuilding.AutoSize = true;
-            this.labelBuilding.Location = new System.Drawing.Point(37, 42);
-            this.labelBuilding.Name = "labelBuilding";
-            this.labelBuilding.Size = new System.Drawing.Size(47, 13);
-            this.labelBuilding.TabIndex = 18;
-            this.labelBuilding.Text = "Здание:";
-            // 
-            // FormRoom
+            // FormModel
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(334, 181);
-            this.Controls.Add(this.comboBuilding);
-            this.Controls.Add(this.labelBuilding);
-            this.Controls.Add(this.comboFilial);
+            this.ClientSize = new System.Drawing.Size(364, 181);
+            this.Controls.Add(this.comboBrand);
+            this.Controls.Add(this.labelBrand);
+            this.Controls.Add(this.comboEqType);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textCom);
             this.Controls.Add(this.labelCom);
             this.Controls.Add(this.textName);
-            this.Controls.Add(this.labelAdress);
+            this.Controls.Add(this.labelEqType);
             this.Controls.Add(this.labelName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormRoom";
+            this.Name = "FormModel";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -169,15 +168,15 @@ namespace CompStore
 
         #endregion
 
+        private System.Windows.Forms.ComboBox comboBrand;
+        private System.Windows.Forms.Label labelBrand;
+        private System.Windows.Forms.ComboBox comboEqType;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textCom;
         private System.Windows.Forms.Label labelCom;
         private System.Windows.Forms.TextBox textName;
-        private System.Windows.Forms.Label labelAdress;
+        private System.Windows.Forms.Label labelEqType;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.ComboBox comboFilial;
-        private System.Windows.Forms.ComboBox comboBuilding;
-        private System.Windows.Forms.Label labelBuilding;
     }
 }

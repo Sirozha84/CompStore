@@ -17,9 +17,11 @@ namespace CompStore
             comboFilial.ValueMember = "ID";
             if (room.filial != 0) comboFilial.SelectedValue = room.filial; else comboFilial.SelectedValue = "";
             FilialSelect(null, null);
+            
             comboBuilding.DisplayMember = "name";
             comboBuilding.ValueMember = "ID";
             if (room.building != 0) comboBuilding.SelectedValue = room.building; else comboBuilding.SelectedValue = "";
+            
             textName.Text = room.name;
             textCom.Text = room.comment;
 
@@ -29,7 +31,7 @@ namespace CompStore
                 Text = "Добавление нового помещения";
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void OK(object sender, EventArgs e)
         {
             if (comboFilial.SelectedValue != null) room.filial = (int)comboFilial.SelectedValue;
             if (comboBuilding.SelectedValue != null) room.building = (int)comboBuilding.SelectedValue;

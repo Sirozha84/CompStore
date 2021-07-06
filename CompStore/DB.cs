@@ -80,6 +80,14 @@ namespace CompStore
                     "[name] TEXT)";
                 com.ExecuteNonQuery();
 
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [models] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[eqtype] INTEGER, " +
+                    "[brand] INTEGER, " +
+                    "[name] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
                 connect.Close();
             }
         }
@@ -172,13 +180,16 @@ namespace CompStore
                         Room room = new Room();
                         room.ID = reader.GetInt32(0);
                         room.filial = reader.GetInt32(1);
-                        Filial f = filials.Find(o => o.ID == room.filial);
-                        room.filialText = f != null ? f.name : "";
                         room.building = reader.GetInt32(2);
-                        Building b = buildings.Find(o => o.ID == room.building);
-                        room.buildingText = b != null ? b.name : "";
                         room.name = reader.GetString(3);
                         room.comment = reader.GetString(4);
+
+                        Filial f = filials.Find(o => o.ID == room.filial);
+                        room.filialText = f != null ? f.name : "";
+
+                        Building b = buildings.Find(o => o.ID == room.building);
+                        room.buildingText = b != null ? b.name : "";
+
                         rooms.Add(room);
                     }
                 }
@@ -372,10 +383,12 @@ namespace CompStore
                         Building building = new Building();
                         building.ID = reader.GetInt32(0);
                         building.filial = reader.GetInt32(1);
-                        Filial f = filials.Find(o => o.ID == building.filial);
-                        building.filialText = f != null ? f.name : "";
                         building.name = reader.GetString(2);
                         building.comment = reader.GetString(3);
+
+                        Filial f = filials.Find(o => o.ID == building.filial);
+                        building.filialText = f != null ? f.name : "";
+
                         buildings.Add(building);
                     }
                 }
@@ -667,6 +680,87 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [eqtypes] WHERE ID = " + eqType.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Модели [models]
+        public static List<Model> ModelsLoad(string eqtype, string brand)
+        {
+            List<Model> models = new List<Model>();
+            List<EqType> eqTypes = EqTypesLoad();
+            List<Brand> brands = BrandsLoad();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [models]" + (eqtype != "" ? " WHERE [eqtype] = " + eqtype : "") +
+                                                             (brand != "" ? " WHERE [brand] = " + brand : "") +
+                                                                " ORDER BY [eqtype], [brand], [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Model model = new Model();
+                        model.ID = reader.GetInt32(0);
+                        model.eqType = reader.GetInt32(1);
+                        model.brand = reader.GetInt32(2);
+                        model.name = reader.GetString(3);
+                        model.comment = reader.GetString(4);
+
+                        EqType et = eqTypes.Find(o => o.ID == model.eqType);
+                        model.eqTypeText = et != null ? et.name : "";
+
+                        Brand b = brands.Find(o => o.ID == model.brand);
+                        model.brandText = b != null ? b.name : "";
+
+                        models.Add(model);
+                    }
+                }
+                connect.Close();
+            }
+            return models;
+        }
+        public static void ModelAdd(Model model)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [models] (eqtype, brand, name, comment) VALUES ('" +
+                    model.eqType + "', '" +
+                    model.brand + "', '" +
+                    model.name + "', '" +
+                    model.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void ModelUpdate(Model model)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [models] SET " +
+                    "[eqtype] = '" + model.eqType + "', " +
+                    "[brand] = '" + model.brand + "', " +
+                    "[name] = '" + model.name + "', " +
+                    "[comment] = '" + model.comment + "' WHERE ID = " + model.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void ModelDelete(Model model)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [models] WHERE ID = " + model.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }

@@ -107,6 +107,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModel.Designer.cs">
+      <DependentUpon>FormModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,7 @@
     <Compile Include="FormUser.Designer.cs">
       <DependentUpon>FormUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModel.resx">
+      <DependentUpon>FormModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPost.resx">
       <DependentUpon>FormPost.cs</DependentUpon>

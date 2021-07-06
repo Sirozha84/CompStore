@@ -21,6 +21,7 @@ namespace CompStore
         List<User> users;
         List<Brand> brands;
         List<EqType> eqTypes;
+        List<Model> models;
 
         public FormMain()
         {
@@ -39,6 +40,7 @@ namespace CompStore
             panelEquipment.Location = defLoc;
             panelBrands.Location = defLoc;
             panelEqTypes.Location = defLoc;
+            panelModels.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeRooms", true)[0];
@@ -55,6 +57,7 @@ namespace CompStore
             panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
+            panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
         }
 
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
@@ -576,6 +579,71 @@ namespace CompStore
             {
                 DB.EqTypeDelete(eqType);
                 EqTypesRefresh();
+            }
+        }
+        #endregion
+
+        #region Модели
+        private void ModelsView(object sender, EventArgs e)
+        {
+            if (panelModels.Visible) ModelsRefresh();
+        }
+
+        void ModelsRefresh()
+        {
+            models = DB.ModelsLoad("", "");
+            ModelsDraw(null, null);
+        }
+
+        private void ModelsDraw(object sender, EventArgs e)
+        {
+            listModels.BeginUpdate();
+            listModels.Items.Clear();
+            foreach (Model model in models)
+                if (model.Contains(textModelFilter.Text))
+                    listModels.Items.Add(model.ToListView());
+            listModels.EndUpdate();
+            ModelsSelChange(null, null);
+        }
+        private void ModelsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listModels.SelectedIndices.Count > 0;
+            buttonModelEdit.Enabled = sel;
+            buttonModelDelete.Enabled = sel;
+        }
+        private void ModelFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void ModelAdd(object sender, EventArgs e)
+        {
+            Model model = new Model();
+            FormModel form = new FormModel(model);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ModelAdd(model);
+                ModelsRefresh();
+            }
+        }
+        private void ModelEdit(object sender, EventArgs e)
+        {
+            if (listModels.SelectedIndices.Count == 0) return;
+            Model model = (Model)listModels.SelectedItems[0].Tag;
+            FormModel form = new FormModel(model);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ModelUpdate(model);
+                ModelsRefresh();
+            }
+        }
+
+        private void ModelDelete(object sender, EventArgs e)
+        {
+            if (listModels.SelectedIndices.Count == 0) return;
+            Model model = (Model)listModels.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить модель \"" + model.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.ModelDelete(model);
+                ModelsRefresh();
             }
         }
         #endregion
