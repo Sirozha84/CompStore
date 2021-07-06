@@ -19,6 +19,7 @@ namespace CompStore
         List<Dep> deps;
         List<Post> posts;
         List<User> users;
+        List<Brand> brands;
 
         public FormMain()
         {
@@ -35,6 +36,7 @@ namespace CompStore
             panelPosts.Location = defLoc;
             panelUsers.Location = defLoc;
             panelEquipment.Location = defLoc;
+            panelBrands.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeRooms", true)[0];
@@ -49,12 +51,13 @@ namespace CompStore
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
             panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
+            panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
         }
 
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
 
         #region Филиалы
-        private void panelFilials_VisibleChanged(object sender, EventArgs e)
+        private void FilialsView(object sender, EventArgs e)
         {
             if (panelFilials.Visible) FilialsRefresh();
         }
@@ -120,7 +123,7 @@ namespace CompStore
         #endregion
 
         #region Помещения
-        private void panelRooms_VisibleChanged(object sender, EventArgs e)
+        private void RoomsView(object sender, EventArgs e)
         {
             if (panelRooms.Visible) RoomsRefresh();
         }
@@ -185,7 +188,7 @@ namespace CompStore
         #endregion
         
         #region Должности
-        private void panelPosts_VisibleChanged(object sender, EventArgs e)
+        private void PostsView(object sender, EventArgs e)
         {
             if (panelPosts.Visible) PostsRefresh();
         }
@@ -249,8 +252,8 @@ namespace CompStore
         }
         #endregion
 
-        #region Отделы
-        private void panelDeps_VisibleChanged(object sender, EventArgs e)
+        #region Подразделения
+        private void DepsView(object sender, EventArgs e)
         {
             if (panelDeps.Visible) DepsRefresh();
         }
@@ -315,7 +318,7 @@ namespace CompStore
         #endregion
 
         #region Здания
-        private void panelBuildings_VisibleChanged(object sender, EventArgs e)
+        private void BuildingsView(object sender, EventArgs e)
         {
             if (panelBuildings.Visible) BuildingsRefresh();
         }
@@ -380,7 +383,7 @@ namespace CompStore
         #endregion
 
         #region Сотрудники
-        private void panelUsers_VisibleChanged(object sender, EventArgs e)
+        private void UsersView(object sender, EventArgs e)
         {
             if (panelUsers.Visible) UsersRefresh();
         }
@@ -440,6 +443,71 @@ namespace CompStore
             {
                 DB.UserDelete(user);
                 UsersRefresh();
+            }
+        }
+        #endregion
+
+        #region Производители
+        private void BrandsView(object sender, EventArgs e)
+        {
+            if (panelBrands.Visible) BrandsRefresh();
+        }
+
+        void BrandsRefresh()
+        {
+            brands = DB.BrandsLoad();
+            BrandsDraw(null, null);
+        }
+
+        private void BrandsDraw(object sender, EventArgs e)
+        {
+            listBrands.BeginUpdate();
+            listBrands.Items.Clear();
+            foreach (Brand brand in brands)
+                if (brand.Contains(textRoomFilter.Text))
+                    listBrands.Items.Add(brand.ToListView());
+            listBrands.EndUpdate();
+            BrandsSelChange(null, null);
+        }
+        private void BrandsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listBrands.SelectedIndices.Count > 0;
+            buttonBrandEdit.Enabled = sel;
+            buttonBrandDelete.Enabled = sel;
+        }
+        private void BrandFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void BrandAdd(object sender, EventArgs e)
+        {
+            Brand brand = new Brand();
+            FormBrand form = new FormBrand(brand);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BrandAdd(brand);
+                BrandsRefresh();
+            }
+        }
+        private void BrandEdit(object sender, EventArgs e)
+        {
+            if (listBrands.SelectedIndices.Count == 0) return;
+            Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
+            FormBrand form = new FormBrand(brand);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BrandUpdate(brand);
+                BrandsRefresh();
+            }
+        }
+
+        private void BrandDelete(object sender, EventArgs e)
+        {
+            if (listBrands.SelectedIndices.Count == 0) return;
+            Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить отдел \"" + brand.name + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.BrandDelete(brand);
+                BrandsRefresh();
             }
         }
         #endregion

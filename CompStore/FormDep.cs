@@ -12,9 +12,9 @@ namespace CompStore
             textCom.DataBindings.Add("Text", dep, "comment");
 
             if (dep.name != null)
-                Text = "Редактирование отдела \"" + dep.name + "\"";
+                Text = "Редактирование подразделения \"" + dep.name + "\"";
             else
-                Text = "Добавление нового отдела";
+                Text = "Добавление нового подразделения";
         }
 
         private void OK(object sender, EventArgs e)

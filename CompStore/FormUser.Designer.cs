@@ -83,19 +83,19 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboDep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDep.FormattingEnabled = true;
-            this.comboDep.Location = new System.Drawing.Point(120, 117);
+            this.comboDep.Location = new System.Drawing.Point(120, 171);
             this.comboDep.Name = "comboDep";
             this.comboDep.Size = new System.Drawing.Size(202, 21);
-            this.comboDep.TabIndex = 4;
+            this.comboDep.TabIndex = 6;
             // 
             // labelDep
             // 
             this.labelDep.AutoSize = true;
-            this.labelDep.Location = new System.Drawing.Point(73, 120);
+            this.labelDep.Location = new System.Drawing.Point(24, 174);
             this.labelDep.Name = "labelDep";
-            this.labelDep.Size = new System.Drawing.Size(41, 13);
+            this.labelDep.Size = new System.Drawing.Size(90, 13);
             this.labelDep.TabIndex = 80;
-            this.labelDep.Text = "Отдел:";
+            this.labelDep.Text = "Подразделение:";
             // 
             // textO
             // 
@@ -192,15 +192,15 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboRoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRoom.FormattingEnabled = true;
-            this.comboRoom.Location = new System.Drawing.Point(120, 198);
+            this.comboRoom.Location = new System.Drawing.Point(120, 144);
             this.comboRoom.Name = "comboRoom";
             this.comboRoom.Size = new System.Drawing.Size(202, 21);
-            this.comboRoom.TabIndex = 7;
+            this.comboRoom.TabIndex = 5;
             // 
             // labelRoom
             // 
             this.labelRoom.AutoSize = true;
-            this.labelRoom.Location = new System.Drawing.Point(46, 201);
+            this.labelRoom.Location = new System.Drawing.Point(46, 147);
             this.labelRoom.Name = "labelRoom";
             this.labelRoom.Size = new System.Drawing.Size(71, 13);
             this.labelRoom.TabIndex = 68;
@@ -212,10 +212,10 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboPost.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPost.FormattingEnabled = true;
-            this.comboPost.Location = new System.Drawing.Point(120, 90);
+            this.comboPost.Location = new System.Drawing.Point(120, 198);
             this.comboPost.Name = "comboPost";
             this.comboPost.Size = new System.Drawing.Size(202, 21);
-            this.comboPost.TabIndex = 3;
+            this.comboPost.TabIndex = 7;
             // 
             // textCom
             // 
@@ -240,7 +240,7 @@ namespace CompStore
             // labelPost
             // 
             this.labelPost.AutoSize = true;
-            this.labelPost.Location = new System.Drawing.Point(46, 93);
+            this.labelPost.Location = new System.Drawing.Point(46, 201);
             this.labelPost.Name = "labelPost";
             this.labelPost.Size = new System.Drawing.Size(68, 13);
             this.labelPost.TabIndex = 63;
@@ -252,16 +252,16 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBuilding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBuilding.FormattingEnabled = true;
-            this.comboBuilding.Location = new System.Drawing.Point(120, 171);
+            this.comboBuilding.Location = new System.Drawing.Point(120, 117);
             this.comboBuilding.Name = "comboBuilding";
             this.comboBuilding.Size = new System.Drawing.Size(202, 21);
-            this.comboBuilding.TabIndex = 6;
+            this.comboBuilding.TabIndex = 4;
             this.comboBuilding.SelectedIndexChanged += new System.EventHandler(this.BuildingSelect);
             // 
             // labelBuilding
             // 
             this.labelBuilding.AutoSize = true;
-            this.labelBuilding.Location = new System.Drawing.Point(67, 174);
+            this.labelBuilding.Location = new System.Drawing.Point(67, 120);
             this.labelBuilding.Name = "labelBuilding";
             this.labelBuilding.Size = new System.Drawing.Size(47, 13);
             this.labelBuilding.TabIndex = 82;
@@ -273,16 +273,16 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboFilial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFilial.FormattingEnabled = true;
-            this.comboFilial.Location = new System.Drawing.Point(120, 144);
+            this.comboFilial.Location = new System.Drawing.Point(120, 90);
             this.comboFilial.Name = "comboFilial";
             this.comboFilial.Size = new System.Drawing.Size(202, 21);
-            this.comboFilial.TabIndex = 5;
+            this.comboFilial.TabIndex = 3;
             this.comboFilial.SelectedIndexChanged += new System.EventHandler(this.FilialSelect);
             // 
             // labelFilial
             // 
             this.labelFilial.AutoSize = true;
-            this.labelFilial.Location = new System.Drawing.Point(63, 147);
+            this.labelFilial.Location = new System.Drawing.Point(63, 93);
             this.labelFilial.Name = "labelFilial";
             this.labelFilial.Size = new System.Drawing.Size(51, 13);
             this.labelFilial.TabIndex = 84;

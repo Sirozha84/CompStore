@@ -27,8 +27,8 @@ namespace CompStore
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(fioText);
-            str.SubItems.Add(postText);
             str.SubItems.Add(depText);
+            str.SubItems.Add(postText);
             str.SubItems.Add(roomText);
             str.SubItems.Add(comment);
             str.Tag = this;

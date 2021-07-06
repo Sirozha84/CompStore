@@ -6,8 +6,9 @@ namespace CompStore
 {
     static class DB
     {
-        const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
-        
+        //const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
+        const string dataSource = @"DataSource=CS.db; Version=3;";
+
         #region Инициализация таблиц
         public static void Init()
         {
@@ -65,6 +66,12 @@ namespace CompStore
                     "[empdate] TEXT, " +
                     "[dis] TEXT, " +
                     "[disdate] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [brands] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[name] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
@@ -530,6 +537,72 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [users] WHERE ID = " + user.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Производители [prands]
+        public static List<Brand> BrandsLoad()
+        {
+            List<Brand> brands = new List<Brand>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [brands] ORDER BY [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Brand brand = new Brand();
+                        brand.ID = reader.GetInt32(0);
+                        brand.name = reader.GetString(1);
+                        brand.comment = reader.GetString(2);
+                        brands.Add(brand);
+                    }
+                }
+                connect.Close();
+            }
+            return brands;
+        }
+
+        public static void BrandAdd(Brand brand)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [brands] (name, comment) VALUES ('" +
+                    brand.name + "', '" +
+                    brand.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void BrandUpdate(Brand brand)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [brands] SET " +
+                    "[name] = '" + brand.name + "', " +
+                    "[comment] = '" + brand.comment + "' WHERE ID = " + brand.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void BrandDelete(Brand brand)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [brands] WHERE ID = " + brand.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
