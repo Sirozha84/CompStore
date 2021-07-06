@@ -69,7 +69,9 @@
     <Compile Include="Building.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Dep.cs" />
+    <Compile Include="Eqipment.cs" />
     <Compile Include="EqType.cs" />
+    <Compile Include="Equipment.cs" />
     <Compile Include="Filial.cs" />
     <Compile Include="FormBrand.cs">
       <SubType>Form</SubType>

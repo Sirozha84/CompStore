@@ -88,6 +88,16 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [equipment] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[eqtype] INTEGER, " +
+                    "[brand] INTEGER, " +
+                    "[model] INTEGER, " +
+                    "[sn] TEXT, " +
+                    "[in] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
                 connect.Close();
             }
         }
@@ -761,6 +771,87 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [models] WHERE ID = " + model.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Оборудование [models]
+        public static List<Equipment> EquipmentsLoad()
+        {
+            List<Equipment> equipments = new List<Equipment>();
+            List<EqType> eqTypes = EqTypesLoad();
+            List<Brand> brands = BrandsLoad();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [equipments]" + (eqtype != "" ? " WHERE [eqtype] = " + eqtype : "") +
+                                                             (brand != "" ? " WHERE [brand] = " + brand : "") +
+                                                                " ORDER BY [eqtype], [brand], [name]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Equipment equipment = new Equipment();
+                        equipment.ID = reader.GetInt32(0);
+                        equipment.eqType = reader.GetInt32(1);
+                        equipment.brand = reader.GetInt32(2);
+                        equipment.name = reader.GetString(3);
+                        equipment.comment = reader.GetString(4);
+
+                        EqType et = eqTypes.Find(o => o.ID == equipment.eqType);
+                        equipment.eqTypeText = et != null ? et.name : "";
+
+                        Brand b = brands.Find(o => o.ID == equipment.brand);
+                        equipment.brandText = b != null ? b.name : "";
+
+                        equipments.Add(equipment);
+                    }
+                }
+                connect.Close();
+            }
+            return equipments;
+        }
+        public static void EquipmentAdd(Equipment equipment)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, name, comment) VALUES ('" +
+                    equipment.eqType + "', '" +
+                    equipment.brand + "', '" +
+                    equipment.name + "', '" +
+                    equipment.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void EquipmentUpdate(Equipment equipment)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [equipments] SET " +
+                    "[eqtype] = '" + equipment.eqType + "', " +
+                    "[brand] = '" + equipment.brand + "', " +
+                    "[name] = '" + equipment.name + "', " +
+                    "[comment] = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void EquipmentDelete(Equipment equipment)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [equipments] WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }

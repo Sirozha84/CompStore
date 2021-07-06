@@ -37,7 +37,7 @@ namespace CompStore
             panelDeps.Location = defLoc;
             panelPosts.Location = defLoc;
             panelUsers.Location = defLoc;
-            panelEquipment.Location = defLoc;
+            panelEquipments.Location = defLoc;
             panelBrands.Location = defLoc;
             panelEqTypes.Location = defLoc;
             panelModels.Location = defLoc;
@@ -54,7 +54,7 @@ namespace CompStore
             panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
-            panelEquipment.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
+            panelEquipments.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
