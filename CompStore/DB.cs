@@ -9,6 +9,22 @@ namespace CompStore
         //const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
         const string dataSource = @"DataSource=CS.db; Version=3;";
 
+        static string FullName(User u)
+        {
+            string name = (u.f != "" ? u.f + " " : "") +
+                          (u.i != "" ? u.i + " " : "") +
+                          (u.o != "" ? u.o : "");
+            return name;
+        }
+        static string ShotName(User u)
+        {
+            string name = u.f != "" ? u.f : "";
+            if (name != "") name += " ";
+            if (u.i != "") name += u.i[0] + ". ";
+            if (u.o != "") name += u.o[0] + ".";
+            return name;
+        }
+
         #region Инициализация таблиц
         public static void Init()
         {
@@ -99,7 +115,18 @@ namespace CompStore
                     "[buydate] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
-
+                
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [moves] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[equipment] INTEGER, " +
+                    "[filial] INTEGER, " +
+                    "[building] INTEGER, " +
+                    "[room] INTEGER, " +
+                    "[dep] INTEGER, " +
+                    "[user] INTEGER, " +
+                    "[date] DATE, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
                 connect.Close();
             }
         }
@@ -484,9 +511,7 @@ namespace CompStore
                         user.disDate = DateTime.Parse(reader.GetString(13));
                         user.comment = reader.GetString(14);
 
-                        user.fioText = (user.f != "" ? user.f + " " : "") +
-                                       (user.i != "" ? user.i + " " : "") +
-                                       (user.o != "" ? user.o : "");
+                        user.fioText = FullName(user);
 
                         Post p = posts.Find(o => o.ID == user.post);
                         user.postText = (p != null ? p.name : "");
@@ -868,6 +893,101 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [equipments] WHERE ID = " + equipment.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Перемещения [moves]
+        public static List<Move> MovesLoad()
+        {
+            List<Move> moves = new List<Move>();
+            List<Equipment> equipments = EquipmentsLoad();
+            List<User> users = UsersLoad();
+            List<Room> rooms = RoomsLoad("");
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM [moves] ORDER BY [date]";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Move move = new Move();
+                        move.ID = reader.GetInt32(0);
+                        move.equipment = reader.GetInt32(1);
+                        move.filial = reader.GetInt32(2);
+                        move.building = reader.GetInt32(3);
+                        move.room = reader.GetInt32(4);
+                        move.dep = reader.GetInt32(5);
+                        move.user = reader.GetInt32(6);
+                        move.date = DateTime.Parse(reader.GetString(7));
+                        move.comment = reader.GetString(8);
+
+                        Equipment e = equipments.Find(o => o.ID == move.equipment);     //Пока только Инвентарный номер, потом доделаю другое
+                        move.eqText = e != null ? e.iN : "";  
+
+                        User u = users.Find(o => o.ID == move.user);
+                        move.userText = (u != null ? ShotName(u) : "");
+
+                        Room r = rooms.Find(o => o.ID == move.room);                    //Пока только название комнаты, потом доделаю другое :-)
+                        move.roomText += " " + (r != null ? r.name : "");
+
+                        moves.Add(move);
+                    }
+                }
+                connect.Close();
+            }
+            return moves;
+        }
+        public static void MoveAdd(Move move)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO [moves] (equipment, filial, building, room, dep, user, date, comment) VALUES ('" +
+                    move.equipment + "', '" +
+                    move.filial + "', '" +
+                    move.building + "', '" +
+                    move.room + "', '" +
+                    move.dep + "', '" +
+                    move.user + "', '" +
+                    move.date.ToString("dd.MM.yyyy") + "', '" +
+                    move.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        public static void MoveUpdate(Move move)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE [moves] SET " +
+                    "[equipment] = '" + move.equipment + "', " +
+                    "[filial] = '" + move.filial + "', " +
+                    "[building] = '" + move.building + "', " +
+                    "[room] = '" + move.room + "', " +
+                    "[dep] = '" + move.dep + "', " +
+                    "[user] = '" + move.user + "', " +
+                    "[date] = '" + move.date.ToString("dd.MM.yyyy") + "', " +
+                    "[comment] = '" + move.comment + "' WHERE ID = " + move.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void MoveDelete(Move move)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM [moves] WHERE ID = " + move.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
