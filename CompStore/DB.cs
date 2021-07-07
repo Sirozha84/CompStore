@@ -88,7 +88,7 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [equipment] ( " +
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [equipments] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[eqtype] INTEGER, " +
                     "[brand] INTEGER, " +
@@ -706,9 +706,10 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [models]" + (eqtype != "" ? " WHERE [eqtype] = " + eqtype : "") +
-                                                             (brand != "" ? " WHERE [brand] = " + brand : "") +
-                                                                " ORDER BY [eqtype], [brand], [name]";
+                com.CommandText = "SELECT * FROM [models] ORDER BY [eqtype], [brand], [name]";
+                if (eqtype != "" & brand != "")
+                    com.CommandText = "SELECT * FROM [models] " +
+                        "WHERE [eqtype] = " + eqtype + " AND [brand] = " + brand + " ORDER BY [eqtype], [brand], [name]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -777,19 +778,18 @@ namespace CompStore
         }
         #endregion
 
-        #region Оборудование [models]
+        #region Оборудование [equipment]
         public static List<Equipment> EquipmentsLoad()
         {
             List<Equipment> equipments = new List<Equipment>();
             List<EqType> eqTypes = EqTypesLoad();
             List<Brand> brands = BrandsLoad();
+            List<Model> models = ModelsLoad("", "");
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [equipments]" + (eqtype != "" ? " WHERE [eqtype] = " + eqtype : "") +
-                                                             (brand != "" ? " WHERE [brand] = " + brand : "") +
-                                                                " ORDER BY [eqtype], [brand], [name]";
+                com.CommandText = "SELECT * FROM [equipments] ORDER BY [in]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -798,14 +798,19 @@ namespace CompStore
                         equipment.ID = reader.GetInt32(0);
                         equipment.eqType = reader.GetInt32(1);
                         equipment.brand = reader.GetInt32(2);
-                        equipment.name = reader.GetString(3);
-                        equipment.comment = reader.GetString(4);
+                        equipment.model = reader.GetInt32(3);
+                        equipment.sn = reader.GetString(4);
+                        equipment.iN = reader.GetString(5);
+                        equipment.comment = reader.GetString(6);
 
                         EqType et = eqTypes.Find(o => o.ID == equipment.eqType);
-                        equipment.eqTypeText = et != null ? et.name : "";
+                        equipment.nameText = et != null ? et.name : "";
 
                         Brand b = brands.Find(o => o.ID == equipment.brand);
-                        equipment.brandText = b != null ? b.name : "";
+                        equipment.nameText += " " + (b != null ? b.name : "");
+
+                        Model m = models.Find(o => o.ID == equipment.model);
+                        equipment.nameText += " " + (m != null ? m.name : "");
 
                         equipments.Add(equipment);
                     }
@@ -820,10 +825,12 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, model, sn, [in], comment) VALUES ('" +
                     equipment.eqType + "', '" +
                     equipment.brand + "', '" +
-                    equipment.name + "', '" +
+                    equipment.model + "', '" +
+                    equipment.sn + "', '" +
+                    equipment.iN + "', '" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -838,7 +845,9 @@ namespace CompStore
                 com.CommandText = "UPDATE [equipments] SET " +
                     "[eqtype] = '" + equipment.eqType + "', " +
                     "[brand] = '" + equipment.brand + "', " +
-                    "[name] = '" + equipment.name + "', " +
+                    "[model] = '" + equipment.model + "', " +
+                    "[sn] = '" + equipment.sn + "', " +
+                    "[in] = '" + equipment.iN + "', " +
                     "[comment] = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

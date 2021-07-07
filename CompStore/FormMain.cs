@@ -22,7 +22,7 @@ namespace CompStore
         List<Brand> brands;
         List<EqType> eqTypes;
         List<Model> models;
-
+        List<Equipment> equipments;
         public FormMain()
         {
             InitializeComponent();
@@ -644,6 +644,71 @@ namespace CompStore
             {
                 DB.ModelDelete(model);
                 ModelsRefresh();
+            }
+        }
+        #endregion
+
+        #region Обоорудование
+        private void EquipmentsView(object sender, EventArgs e)
+        {
+            if (panelEquipments.Visible) EquipmentsRefresh();
+        }
+
+        void EquipmentsRefresh()
+        {
+            equipments = DB.EquipmentsLoad();
+            EquipmentsDraw(null, null);
+        }
+
+        private void EquipmentsDraw(object sender, EventArgs e)
+        {
+            listEquipments.BeginUpdate();
+            listEquipments.Items.Clear();
+            foreach (Equipment equipment in equipments)
+                if (equipment.Contains(textEquipmentFilter.Text))
+                    listEquipments.Items.Add(equipment.ToListView());
+            listEquipments.EndUpdate();
+            EquipmentsSelChange(null, null);
+        }
+        private void EquipmentsSelChange(object sender, EventArgs e)
+        {
+            bool sel = listEquipments.SelectedIndices.Count > 0;
+            buttonEquipmentEdit.Enabled = sel;
+            buttonEquipmentDelete.Enabled = sel;
+        }
+        private void EquipmentFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void EquipmentAdd(object sender, EventArgs e)
+        {
+            Equipment equipment = new Equipment();
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentAdd(equipment);
+                EquipmentsRefresh();
+            }
+        }
+        private void EquipmentEdit(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentUpdate(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
+        private void EquipmentDelete(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить оборудование \"" + equipment.nameText + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.EquipmentDelete(equipment);
+                EquipmentsRefresh();
             }
         }
         #endregion

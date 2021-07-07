@@ -15,26 +15,32 @@ namespace CompStore
             textF.Text = user.f;
             textI.Text = user.i;
             textO.Text = user.o;
+            
             comboPost.DataSource = DB.PostsLoad();
             comboPost.DisplayMember = "name";
             comboPost.ValueMember = "ID";
             if (user.post != 0) comboPost.SelectedValue = user.post; else comboPost.SelectedValue = "";
+            
             comboDep.DataSource = DB.DepsLoad();
             comboDep.DisplayMember = "name";
             comboDep.ValueMember = "ID";
             if (user.dep != 0) comboDep.SelectedValue = user.dep; else comboDep.SelectedValue = "";
+            
             comboFilial.DataSource = DB.FilialsLoad();
             comboFilial.DisplayMember = "name";
             comboFilial.ValueMember = "ID";
             if (user.filial != 0) comboFilial.SelectedValue = user.filial; else comboFilial.SelectedValue = "";
+            
             FilialSelect(null, null);
             comboBuilding.DisplayMember = "name";
             comboBuilding.ValueMember = "ID";
             if (user.building != 0) comboBuilding.SelectedValue = user.building; else comboBuilding.SelectedValue = "";
+            
             BuildingSelect(null, null);
             comboRoom.DisplayMember = "name";
             comboRoom.ValueMember = "ID";
             if (user.room != 0) comboRoom.SelectedValue = user.room; else comboRoom.SelectedValue = "";
+            
             dateEmp.Checked = user.emp;
             dateEmp.Value = user.emp ? user.empDate : DateTime.Now;
             dateDis.Checked = user.dis;

@@ -61,6 +61,19 @@ namespace CompStore
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelEquipments = new System.Windows.Forms.Panel();
+            this.labelEquipmentFilter = new System.Windows.Forms.Label();
+            this.buttonEquipmentFilterReset = new System.Windows.Forms.Button();
+            this.textEquipmentFilter = new System.Windows.Forms.TextBox();
+            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
+            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
+            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
+            this.listEquipments = new System.Windows.Forms.ListView();
+            this.columnEqName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqSN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqIN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelEquipments = new System.Windows.Forms.Label();
             this.panelFilials = new System.Windows.Forms.Panel();
             this.labelFilialFilter = new System.Windows.Forms.Label();
@@ -168,19 +181,6 @@ namespace CompStore
             this.columnModelName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
-            this.labelEquipmentFilter = new System.Windows.Forms.Label();
-            this.buttonEquipmentFilterReset = new System.Windows.Forms.Button();
-            this.textEquipmentFilter = new System.Windows.Forms.TextBox();
-            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
-            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
-            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
-            this.listEquipments = new System.Windows.Forms.ListView();
-            this.columnEqName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEqSN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEqIN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEqUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEqPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -308,6 +308,123 @@ namespace CompStore
             this.panelEquipments.Size = new System.Drawing.Size(1019, 709);
             this.panelEquipments.TabIndex = 5;
             this.panelEquipments.Visible = false;
+            this.panelEquipments.VisibleChanged += new System.EventHandler(this.EquipmentsView);
+            // 
+            // labelEquipmentFilter
+            // 
+            this.labelEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEquipmentFilter.AutoSize = true;
+            this.labelEquipmentFilter.Location = new System.Drawing.Point(575, 28);
+            this.labelEquipmentFilter.Name = "labelEquipmentFilter";
+            this.labelEquipmentFilter.Size = new System.Drawing.Size(47, 13);
+            this.labelEquipmentFilter.TabIndex = 16;
+            this.labelEquipmentFilter.Text = "Фильтр";
+            // 
+            // buttonEquipmentFilterReset
+            // 
+            this.buttonEquipmentFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEquipmentFilterReset.Location = new System.Drawing.Point(934, 23);
+            this.buttonEquipmentFilterReset.Name = "buttonEquipmentFilterReset";
+            this.buttonEquipmentFilterReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentFilterReset.TabIndex = 15;
+            this.buttonEquipmentFilterReset.Text = "Очистить";
+            this.buttonEquipmentFilterReset.UseVisualStyleBackColor = true;
+            this.buttonEquipmentFilterReset.Click += new System.EventHandler(this.EquipmentFilterReset);
+            // 
+            // textEquipmentFilter
+            // 
+            this.textEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textEquipmentFilter.Location = new System.Drawing.Point(628, 25);
+            this.textEquipmentFilter.Name = "textEquipmentFilter";
+            this.textEquipmentFilter.Size = new System.Drawing.Size(300, 20);
+            this.textEquipmentFilter.TabIndex = 14;
+            this.textEquipmentFilter.TextChanged += new System.EventHandler(this.EquipmentsDraw);
+            // 
+            // buttonEquipmentDelete
+            // 
+            this.buttonEquipmentDelete.Enabled = false;
+            this.buttonEquipmentDelete.Location = new System.Drawing.Point(162, 23);
+            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
+            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentDelete.TabIndex = 13;
+            this.buttonEquipmentDelete.Text = "Удалить";
+            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
+            this.buttonEquipmentDelete.Click += new System.EventHandler(this.EquipmentDelete);
+            // 
+            // buttonEquipmentEdit
+            // 
+            this.buttonEquipmentEdit.Enabled = false;
+            this.buttonEquipmentEdit.Location = new System.Drawing.Point(81, 23);
+            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
+            this.buttonEquipmentEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentEdit.TabIndex = 12;
+            this.buttonEquipmentEdit.Text = "Править";
+            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
+            this.buttonEquipmentEdit.Click += new System.EventHandler(this.EquipmentEdit);
+            // 
+            // buttonEquipmentAdd
+            // 
+            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
+            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
+            this.buttonEquipmentAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentAdd.TabIndex = 11;
+            this.buttonEquipmentAdd.Text = "Добавить";
+            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
+            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
+            // 
+            // listEquipments
+            // 
+            this.listEquipments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listEquipments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnEqName,
+            this.columnEqSN,
+            this.columnEqIN,
+            this.columnEqUser,
+            this.columnEqPlace,
+            this.columnEqComment});
+            this.listEquipments.FullRowSelect = true;
+            this.listEquipments.HideSelection = false;
+            this.listEquipments.Location = new System.Drawing.Point(0, 52);
+            this.listEquipments.MultiSelect = false;
+            this.listEquipments.Name = "listEquipments";
+            this.listEquipments.Size = new System.Drawing.Size(1021, 657);
+            this.listEquipments.TabIndex = 10;
+            this.listEquipments.UseCompatibleStateImageBehavior = false;
+            this.listEquipments.View = System.Windows.Forms.View.Details;
+            this.listEquipments.SelectedIndexChanged += new System.EventHandler(this.EquipmentsSelChange);
+            this.listEquipments.DoubleClick += new System.EventHandler(this.EquipmentEdit);
+            // 
+            // columnEqName
+            // 
+            this.columnEqName.Text = "Наименование";
+            this.columnEqName.Width = 150;
+            // 
+            // columnEqSN
+            // 
+            this.columnEqSN.Text = "Серийный номер";
+            this.columnEqSN.Width = 150;
+            // 
+            // columnEqIN
+            // 
+            this.columnEqIN.Text = "Инвентарный номер";
+            this.columnEqIN.Width = 150;
+            // 
+            // columnEqUser
+            // 
+            this.columnEqUser.Text = "Ответственный";
+            this.columnEqUser.Width = 150;
+            // 
+            // columnEqPlace
+            // 
+            this.columnEqPlace.Text = "Помещение";
+            this.columnEqPlace.Width = 150;
+            // 
+            // columnEqComment
+            // 
+            this.columnEqComment.Text = "Примечание";
+            this.columnEqComment.Width = 240;
             // 
             // labelEquipments
             // 
@@ -1455,115 +1572,6 @@ namespace CompStore
             this.label2.Size = new System.Drawing.Size(76, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Модели";
-            // 
-            // labelEquipmentFilter
-            // 
-            this.labelEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelEquipmentFilter.AutoSize = true;
-            this.labelEquipmentFilter.Location = new System.Drawing.Point(575, 28);
-            this.labelEquipmentFilter.Name = "labelEquipmentFilter";
-            this.labelEquipmentFilter.Size = new System.Drawing.Size(47, 13);
-            this.labelEquipmentFilter.TabIndex = 16;
-            this.labelEquipmentFilter.Text = "Фильтр";
-            // 
-            // buttonEquipmentFilterReset
-            // 
-            this.buttonEquipmentFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEquipmentFilterReset.Location = new System.Drawing.Point(934, 23);
-            this.buttonEquipmentFilterReset.Name = "buttonEquipmentFilterReset";
-            this.buttonEquipmentFilterReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentFilterReset.TabIndex = 15;
-            this.buttonEquipmentFilterReset.Text = "Очистить";
-            this.buttonEquipmentFilterReset.UseVisualStyleBackColor = true;
-            // 
-            // textEquipmentFilter
-            // 
-            this.textEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEquipmentFilter.Location = new System.Drawing.Point(628, 25);
-            this.textEquipmentFilter.Name = "textEquipmentFilter";
-            this.textEquipmentFilter.Size = new System.Drawing.Size(300, 20);
-            this.textEquipmentFilter.TabIndex = 14;
-            // 
-            // buttonEquipmentDelete
-            // 
-            this.buttonEquipmentDelete.Enabled = false;
-            this.buttonEquipmentDelete.Location = new System.Drawing.Point(162, 23);
-            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
-            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentDelete.TabIndex = 13;
-            this.buttonEquipmentDelete.Text = "Удалить";
-            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
-            // 
-            // buttonEquipmentEdit
-            // 
-            this.buttonEquipmentEdit.Enabled = false;
-            this.buttonEquipmentEdit.Location = new System.Drawing.Point(81, 23);
-            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
-            this.buttonEquipmentEdit.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentEdit.TabIndex = 12;
-            this.buttonEquipmentEdit.Text = "Править";
-            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
-            // 
-            // buttonEquipmentAdd
-            // 
-            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
-            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
-            this.buttonEquipmentAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentAdd.TabIndex = 11;
-            this.buttonEquipmentAdd.Text = "Добавить";
-            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
-            // 
-            // listEquipments
-            // 
-            this.listEquipments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listEquipments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnEqName,
-            this.columnEqSN,
-            this.columnEqIN,
-            this.columnEqUser,
-            this.columnEqPlace,
-            this.columnEqComment});
-            this.listEquipments.FullRowSelect = true;
-            this.listEquipments.HideSelection = false;
-            this.listEquipments.Location = new System.Drawing.Point(0, 52);
-            this.listEquipments.MultiSelect = false;
-            this.listEquipments.Name = "listEquipments";
-            this.listEquipments.Size = new System.Drawing.Size(1021, 657);
-            this.listEquipments.TabIndex = 10;
-            this.listEquipments.UseCompatibleStateImageBehavior = false;
-            this.listEquipments.View = System.Windows.Forms.View.Details;
-            // 
-            // columnEqName
-            // 
-            this.columnEqName.Text = "Наименование";
-            this.columnEqName.Width = 150;
-            // 
-            // columnEqSN
-            // 
-            this.columnEqSN.Text = "Серийный номер";
-            this.columnEqSN.Width = 150;
-            // 
-            // columnEqIN
-            // 
-            this.columnEqIN.Text = "Инвентарный номер";
-            this.columnEqIN.Width = 150;
-            // 
-            // columnEqComment
-            // 
-            this.columnEqComment.Text = "Примечание";
-            this.columnEqComment.Width = 240;
-            // 
-            // columnEqUser
-            // 
-            this.columnEqUser.Text = "Ответственный";
-            this.columnEqUser.Width = 150;
-            // 
-            // columnEqPlace
-            // 
-            this.columnEqPlace.Text = "Помещение";
-            this.columnEqPlace.Width = 150;
             // 
             // FormMain
             // 

@@ -25,6 +25,8 @@ namespace CompStore
         {
             search = search.ToLower();
             return (nameText.ToLower().Contains(search) |
+                sn.ToLower().Contains(search) |
+                iN.ToLower().Contains(search) |
                 comment.ToLower().Contains(search));
         }
 
