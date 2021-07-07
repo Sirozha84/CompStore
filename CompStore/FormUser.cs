@@ -13,7 +13,9 @@ namespace CompStore
             this.user = user;
 
             textF.Text = user.f;
+            
             textI.Text = user.i;
+            
             textO.Text = user.o;
             
             comboPost.DataSource = DB.PostsLoad();
@@ -43,8 +45,10 @@ namespace CompStore
             
             dateEmp.Checked = user.emp;
             dateEmp.Value = user.emp ? user.empDate : DateTime.Now;
+            
             dateDis.Checked = user.dis;
             dateDis.Value = user.dis ? user.disDate : DateTime.Now;
+            
             textCom.Text = user.comment;
 
             if (user.fioText != null)

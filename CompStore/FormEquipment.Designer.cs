@@ -43,6 +43,8 @@ namespace CompStore
             this.labelModel = new System.Windows.Forms.Label();
             this.textIN = new System.Windows.Forms.TextBox();
             this.labelIN = new System.Windows.Forms.Label();
+            this.labelBuyDate = new System.Windows.Forms.Label();
+            this.dateBuy = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // comboBrand
@@ -80,7 +82,7 @@ namespace CompStore
             this.buttonOK.Location = new System.Drawing.Point(216, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 6;
+            this.buttonOK.TabIndex = 7;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -92,7 +94,7 @@ namespace CompStore
             this.buttonCancel.Location = new System.Drawing.Point(297, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.TabIndex = 8;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -101,16 +103,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 145);
+            this.textCom.Location = new System.Drawing.Point(140, 171);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 75);
-            this.textCom.TabIndex = 5;
+            this.textCom.Size = new System.Drawing.Size(232, 49);
+            this.textCom.TabIndex = 6;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 148);
+            this.labelCom.Location = new System.Drawing.Point(61, 174);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 47;
@@ -179,6 +181,23 @@ namespace CompStore
             this.labelIN.TabIndex = 52;
             this.labelIN.Text = "Инвентарный номер:";
             // 
+            // labelBuyDate
+            // 
+            this.labelBuyDate.AutoSize = true;
+            this.labelBuyDate.Location = new System.Drawing.Point(54, 148);
+            this.labelBuyDate.Name = "labelBuyDate";
+            this.labelBuyDate.Size = new System.Drawing.Size(80, 13);
+            this.labelBuyDate.TabIndex = 74;
+            this.labelBuyDate.Text = "Дата покупки:";
+            // 
+            // dateBuy
+            // 
+            this.dateBuy.Location = new System.Drawing.Point(140, 145);
+            this.dateBuy.Name = "dateBuy";
+            this.dateBuy.ShowCheckBox = true;
+            this.dateBuy.Size = new System.Drawing.Size(157, 20);
+            this.dateBuy.TabIndex = 5;
+            // 
             // FormEquipment
             // 
             this.AcceptButton = this.buttonOK;
@@ -186,6 +205,8 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.labelBuyDate);
+            this.Controls.Add(this.dateBuy);
             this.Controls.Add(this.textIN);
             this.Controls.Add(this.labelIN);
             this.Controls.Add(this.comboModel);
@@ -228,5 +249,7 @@ namespace CompStore
         private System.Windows.Forms.Label labelModel;
         private System.Windows.Forms.TextBox textIN;
         private System.Windows.Forms.Label labelIN;
+        private System.Windows.Forms.Label labelBuyDate;
+        private System.Windows.Forms.DateTimePicker dateBuy;
     }
 }

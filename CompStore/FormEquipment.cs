@@ -27,7 +27,12 @@ namespace CompStore
             if (equipment.model != 0) comboModel.SelectedValue = equipment.model; else comboModel.SelectedValue = "";
 
             textSN.Text = equipment.sn;
+            
             textIN.Text = equipment.iN;
+
+            dateBuy.Checked = equipment.buy;
+            dateBuy.Value = equipment.buy ? equipment.buyDate : DateTime.Now;
+
             textCom.Text = equipment.comment;
 
             if (equipment.nameText != null)
@@ -49,6 +54,8 @@ namespace CompStore
             if (comboModel.SelectedValue != null) equipment.model = (int)comboModel.SelectedValue;
             equipment.sn = textSN.Text;
             equipment.iN = textIN.Text;
+            equipment.buy = dateBuy.Checked;
+            equipment.buyDate = dateBuy.Value;
             equipment.comment = textCom.Text;
             DialogResult = DialogResult.OK;
         }

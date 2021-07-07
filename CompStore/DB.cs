@@ -95,6 +95,8 @@ namespace CompStore
                     "[model] INTEGER, " +
                     "[sn] TEXT, " +
                     "[in] TEXT, " +
+                    "[buy] TEXT, " +
+                    "[buydate] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
@@ -461,7 +463,6 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                //com.CommandText = "SELECT * FROM [buildings]" + (filial != "" ? " WHERE [filial] = " + filial : "") + " ORDER BY [filial], [name]";
                 com.CommandText = "SELECT * FROM [users] WHERE type = 'u' ORDER BY [f], [i], [o]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
@@ -801,7 +802,9 @@ namespace CompStore
                         equipment.model = reader.GetInt32(3);
                         equipment.sn = reader.GetString(4);
                         equipment.iN = reader.GetString(5);
-                        equipment.comment = reader.GetString(6);
+                        equipment.buy = reader.GetString(6) == "1";
+                        equipment.buyDate = DateTime.Parse(reader.GetString(7));
+                        equipment.comment = reader.GetString(8);
 
                         EqType et = eqTypes.Find(o => o.ID == equipment.eqType);
                         equipment.nameText = et != null ? et.name : "";
@@ -825,12 +828,14 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, model, sn, [in], comment) VALUES ('" +
+                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, model, sn, [in], buy, buydate, comment) VALUES ('" +
                     equipment.eqType + "', '" +
                     equipment.brand + "', '" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
+                    (equipment.buy ? "1" : "0") + "', '" +
+                    equipment.buyDate.ToString("dd.MM.yyyy") + "', '" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -848,6 +853,8 @@ namespace CompStore
                     "[model] = '" + equipment.model + "', " +
                     "[sn] = '" + equipment.sn + "', " +
                     "[in] = '" + equipment.iN + "', " +
+                    "[buy] = '" + (equipment.buy ? "1" : "0") + "', " +
+                    "[buydate] = '" + equipment.buyDate.ToString("dd.MM.yyyy") + "', " +
                     "[comment] = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

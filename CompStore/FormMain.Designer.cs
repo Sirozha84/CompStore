@@ -181,6 +181,7 @@ namespace CompStore
             this.columnModelName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
+            this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -383,6 +384,7 @@ namespace CompStore
             this.columnEqIN,
             this.columnEqUser,
             this.columnEqPlace,
+            this.columnEqBuyDate,
             this.columnEqComment});
             this.listEquipments.FullRowSelect = true;
             this.listEquipments.HideSelection = false;
@@ -399,17 +401,17 @@ namespace CompStore
             // columnEqName
             // 
             this.columnEqName.Text = "Наименование";
-            this.columnEqName.Width = 150;
+            this.columnEqName.Width = 180;
             // 
             // columnEqSN
             // 
             this.columnEqSN.Text = "Серийный номер";
-            this.columnEqSN.Width = 150;
+            this.columnEqSN.Width = 125;
             // 
             // columnEqIN
             // 
             this.columnEqIN.Text = "Инвентарный номер";
-            this.columnEqIN.Width = 150;
+            this.columnEqIN.Width = 125;
             // 
             // columnEqUser
             // 
@@ -424,7 +426,7 @@ namespace CompStore
             // columnEqComment
             // 
             this.columnEqComment.Text = "Примечание";
-            this.columnEqComment.Width = 240;
+            this.columnEqComment.Width = 160;
             // 
             // labelEquipments
             // 
@@ -1573,6 +1575,11 @@ namespace CompStore
             this.label2.TabIndex = 1;
             this.label2.Text = "Модели";
             // 
+            // columnEqBuyDate
+            // 
+            this.columnEqBuyDate.Text = "Дата покупки";
+            this.columnEqBuyDate.Width = 100;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1753,6 +1760,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnEqComment;
         private System.Windows.Forms.ColumnHeader columnEqUser;
         private System.Windows.Forms.ColumnHeader columnEqPlace;
+        private System.Windows.Forms.ColumnHeader columnEqBuyDate;
     }
 }
 

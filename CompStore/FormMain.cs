@@ -43,7 +43,7 @@ namespace CompStore
             panelModels.Location = defLoc;
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
-            treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeRooms", true)[0];
+            treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeEquipment", true)[0];
         }
 
         private void TabChange(object sender, TreeViewEventArgs e)
