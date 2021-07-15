@@ -29,29 +29,29 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode53,
+            treeNode54,
+            treeNode55,
+            treeNode56,
+            treeNode57,
+            treeNode58});
+            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode60});
+            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode65 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode62,
+            treeNode63,
+            treeNode64});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +73,7 @@ namespace CompStore
             this.columnEqIN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelEquipments = new System.Windows.Forms.Label();
             this.panelFilials = new System.Windows.Forms.Panel();
@@ -181,7 +182,6 @@ namespace CompStore
             this.columnModelName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
-            this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -202,36 +202,36 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.Name = "nodeFilials";
-            treeNode1.Text = "Филиалы";
-            treeNode2.Name = "nodeBuildings";
-            treeNode2.Text = "Здания";
-            treeNode3.Name = "nodeRooms";
-            treeNode3.Text = "Помещения";
-            treeNode4.Name = "nodeDeps";
-            treeNode4.Text = "Подразделения";
-            treeNode5.Name = "nodePosts";
-            treeNode5.Text = "Должности";
-            treeNode6.Name = "nodeUsers";
-            treeNode6.Text = "Сотрудники";
-            treeNode7.Name = "nodeCompany";
-            treeNode7.Text = "Предприятие";
-            treeNode8.Name = "nodeMoves";
-            treeNode8.Text = "Перемещения";
-            treeNode9.Name = "nodeEquipment";
-            treeNode9.Text = "Оборудование";
-            treeNode10.Name = "nodeEqType";
-            treeNode10.Text = "Типы оборудования";
-            treeNode11.Name = "nodeBrands";
-            treeNode11.Text = "Производители";
-            treeNode12.Name = "nodeModels";
-            treeNode12.Text = "Модели";
-            treeNode13.Name = "nodeCommon";
-            treeNode13.Text = "Общие разделы";
+            treeNode53.Name = "nodeFilials";
+            treeNode53.Text = "Филиалы";
+            treeNode54.Name = "nodeBuildings";
+            treeNode54.Text = "Здания";
+            treeNode55.Name = "nodeRooms";
+            treeNode55.Text = "Помещения";
+            treeNode56.Name = "nodeDeps";
+            treeNode56.Text = "Подразделения";
+            treeNode57.Name = "nodePosts";
+            treeNode57.Text = "Должности";
+            treeNode58.Name = "nodeUsers";
+            treeNode58.Text = "Сотрудники";
+            treeNode59.Name = "nodeCompany";
+            treeNode59.Text = "Предприятие";
+            treeNode60.Name = "nodeMoves";
+            treeNode60.Text = "Перемещения";
+            treeNode61.Name = "nodeEquipment";
+            treeNode61.Text = "Оборудование";
+            treeNode62.Name = "nodeEqType";
+            treeNode62.Text = "Типы оборудования";
+            treeNode63.Name = "nodeBrands";
+            treeNode63.Text = "Производители";
+            treeNode64.Name = "nodeModels";
+            treeNode64.Text = "Модели";
+            treeNode65.Name = "nodeCommon";
+            treeNode65.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode9,
-            treeNode13});
+            treeNode59,
+            treeNode61,
+            treeNode65});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -423,6 +423,11 @@ namespace CompStore
             this.columnEqPlace.Text = "Помещение";
             this.columnEqPlace.Width = 150;
             // 
+            // columnEqBuyDate
+            // 
+            this.columnEqBuyDate.Text = "Дата покупки";
+            this.columnEqBuyDate.Width = 100;
+            // 
             // columnEqComment
             // 
             this.columnEqComment.Text = "Примечание";
@@ -451,7 +456,7 @@ namespace CompStore
             this.panelFilials.Controls.Add(this.buttonFAdd);
             this.panelFilials.Controls.Add(this.listFilials);
             this.panelFilials.Controls.Add(this.labelFilials);
-            this.panelFilials.Location = new System.Drawing.Point(813, 27);
+            this.panelFilials.Location = new System.Drawing.Point(163, 27);
             this.panelFilials.Name = "panelFilials";
             this.panelFilials.Size = new System.Drawing.Size(1021, 709);
             this.panelFilials.TabIndex = 6;
@@ -579,7 +584,7 @@ namespace CompStore
             this.panelRooms.Controls.Add(this.buttonRoomAdd);
             this.panelRooms.Controls.Add(this.listRooms);
             this.panelRooms.Controls.Add(this.labelRooms);
-            this.panelRooms.Location = new System.Drawing.Point(414, 179);
+            this.panelRooms.Location = new System.Drawing.Point(163, 27);
             this.panelRooms.Name = "panelRooms";
             this.panelRooms.Size = new System.Drawing.Size(1021, 709);
             this.panelRooms.TabIndex = 10;
@@ -713,7 +718,7 @@ namespace CompStore
             this.panelPosts.Controls.Add(this.buttonPostAdd);
             this.panelPosts.Controls.Add(this.listPosts);
             this.panelPosts.Controls.Add(this.labelPosts);
-            this.panelPosts.Location = new System.Drawing.Point(313, 255);
+            this.panelPosts.Location = new System.Drawing.Point(163, 27);
             this.panelPosts.Name = "panelPosts";
             this.panelPosts.Size = new System.Drawing.Size(1021, 709);
             this.panelPosts.TabIndex = 11;
@@ -828,7 +833,7 @@ namespace CompStore
             this.panelBuildings.Controls.Add(this.buttonBuildingAdd);
             this.panelBuildings.Controls.Add(this.listBuildings);
             this.panelBuildings.Controls.Add(this.labelBuildings);
-            this.panelBuildings.Location = new System.Drawing.Point(513, 127);
+            this.panelBuildings.Location = new System.Drawing.Point(163, 27);
             this.panelBuildings.Name = "panelBuildings";
             this.panelBuildings.Size = new System.Drawing.Size(1021, 709);
             this.panelBuildings.TabIndex = 11;
@@ -954,7 +959,7 @@ namespace CompStore
             this.panelDeps.Controls.Add(this.buttonDepAdd);
             this.panelDeps.Controls.Add(this.listDeps);
             this.panelDeps.Controls.Add(this.labelDeps);
-            this.panelDeps.Location = new System.Drawing.Point(594, 79);
+            this.panelDeps.Location = new System.Drawing.Point(163, 27);
             this.panelDeps.Name = "panelDeps";
             this.panelDeps.Size = new System.Drawing.Size(1021, 709);
             this.panelDeps.TabIndex = 12;
@@ -1059,9 +1064,9 @@ namespace CompStore
             this.labelDeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelDeps.Location = new System.Drawing.Point(3, 0);
             this.labelDeps.Name = "labelDeps";
-            this.labelDeps.Size = new System.Drawing.Size(77, 20);
+            this.labelDeps.Size = new System.Drawing.Size(146, 20);
             this.labelDeps.TabIndex = 1;
-            this.labelDeps.Text = "Отделы";
+            this.labelDeps.Text = "Подразделения";
             // 
             // panelUsers
             // 
@@ -1076,7 +1081,7 @@ namespace CompStore
             this.panelUsers.Controls.Add(this.buttonUserAdd);
             this.panelUsers.Controls.Add(this.listUsers);
             this.panelUsers.Controls.Add(this.labelUsers);
-            this.panelUsers.Location = new System.Drawing.Point(657, 55);
+            this.panelUsers.Location = new System.Drawing.Point(163, 27);
             this.panelUsers.Name = "panelUsers";
             this.panelUsers.Size = new System.Drawing.Size(1021, 709);
             this.panelUsers.TabIndex = 13;
@@ -1171,22 +1176,22 @@ namespace CompStore
             // columnUserName
             // 
             this.columnUserName.Text = "ФИО";
-            this.columnUserName.Width = 240;
+            this.columnUserName.Width = 230;
             // 
             // columnUserDep
             // 
             this.columnUserDep.Text = "Подразделение";
-            this.columnUserDep.Width = 200;
+            this.columnUserDep.Width = 190;
             // 
             // columnUserPost
             // 
             this.columnUserPost.Text = "Должность";
-            this.columnUserPost.Width = 200;
+            this.columnUserPost.Width = 190;
             // 
             // columnUserPlace
             // 
             this.columnUserPlace.Text = "Расположение";
-            this.columnUserPlace.Width = 200;
+            this.columnUserPlace.Width = 230;
             // 
             // columnUserCom
             // 
@@ -1197,7 +1202,7 @@ namespace CompStore
             // 
             this.labelUsers.AutoSize = true;
             this.labelUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelUsers.Location = new System.Drawing.Point(3, 0);
+            this.labelUsers.Location = new System.Drawing.Point(0, 0);
             this.labelUsers.Name = "labelUsers";
             this.labelUsers.Size = new System.Drawing.Size(110, 20);
             this.labelUsers.TabIndex = 1;
@@ -1216,7 +1221,7 @@ namespace CompStore
             this.panelBrands.Controls.Add(this.buttonBrandAdd);
             this.panelBrands.Controls.Add(this.listBrands);
             this.panelBrands.Controls.Add(this.labelBrands);
-            this.panelBrands.Location = new System.Drawing.Point(556, 99);
+            this.panelBrands.Location = new System.Drawing.Point(163, 27);
             this.panelBrands.Name = "panelBrands";
             this.panelBrands.Size = new System.Drawing.Size(1021, 709);
             this.panelBrands.TabIndex = 14;
@@ -1338,7 +1343,7 @@ namespace CompStore
             this.panelEqTypes.Controls.Add(this.buttonAddEqType);
             this.panelEqTypes.Controls.Add(this.listEqTypes);
             this.panelEqTypes.Controls.Add(this.labelEqType);
-            this.panelEqTypes.Location = new System.Drawing.Point(359, 223);
+            this.panelEqTypes.Location = new System.Drawing.Point(163, 27);
             this.panelEqTypes.Name = "panelEqTypes";
             this.panelEqTypes.Size = new System.Drawing.Size(1021, 709);
             this.panelEqTypes.TabIndex = 15;
@@ -1454,7 +1459,7 @@ namespace CompStore
             this.panelModels.Controls.Add(this.buttonModelAdd);
             this.panelModels.Controls.Add(this.listModels);
             this.panelModels.Controls.Add(this.label2);
-            this.panelModels.Location = new System.Drawing.Point(475, 150);
+            this.panelModels.Location = new System.Drawing.Point(163, 27);
             this.panelModels.Name = "panelModels";
             this.panelModels.Size = new System.Drawing.Size(1021, 709);
             this.panelModels.TabIndex = 16;
@@ -1575,26 +1580,21 @@ namespace CompStore
             this.label2.TabIndex = 1;
             this.label2.Text = "Модели";
             // 
-            // columnEqBuyDate
-            // 
-            this.columnEqBuyDate.Text = "Дата покупки";
-            this.columnEqBuyDate.Width = 100;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.panelEquipments);
-            this.Controls.Add(this.panelModels);
-            this.Controls.Add(this.panelEqTypes);
-            this.Controls.Add(this.panelBrands);
-            this.Controls.Add(this.panelUsers);
-            this.Controls.Add(this.panelRooms);
-            this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelDeps);
-            this.Controls.Add(this.panelPosts);
+            this.Controls.Add(this.panelModels);
             this.Controls.Add(this.panelFilials);
+            this.Controls.Add(this.panelPosts);
+            this.Controls.Add(this.panelUsers);
+            this.Controls.Add(this.panelBuildings);
+            this.Controls.Add(this.panelRooms);
+            this.Controls.Add(this.panelBrands);
+            this.Controls.Add(this.panelEqTypes);
+            this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeMenu);
             this.Controls.Add(this.mainMenu);

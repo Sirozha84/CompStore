@@ -30,7 +30,7 @@ namespace CompStore
 
             //Костыль, но пока не придумал как по другому: в конструкторе все панели в разных местах,
             //а при старте сдвигаем все в одноу точку
-            Point defLoc = new Point(163, 27);
+            /*Point defLoc = new Point(163, 27);
             panelFilials.Location = defLoc;
             panelBuildings.Location = defLoc;
             panelRooms.Location = defLoc;
@@ -40,7 +40,7 @@ namespace CompStore
             panelEquipments.Location = defLoc;
             panelBrands.Location = defLoc;
             panelEqTypes.Location = defLoc;
-            panelModels.Location = defLoc;
+            panelModels.Location = defLoc;*/
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeEquipment", true)[0];
@@ -444,7 +444,7 @@ namespace CompStore
         {
             if (listUsers.SelectedIndices.Count == 0) return;
             User user = (User)listUsers.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить сотрудника \"" + user.fioText + "\"?",
+            if (MessageBox.Show("Уверены что хотите удалить сотрудника \"" + user.nameText + "\"?",
                 "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DB.UserDelete(user);

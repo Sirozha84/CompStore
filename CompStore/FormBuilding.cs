@@ -5,18 +5,16 @@ namespace CompStore
 {
     public partial class FormBuilding : Form
     {
-        Building building;
         public FormBuilding(Building building)
         {
             InitializeComponent();
-            this.building = building;
             
             comboFilial.DataSource = DB.FilialsLoad();
             comboFilial.DisplayMember = "name";
             comboFilial.ValueMember = "ID";
-            if (building.filial != 0) comboFilial.SelectedValue = building.filial; else comboFilial.SelectedValue = "";
-            textName.Text = building.name;
-            textCom.Text = building.comment;
+            comboFilial.DataBindings.Add("SelectedValue", building, "filial");
+            textName.DataBindings.Add("Text", building, "name");
+            textCom.DataBindings.Add("Text", building, "comment");
 
             if (building.name != null)
                 Text = "Редактирование здания \"" + building.name + "\"";
@@ -25,9 +23,7 @@ namespace CompStore
         }
         private void OK(object sender, EventArgs e)
         {
-            if (comboFilial.SelectedValue != null) building.filial = (int)comboFilial.SelectedValue;
-            building.name = textName.Text;
-            building.comment = textCom.Text;
+            comboFilial.DataBindings[0].WriteValue();   //Грёбаный костыль, без этого данные необновляются если выбирать колесом
             DialogResult = DialogResult.OK;
         }
     }

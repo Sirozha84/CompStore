@@ -5,12 +5,12 @@ namespace CompStore
 {
     public partial class FormUser : Form
     {
-        User user;
+        //User user;
 
         public FormUser(User user)
         {
             InitializeComponent();
-            this.user = user;
+            //this.user = user;
 
             textF.Text = user.f;
             
@@ -18,7 +18,7 @@ namespace CompStore
             
             textO.Text = user.o;
             
-            comboPost.DataSource = DB.PostsLoad();
+            /*comboPost.DataSource = DB.PostsLoad();
             comboPost.DisplayMember = "name";
             comboPost.ValueMember = "ID";
             if (user.post != 0) comboPost.SelectedValue = user.post; else comboPost.SelectedValue = "";
@@ -49,10 +49,10 @@ namespace CompStore
             dateDis.Checked = user.dis;
             dateDis.Value = user.dis ? user.disDate : DateTime.Now;
             
-            textCom.Text = user.comment;
+            textCom.Text = user.comment;*/
 
-            if (user.fioText != null)
-                Text = "Редактирование сотрудника \"" + user.fioText + "\"";
+            if (user.nameText != null)
+                Text = "Редактирование сотрудника \"" + user.nameText + "\"";
             else
                 Text = "Добавление нового сотрудника";
 
@@ -60,7 +60,7 @@ namespace CompStore
 
         private void OK(object sender, EventArgs e)
         {
-            user.f = textF.Text;
+            /*user.f = textF.Text;
             user.i = textI.Text;
             user.o = textO.Text;
             if (comboPost.SelectedValue != null) user.post = (int)comboPost.SelectedValue;
@@ -72,11 +72,11 @@ namespace CompStore
             user.empDate = dateEmp.Value;
             user.dis = dateDis.Checked;
             user.disDate = dateDis.Value;
-            user.comment = textCom.Text;
+            user.comment = textCom.Text;*/
             DialogResult = DialogResult.OK;
         }
 
-        private void FilialSelect(object sender, EventArgs e)
+        /*private void FilialSelect(object sender, EventArgs e)
         {
             //if (comboFilial.SelectedValue is int)
               //  comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
@@ -86,6 +86,6 @@ namespace CompStore
         {
             //if (comboBuilding.SelectedValue is int)
              //   comboRoom.DataSource = DB.RoomsLoad(comboBuilding.SelectedValue.ToString());
-        }
+        }*/
     }
 }

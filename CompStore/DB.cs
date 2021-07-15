@@ -74,8 +74,6 @@ namespace CompStore
                     "[o] TEXT, " +
                     "[post] INTEGER, " +
                     "[dep] INTEGER, " +
-                    "[filial] INTEGER, " +
-                    "[building] INTEGER, " +
                     "[room] INTEGER, " +
                     "[emp] TEXT, " +
                     "[empdate] TEXT, " +
@@ -208,9 +206,13 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT [rooms].ID, [rooms].building, [rooms].name, [rooms].comment, " +
-                    "[filials].name AS filialText, " +
-                    "[buildings].name AS buildingText, " +
+                com.CommandText = "SELECT " +
+                    "[rooms].ID, " +
+                    "[rooms].building, " +
+                    "[rooms].name, " +
+                    "[rooms].comment, " +
+                    "[filials].name, " +
+                    "[buildings].name, " +
                     "[filials].name || \", зд. \" || [buildings].name || \", пом. \" || [rooms].name AS roomText " +
                     "FROM [rooms] " +
                     "LEFT JOIN [buildings] ON [rooms].building = [buildings].ID " +
@@ -257,7 +259,6 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "UPDATE [rooms] SET " +
-                    "[filial] = '" + room.filial + "', " +
                     "[building] = '" + room.building + "', " +
                     "[name] = '" + room.name + "', " +
                     "[comment] = '" + room.comment + "' WHERE ID = " + room.ID;
@@ -482,37 +483,63 @@ namespace CompStore
         public static List<User> UsersLoad()
         {
             List<User> users = new List<User>();
-            List<Post> posts = PostsLoad();
-            List<Dep> deps = DepsLoad();
-            List<Filial> filials = FilialsLoad();
-            List<Building> buildings = BuildingsLoad();
-            List<Room> rooms = RoomsLoad();
+            //List<Post> posts = PostsLoad();
+            //List<Dep> deps = DepsLoad();
+            //List<Filial> filials = FilialsLoad();
+            //List<Building> buildings = BuildingsLoad();
+            //List<Room> rooms = RoomsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [users] WHERE type = 'u' ORDER BY [f], [i], [o]";
+                com.CommandText = "SELECT " +
+                    "users.ID, " +
+                    "users.f, " +
+                    "users.i, " +
+                    "users.o, " +
+                    "users.post, " +
+                    "users.dep, " +
+                    "users.room, " +
+                    "users.emp, " +
+                    "users.empdate, " +
+                    "users.dis, " +
+                    "users.disdate, " +
+                    "users.comment, " +
+                    "users.f || \" \" || users.i || \" \" || users.o AS nameText, " +
+                    "posts.name, "+
+                    "deps.name, "+
+                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
+                    "FROM users " +
+                    "LEFT JOIN posts ON users.post = posts.ID " +
+                    "LEFT JOIN deps ON users.dep = deps.ID " +
+                    "LEFT JOIN rooms ON users.room = rooms.ID " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "WHERE users.type = 'u' ORDER BY users.f, users.i, users.o";
+;
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         User user = new User();
                         user.ID = reader.GetInt32(0);
-                        user.f = reader.GetString(2);
-                        user.i = reader.GetString(3);
-                        user.o = reader.GetString(4);
-                        user.post = reader.GetInt32(5);
-                        user.dep = reader.GetInt32(6);
-                        user.filial = reader.GetInt32(7);
-                        user.building = reader.GetInt32(8);
-                        user.room = reader.GetInt32(9);
-                        user.emp = reader.GetString(10) == "1";
-                        user.empDate = DateTime.Parse(reader.GetString(11));
-                        user.dis = reader.GetString(12) == "1";
-                        user.disDate = DateTime.Parse(reader.GetString(13));
-                        user.comment = reader.GetString(14);
-
-                        user.fioText = FullName(user);
+                        user.f = reader.GetString(1);
+                        user.i = reader.GetString(2);
+                        user.o = reader.GetString(3);
+                        user.post = reader.GetInt32(4);
+                        user.dep = reader.GetInt32(5);
+                        user.room = reader.GetInt32(6);
+                        user.emp = reader.GetString(7) == "1";
+                        user.empDate = DateTime.Parse(reader.GetString(8));
+                        user.dis = reader.GetString(9) == "1";
+                        user.disDate = DateTime.Parse(reader.GetString(10));
+                        user.comment = reader.GetString(11);
+                        user.nameText = reader.GetString(12);
+                        user.postText = reader.GetString(13);
+                        user.depText = reader.GetString(14);
+                        user.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
+                        
+                        /*user.nameText = FullName(user);
 
                         Post p = posts.Find(o => o.ID == user.post);
                         user.postText = (p != null ? p.name : "");
@@ -525,7 +552,7 @@ namespace CompStore
                         Room r = rooms.Find(o => o.ID == user.room);
                         user.roomText = (f != null ? f.name + ", " : "") +
                                         (b != null ? b.name + ", " : "") +
-                                        (r != null ? r.name : "");
+                                        (r != null ? r.name : "");*/
 
 
                         users.Add(user);
@@ -548,8 +575,6 @@ namespace CompStore
                                   user.o + "', '" +
                                   user.post + "', '" +
                                   user.dep + "', '" +
-                                  user.filial + "', '" +
-                                  user.building + "', '" +
                                   user.room + "', '" +
                                   (user.emp ? "1" : "0") + "', '" +
                                   user.empDate.ToString("dd.MM.yyyy") + "', '" +
@@ -572,8 +597,6 @@ namespace CompStore
                                   "[o] = '" + user.o + "', " +
                                   "[post] = '" + user.post + "', " +
                                   "[dep] = '" + user.dep + "', " +
-                                  "[filial] = '" + user.filial + "', " +
-                                  "[building] = '" + user.building + "', " +
                                   "[room] = '" + user.room + "', " +
                                   "[emp] = '" + (user.emp ? "1" : "0") + "', " +
                                   "[empdate] = '" + user.empDate.ToString("dd.MM.yyyy") + "', " +

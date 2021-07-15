@@ -8,9 +8,8 @@ namespace CompStore
         public int filial { get; set; }
         public string name { get; set; }
         public string comment { get; set; }
-
-        public string filialText;
-        public string nameText;
+        public string filialText { get; set; }
+        public string nameText { get; set; }
 
         public ListViewItem ToListView()
         {

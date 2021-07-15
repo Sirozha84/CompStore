@@ -24,6 +24,7 @@ namespace CompStore
 
         private void OK(object sender, EventArgs e) 
         {
+            comboBuilding.DataBindings[0].WriteValue(); //Грёбаный костыль, без этого данные необновляются если выбирать колесом
             DialogResult = DialogResult.OK; 
         }
     }
