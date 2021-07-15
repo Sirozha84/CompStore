@@ -148,7 +148,7 @@ namespace CompStore
                 if (room.Contains(textRoomFilter.Text))
                     listRooms.Items.Add(room.ToListView());
             listRooms.EndUpdate();
-            FilialsSelChange(null, null);
+            RoomsSelChange(null, null);
         }
         private void RoomsSelChange(object sender, EventArgs e)
         {
@@ -213,7 +213,7 @@ namespace CompStore
                 if (post.Contains(textRoomFilter.Text))
                     listPosts.Items.Add(post.ToListView());
             listPosts.EndUpdate();
-            FilialsSelChange(null, null);
+            PostsSelChange(null, null);
         }
         private void PostsSelChange(object sender, EventArgs e)
         {
@@ -343,7 +343,7 @@ namespace CompStore
                 if (building.Contains(textBuildingFilter.Text))
                     listBuildings.Items.Add(building.ToListView());
             listBuildings.EndUpdate();
-            FilialsSelChange(null, null);
+            BuildingsSelChange(null, null);
         }
         private void BuildingsSelChange(object sender, EventArgs e)
         {

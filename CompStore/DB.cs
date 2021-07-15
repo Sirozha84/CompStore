@@ -43,7 +43,6 @@ namespace CompStore
 
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [rooms] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[filial] INTEGER, " +
                     "[building] INTEGER, " +
                     "[name] TEXT, " +
                     "[comment] TEXT)";
