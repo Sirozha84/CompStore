@@ -12,7 +12,8 @@ namespace CompStore
        
         public string filialText;
         public string buildingText;
-        
+        public string nameText;
+
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(filialText);

@@ -10,6 +10,7 @@ namespace CompStore
         public string comment { get; set; }
 
         public string filialText;
+        public string nameText;
 
         public ListViewItem ToListView()
         {

@@ -78,14 +78,14 @@ namespace CompStore
 
         private void FilialSelect(object sender, EventArgs e)
         {
-            if (comboFilial.SelectedValue is int)
-                comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
+            //if (comboFilial.SelectedValue is int)
+              //  comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
         }
 
         private void BuildingSelect(object sender, EventArgs e)
         {
-            if (comboBuilding.SelectedValue is int)
-                comboRoom.DataSource = DB.RoomsLoad(comboBuilding.SelectedValue.ToString());
+            //if (comboBuilding.SelectedValue is int)
+             //   comboRoom.DataSource = DB.RoomsLoad(comboBuilding.SelectedValue.ToString());
         }
     }
 }

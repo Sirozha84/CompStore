@@ -136,7 +136,7 @@ namespace CompStore
 
         void RoomsRefresh()
         {
-            rooms = DB.RoomsLoad("");
+            rooms = DB.RoomsLoad();
             RoomsDraw(null, null);
         }
 
@@ -331,7 +331,7 @@ namespace CompStore
 
         void BuildingsRefresh()
         {
-            buildings = DB.BuildingsLoad("");
+            buildings = DB.BuildingsLoad();
             BuildingsDraw(null, null);
         }
 

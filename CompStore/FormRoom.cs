@@ -42,8 +42,8 @@ namespace CompStore
 
         private void FilialSelect(object sender, EventArgs e)
         {
-            if (comboFilial.SelectedValue is int)
-                comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
+            //if (comboFilial.SelectedValue is int)
+              //  comboBuilding.DataSource = DB.BuildingsLoad(comboFilial.SelectedValue.ToString());
         }
     }
 }

@@ -202,33 +202,33 @@ namespace CompStore
         #endregion
         
         #region Помещения [rooms]
-        public static List<Room> RoomsLoad(string building)
+        public static List<Room> RoomsLoad()
         {
             List<Room> rooms = new List<Room>();
-            List<Filial> filials = FilialsLoad();
-            List<Building> buildings = BuildingsLoad("");
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [rooms]" + (building != "" ? " WHERE [building] = " + building : "") + " ORDER BY [filial], [building], [name]";
+                com.CommandText = "SELECT [rooms].ID, [rooms].building, [rooms].name, [rooms].comment, " +
+                    "[filials].name AS filialText, " +
+                    "[buildings].name AS buildingText, " +
+                    "[filials].name || \", зд. \" || [buildings].name || \", пом. \" || [rooms].name AS roomText " +
+                    "FROM [rooms] " +
+                    "LEFT JOIN [buildings] ON [rooms].building = [buildings].ID " +
+                    "LEFT JOIN [filials] ON [buildings].filial = [filials].ID " +
+                    "ORDER BY [filials].name, [buildings].name, [rooms].name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Room room = new Room();
                         room.ID = reader.GetInt32(0);
-                        room.filial = reader.GetInt32(1);
-                        room.building = reader.GetInt32(2);
-                        room.name = reader.GetString(3);
-                        room.comment = reader.GetString(4);
-
-                        Filial f = filials.Find(o => o.ID == room.filial);
-                        room.filialText = f != null ? f.name : "";
-
-                        Building b = buildings.Find(o => o.ID == room.building);
-                        room.buildingText = b != null ? b.name : "";
-
+                        room.building = reader.GetInt32(1);
+                        room.name = reader.GetString(2);
+                        room.comment = reader.GetString(3);
+                        room.filialText = reader.GetString(4);
+                        room.buildingText = reader.GetString(5);
+                        room.nameText = reader.GetString(6);
                         rooms.Add(room);
                     }
                 }
@@ -406,15 +406,19 @@ namespace CompStore
         #endregion
 
         #region Здания [buildings]
-        public static List<Building> BuildingsLoad(string filial)
+        public static List<Building> BuildingsLoad()
         {
             List<Building> buildings = new List<Building>();
-            List<Filial> filials = FilialsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [buildings]" + (filial != "" ? " WHERE [filial] = " + filial : "") + " ORDER BY [filial], [name]";
+                com.CommandText = "SELECT [buildings].ID, [buildings].filial, [buildings].name, [buildings].comment, " +
+                    "[filials].name AS filialText, "+
+                    "[filials].name || \", зд. \" || [buildings].name AS nameText " +
+                    "FROM [buildings] " +
+                    "LEFT JOIN [filials] ON [buildings].filial = [filials].ID " +
+                    "ORDER BY [filials].name, [buildings].name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -424,10 +428,8 @@ namespace CompStore
                         building.filial = reader.GetInt32(1);
                         building.name = reader.GetString(2);
                         building.comment = reader.GetString(3);
-
-                        Filial f = filials.Find(o => o.ID == building.filial);
-                        building.filialText = f != null ? f.name : "";
-
+                        building.filialText = reader.GetString(4);
+                        building.nameText = reader.GetString(5);
                         buildings.Add(building);
                     }
                 }
@@ -484,8 +486,8 @@ namespace CompStore
             List<Post> posts = PostsLoad();
             List<Dep> deps = DepsLoad();
             List<Filial> filials = FilialsLoad();
-            List<Building> buildings = BuildingsLoad("");
-            List<Room> rooms = RoomsLoad("");
+            List<Building> buildings = BuildingsLoad();
+            List<Room> rooms = RoomsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
@@ -905,7 +907,7 @@ namespace CompStore
             List<Move> moves = new List<Move>();
             List<Equipment> equipments = EquipmentsLoad();
             List<User> users = UsersLoad();
-            List<Room> rooms = RoomsLoad("");
+            List<Room> rooms = RoomsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
