@@ -5,7 +5,6 @@ namespace CompStore
     public class Room
     {
         public int ID { get; set; }
-        public int filial { get; set; }
         public int building { get; set; }
         public string name { get; set; }
         public string comment { get; set; }

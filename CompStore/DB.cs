@@ -8,7 +8,7 @@ namespace CompStore
     {
         //const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
         const string dataSource = @"DataSource=CS.db; Version=3;";
-
+        const string ND = "#Н/Д";
         static string FullName(User u)
         {
             string name = (u.f != "" ? u.f + " " : "") +
@@ -227,9 +227,9 @@ namespace CompStore
                         room.building = reader.GetInt32(1);
                         room.name = reader.GetString(2);
                         room.comment = reader.GetString(3);
-                        room.filialText = reader.GetString(4);
-                        room.buildingText = reader.GetString(5);
-                        room.nameText = reader.GetString(6);
+                        room.filialText = !reader.IsDBNull(4) ? reader.GetString(4) : ND;
+                        room.buildingText = !reader.IsDBNull(5) ? reader.GetString(5) : ND;
+                        room.nameText = !reader.IsDBNull(6) ? reader.GetString(6) : ND;
                         rooms.Add(room);
                     }
                 }
@@ -243,8 +243,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [rooms] (filial, building, name, comment) VALUES ('" +
-                    room.filial + "', '" +
+                com.CommandText = "INSERT INTO [rooms] (building, name, comment) VALUES ('" +
                     room.building + "', '" +
                     room.name + "', '" +
                     room.comment + "')";
@@ -428,8 +427,8 @@ namespace CompStore
                         building.filial = reader.GetInt32(1);
                         building.name = reader.GetString(2);
                         building.comment = reader.GetString(3);
-                        building.filialText = reader.GetString(4);
-                        building.nameText = reader.GetString(5);
+                        building.filialText = !reader.IsDBNull(4) ? reader.GetString(4) : ND;
+                        building.nameText = !reader.IsDBNull(5) ? reader.GetString(5) : ND;
                         buildings.Add(building);
                     }
                 }
@@ -483,11 +482,6 @@ namespace CompStore
         public static List<User> UsersLoad()
         {
             List<User> users = new List<User>();
-            //List<Post> posts = PostsLoad();
-            //List<Dep> deps = DepsLoad();
-            //List<Filial> filials = FilialsLoad();
-            //List<Building> buildings = BuildingsLoad();
-            //List<Room> rooms = RoomsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
@@ -537,24 +531,7 @@ namespace CompStore
                         user.nameText = reader.GetString(12);
                         user.postText = reader.GetString(13);
                         user.depText = reader.GetString(14);
-                        user.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
-                        
-                        /*user.nameText = FullName(user);
-
-                        Post p = posts.Find(o => o.ID == user.post);
-                        user.postText = (p != null ? p.name : "");
-
-                        Dep d = deps.Find(o => o.ID == user.dep);
-                        user.depText = (d != null ? d.name : "");
-
-                        Filial f = filials.Find(o => o.ID == user.filial);
-                        Building b = buildings.Find(o => o.ID == user.building);
-                        Room r = rooms.Find(o => o.ID == user.room);
-                        user.roomText = (f != null ? f.name + ", " : "") +
-                                        (b != null ? b.name + ", " : "") +
-                                        (r != null ? r.name : "");*/
-
-
+                        user.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : ND;
                         users.Add(user);
                     }
                 }
