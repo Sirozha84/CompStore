@@ -8,7 +8,9 @@ namespace CompStore
         public FormBrand(Brand brand)
         {
             InitializeComponent();
+            
             textName.DataBindings.Add("Text", brand, "name");
+            
             textCom.DataBindings.Add("Text", brand, "comment");
 
             if (brand.name != null)

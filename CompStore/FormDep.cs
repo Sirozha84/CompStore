@@ -8,7 +8,9 @@ namespace CompStore
         public FormDep(Dep dep)
         {
             InitializeComponent();
+            
             textName.DataBindings.Add("Text", dep, "name");
+            
             textCom.DataBindings.Add("Text", dep, "comment");
 
             if (dep.name != null)

@@ -5,35 +5,33 @@ namespace CompStore
 {
     public partial class FormEquipment : Form
     {
-        Equipment equipment;
         public FormEquipment(Equipment equipment)
         {
             InitializeComponent();
-            this.equipment = equipment;
 
             comboEqType.DataSource = DB.EqTypesLoad();
             comboEqType.DisplayMember = "name";
             comboEqType.ValueMember = "ID";
-            if (equipment.eqType != 0) comboEqType.SelectedValue = equipment.eqType; else comboEqType.SelectedValue = "";
+            comboEqType.DataBindings.Add("SelectedValue", equipment, "eqType");
 
             comboBrand.DataSource = DB.BrandsLoad();
             comboBrand.DisplayMember = "name";
             comboBrand.ValueMember = "ID";
-            if (equipment.brand != 0) comboBrand.SelectedValue = equipment.brand; else comboBrand.SelectedValue = "";
+            comboBrand.DataBindings.Add("SelectedValue", equipment, "brand");
 
-            TypeOrBrandChange(null, null);
+            comboModel.DataSource = DB.ModelsLoad("", "");
             comboModel.DisplayMember = "name";
             comboModel.ValueMember = "ID";
-            if (equipment.model != 0) comboModel.SelectedValue = equipment.model; else comboModel.SelectedValue = "";
+            comboModel.DataBindings.Add("SelectedValue", equipment, "model");
 
-            textSN.Text = equipment.sn;
-            
-            textIN.Text = equipment.iN;
+            textSN.DataBindings.Add("Text", equipment, "sn");
 
-            dateBuy.Checked = equipment.buy;
-            dateBuy.Value = equipment.buy ? equipment.buyDate : DateTime.Now;
+            textIN.DataBindings.Add("Text", equipment, "iN");
 
-            textCom.Text = equipment.comment;
+            dateBuy.DataBindings.Add("Value", equipment, "buyDate");
+            dateBuy.DataBindings.Add("Checked", equipment, "buy");
+
+            textCom.DataBindings.Add("Text", equipment, "comment");
 
             if (equipment.nameText != null)
                 Text = "Редактирование оборудования \"" + equipment.nameText + "\"";
@@ -41,22 +39,18 @@ namespace CompStore
                 Text = "Добавление нового оборудования";
         }
 
-        void TypeOrBrandChange(object sender, EventArgs e)
+        private void BrandChange(object sender, EventArgs e)
         {
-            if (comboEqType.SelectedValue is int & comboBrand.SelectedValue is int)
-                comboModel.DataSource = DB.ModelsLoad(comboEqType.SelectedValue.ToString(), comboBrand.SelectedValue.ToString());
+            if (comboBrand.SelectedValue == null || comboBrand.SelectedValue.ToString() == "CompStore.Brand") return;
+            Text = comboEqType.SelectedValue.ToString() + comboBrand.SelectedValue.ToString();
+            comboModel.DataSource = DB.ModelsLoad(comboEqType.SelectedValue.ToString(), comboBrand.SelectedValue.ToString());
         }
 
         private void OK(object sender, EventArgs e)
         {
-            if (comboEqType.SelectedValue != null) equipment.eqType = (int)comboEqType.SelectedValue;
-            if (comboBrand.SelectedValue != null) equipment.brand = (int)comboBrand.SelectedValue;
-            if (comboModel.SelectedValue != null) equipment.model = (int)comboModel.SelectedValue;
-            equipment.sn = textSN.Text;
-            equipment.iN = textIN.Text;
-            equipment.buy = dateBuy.Checked;
-            equipment.buyDate = dateBuy.Value;
-            equipment.comment = textCom.Text;
+            comboEqType.DataBindings[0].WriteValue();
+            comboBrand.DataBindings[0].WriteValue();
+            comboModel.DataBindings[0].WriteValue();
             DialogResult = DialogResult.OK;
         }
 

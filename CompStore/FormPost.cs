@@ -8,7 +8,9 @@ namespace CompStore
         public FormPost(Post post)
         {
             InitializeComponent();
+
             textName.DataBindings.Add("Text", post, "name");
+            
             if (post.name != null)
                 Text = "Редактирование должности \"" + post.name + "\"";
             else

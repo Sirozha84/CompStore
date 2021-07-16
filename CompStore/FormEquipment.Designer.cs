@@ -29,15 +29,11 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBrand = new System.Windows.Forms.ComboBox();
-            this.labelBrand = new System.Windows.Forms.Label();
-            this.comboEqType = new System.Windows.Forms.ComboBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textCom = new System.Windows.Forms.TextBox();
             this.labelCom = new System.Windows.Forms.Label();
             this.textSN = new System.Windows.Forms.TextBox();
-            this.labelEqType = new System.Windows.Forms.Label();
             this.labelSN = new System.Windows.Forms.Label();
             this.comboModel = new System.Windows.Forms.ComboBox();
             this.labelModel = new System.Windows.Forms.Label();
@@ -46,35 +42,6 @@ namespace CompStore
             this.labelBuyDate = new System.Windows.Forms.Label();
             this.dateBuy = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
-            // 
-            // comboBrand
-            // 
-            this.comboBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBrand.FormattingEnabled = true;
-            this.comboBrand.Location = new System.Drawing.Point(140, 39);
-            this.comboBrand.Name = "comboBrand";
-            this.comboBrand.Size = new System.Drawing.Size(232, 21);
-            this.comboBrand.TabIndex = 1;
-            this.comboBrand.SelectedIndexChanged += new System.EventHandler(this.TypeOrBrandChange);
-            // 
-            // labelBrand
-            // 
-            this.labelBrand.AutoSize = true;
-            this.labelBrand.Location = new System.Drawing.Point(45, 42);
-            this.labelBrand.Name = "labelBrand";
-            this.labelBrand.Size = new System.Drawing.Size(89, 13);
-            this.labelBrand.TabIndex = 48;
-            this.labelBrand.Text = "Производитель:";
-            // 
-            // comboEqType
-            // 
-            this.comboEqType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboEqType.FormattingEnabled = true;
-            this.comboEqType.Location = new System.Drawing.Point(140, 12);
-            this.comboEqType.Name = "comboEqType";
-            this.comboEqType.Size = new System.Drawing.Size(232, 21);
-            this.comboEqType.TabIndex = 0;
-            this.comboEqType.SelectedIndexChanged += new System.EventHandler(this.TypeOrBrandChange);
             // 
             // buttonOK
             // 
@@ -103,16 +70,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 171);
+            this.textCom.Location = new System.Drawing.Point(140, 117);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 49);
+            this.textCom.Size = new System.Drawing.Size(232, 103);
             this.textCom.TabIndex = 6;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 174);
+            this.labelCom.Location = new System.Drawing.Point(61, 120);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 47;
@@ -122,24 +89,15 @@ namespace CompStore
             // 
             this.textSN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSN.Location = new System.Drawing.Point(140, 93);
+            this.textSN.Location = new System.Drawing.Point(140, 39);
             this.textSN.Name = "textSN";
             this.textSN.Size = new System.Drawing.Size(232, 20);
             this.textSN.TabIndex = 3;
             // 
-            // labelEqType
-            // 
-            this.labelEqType.AutoSize = true;
-            this.labelEqType.Location = new System.Drawing.Point(31, 15);
-            this.labelEqType.Name = "labelEqType";
-            this.labelEqType.Size = new System.Drawing.Size(103, 13);
-            this.labelEqType.TabIndex = 46;
-            this.labelEqType.Text = "Тип оборудования:";
-            // 
             // labelSN
             // 
             this.labelSN.AutoSize = true;
-            this.labelSN.Location = new System.Drawing.Point(38, 96);
+            this.labelSN.Location = new System.Drawing.Point(38, 42);
             this.labelSN.Name = "labelSN";
             this.labelSN.Size = new System.Drawing.Size(96, 13);
             this.labelSN.TabIndex = 45;
@@ -149,7 +107,7 @@ namespace CompStore
             // 
             this.comboModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboModel.FormattingEnabled = true;
-            this.comboModel.Location = new System.Drawing.Point(140, 66);
+            this.comboModel.Location = new System.Drawing.Point(140, 12);
             this.comboModel.Name = "comboModel";
             this.comboModel.Size = new System.Drawing.Size(232, 21);
             this.comboModel.TabIndex = 2;
@@ -157,7 +115,7 @@ namespace CompStore
             // labelModel
             // 
             this.labelModel.AutoSize = true;
-            this.labelModel.Location = new System.Drawing.Point(85, 69);
+            this.labelModel.Location = new System.Drawing.Point(85, 15);
             this.labelModel.Name = "labelModel";
             this.labelModel.Size = new System.Drawing.Size(49, 13);
             this.labelModel.TabIndex = 50;
@@ -167,7 +125,7 @@ namespace CompStore
             // 
             this.textIN.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textIN.Location = new System.Drawing.Point(140, 119);
+            this.textIN.Location = new System.Drawing.Point(140, 65);
             this.textIN.Name = "textIN";
             this.textIN.Size = new System.Drawing.Size(232, 20);
             this.textIN.TabIndex = 4;
@@ -175,7 +133,7 @@ namespace CompStore
             // labelIN
             // 
             this.labelIN.AutoSize = true;
-            this.labelIN.Location = new System.Drawing.Point(20, 122);
+            this.labelIN.Location = new System.Drawing.Point(20, 68);
             this.labelIN.Name = "labelIN";
             this.labelIN.Size = new System.Drawing.Size(114, 13);
             this.labelIN.TabIndex = 52;
@@ -184,7 +142,7 @@ namespace CompStore
             // labelBuyDate
             // 
             this.labelBuyDate.AutoSize = true;
-            this.labelBuyDate.Location = new System.Drawing.Point(54, 148);
+            this.labelBuyDate.Location = new System.Drawing.Point(54, 94);
             this.labelBuyDate.Name = "labelBuyDate";
             this.labelBuyDate.Size = new System.Drawing.Size(80, 13);
             this.labelBuyDate.TabIndex = 74;
@@ -192,7 +150,7 @@ namespace CompStore
             // 
             // dateBuy
             // 
-            this.dateBuy.Location = new System.Drawing.Point(140, 145);
+            this.dateBuy.Location = new System.Drawing.Point(140, 91);
             this.dateBuy.Name = "dateBuy";
             this.dateBuy.ShowCheckBox = true;
             this.dateBuy.Size = new System.Drawing.Size(157, 20);
@@ -211,15 +169,11 @@ namespace CompStore
             this.Controls.Add(this.labelIN);
             this.Controls.Add(this.comboModel);
             this.Controls.Add(this.labelModel);
-            this.Controls.Add(this.comboBrand);
-            this.Controls.Add(this.labelBrand);
-            this.Controls.Add(this.comboEqType);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textCom);
             this.Controls.Add(this.labelCom);
             this.Controls.Add(this.textSN);
-            this.Controls.Add(this.labelEqType);
             this.Controls.Add(this.labelSN);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -234,16 +188,11 @@ namespace CompStore
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox comboBrand;
-        private System.Windows.Forms.Label labelBrand;
-        private System.Windows.Forms.ComboBox comboEqType;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textCom;
         private System.Windows.Forms.Label labelCom;
         private System.Windows.Forms.TextBox textSN;
-        private System.Windows.Forms.Label labelEqType;
         private System.Windows.Forms.Label labelSN;
         private System.Windows.Forms.ComboBox comboModel;
         private System.Windows.Forms.Label labelModel;

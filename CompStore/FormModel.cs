@@ -5,24 +5,23 @@ namespace CompStore
 {
     public partial class FormModel : Form
     {
-        Model model;
         public FormModel(Model model)
         {
             InitializeComponent();
-            this.model = model;
 
             comboEqType.DataSource = DB.EqTypesLoad();
             comboEqType.DisplayMember = "name";
             comboEqType.ValueMember = "ID";
-            if (model.eqType != 0) comboEqType.SelectedValue = model.eqType; else comboEqType.SelectedValue = "";
+            comboEqType.DataBindings.Add("SelectedValue", model, "eqType");
 
             comboBrand.DataSource = DB.BrandsLoad();
             comboBrand.DisplayMember = "name";
             comboBrand.ValueMember = "ID";
-            if (model.brand != 0) comboBrand.SelectedValue = model.brand; else comboBrand.SelectedValue = "";
-            
-            textName.Text = model.name;
-            textCom.Text = model.comment;
+            comboBrand.DataBindings.Add("SelectedValue", model, "brand");
+
+            textName.DataBindings.Add("Text", model, "name");
+
+            textCom.DataBindings.Add("Text", model, "comment");
 
             if (model.name != null)
                 Text = "Редактирование модели \"" + model.name + "\"";
@@ -32,10 +31,8 @@ namespace CompStore
 
         private void OK(object sender, EventArgs e)
         {
-            if (comboEqType.SelectedValue != null) model.eqType = (int)comboEqType.SelectedValue;
-            if (comboBrand.SelectedValue != null) model.brand = (int)comboBrand.SelectedValue;
-            model.name = textName.Text;
-            model.comment = textCom.Text;
+            comboEqType.DataBindings[0].WriteValue();
+            comboBrand.DataBindings[0].WriteValue();    //А вот тут, почему-то, данные не пишутся если крутить колесом!!!!!
             DialogResult = DialogResult.OK;
         }
     }

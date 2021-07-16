@@ -13,7 +13,9 @@ namespace CompStore
             comboBuilding.DisplayMember = "nameText";
             comboBuilding.ValueMember = "ID";
             comboBuilding.DataBindings.Add("SelectedValue", room, "building");
+            
             textName.DataBindings.Add("Text", room, "name");
+            
             textCom.DataBindings.Add("Text", room, "comment");
 
             if (room.name != null)

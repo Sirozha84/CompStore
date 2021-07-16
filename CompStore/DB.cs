@@ -6,7 +6,6 @@ namespace CompStore
 {
     static class DB
     {
-        //const string dataSource = @"DataSource=c:\Users\sgordeev\Desktop\CS.db; Version=3;";
         const string dataSource = @"DataSource=CS.db; Version=3;";
         const string ND = "#Н/Д";
         static string FullName(User u)
@@ -529,8 +528,8 @@ namespace CompStore
                         user.disDate = DateTime.Parse(reader.GetString(10));
                         user.comment = reader.GetString(11);
                         user.nameText = reader.GetString(12);
-                        user.postText = reader.GetString(13);
-                        user.depText = reader.GetString(14);
+                        user.postText = !reader.IsDBNull(13) ? reader.GetString(13) : ND;
+                        user.depText = !reader.IsDBNull(14) ? reader.GetString(14) : ND;
                         user.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : ND;
                         users.Add(user);
                     }
@@ -545,7 +544,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [users] (type, f, i, o, post, dep, filial, building, room, " +
+                com.CommandText = "INSERT INTO [users] (type, f, i, o, post, dep, room, " +
                                   "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
                                   user.f + "', '" +
                                   user.i + "', '" +
@@ -733,7 +732,13 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [models] ORDER BY [eqtype], [brand], [name]";
+                com.CommandText = "SELECT "+
+                    "models.id, " +
+                    "models.eqtype, " +
+                    "models.brand, " +
+                    "FROM [models] " +
+                    //todo Тут доделать...
+                    "ORDER BY [eqtype], [brand], [name]";
                 if (eqtype != "" & brand != "")
                     com.CommandText = "SELECT * FROM [models] " +
                         "WHERE [eqtype] = " + eqtype + " AND [brand] = " + brand + " ORDER BY [eqtype], [brand], [name]";

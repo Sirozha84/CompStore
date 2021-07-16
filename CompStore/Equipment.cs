@@ -5,17 +5,16 @@ namespace CompStore
 {
     public class Equipment
     {
-        public int ID;// { get; set; }
-        public int eqType;// { get; set; }
-        public int brand;// { get; set; }
-        public int model;// { get; set; }
-        public string sn;// { get; set; }
-        public string iN;// { get; set; }
-        public bool buy;
-        public DateTime buyDate = DateTime.Now;
-        public string comment;// { get; set; }
-
-        public string nameText;
+        public int ID { get; set; }
+        public int eqType { get; set; }
+        public int brand { get; set; }
+        public int model { get; set; }
+        public string sn { get; set; }
+        public string iN { get; set; }
+        public bool buy { get; set; }
+        public DateTime buyDate { get; set; }
+        public string comment { get; set; }
+        public string nameText { get; set; }
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);

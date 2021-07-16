@@ -8,9 +8,13 @@ namespace CompStore
         public FormFilial(Filial filial)
         {
             InitializeComponent();
+            
             textName.DataBindings.Add("Text", filial, "name");
+            
             textAdress.DataBindings.Add("Text", filial, "adress");
+            
             textCom.DataBindings.Add("Text", filial, "comment");
+            
             if (filial.name != null)
                 Text = "Редактирование филиала \"" + filial.name + "\"";
             else

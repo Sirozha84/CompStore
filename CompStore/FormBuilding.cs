@@ -13,7 +13,9 @@ namespace CompStore
             comboFilial.DisplayMember = "name";
             comboFilial.ValueMember = "ID";
             comboFilial.DataBindings.Add("SelectedValue", building, "filial");
+            
             textName.DataBindings.Add("Text", building, "name");
+            
             textCom.DataBindings.Add("Text", building, "comment");
 
             if (building.name != null)

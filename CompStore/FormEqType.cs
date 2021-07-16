@@ -8,7 +8,9 @@ namespace CompStore
         public FormEqType(EqType eqtype)
         {
             InitializeComponent();
+            
             textName.DataBindings.Add("Text", eqtype, "name");
+            
             if (eqtype.name != null)
                 Text = "Редактирование типа оборудования \"" + eqtype.name + "\"";
             else
