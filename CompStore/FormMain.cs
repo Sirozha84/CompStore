@@ -591,7 +591,7 @@ namespace CompStore
 
         void ModelsRefresh()
         {
-            models = DB.ModelsLoad("", "");
+            models = DB.ModelsLoad();
             ModelsDraw(null, null);
         }
 

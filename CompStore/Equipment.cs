@@ -6,8 +6,6 @@ namespace CompStore
     public class Equipment
     {
         public int ID { get; set; }
-        public int eqType { get; set; }
-        public int brand { get; set; }
         public int model { get; set; }
         public string sn { get; set; }
         public string iN { get; set; }

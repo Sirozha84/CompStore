@@ -102,8 +102,6 @@ namespace CompStore
 
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [equipments] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[eqtype] INTEGER, " +
-                    "[brand] INTEGER, " +
                     "[model] INTEGER, " +
                     "[sn] TEXT, " +
                     "[in] TEXT, " +
@@ -723,11 +721,9 @@ namespace CompStore
         #endregion
 
         #region Модели [models]
-        public static List<Model> ModelsLoad(string eqtype, string brand)
+        public static List<Model> ModelsLoad()
         {
             List<Model> models = new List<Model>();
-            List<EqType> eqTypes = EqTypesLoad();
-            List<Brand> brands = BrandsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
@@ -736,12 +732,15 @@ namespace CompStore
                     "models.id, " +
                     "models.eqtype, " +
                     "models.brand, " +
-                    "FROM [models] " +
-                    //todo Тут доделать...
-                    "ORDER BY [eqtype], [brand], [name]";
-                if (eqtype != "" & brand != "")
-                    com.CommandText = "SELECT * FROM [models] " +
-                        "WHERE [eqtype] = " + eqtype + " AND [brand] = " + brand + " ORDER BY [eqtype], [brand], [name]";
+                    "models.name, " +
+                    "models.comment, " +
+                    "eqtypes.name AS modelText, " +
+                    "brands.name AS brandText, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS modelText " +
+                    "FROM models " +
+                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
+                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "ORDER BY modelText";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -752,13 +751,9 @@ namespace CompStore
                         model.brand = reader.GetInt32(2);
                         model.name = reader.GetString(3);
                         model.comment = reader.GetString(4);
-
-                        EqType et = eqTypes.Find(o => o.ID == model.eqType);
-                        model.eqTypeText = et != null ? et.name : "";
-
-                        Brand b = brands.Find(o => o.ID == model.brand);
-                        model.brandText = b != null ? b.name : "";
-
+                        model.eqTypeText = reader.GetString(5);
+                        model.brandText = reader.GetString(6);
+                        model.nameText = reader.GetString(7);
                         models.Add(model);
                     }
                 }
@@ -816,36 +811,37 @@ namespace CompStore
             List<Equipment> equipments = new List<Equipment>();
             List<EqType> eqTypes = EqTypesLoad();
             List<Brand> brands = BrandsLoad();
-            List<Model> models = ModelsLoad("", "");
+            List<Model> models = ModelsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [equipments] ORDER BY [in]";
+                com.CommandText = "SELECT " +
+                    "equipments.ID, " +
+                    "equipments.model, " +
+                    "equipments.sn, " +
+                    "equipments.[in], " +
+                    "equipments.buy, " +
+                    "equipments.buydate, " +
+                    "equipments.comment," +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText " +
+                    "FROM equipments " +
+                    "LEFT JOIN models ON equipments.model = models.ID " +
+                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
+                    "LEFT JOIN brands ON models.brand = brands.ID";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Equipment equipment = new Equipment();
                         equipment.ID = reader.GetInt32(0);
-                        equipment.eqType = reader.GetInt32(1);
-                        equipment.brand = reader.GetInt32(2);
-                        equipment.model = reader.GetInt32(3);
-                        equipment.sn = reader.GetString(4);
-                        equipment.iN = reader.GetString(5);
-                        equipment.buy = reader.GetString(6) == "1";
-                        equipment.buyDate = DateTime.Parse(reader.GetString(7));
-                        equipment.comment = reader.GetString(8);
-
-                        EqType et = eqTypes.Find(o => o.ID == equipment.eqType);
-                        equipment.nameText = et != null ? et.name : "";
-
-                        Brand b = brands.Find(o => o.ID == equipment.brand);
-                        equipment.nameText += " " + (b != null ? b.name : "");
-
-                        Model m = models.Find(o => o.ID == equipment.model);
-                        equipment.nameText += " " + (m != null ? m.name : "");
-
+                        equipment.model = reader.GetInt32(1);
+                        equipment.sn = reader.GetString(2);
+                        equipment.iN = reader.GetString(3);
+                        equipment.buy = reader.GetString(4) == "1";
+                        equipment.buyDate = DateTime.Parse(reader.GetString(5));
+                        equipment.comment = reader.GetString(6);
+                        equipment.nameText = reader.GetString(7);
                         equipments.Add(equipment);
                     }
                 }
@@ -859,9 +855,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [equipments] (eqtype, brand, model, sn, [in], buy, buydate, comment) VALUES ('" +
-                    equipment.eqType + "', '" +
-                    equipment.brand + "', '" +
+                com.CommandText = "INSERT INTO [equipments] (model, sn, [in], buy, buydate, comment) VALUES ('" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
@@ -879,8 +873,6 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "UPDATE [equipments] SET " +
-                    "[eqtype] = '" + equipment.eqType + "', " +
-                    "[brand] = '" + equipment.brand + "', " +
                     "[model] = '" + equipment.model + "', " +
                     "[sn] = '" + equipment.sn + "', " +
                     "[in] = '" + equipment.iN + "', " +

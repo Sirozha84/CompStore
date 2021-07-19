@@ -9,9 +9,9 @@ namespace CompStore
         public int brand { get; set; }
         public string name { get; set; }
         public string comment { get; set; }
-
-        public string eqTypeText;
-        public string brandText;
+        public string eqTypeText { get; set; }
+        public string brandText { get; set; }
+        public string nameText { get; set; }
 
         public ListViewItem ToListView()
         {
