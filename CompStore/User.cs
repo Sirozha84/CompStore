@@ -5,7 +5,7 @@ namespace CompStore
 {
     public class User
     {
-        public int ID;
+        public int ID { get; set; }
         public string f { get; set; }
         public string i { get; set; }
         public string o { get; set; }
@@ -18,7 +18,7 @@ namespace CompStore
         public DateTime disDate { get; set; }
         public string comment { get; set; }
 
-        public string nameText;
+        public string nameText { get; set; }
         public string postText;
         public string depText;
         public string roomText;
@@ -42,6 +42,5 @@ namespace CompStore
                     roomText.ToLower().Contains(search) |
                     comment.ToLower().Contains(search));
         }
-
     }
 }

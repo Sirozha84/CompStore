@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 
 namespace CompStore
 {
@@ -8,21 +9,6 @@ namespace CompStore
     {
         const string dataSource = @"DataSource=CS.db; Version=3;";
         const string ND = "#Н/Д";
-        static string FullName(User u)
-        {
-            string name = (u.f != "" ? u.f + " " : "") +
-                          (u.i != "" ? u.i + " " : "") +
-                          (u.o != "" ? u.o : "");
-            return name;
-        }
-        static string ShotName(User u)
-        {
-            string name = u.f != "" ? u.f : "";
-            if (name != "") name += " ";
-            if (u.i != "") name += u.i[0] + ". ";
-            if (u.o != "") name += u.o[0] + ".";
-            return name;
-        }
 
         #region Инициализация таблиц
         public static void Init()
@@ -113,12 +99,9 @@ namespace CompStore
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [moves] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[equipment] INTEGER, " +
-                    "[filial] INTEGER, " +
-                    "[building] INTEGER, " +
-                    "[room] INTEGER, " +
-                    "[dep] INTEGER, " +
                     "[user] INTEGER, " +
-                    "[date] DATE, " +
+                    "[room] INTEGER, " +
+                    "[date] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -134,7 +117,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [filials] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM filials ORDER BY name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -158,7 +141,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [filials] (name, adress, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO filials (name, adress, comment) VALUES ('" +
                     filial.name + "', '" +
                     filial.adress + "', '" +
                     filial.comment + "')";
@@ -173,10 +156,10 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [filials] SET " +
-                    "[name] = '" + filial.name + "', " +
-                    "[adress] = '" + filial.adress + "', " +
-                    "[comment] = '" + filial.comment + "' WHERE ID = " + filial.ID;
+                com.CommandText = "UPDATE filials SET " +
+                    "name = '" + filial.name + "', " +
+                    "adress = '" + filial.adress + "', " +
+                    "comment = '" + filial.comment + "' WHERE ID = " + filial.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -188,7 +171,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [filials] WHERE ID = " + filial.ID;
+                com.CommandText = "DELETE FROM filials WHERE ID = " + filial.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -204,17 +187,17 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "SELECT " +
-                    "[rooms].ID, " +
-                    "[rooms].building, " +
-                    "[rooms].name, " +
-                    "[rooms].comment, " +
-                    "[filials].name, " +
-                    "[buildings].name, " +
-                    "[filials].name || \", зд. \" || [buildings].name || \", пом. \" || [rooms].name AS roomText " +
-                    "FROM [rooms] " +
-                    "LEFT JOIN [buildings] ON [rooms].building = [buildings].ID " +
-                    "LEFT JOIN [filials] ON [buildings].filial = [filials].ID " +
-                    "ORDER BY [filials].name, [buildings].name, [rooms].name";
+                    "rooms.ID, " +
+                    "rooms.building, " +
+                    "rooms.name, " +
+                    "rooms.comment, " +
+                    "filials.name, " +
+                    "buildings.name, " +
+                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
+                    "FROM rooms " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "ORDER BY filials.name, buildings.name, rooms.name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -224,9 +207,9 @@ namespace CompStore
                         room.building = reader.GetInt32(1);
                         room.name = reader.GetString(2);
                         room.comment = reader.GetString(3);
-                        room.filialText = !reader.IsDBNull(4) ? reader.GetString(4) : ND;
-                        room.buildingText = !reader.IsDBNull(5) ? reader.GetString(5) : ND;
-                        room.nameText = !reader.IsDBNull(6) ? reader.GetString(6) : ND;
+                        room.filialText = room.building != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
+                        room.buildingText = room.building != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                        room.nameText = room.building != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
                         rooms.Add(room);
                     }
                 }
@@ -240,7 +223,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [rooms] (building, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO rooms (building, name, comment) VALUES ('" +
                     room.building + "', '" +
                     room.name + "', '" +
                     room.comment + "')";
@@ -254,10 +237,10 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [rooms] SET " +
-                    "[building] = '" + room.building + "', " +
-                    "[name] = '" + room.name + "', " +
-                    "[comment] = '" + room.comment + "' WHERE ID = " + room.ID;
+                com.CommandText = "UPDATE rooms SET " +
+                    "building = '" + room.building + "', " +
+                    "name = '" + room.name + "', " +
+                    "comment = '" + room.comment + "' WHERE ID = " + room.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -269,7 +252,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [rooms] WHERE ID = " + room.ID;
+                com.CommandText = "DELETE FROM rooms WHERE ID = " + room.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -284,7 +267,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [posts] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM posts ORDER BY name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -305,7 +288,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [posts] (name) VALUES ('" + post.name + "')";
+                com.CommandText = "INSERT INTO posts (name) VALUES ('" + post.name + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -316,7 +299,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [posts] SET " + "[name] = '" + post.name + "' WHERE ID = " + post.ID;
+                com.CommandText = "UPDATE posts SET " + "name = '" + post.name + "' WHERE ID = " + post.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -328,7 +311,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [posts] WHERE ID = " + post.ID;
+                com.CommandText = "DELETE FROM posts WHERE ID = " + post.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -343,7 +326,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [deps] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM deps ORDER BY name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -366,7 +349,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [deps] (name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO deps (name, comment) VALUES ('" +
                     dep.name + "', '" +
                     dep.comment + "')";
                 com.ExecuteNonQuery();
@@ -380,9 +363,9 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [deps] SET " +
-                    "[name] = '" + dep.name + "', " +
-                    "[comment] = '" + dep.comment + "' WHERE ID = " + dep.ID;
+                com.CommandText = "UPDATE deps SET " +
+                    "name = '" + dep.name + "', " +
+                    "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -394,7 +377,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [deps] WHERE ID = " + dep.ID;
+                com.CommandText = "DELETE FROM deps WHERE ID = " + dep.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -409,12 +392,12 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT [buildings].ID, [buildings].filial, [buildings].name, [buildings].comment, " +
-                    "[filials].name AS filialText, "+
-                    "[filials].name || \", зд. \" || [buildings].name AS nameText " +
-                    "FROM [buildings] " +
-                    "LEFT JOIN [filials] ON [buildings].filial = [filials].ID " +
-                    "ORDER BY [filials].name, [buildings].name";
+                com.CommandText = "SELECT buildings.ID, buildings.filial, buildings.name, buildings.comment, " +
+                    "filials.name AS filialText, "+
+                    "filials.name || \", зд. \" || [buildings].name " +
+                    "FROM buildings " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "ORDER BY filials.name, buildings.name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -424,8 +407,8 @@ namespace CompStore
                         building.filial = reader.GetInt32(1);
                         building.name = reader.GetString(2);
                         building.comment = reader.GetString(3);
-                        building.filialText = !reader.IsDBNull(4) ? reader.GetString(4) : ND;
-                        building.nameText = !reader.IsDBNull(5) ? reader.GetString(5) : ND;
+                        building.filialText = building.filial != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
+                        building.nameText = building.filial != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
                         buildings.Add(building);
                     }
                 }
@@ -439,7 +422,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [buildings] (filial, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO buildings (filial, name, comment) VALUES ('" +
                     building.filial + "', '" +
                     building.name + "', '" +
                     building.comment + "')";
@@ -453,10 +436,10 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [buildings] SET " +
-                    "[filial] = '" + building.filial + "', " +
-                    "[name] = '" + building.name + "', " +
-                    "[comment] = '" + building.comment + "' WHERE ID = " + building.ID;
+                com.CommandText = "UPDATE buildings SET " +
+                    "filial = '" + building.filial + "', " +
+                    "name = '" + building.name + "', " +
+                    "comment = '" + building.comment + "' WHERE ID = " + building.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -468,7 +451,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [buildings] WHERE ID = " + building.ID;
+                com.CommandText = "DELETE FROM buildings WHERE ID = " + building.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -496,7 +479,7 @@ namespace CompStore
                     "users.dis, " +
                     "users.disdate, " +
                     "users.comment, " +
-                    "users.f || \" \" || users.i || \" \" || users.o AS nameText, " +
+                    "users.f || \" \" || users.i || \" \" || users.o, " +
                     "posts.name, "+
                     "deps.name, "+
                     "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
@@ -526,9 +509,9 @@ namespace CompStore
                         user.disDate = DateTime.Parse(reader.GetString(10));
                         user.comment = reader.GetString(11);
                         user.nameText = reader.GetString(12);
-                        user.postText = !reader.IsDBNull(13) ? reader.GetString(13) : ND;
-                        user.depText = !reader.IsDBNull(14) ? reader.GetString(14) : ND;
-                        user.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : ND;
+                        user.postText = user.post != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
+                        user.depText = user.dep != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
+                        user.roomText = user.room != 0 ? (!reader.IsDBNull(15) ? reader.GetString(15) : ND) : "";
                         users.Add(user);
                     }
                 }
@@ -542,7 +525,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [users] (type, f, i, o, post, dep, room, " +
+                com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
                                   "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
                                   user.f + "', '" +
                                   user.i + "', '" +
@@ -565,18 +548,18 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [users] SET " +
-                                  "[f] = '" + user.f + "', " +
-                                  "[i] = '" + user.i + "', " +
-                                  "[o] = '" + user.o + "', " +
-                                  "[post] = '" + user.post + "', " +
-                                  "[dep] = '" + user.dep + "', " +
-                                  "[room] = '" + user.room + "', " +
-                                  "[emp] = '" + (user.emp ? "1" : "0") + "', " +
-                                  "[empdate] = '" + user.empDate.ToString("dd.MM.yyyy") + "', " +
-                                  "[dis] = '" + (user.dis ? "1" : "0") + "', " +
-                                  "[disdate] = '" + user.disDate.ToString("dd.MM.yyyy") + "', " +
-                                  "[comment] = '" + user.comment + "' WHERE ID = " + user.ID;
+                com.CommandText = "UPDATE users SET " +
+                                  "f = '" + user.f + "', " +
+                                  "i = '" + user.i + "', " +
+                                  "o = '" + user.o + "', " +
+                                  "post = '" + user.post + "', " +
+                                  "dep = '" + user.dep + "', " +
+                                  "room = '" + user.room + "', " +
+                                  "emp = '" + (user.emp ? "1" : "0") + "', " +
+                                  "empdate = '" + user.empDate.ToString("dd.MM.yyyy") + "', " +
+                                  "dis = '" + (user.dis ? "1" : "0") + "', " +
+                                  "disdate = '" + user.disDate.ToString("dd.MM.yyyy") + "', " +
+                                  "comment = '" + user.comment + "' WHERE ID = " + user.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -588,7 +571,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [users] WHERE ID = " + user.ID;
+                com.CommandText = "DELETE FROM users WHERE ID = " + user.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -603,7 +586,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [brands] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM brands ORDER BY name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -626,7 +609,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [brands] (name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO brands (name, comment) VALUES ('" +
                     brand.name + "', '" +
                     brand.comment + "')";
                 com.ExecuteNonQuery();
@@ -640,9 +623,9 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [brands] SET " +
-                    "[name] = '" + brand.name + "', " +
-                    "[comment] = '" + brand.comment + "' WHERE ID = " + brand.ID;
+                com.CommandText = "UPDATE brands SET " +
+                    "name = '" + brand.name + "', " +
+                    "comment = '" + brand.comment + "' WHERE ID = " + brand.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -654,7 +637,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [brands] WHERE ID = " + brand.ID;
+                com.CommandText = "DELETE FROM brands WHERE ID = " + brand.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -669,7 +652,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [eqtypes] ORDER BY [name]";
+                com.CommandText = "SELECT * FROM eqtypes ORDER BY name";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -690,7 +673,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [eqtypes] (name) VALUES ('" + eqType.name + "')";
+                com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" + eqType.name + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -701,7 +684,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [eqtypes] SET " + "[name] = '" + eqType.name + "' WHERE ID = " + eqType.ID;
+                com.CommandText = "UPDATE eqtypes SET " + "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -713,7 +696,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [eqtypes] WHERE ID = " + eqType.ID;
+                com.CommandText = "DELETE FROM eqtypes WHERE ID = " + eqType.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -736,7 +719,7 @@ namespace CompStore
                     "models.comment, " +
                     "eqtypes.name AS modelText, " +
                     "brands.name AS brandText, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS modelText " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name " +
                     "FROM models " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN brands ON models.brand = brands.ID " +
@@ -751,9 +734,9 @@ namespace CompStore
                         model.brand = reader.GetInt32(2);
                         model.name = reader.GetString(3);
                         model.comment = reader.GetString(4);
-                        model.eqTypeText = reader.GetString(5);
-                        model.brandText = reader.GetString(6);
-                        model.nameText = reader.GetString(7);
+                        model.eqTypeText = model.eqType != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                        model.brandText = model.brand != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
+                        model.nameText = model.eqType != 0 & model.brand != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
                         models.Add(model);
                     }
                 }
@@ -767,7 +750,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [models] (eqtype, brand, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO models (eqtype, brand, name, comment) VALUES ('" +
                     model.eqType + "', '" +
                     model.brand + "', '" +
                     model.name + "', '" +
@@ -782,11 +765,11 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [models] SET " +
-                    "[eqtype] = '" + model.eqType + "', " +
-                    "[brand] = '" + model.brand + "', " +
-                    "[name] = '" + model.name + "', " +
-                    "[comment] = '" + model.comment + "' WHERE ID = " + model.ID;
+                com.CommandText = "UPDATE models SET " +
+                    "eqtype = '" + model.eqType + "', " +
+                    "brand = '" + model.brand + "', " +
+                    "name = '" + model.name + "', " +
+                    "comment = '" + model.comment + "' WHERE ID = " + model.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -798,7 +781,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [models] WHERE ID = " + model.ID;
+                com.CommandText = "DELETE FROM models WHERE ID = " + model.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -824,7 +807,7 @@ namespace CompStore
                     "equipments.buy, " +
                     "equipments.buydate, " +
                     "equipments.comment," +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
@@ -841,7 +824,7 @@ namespace CompStore
                         equipment.buy = reader.GetString(4) == "1";
                         equipment.buyDate = DateTime.Parse(reader.GetString(5));
                         equipment.comment = reader.GetString(6);
-                        equipment.nameText = reader.GetString(7);
+                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
                         equipments.Add(equipment);
                     }
                 }
@@ -855,7 +838,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [equipments] (model, sn, [in], buy, buydate, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO equipments (model, sn, [in], buy, buydate, comment) VALUES ('" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
@@ -872,13 +855,13 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [equipments] SET " +
-                    "[model] = '" + equipment.model + "', " +
-                    "[sn] = '" + equipment.sn + "', " +
-                    "[in] = '" + equipment.iN + "', " +
-                    "[buy] = '" + (equipment.buy ? "1" : "0") + "', " +
-                    "[buydate] = '" + equipment.buyDate.ToString("dd.MM.yyyy") + "', " +
-                    "[comment] = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
+                com.CommandText = "UPDATE equipments SET " +
+                    "model = '" + equipment.model + "', " +
+                    "sn = '" + equipment.sn + "', " +
+                    "in = '" + equipment.iN + "', " +
+                    "buy = '" + (equipment.buy ? "1" : "0") + "', " +
+                    "buydate = '" + equipment.buyDate.ToString("dd.MM.yyyy") + "', " +
+                    "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -890,7 +873,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [equipments] WHERE ID = " + equipment.ID;
+                com.CommandText = "DELETE FROM equipments WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -908,7 +891,25 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM [moves] ORDER BY [date]";
+                com.CommandText = "SELECT " +
+                    "moves.ID, " +
+                    "moves.equipment, " +
+                    "moves.user, " +
+                    "moves.room, " +
+                    "moves.date, " +
+                    "moves.comment, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
+                    "users.f || \" \" || users.i || \" \" || users.o, " +
+                    "buildings.name || \", \" || rooms.name " +
+                    "FROM moves " +
+                    "LEFT JOIN equipments ON moves.equipment = equipments.ID " +
+                    "LEFT JOIN models ON equipments.model = models.ID " +
+                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
+                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "LEFT JOIN users ON moves.user = users.ID " +
+                    "LEFT JOIN rooms ON moves.room = rooms.ID " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "ORDER BY moves.date";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -916,23 +917,13 @@ namespace CompStore
                         Move move = new Move();
                         move.ID = reader.GetInt32(0);
                         move.equipment = reader.GetInt32(1);
-                        move.filial = reader.GetInt32(2);
-                        move.building = reader.GetInt32(3);
-                        move.room = reader.GetInt32(4);
-                        move.dep = reader.GetInt32(5);
-                        move.user = reader.GetInt32(6);
-                        move.date = DateTime.Parse(reader.GetString(7));
-                        move.comment = reader.GetString(8);
-
-                        Equipment e = equipments.Find(o => o.ID == move.equipment);     //Пока только Инвентарный номер, потом доделаю другое
-                        move.eqText = e != null ? e.iN : "";  
-
-                        User u = users.Find(o => o.ID == move.user);
-                        move.userText = (u != null ? ShotName(u) : "");
-
-                        Room r = rooms.Find(o => o.ID == move.room);                    //Пока только название комнаты, потом доделаю другое :-)
-                        move.roomText += " " + (r != null ? r.name : "");
-
+                        move.user = reader.GetInt32(2);
+                        move.room = reader.GetInt32(3);
+                        move.date = DateTime.ParseExact(reader.GetString(4), "yyyyMMdd", CultureInfo.InvariantCulture);
+                        move.comment = reader.GetString(5);
+                        move.eqText = move.equipment != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
+                        move.userText = move.user != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
+                        move.roomText = move.room != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
                         moves.Add(move);
                     }
                 }
@@ -946,14 +937,11 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [moves] (equipment, filial, building, room, dep, user, date, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO [moves] (equipment, user, room, date, comment) VALUES ('" +
                     move.equipment + "', '" +
-                    move.filial + "', '" +
-                    move.building + "', '" +
-                    move.room + "', '" +
-                    move.dep + "', '" +
                     move.user + "', '" +
-                    move.date.ToString("dd.MM.yyyy") + "', '" +
+                    move.room + "', '" +
+                    move.date.ToString("yyyyMMdd") + "', '" +
                     move.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -967,12 +955,9 @@ namespace CompStore
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "UPDATE [moves] SET " +
                     "[equipment] = '" + move.equipment + "', " +
-                    "[filial] = '" + move.filial + "', " +
-                    "[building] = '" + move.building + "', " +
-                    "[room] = '" + move.room + "', " +
-                    "[dep] = '" + move.dep + "', " +
                     "[user] = '" + move.user + "', " +
-                    "[date] = '" + move.date.ToString("dd.MM.yyyy") + "', " +
+                    "[room] = '" + move.room + "', " +
+                    "[date] = '" + move.date.ToString("yyyyMMdd") + "', " +
                     "[comment] = '" + move.comment + "' WHERE ID = " + move.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

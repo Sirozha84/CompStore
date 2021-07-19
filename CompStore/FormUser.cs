@@ -49,9 +49,9 @@ namespace CompStore
 
         private void OK(object sender, EventArgs e)
         {
-            comboPost.DataBindings[0].WriteValue();
-            comboDep.DataBindings[0].WriteValue();
-            comboRoom.DataBindings[0].WriteValue();
+            if (comboPost.SelectedValue != null) comboPost.DataBindings[0].WriteValue();
+            if (comboDep.SelectedValue != null) comboDep.DataBindings[0].WriteValue();
+            if (comboRoom.SelectedValue != null) comboRoom.DataBindings[0].WriteValue();
             DialogResult = DialogResult.OK;
         }
     }

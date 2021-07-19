@@ -29,29 +29,29 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode53,
-            treeNode54,
-            treeNode55,
-            treeNode56,
-            treeNode57,
-            treeNode58});
-            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode60});
-            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode65 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode62,
-            treeNode63,
-            treeNode64});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode21});
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode23,
+            treeNode24,
+            treeNode25});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -182,6 +182,20 @@ namespace CompStore
             this.columnModelName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
+            this.panelMoves = new System.Windows.Forms.Panel();
+            this.labelMovesFilter = new System.Windows.Forms.Label();
+            this.buttonMoveFilterReset = new System.Windows.Forms.Button();
+            this.textMoveFilter = new System.Windows.Forms.TextBox();
+            this.buttonMoveDelete = new System.Windows.Forms.Button();
+            this.buttonMoveEdit = new System.Windows.Forms.Button();
+            this.buttonMoveAdd = new System.Windows.Forms.Button();
+            this.listMoves = new System.Windows.Forms.ListView();
+            this.columnMoveDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMoveEq = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelMoves = new System.Windows.Forms.Label();
+            this.columnMoveUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -193,6 +207,7 @@ namespace CompStore
             this.panelBrands.SuspendLayout();
             this.panelEqTypes.SuspendLayout();
             this.panelModels.SuspendLayout();
+            this.panelMoves.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -202,36 +217,36 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode53.Name = "nodeFilials";
-            treeNode53.Text = "Филиалы";
-            treeNode54.Name = "nodeBuildings";
-            treeNode54.Text = "Здания";
-            treeNode55.Name = "nodeRooms";
-            treeNode55.Text = "Помещения";
-            treeNode56.Name = "nodeDeps";
-            treeNode56.Text = "Подразделения";
-            treeNode57.Name = "nodePosts";
-            treeNode57.Text = "Должности";
-            treeNode58.Name = "nodeUsers";
-            treeNode58.Text = "Сотрудники";
-            treeNode59.Name = "nodeCompany";
-            treeNode59.Text = "Предприятие";
-            treeNode60.Name = "nodeMoves";
-            treeNode60.Text = "Перемещения";
-            treeNode61.Name = "nodeEquipment";
-            treeNode61.Text = "Оборудование";
-            treeNode62.Name = "nodeEqType";
-            treeNode62.Text = "Типы оборудования";
-            treeNode63.Name = "nodeBrands";
-            treeNode63.Text = "Производители";
-            treeNode64.Name = "nodeModels";
-            treeNode64.Text = "Модели";
-            treeNode65.Name = "nodeCommon";
-            treeNode65.Text = "Общие разделы";
+            treeNode14.Name = "nodeFilials";
+            treeNode14.Text = "Филиалы";
+            treeNode15.Name = "nodeBuildings";
+            treeNode15.Text = "Здания";
+            treeNode16.Name = "nodeRooms";
+            treeNode16.Text = "Помещения";
+            treeNode17.Name = "nodeDeps";
+            treeNode17.Text = "Подразделения";
+            treeNode18.Name = "nodePosts";
+            treeNode18.Text = "Должности";
+            treeNode19.Name = "nodeUsers";
+            treeNode19.Text = "Сотрудники";
+            treeNode20.Name = "nodeCompany";
+            treeNode20.Text = "Предприятие";
+            treeNode21.Name = "nodeMoves";
+            treeNode21.Text = "Перемещения";
+            treeNode22.Name = "nodeEquipment";
+            treeNode22.Text = "Оборудование";
+            treeNode23.Name = "nodeEqType";
+            treeNode23.Text = "Типы оборудования";
+            treeNode24.Name = "nodeBrands";
+            treeNode24.Text = "Производители";
+            treeNode25.Name = "nodeModels";
+            treeNode25.Text = "Модели";
+            treeNode26.Name = "nodeCommon";
+            treeNode26.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode59,
-            treeNode61,
-            treeNode65});
+            treeNode20,
+            treeNode22,
+            treeNode26});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -1580,11 +1595,152 @@ namespace CompStore
             this.label2.TabIndex = 1;
             this.label2.Text = "Модели";
             // 
+            // panelMoves
+            // 
+            this.panelMoves.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMoves.Controls.Add(this.labelMovesFilter);
+            this.panelMoves.Controls.Add(this.buttonMoveFilterReset);
+            this.panelMoves.Controls.Add(this.textMoveFilter);
+            this.panelMoves.Controls.Add(this.buttonMoveDelete);
+            this.panelMoves.Controls.Add(this.buttonMoveEdit);
+            this.panelMoves.Controls.Add(this.buttonMoveAdd);
+            this.panelMoves.Controls.Add(this.listMoves);
+            this.panelMoves.Controls.Add(this.labelMoves);
+            this.panelMoves.Location = new System.Drawing.Point(163, 27);
+            this.panelMoves.Name = "panelMoves";
+            this.panelMoves.Size = new System.Drawing.Size(1021, 709);
+            this.panelMoves.TabIndex = 17;
+            this.panelMoves.Visible = false;
+            this.panelMoves.VisibleChanged += new System.EventHandler(this.MovesView);
+            // 
+            // labelMovesFilter
+            // 
+            this.labelMovesFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMovesFilter.AutoSize = true;
+            this.labelMovesFilter.Location = new System.Drawing.Point(575, 28);
+            this.labelMovesFilter.Name = "labelMovesFilter";
+            this.labelMovesFilter.Size = new System.Drawing.Size(47, 13);
+            this.labelMovesFilter.TabIndex = 8;
+            this.labelMovesFilter.Text = "Фильтр";
+            // 
+            // buttonMoveFilterReset
+            // 
+            this.buttonMoveFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMoveFilterReset.Location = new System.Drawing.Point(934, 23);
+            this.buttonMoveFilterReset.Name = "buttonMoveFilterReset";
+            this.buttonMoveFilterReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonMoveFilterReset.TabIndex = 7;
+            this.buttonMoveFilterReset.Text = "Очистить";
+            this.buttonMoveFilterReset.UseVisualStyleBackColor = true;
+            this.buttonMoveFilterReset.Click += new System.EventHandler(this.MoveFilterReset);
+            // 
+            // textMoveFilter
+            // 
+            this.textMoveFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textMoveFilter.Location = new System.Drawing.Point(628, 25);
+            this.textMoveFilter.Name = "textMoveFilter";
+            this.textMoveFilter.Size = new System.Drawing.Size(300, 20);
+            this.textMoveFilter.TabIndex = 6;
+            this.textMoveFilter.TextChanged += new System.EventHandler(this.MovesDraw);
+            // 
+            // buttonMoveDelete
+            // 
+            this.buttonMoveDelete.Enabled = false;
+            this.buttonMoveDelete.Location = new System.Drawing.Point(162, 23);
+            this.buttonMoveDelete.Name = "buttonMoveDelete";
+            this.buttonMoveDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonMoveDelete.TabIndex = 5;
+            this.buttonMoveDelete.Text = "Удалить";
+            this.buttonMoveDelete.UseVisualStyleBackColor = true;
+            this.buttonMoveDelete.Click += new System.EventHandler(this.MoveDelete);
+            // 
+            // buttonMoveEdit
+            // 
+            this.buttonMoveEdit.Enabled = false;
+            this.buttonMoveEdit.Location = new System.Drawing.Point(81, 23);
+            this.buttonMoveEdit.Name = "buttonMoveEdit";
+            this.buttonMoveEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonMoveEdit.TabIndex = 4;
+            this.buttonMoveEdit.Text = "Править";
+            this.buttonMoveEdit.UseVisualStyleBackColor = true;
+            this.buttonMoveEdit.Click += new System.EventHandler(this.MoveEdit);
+            // 
+            // buttonMoveAdd
+            // 
+            this.buttonMoveAdd.Location = new System.Drawing.Point(0, 23);
+            this.buttonMoveAdd.Name = "buttonMoveAdd";
+            this.buttonMoveAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonMoveAdd.TabIndex = 3;
+            this.buttonMoveAdd.Text = "Добавить";
+            this.buttonMoveAdd.UseVisualStyleBackColor = true;
+            this.buttonMoveAdd.Click += new System.EventHandler(this.MoveAdd);
+            // 
+            // listMoves
+            // 
+            this.listMoves.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnMoveDate,
+            this.columnMoveEq,
+            this.columnMoveUser,
+            this.columnMoveRoom,
+            this.columnMoveCom});
+            this.listMoves.FullRowSelect = true;
+            this.listMoves.HideSelection = false;
+            this.listMoves.Location = new System.Drawing.Point(0, 52);
+            this.listMoves.MultiSelect = false;
+            this.listMoves.Name = "listMoves";
+            this.listMoves.Size = new System.Drawing.Size(1021, 657);
+            this.listMoves.TabIndex = 2;
+            this.listMoves.UseCompatibleStateImageBehavior = false;
+            this.listMoves.View = System.Windows.Forms.View.Details;
+            this.listMoves.SelectedIndexChanged += new System.EventHandler(this.MovesSelChange);
+            this.listMoves.DoubleClick += new System.EventHandler(this.MoveEdit);
+            // 
+            // columnMoveDate
+            // 
+            this.columnMoveDate.Text = "Дата";
+            this.columnMoveDate.Width = 100;
+            // 
+            // columnMoveEq
+            // 
+            this.columnMoveEq.Text = "Оборудование";
+            this.columnMoveEq.Width = 290;
+            // 
+            // labelMoves
+            // 
+            this.labelMoves.AutoSize = true;
+            this.labelMoves.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMoves.Location = new System.Drawing.Point(3, 0);
+            this.labelMoves.Name = "labelMoves";
+            this.labelMoves.Size = new System.Drawing.Size(128, 20);
+            this.labelMoves.TabIndex = 1;
+            this.labelMoves.Text = "Перемещения";
+            // 
+            // columnMoveUser
+            // 
+            this.columnMoveUser.Text = "Ответственный";
+            this.columnMoveUser.Width = 200;
+            // 
+            // columnMoveRoom
+            // 
+            this.columnMoveRoom.Text = "Помещение";
+            this.columnMoveRoom.Width = 200;
+            // 
+            // columnMoveCom
+            // 
+            this.columnMoveCom.Text = "Примечание";
+            this.columnMoveCom.Width = 200;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
             this.Controls.Add(this.panelFilials);
@@ -1624,6 +1780,8 @@ namespace CompStore
             this.panelEqTypes.PerformLayout();
             this.panelModels.ResumeLayout(false);
             this.panelModels.PerformLayout();
+            this.panelMoves.ResumeLayout(false);
+            this.panelMoves.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1761,6 +1919,20 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnEqUser;
         private System.Windows.Forms.ColumnHeader columnEqPlace;
         private System.Windows.Forms.ColumnHeader columnEqBuyDate;
+        private System.Windows.Forms.Panel panelMoves;
+        private System.Windows.Forms.Label labelMovesFilter;
+        private System.Windows.Forms.Button buttonMoveFilterReset;
+        private System.Windows.Forms.TextBox textMoveFilter;
+        private System.Windows.Forms.Button buttonMoveDelete;
+        private System.Windows.Forms.Button buttonMoveEdit;
+        private System.Windows.Forms.Button buttonMoveAdd;
+        private System.Windows.Forms.ListView listMoves;
+        private System.Windows.Forms.ColumnHeader columnMoveDate;
+        private System.Windows.Forms.ColumnHeader columnMoveEq;
+        private System.Windows.Forms.Label labelMoves;
+        private System.Windows.Forms.ColumnHeader columnMoveUser;
+        private System.Windows.Forms.ColumnHeader columnMoveRoom;
+        private System.Windows.Forms.ColumnHeader columnMoveCom;
     }
 }
 

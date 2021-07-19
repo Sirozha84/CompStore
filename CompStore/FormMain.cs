@@ -23,24 +23,12 @@ namespace CompStore
         List<EqType> eqTypes;
         List<Model> models;
         List<Equipment> equipments;
+        List<Move> moves;
+
         public FormMain()
         {
             InitializeComponent();
             treeMenu.ExpandAll();
-
-            //Костыль, но пока не придумал как по другому: в конструкторе все панели в разных местах,
-            //а при старте сдвигаем все в одноу точку
-            /*Point defLoc = new Point(163, 27);
-            panelFilials.Location = defLoc;
-            panelBuildings.Location = defLoc;
-            panelRooms.Location = defLoc;
-            panelDeps.Location = defLoc;
-            panelPosts.Location = defLoc;
-            panelUsers.Location = defLoc;
-            panelEquipments.Location = defLoc;
-            panelBrands.Location = defLoc;
-            panelEqTypes.Location = defLoc;
-            panelModels.Location = defLoc;*/
 
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeEquipment", true)[0];
@@ -58,6 +46,7 @@ namespace CompStore
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
+            panelMoves.Visible = treeMenu.SelectedNode.Name == "nodeMoves";
         }
 
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
@@ -709,6 +698,71 @@ namespace CompStore
             {
                 DB.EquipmentDelete(equipment);
                 EquipmentsRefresh();
+            }
+        }
+        #endregion
+
+        #region Модели
+        private void MovesView(object sender, EventArgs e)
+        {
+            if (panelMoves.Visible) MovesRefresh();
+        }
+
+        void MovesRefresh()
+        {
+            moves = DB.MovesLoad();
+            MovesDraw(null, null);
+        }
+
+        private void MovesDraw(object sender, EventArgs e)
+        {
+            listMoves.BeginUpdate();
+            listMoves.Items.Clear();
+            foreach (Move move in moves)
+                if (move.Contains(textMoveFilter.Text))
+                    listMoves.Items.Add(move.ToListView());
+            listMoves.EndUpdate();
+            MovesSelChange(null, null);
+        }
+        private void MovesSelChange(object sender, EventArgs e)
+        {
+            bool sel = listMoves.SelectedIndices.Count > 0;
+            buttonMoveEdit.Enabled = sel;
+            buttonMoveDelete.Enabled = sel;
+        }
+        private void MoveFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void MoveAdd(object sender, EventArgs e)
+        {
+            Move move = new Move();
+            FormMove form = new FormMove(move);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.MoveAdd(move);
+                MovesRefresh();
+            }
+        }
+        private void MoveEdit(object sender, EventArgs e)
+        {
+            if (listMoves.SelectedIndices.Count == 0) return;
+            Move move = (Move)listMoves.SelectedItems[0].Tag;
+            FormMove form = new FormMove(move);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.MoveUpdate(move);
+                MovesRefresh();
+            }
+        }
+
+        private void MoveDelete(object sender, EventArgs e)
+        {
+            if (listMoves.SelectedIndices.Count == 0) return;
+            Move move = (Move)listMoves.SelectedItems[0].Tag;
+            if (MessageBox.Show("Уверены что хотите удалить перемещение \"" + move.eqText + "\"?",
+                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DB.MoveDelete(move);
+                MovesRefresh();
             }
         }
         #endregion

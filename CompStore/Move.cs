@@ -1,26 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CompStore
 {
     public class Move
     {
-        public int ID;
-        public int equipment;
-        public int filial;
-        public int building;
-        public int room;
-        public int dep;
-        public int user;
-        public DateTime date = DateTime.Now;
-        public string comment;
+        public int ID { get; set; }
+        public int equipment { get; set; }
+        public int user { get; set; }
+        public int room { get; set; }
+        public DateTime date { get; set; }
+        public string comment { get; set; }
 
         public string eqText;
         public string userText;
         public string roomText;
+        public ListViewItem ToListView()
+        {
+            ListViewItem str = new ListViewItem(date.ToString("dd.MM.yyyy"));
+            str.SubItems.Add(eqText);
+            str.SubItems.Add(userText);
+            str.SubItems.Add(roomText);
+            str.SubItems.Add(comment);
+            str.Tag = this;
+            return str;
+        }
 
+        public bool Contains(string search)
+        {
+            search = search.ToLower();
+            /* return (eqText.ToLower().Contains(search) |
+                     userText.ToLower().Contains(search) |
+                     roomText.ToLower().Contains(search) |
+                     comment.ToLower().Contains(search));*/
+            return true;
+        }
     }
 }
