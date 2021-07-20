@@ -504,9 +504,9 @@ namespace CompStore
                         user.dep = reader.GetInt32(5);
                         user.room = reader.GetInt32(6);
                         user.emp = reader.GetString(7) == "1";
-                        user.empDate = DateTime.Parse(reader.GetString(8));
+                        user.empDate = DateTime.ParseExact(reader.GetString(8), "yyyyMMdd", CultureInfo.InvariantCulture);
                         user.dis = reader.GetString(9) == "1";
-                        user.disDate = DateTime.Parse(reader.GetString(10));
+                        user.disDate = DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture);
                         user.comment = reader.GetString(11);
                         user.nameText = reader.GetString(12);
                         user.postText = user.post != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
@@ -534,9 +534,9 @@ namespace CompStore
                                   user.dep + "', '" +
                                   user.room + "', '" +
                                   (user.emp ? "1" : "0") + "', '" +
-                                  user.empDate.ToString("dd.MM.yyyy") + "', '" +
+                                  user.empDate.ToString("yyyyMMdd") + "', '" +
                                   (user.dis ? "1" : "0") + "', '" +
-                                  user.disDate.ToString("dd.MM.yyyy") + "', '" +
+                                  user.disDate.ToString("yyyyMMdd") + "', '" +
                                   user.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -556,9 +556,9 @@ namespace CompStore
                                   "dep = '" + user.dep + "', " +
                                   "room = '" + user.room + "', " +
                                   "emp = '" + (user.emp ? "1" : "0") + "', " +
-                                  "empdate = '" + user.empDate.ToString("dd.MM.yyyy") + "', " +
+                                  "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +
                                   "dis = '" + (user.dis ? "1" : "0") + "', " +
-                                  "disdate = '" + user.disDate.ToString("dd.MM.yyyy") + "', " +
+                                  "disdate = '" + user.disDate.ToString("yyyyMMdd") + "', " +
                                   "comment = '" + user.comment + "' WHERE ID = " + user.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -792,9 +792,6 @@ namespace CompStore
         public static List<Equipment> EquipmentsLoad()
         {
             List<Equipment> equipments = new List<Equipment>();
-            List<EqType> eqTypes = EqTypesLoad();
-            List<Brand> brands = BrandsLoad();
-            List<Model> models = ModelsLoad();
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
             {
                 connect.Open();
@@ -806,12 +803,19 @@ namespace CompStore
                     "equipments.[in], " +
                     "equipments.buy, " +
                     "equipments.buydate, " +
-                    "equipments.comment," +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name " +
+                    "equipments.comment, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
+                    "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
+                    "buildings.name || \", \" || rooms.name, " +
+                    "m.date " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID";
+                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "LEFT JOIN (SELECT equipment, user, room, date, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
+                    "LEFT JOIN users ON m.user = users.ID " +
+                    "LEFT JOIN rooms ON m.room = rooms.ID " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -822,9 +826,13 @@ namespace CompStore
                         equipment.sn = reader.GetString(2);
                         equipment.iN = reader.GetString(3);
                         equipment.buy = reader.GetString(4) == "1";
-                        equipment.buyDate = DateTime.Parse(reader.GetString(5));
+                        equipment.buyDate = DateTime.ParseExact(reader.GetString(5), "yyyyMMdd", CultureInfo.InvariantCulture);
                         equipment.comment = reader.GetString(6);
                         equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
+                        equipment.userText = !reader.IsDBNull(8) ? reader.GetString(8) : "";
+                        equipment.roomText = !reader.IsDBNull(9) ? reader.GetString(9) : "";
+                        equipment.isDtText = !reader.IsDBNull(10) ? 
+                            DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipments.Add(equipment);
                     }
                 }
@@ -843,7 +851,7 @@ namespace CompStore
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
                     (equipment.buy ? "1" : "0") + "', '" +
-                    equipment.buyDate.ToString("dd.MM.yyyy") + "', '" +
+                    equipment.buyDate.ToString("yyyyMMdd") + "', '" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -860,7 +868,7 @@ namespace CompStore
                     "sn = '" + equipment.sn + "', " +
                     "in = '" + equipment.iN + "', " +
                     "buy = '" + (equipment.buy ? "1" : "0") + "', " +
-                    "buydate = '" + equipment.buyDate.ToString("dd.MM.yyyy") + "', " +
+                    "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
                     "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

@@ -29,29 +29,29 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19});
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode21});
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode23,
-            treeNode24,
-            treeNode25});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,10 +192,11 @@ namespace CompStore
             this.listMoves = new System.Windows.Forms.ListView();
             this.columnMoveDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveEq = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.labelMoves = new System.Windows.Forms.Label();
             this.columnMoveUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelMoves = new System.Windows.Forms.Label();
+            this.columnIssDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -217,36 +218,36 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode14.Name = "nodeFilials";
-            treeNode14.Text = "Филиалы";
-            treeNode15.Name = "nodeBuildings";
-            treeNode15.Text = "Здания";
-            treeNode16.Name = "nodeRooms";
-            treeNode16.Text = "Помещения";
-            treeNode17.Name = "nodeDeps";
-            treeNode17.Text = "Подразделения";
-            treeNode18.Name = "nodePosts";
-            treeNode18.Text = "Должности";
-            treeNode19.Name = "nodeUsers";
-            treeNode19.Text = "Сотрудники";
-            treeNode20.Name = "nodeCompany";
-            treeNode20.Text = "Предприятие";
-            treeNode21.Name = "nodeMoves";
-            treeNode21.Text = "Перемещения";
-            treeNode22.Name = "nodeEquipment";
-            treeNode22.Text = "Оборудование";
-            treeNode23.Name = "nodeEqType";
-            treeNode23.Text = "Типы оборудования";
-            treeNode24.Name = "nodeBrands";
-            treeNode24.Text = "Производители";
-            treeNode25.Name = "nodeModels";
-            treeNode25.Text = "Модели";
-            treeNode26.Name = "nodeCommon";
-            treeNode26.Text = "Общие разделы";
+            treeNode1.Name = "nodeFilials";
+            treeNode1.Text = "Филиалы";
+            treeNode2.Name = "nodeBuildings";
+            treeNode2.Text = "Здания";
+            treeNode3.Name = "nodeRooms";
+            treeNode3.Text = "Помещения";
+            treeNode4.Name = "nodeDeps";
+            treeNode4.Text = "Подразделения";
+            treeNode5.Name = "nodePosts";
+            treeNode5.Text = "Должности";
+            treeNode6.Name = "nodeUsers";
+            treeNode6.Text = "Сотрудники";
+            treeNode7.Name = "nodeCompany";
+            treeNode7.Text = "Предприятие";
+            treeNode8.Name = "nodeMoves";
+            treeNode8.Text = "Перемещения";
+            treeNode9.Name = "nodeEquipment";
+            treeNode9.Text = "Оборудование";
+            treeNode10.Name = "nodeEqType";
+            treeNode10.Text = "Типы оборудования";
+            treeNode11.Name = "nodeBrands";
+            treeNode11.Text = "Производители";
+            treeNode12.Name = "nodeModels";
+            treeNode12.Text = "Модели";
+            treeNode13.Name = "nodeCommon";
+            treeNode13.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode20,
-            treeNode22,
-            treeNode26});
+            treeNode7,
+            treeNode9,
+            treeNode13});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -399,6 +400,7 @@ namespace CompStore
             this.columnEqIN,
             this.columnEqUser,
             this.columnEqPlace,
+            this.columnIssDate,
             this.columnEqBuyDate,
             this.columnEqComment});
             this.listEquipments.FullRowSelect = true;
@@ -431,17 +433,17 @@ namespace CompStore
             // columnEqUser
             // 
             this.columnEqUser.Text = "Ответственный";
-            this.columnEqUser.Width = 150;
+            this.columnEqUser.Width = 140;
             // 
             // columnEqPlace
             // 
             this.columnEqPlace.Text = "Помещение";
-            this.columnEqPlace.Width = 150;
+            this.columnEqPlace.Width = 120;
             // 
             // columnEqBuyDate
             // 
-            this.columnEqBuyDate.Text = "Дата покупки";
-            this.columnEqBuyDate.Width = 100;
+            this.columnEqBuyDate.Text = "Куплено";
+            this.columnEqBuyDate.Width = 70;
             // 
             // columnEqComment
             // 
@@ -1710,16 +1712,6 @@ namespace CompStore
             this.columnMoveEq.Text = "Оборудование";
             this.columnMoveEq.Width = 290;
             // 
-            // labelMoves
-            // 
-            this.labelMoves.AutoSize = true;
-            this.labelMoves.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMoves.Location = new System.Drawing.Point(3, 0);
-            this.labelMoves.Name = "labelMoves";
-            this.labelMoves.Size = new System.Drawing.Size(128, 20);
-            this.labelMoves.TabIndex = 1;
-            this.labelMoves.Text = "Перемещения";
-            // 
             // columnMoveUser
             // 
             this.columnMoveUser.Text = "Ответственный";
@@ -1735,11 +1727,27 @@ namespace CompStore
             this.columnMoveCom.Text = "Примечание";
             this.columnMoveCom.Width = 200;
             // 
+            // labelMoves
+            // 
+            this.labelMoves.AutoSize = true;
+            this.labelMoves.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMoves.Location = new System.Drawing.Point(3, 0);
+            this.labelMoves.Name = "labelMoves";
+            this.labelMoves.Size = new System.Drawing.Size(128, 20);
+            this.labelMoves.TabIndex = 1;
+            this.labelMoves.Text = "Перемещения";
+            // 
+            // columnIssDate
+            // 
+            this.columnIssDate.Text = "Выдано";
+            this.columnIssDate.Width = 70;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
@@ -1750,7 +1758,6 @@ namespace CompStore
             this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelBrands);
             this.Controls.Add(this.panelEqTypes);
-            this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeMenu);
             this.Controls.Add(this.mainMenu);
@@ -1933,6 +1940,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnMoveUser;
         private System.Windows.Forms.ColumnHeader columnMoveRoom;
         private System.Windows.Forms.ColumnHeader columnMoveCom;
+        private System.Windows.Forms.ColumnHeader columnIssDate;
     }
 }
 
