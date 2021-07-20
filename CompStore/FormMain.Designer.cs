@@ -73,6 +73,7 @@ namespace CompStore
             this.columnEqIN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnIssDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelEquipments = new System.Windows.Forms.Label();
@@ -181,7 +182,7 @@ namespace CompStore
             this.columnModelBrand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnModelComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelModels = new System.Windows.Forms.Label();
             this.panelMoves = new System.Windows.Forms.Panel();
             this.labelMovesFilter = new System.Windows.Forms.Label();
             this.buttonMoveFilterReset = new System.Windows.Forms.Button();
@@ -196,7 +197,17 @@ namespace CompStore
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelMoves = new System.Windows.Forms.Label();
-            this.columnIssDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panelEqUp = new System.Windows.Forms.Panel();
+            this.splitterEq = new System.Windows.Forms.Splitter();
+            this.panelEqDown = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabEqMoves = new System.Windows.Forms.TabPage();
+            this.listEqMoves = new System.Windows.Forms.ListView();
+            this.columnEMDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMEquipment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelFilials.SuspendLayout();
@@ -209,6 +220,10 @@ namespace CompStore
             this.panelEqTypes.SuspendLayout();
             this.panelModels.SuspendLayout();
             this.panelMoves.SuspendLayout();
+            this.panelEqUp.SuspendLayout();
+            this.panelEqDown.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabEqMoves.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -312,14 +327,9 @@ namespace CompStore
             this.panelEquipments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelEquipments.Controls.Add(this.labelEquipmentFilter);
-            this.panelEquipments.Controls.Add(this.buttonEquipmentFilterReset);
-            this.panelEquipments.Controls.Add(this.textEquipmentFilter);
-            this.panelEquipments.Controls.Add(this.buttonEquipmentDelete);
-            this.panelEquipments.Controls.Add(this.buttonEquipmentEdit);
-            this.panelEquipments.Controls.Add(this.buttonEquipmentAdd);
-            this.panelEquipments.Controls.Add(this.listEquipments);
-            this.panelEquipments.Controls.Add(this.labelEquipments);
+            this.panelEquipments.Controls.Add(this.panelEqDown);
+            this.panelEquipments.Controls.Add(this.splitterEq);
+            this.panelEquipments.Controls.Add(this.panelEqUp);
             this.panelEquipments.Location = new System.Drawing.Point(163, 27);
             this.panelEquipments.Name = "panelEquipments";
             this.panelEquipments.Size = new System.Drawing.Size(1019, 709);
@@ -406,9 +416,8 @@ namespace CompStore
             this.listEquipments.FullRowSelect = true;
             this.listEquipments.HideSelection = false;
             this.listEquipments.Location = new System.Drawing.Point(0, 52);
-            this.listEquipments.MultiSelect = false;
             this.listEquipments.Name = "listEquipments";
-            this.listEquipments.Size = new System.Drawing.Size(1021, 657);
+            this.listEquipments.Size = new System.Drawing.Size(1021, 268);
             this.listEquipments.TabIndex = 10;
             this.listEquipments.UseCompatibleStateImageBehavior = false;
             this.listEquipments.View = System.Windows.Forms.View.Details;
@@ -440,6 +449,11 @@ namespace CompStore
             this.columnEqPlace.Text = "Помещение";
             this.columnEqPlace.Width = 120;
             // 
+            // columnIssDate
+            // 
+            this.columnIssDate.Text = "Выдано";
+            this.columnIssDate.Width = 70;
+            // 
             // columnEqBuyDate
             // 
             this.columnEqBuyDate.Text = "Куплено";
@@ -454,7 +468,7 @@ namespace CompStore
             // 
             this.labelEquipments.AutoSize = true;
             this.labelEquipments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEquipments.Location = new System.Drawing.Point(3, 0);
+            this.labelEquipments.Location = new System.Drawing.Point(0, 0);
             this.labelEquipments.Name = "labelEquipments";
             this.labelEquipments.Size = new System.Drawing.Size(132, 20);
             this.labelEquipments.TabIndex = 1;
@@ -582,7 +596,7 @@ namespace CompStore
             // 
             this.labelFilials.AutoSize = true;
             this.labelFilials.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFilials.Location = new System.Drawing.Point(3, 0);
+            this.labelFilials.Location = new System.Drawing.Point(0, 0);
             this.labelFilials.Name = "labelFilials";
             this.labelFilials.Size = new System.Drawing.Size(89, 20);
             this.labelFilials.TabIndex = 1;
@@ -716,7 +730,7 @@ namespace CompStore
             // 
             this.labelRooms.AutoSize = true;
             this.labelRooms.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRooms.Location = new System.Drawing.Point(3, 0);
+            this.labelRooms.Location = new System.Drawing.Point(0, 0);
             this.labelRooms.Name = "labelRooms";
             this.labelRooms.Size = new System.Drawing.Size(108, 20);
             this.labelRooms.TabIndex = 1;
@@ -831,7 +845,7 @@ namespace CompStore
             // 
             this.labelPosts.AutoSize = true;
             this.labelPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPosts.Location = new System.Drawing.Point(3, 0);
+            this.labelPosts.Location = new System.Drawing.Point(0, 0);
             this.labelPosts.Name = "labelPosts";
             this.labelPosts.Size = new System.Drawing.Size(104, 20);
             this.labelPosts.TabIndex = 1;
@@ -957,7 +971,7 @@ namespace CompStore
             // 
             this.labelBuildings.AutoSize = true;
             this.labelBuildings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelBuildings.Location = new System.Drawing.Point(3, 0);
+            this.labelBuildings.Location = new System.Drawing.Point(0, 0);
             this.labelBuildings.Name = "labelBuildings";
             this.labelBuildings.Size = new System.Drawing.Size(73, 20);
             this.labelBuildings.TabIndex = 1;
@@ -1079,7 +1093,7 @@ namespace CompStore
             // 
             this.labelDeps.AutoSize = true;
             this.labelDeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDeps.Location = new System.Drawing.Point(3, 0);
+            this.labelDeps.Location = new System.Drawing.Point(0, 0);
             this.labelDeps.Name = "labelDeps";
             this.labelDeps.Size = new System.Drawing.Size(146, 20);
             this.labelDeps.TabIndex = 1;
@@ -1341,7 +1355,7 @@ namespace CompStore
             // 
             this.labelBrands.AutoSize = true;
             this.labelBrands.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelBrands.Location = new System.Drawing.Point(3, 0);
+            this.labelBrands.Location = new System.Drawing.Point(0, 0);
             this.labelBrands.Name = "labelBrands";
             this.labelBrands.Size = new System.Drawing.Size(144, 20);
             this.labelBrands.TabIndex = 1;
@@ -1457,7 +1471,7 @@ namespace CompStore
             // 
             this.labelEqType.AutoSize = true;
             this.labelEqType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEqType.Location = new System.Drawing.Point(3, 0);
+            this.labelEqType.Location = new System.Drawing.Point(0, 0);
             this.labelEqType.Name = "labelEqType";
             this.labelEqType.Size = new System.Drawing.Size(176, 20);
             this.labelEqType.TabIndex = 1;
@@ -1475,7 +1489,7 @@ namespace CompStore
             this.panelModels.Controls.Add(this.buttonModelEdit);
             this.panelModels.Controls.Add(this.buttonModelAdd);
             this.panelModels.Controls.Add(this.listModels);
-            this.panelModels.Controls.Add(this.label2);
+            this.panelModels.Controls.Add(this.labelModels);
             this.panelModels.Location = new System.Drawing.Point(163, 27);
             this.panelModels.Name = "panelModels";
             this.panelModels.Size = new System.Drawing.Size(1021, 709);
@@ -1587,15 +1601,15 @@ namespace CompStore
             this.columnModelComment.Text = "Примечание";
             this.columnModelComment.Width = 390;
             // 
-            // label2
+            // labelModels
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Модели";
+            this.labelModels.AutoSize = true;
+            this.labelModels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelModels.Location = new System.Drawing.Point(0, 0);
+            this.labelModels.Name = "labelModels";
+            this.labelModels.Size = new System.Drawing.Size(76, 20);
+            this.labelModels.TabIndex = 1;
+            this.labelModels.Text = "Модели";
             // 
             // panelMoves
             // 
@@ -1731,16 +1745,110 @@ namespace CompStore
             // 
             this.labelMoves.AutoSize = true;
             this.labelMoves.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMoves.Location = new System.Drawing.Point(3, 0);
+            this.labelMoves.Location = new System.Drawing.Point(0, 0);
             this.labelMoves.Name = "labelMoves";
             this.labelMoves.Size = new System.Drawing.Size(128, 20);
             this.labelMoves.TabIndex = 1;
             this.labelMoves.Text = "Перемещения";
             // 
-            // columnIssDate
+            // panelEqUp
             // 
-            this.columnIssDate.Text = "Выдано";
-            this.columnIssDate.Width = 70;
+            this.panelEqUp.Controls.Add(this.labelEquipments);
+            this.panelEqUp.Controls.Add(this.labelEquipmentFilter);
+            this.panelEqUp.Controls.Add(this.listEquipments);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentFilterReset);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentAdd);
+            this.panelEqUp.Controls.Add(this.textEquipmentFilter);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentEdit);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentDelete);
+            this.panelEqUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEqUp.Location = new System.Drawing.Point(0, 0);
+            this.panelEqUp.Name = "panelEqUp";
+            this.panelEqUp.Size = new System.Drawing.Size(1019, 320);
+            this.panelEqUp.TabIndex = 17;
+            // 
+            // splitterEq
+            // 
+            this.splitterEq.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitterEq.Location = new System.Drawing.Point(0, 320);
+            this.splitterEq.Name = "splitterEq";
+            this.splitterEq.Size = new System.Drawing.Size(1019, 8);
+            this.splitterEq.TabIndex = 20;
+            this.splitterEq.TabStop = false;
+            // 
+            // panelEqDown
+            // 
+            this.panelEqDown.Controls.Add(this.tabControl1);
+            this.panelEqDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelEqDown.Location = new System.Drawing.Point(0, 328);
+            this.panelEqDown.Name = "panelEqDown";
+            this.panelEqDown.Size = new System.Drawing.Size(1019, 381);
+            this.panelEqDown.TabIndex = 21;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabEqMoves);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1019, 381);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabEqMoves
+            // 
+            this.tabEqMoves.Controls.Add(this.listEqMoves);
+            this.tabEqMoves.Location = new System.Drawing.Point(4, 22);
+            this.tabEqMoves.Name = "tabEqMoves";
+            this.tabEqMoves.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEqMoves.Size = new System.Drawing.Size(1011, 355);
+            this.tabEqMoves.TabIndex = 0;
+            this.tabEqMoves.Text = "Перемещения";
+            this.tabEqMoves.UseVisualStyleBackColor = true;
+            // 
+            // listEqMoves
+            // 
+            this.listEqMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnEMDate,
+            this.columnEMEquipment,
+            this.columnEMUser,
+            this.columnEMRoom,
+            this.columnEMComment});
+            this.listEqMoves.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listEqMoves.FullRowSelect = true;
+            this.listEqMoves.HideSelection = false;
+            this.listEqMoves.Location = new System.Drawing.Point(3, 3);
+            this.listEqMoves.MultiSelect = false;
+            this.listEqMoves.Name = "listEqMoves";
+            this.listEqMoves.Size = new System.Drawing.Size(1005, 349);
+            this.listEqMoves.TabIndex = 3;
+            this.listEqMoves.UseCompatibleStateImageBehavior = false;
+            this.listEqMoves.View = System.Windows.Forms.View.Details;
+            // 
+            // columnEMDate
+            // 
+            this.columnEMDate.Text = "Дата";
+            this.columnEMDate.Width = 100;
+            // 
+            // columnEMUser
+            // 
+            this.columnEMUser.Text = "Ответственный";
+            this.columnEMUser.Width = 200;
+            // 
+            // columnEMRoom
+            // 
+            this.columnEMRoom.Text = "Помещение";
+            this.columnEMRoom.Width = 200;
+            // 
+            // columnEMComment
+            // 
+            this.columnEMComment.Text = "Примечание";
+            this.columnEMComment.Width = 280;
+            // 
+            // columnEMEquipment
+            // 
+            this.columnEMEquipment.Text = "Оборудование";
+            this.columnEMEquipment.Width = 200;
             // 
             // FormMain
             // 
@@ -1768,7 +1876,6 @@ namespace CompStore
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.panelEquipments.ResumeLayout(false);
-            this.panelEquipments.PerformLayout();
             this.panelFilials.ResumeLayout(false);
             this.panelFilials.PerformLayout();
             this.panelRooms.ResumeLayout(false);
@@ -1789,6 +1896,11 @@ namespace CompStore
             this.panelModels.PerformLayout();
             this.panelMoves.ResumeLayout(false);
             this.panelMoves.PerformLayout();
+            this.panelEqUp.ResumeLayout(false);
+            this.panelEqUp.PerformLayout();
+            this.panelEqDown.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabEqMoves.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1911,7 +2023,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnModelBrand;
         private System.Windows.Forms.ColumnHeader columnModelName;
         private System.Windows.Forms.ColumnHeader columnModelComment;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelModels;
         private System.Windows.Forms.Label labelEquipmentFilter;
         private System.Windows.Forms.Button buttonEquipmentFilterReset;
         private System.Windows.Forms.TextBox textEquipmentFilter;
@@ -1941,6 +2053,17 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnMoveRoom;
         private System.Windows.Forms.ColumnHeader columnMoveCom;
         private System.Windows.Forms.ColumnHeader columnIssDate;
+        private System.Windows.Forms.Panel panelEqUp;
+        private System.Windows.Forms.Panel panelEqDown;
+        private System.Windows.Forms.Splitter splitterEq;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabEqMoves;
+        private System.Windows.Forms.ListView listEqMoves;
+        private System.Windows.Forms.ColumnHeader columnEMDate;
+        private System.Windows.Forms.ColumnHeader columnEMUser;
+        private System.Windows.Forms.ColumnHeader columnEMRoom;
+        private System.Windows.Forms.ColumnHeader columnEMComment;
+        private System.Windows.Forms.ColumnHeader columnEMEquipment;
     }
 }
 

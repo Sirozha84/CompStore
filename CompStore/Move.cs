@@ -15,6 +15,7 @@ namespace CompStore
         public string eqText;
         public string userText;
         public string roomText;
+
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(date.ToString("dd.MM.yyyy"));
@@ -29,11 +30,10 @@ namespace CompStore
         public bool Contains(string search)
         {
             search = search.ToLower();
-            /* return (eqText.ToLower().Contains(search) |
+            return (eqText.ToLower().Contains(search) |
                      userText.ToLower().Contains(search) |
                      roomText.ToLower().Contains(search) |
-                     comment.ToLower().Contains(search));*/
-            return true;
+                     comment.ToLower().Contains(search));
         }
     }
 }

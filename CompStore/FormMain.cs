@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
 
 namespace CompStore
 {
@@ -646,6 +639,7 @@ namespace CompStore
         void EquipmentsRefresh()
         {
             equipments = DB.EquipmentsLoad();
+            moves = DB.MovesLoad();
             EquipmentsDraw(null, null);
         }
 
@@ -659,12 +653,23 @@ namespace CompStore
             listEquipments.EndUpdate();
             EquipmentsSelChange(null, null);
         }
+        
         private void EquipmentsSelChange(object sender, EventArgs e)
         {
             bool sel = listEquipments.SelectedIndices.Count > 0;
             buttonEquipmentEdit.Enabled = sel;
             buttonEquipmentDelete.Enabled = sel;
+            
+            listEqMoves.BeginUpdate();
+            listEqMoves.Items.Clear();
+            foreach (Move m in moves)
+                foreach (ListViewItem item in listEquipments.SelectedItems)
+                    if (((Equipment)item.Tag).ID == m.equipment)
+                        listEqMoves.Items.Add(m.ToListView());
+            listEqMoves.EndUpdate();
+            tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
         }
+
         private void EquipmentFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
 
         private void EquipmentAdd(object sender, EventArgs e)
@@ -766,5 +771,16 @@ namespace CompStore
             }
         }
         #endregion
+
+        /// <summary>
+        /// Строка с подписью числа в скобках для вкладок.
+        /// </summary>
+        /// <param name="list">Список</param>
+        /// <returns></returns>
+        string ListCount(ListView list)
+        {
+            string c = list.Items.Count.ToString();
+            return c != "0" ? " (" + c + ")" : "";
+        }
     }
 }
