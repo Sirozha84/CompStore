@@ -805,6 +805,7 @@ namespace CompStore
                     "equipments.buydate, " +
                     "equipments.comment, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
                     "buildings.name || \", \" || rooms.name, " +
                     "m.date " +
@@ -829,10 +830,11 @@ namespace CompStore
                         equipment.buyDate = DateTime.ParseExact(reader.GetString(5), "yyyyMMdd", CultureInfo.InvariantCulture);
                         equipment.comment = reader.GetString(6);
                         equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
-                        equipment.userText = !reader.IsDBNull(8) ? reader.GetString(8) : "";
-                        equipment.roomText = !reader.IsDBNull(9) ? reader.GetString(9) : "";
-                        equipment.isDtText = !reader.IsDBNull(10) ? 
-                            DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
+                        equipment.userText = !reader.IsDBNull(9) ? reader.GetString(9) : "";
+                        equipment.roomText = !reader.IsDBNull(10) ? reader.GetString(10) : "";
+                        equipment.isDtText = !reader.IsDBNull(11) ? 
+                            DateTime.ParseExact(reader.GetString(12), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipments.Add(equipment);
                     }
                 }
@@ -906,7 +908,7 @@ namespace CompStore
                     "moves.room, " +
                     "moves.date, " +
                     "moves.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || users.i || \" \" || users.o, " +
                     "buildings.name || \", \" || rooms.name " +
                     "FROM moves " +

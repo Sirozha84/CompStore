@@ -1,30 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CompStore
 {
     public partial class FormMove : Form
     {
+        Move move;
+        List<User> users;
+
         public FormMove(Move move)
         {
             InitializeComponent();
+            this.move = move;
 
             if (move.date < dateMove.MinDate) move.date = DateTime.Now;
 
             comboEquipment.DataSource = DB.EquipmentsLoad();
-            comboEquipment.DisplayMember = "nameText";
+            comboEquipment.DisplayMember = "nameINText";
             comboEquipment.ValueMember = "ID";
-            comboEquipment.DataBindings.Add("SelectedValue", move, "equipment");
+            comboEquipment.SelectedValue = move.equipment;
 
-            comboUser.DataSource = DB.UsersLoad();
+            users = DB.UsersLoad();
+            comboUser.DataSource = users;
             comboUser.DisplayMember = "nameText";
             comboUser.ValueMember = "ID";
-            comboUser.DataBindings.Add("SelectedValue", move, "user");
+            comboUser.SelectedValue = move.user;
 
             comboRoom.DataSource = DB.RoomsLoad();
             comboRoom.DisplayMember = "nameText";
             comboRoom.ValueMember = "ID";
-            comboRoom.DataBindings.Add("SelectedValue", move, "room");
+            comboRoom.SelectedValue = move.room;
 
             dateMove.DataBindings.Add("Value", move, "date");
 
@@ -36,11 +42,19 @@ namespace CompStore
                 Text = "Добавление нового перемещения";
         }
 
+        private void comboUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                comboRoom.SelectedValue = users.Find(o => o.ID == (int)comboUser.SelectedValue).room;
+            }
+            catch { }
+        }
         private void OK(object sender, EventArgs e)
         {
-            comboEquipment.DataBindings[0].WriteValue();
-            comboUser.DataBindings[0].WriteValue();
-            comboRoom.DataBindings[0].WriteValue();
+            move.equipment = (int)comboEquipment.SelectedValue;
+            move.user = (int)comboUser.SelectedValue;
+            move.room = (int)comboRoom.SelectedValue;
             DialogResult = DialogResult.OK;
         }
     }

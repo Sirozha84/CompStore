@@ -65,7 +65,7 @@ namespace CompStore
             this.comboEquipment.FormattingEnabled = true;
             this.comboEquipment.Location = new System.Drawing.Point(140, 12);
             this.comboEquipment.Name = "comboEquipment";
-            this.comboEquipment.Size = new System.Drawing.Size(232, 21);
+            this.comboEquipment.Size = new System.Drawing.Size(332, 21);
             this.comboEquipment.TabIndex = 0;
             // 
             // labelEquipment
@@ -80,7 +80,7 @@ namespace CompStore
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(216, 176);
+            this.buttonOK.Location = new System.Drawing.Point(316, 176);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -92,7 +92,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(297, 176);
+            this.buttonCancel.Location = new System.Drawing.Point(397, 176);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -107,7 +107,7 @@ namespace CompStore
             this.textCom.Location = new System.Drawing.Point(140, 119);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 51);
+            this.textCom.Size = new System.Drawing.Size(332, 51);
             this.textCom.TabIndex = 4;
             // 
             // labelCom
@@ -125,8 +125,9 @@ namespace CompStore
             this.comboUser.FormattingEnabled = true;
             this.comboUser.Location = new System.Drawing.Point(140, 39);
             this.comboUser.Name = "comboUser";
-            this.comboUser.Size = new System.Drawing.Size(232, 21);
+            this.comboUser.Size = new System.Drawing.Size(332, 21);
             this.comboUser.TabIndex = 1;
+            this.comboUser.SelectedIndexChanged += new System.EventHandler(this.comboUser_SelectedIndexChanged);
             // 
             // labelUser
             // 
@@ -143,7 +144,7 @@ namespace CompStore
             this.comboRoom.FormattingEnabled = true;
             this.comboRoom.Location = new System.Drawing.Point(140, 66);
             this.comboRoom.Name = "comboRoom";
-            this.comboRoom.Size = new System.Drawing.Size(232, 21);
+            this.comboRoom.Size = new System.Drawing.Size(332, 21);
             this.comboRoom.TabIndex = 2;
             // 
             // labelRoom
@@ -161,7 +162,7 @@ namespace CompStore
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(384, 211);
+            this.ClientSize = new System.Drawing.Size(484, 211);
             this.Controls.Add(this.comboRoom);
             this.Controls.Add(this.labelRoom);
             this.Controls.Add(this.comboUser);

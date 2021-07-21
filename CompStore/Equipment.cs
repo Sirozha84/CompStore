@@ -13,6 +13,7 @@ namespace CompStore
         public DateTime buyDate { get; set; }
         public string comment { get; set; }
         public string nameText { get; set; }
+        public string nameINText { get; set; }
         public string userText;
         public string roomText;
         public string isDtText;
