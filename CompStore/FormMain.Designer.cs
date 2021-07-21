@@ -29,29 +29,29 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode40,
+            treeNode41,
+            treeNode42,
+            treeNode43,
+            treeNode44,
+            treeNode45});
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode47});
+            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode49,
+            treeNode50,
+            treeNode51});
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -233,36 +233,36 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.Name = "nodeFilials";
-            treeNode1.Text = "Филиалы";
-            treeNode2.Name = "nodeBuildings";
-            treeNode2.Text = "Здания";
-            treeNode3.Name = "nodeRooms";
-            treeNode3.Text = "Помещения";
-            treeNode4.Name = "nodeDeps";
-            treeNode4.Text = "Подразделения";
-            treeNode5.Name = "nodePosts";
-            treeNode5.Text = "Должности";
-            treeNode6.Name = "nodeUsers";
-            treeNode6.Text = "Сотрудники";
-            treeNode7.Name = "nodeCompany";
-            treeNode7.Text = "Предприятие";
-            treeNode8.Name = "nodeMoves";
-            treeNode8.Text = "Перемещения";
-            treeNode9.Name = "nodeEquipment";
-            treeNode9.Text = "Оборудование";
-            treeNode10.Name = "nodeEqType";
-            treeNode10.Text = "Типы оборудования";
-            treeNode11.Name = "nodeBrands";
-            treeNode11.Text = "Производители";
-            treeNode12.Name = "nodeModels";
-            treeNode12.Text = "Модели";
-            treeNode13.Name = "nodeCommon";
-            treeNode13.Text = "Общие разделы";
+            treeNode40.Name = "nodeFilials";
+            treeNode40.Text = "Филиалы";
+            treeNode41.Name = "nodeBuildings";
+            treeNode41.Text = "Здания";
+            treeNode42.Name = "nodeRooms";
+            treeNode42.Text = "Помещения";
+            treeNode43.Name = "nodeDeps";
+            treeNode43.Text = "Подразделения";
+            treeNode44.Name = "nodePosts";
+            treeNode44.Text = "Должности";
+            treeNode45.Name = "nodeUsers";
+            treeNode45.Text = "Сотрудники";
+            treeNode46.Name = "nodeCompany";
+            treeNode46.Text = "Предприятие";
+            treeNode47.Name = "nodeMoves";
+            treeNode47.Text = "Перемещения";
+            treeNode48.Name = "nodeEquipment";
+            treeNode48.Text = "Оборудование";
+            treeNode49.Name = "nodeEqType";
+            treeNode49.Text = "Типы оборудования";
+            treeNode50.Name = "nodeBrands";
+            treeNode50.Text = "Производители";
+            treeNode51.Name = "nodeModels";
+            treeNode51.Text = "Модели";
+            treeNode52.Name = "nodeCommon";
+            treeNode52.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode9,
-            treeNode13});
+            treeNode46,
+            treeNode48,
+            treeNode52});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -290,7 +290,7 @@ namespace CompStore
             // инициализацияToolStripMenuItem
             // 
             this.инициализацияToolStripMenuItem.Name = "инициализацияToolStripMenuItem";
-            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.инициализацияToolStripMenuItem.Text = "Инициализация";
             this.инициализацияToolStripMenuItem.Click += new System.EventHandler(this.инициализацияToolStripMenuItem_Click);
             // 
@@ -298,7 +298,7 @@ namespace CompStore
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.menuExit);
             // 
@@ -313,7 +313,7 @@ namespace CompStore
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.menuAbout);
             // 
@@ -889,6 +889,7 @@ namespace CompStore
             this.textPostFilter.Name = "textPostFilter";
             this.textPostFilter.Size = new System.Drawing.Size(300, 20);
             this.textPostFilter.TabIndex = 6;
+            this.textPostFilter.TextChanged += new System.EventHandler(this.PostsDraw);
             // 
             // buttonPostDelete
             // 
@@ -996,6 +997,7 @@ namespace CompStore
             this.buttonBuildingFilterReset.TabIndex = 7;
             this.buttonBuildingFilterReset.Text = "Очистить";
             this.buttonBuildingFilterReset.UseVisualStyleBackColor = true;
+            this.buttonBuildingFilterReset.Click += new System.EventHandler(this.BuildingsFilterReset);
             // 
             // textBuildingFilter
             // 
@@ -1004,6 +1006,7 @@ namespace CompStore
             this.textBuildingFilter.Name = "textBuildingFilter";
             this.textBuildingFilter.Size = new System.Drawing.Size(300, 20);
             this.textBuildingFilter.TabIndex = 6;
+            this.textBuildingFilter.TextChanged += new System.EventHandler(this.BuildingsDraw);
             // 
             // buttonBuildingDelete
             // 

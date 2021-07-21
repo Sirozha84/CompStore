@@ -216,7 +216,7 @@ namespace CompStore
             listPosts.BeginUpdate();
             listPosts.Items.Clear();
             foreach (Post post in posts)
-                if (post.Contains(textRoomFilter.Text))
+                if (post.Contains(textPostFilter.Text))
                     listPosts.Items.Add(post.ToListView());
             listPosts.EndUpdate();
             PostsSelChange(null, null);
@@ -287,7 +287,7 @@ namespace CompStore
             listDeps.BeginUpdate();
             listDeps.Items.Clear();
             foreach (Dep dep in deps)
-                if (dep.Contains(textRoomFilter.Text))
+                if (dep.Contains(textDepFilter.Text))
                     listDeps.Items.Add(dep.ToListView());
             listDeps.EndUpdate();
             DepsSelChange(null, null);
@@ -298,7 +298,8 @@ namespace CompStore
             buttonDepEdit.Enabled = sel;
             buttonDepDelete.Enabled = sel;
         }
-        private void DepFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+
+        private void DepFilterReset(object sender, EventArgs e) { textDepFilter.Text = ""; }
 
         private void DepAdd(object sender, EventArgs e)
         {
@@ -363,13 +364,15 @@ namespace CompStore
             listBuildings.EndUpdate();
             BuildingsSelChange(null, null);
         }
+
         private void BuildingsSelChange(object sender, EventArgs e)
         {
             bool sel = listBuildings.SelectedIndices.Count > 0;
             buttonBuildingEdit.Enabled = sel;
             buttonBuildingDelete.Enabled = sel;
         }
-        private void buttonBuildingsFilterReset_Click(object sender, EventArgs e) { textBuildingFilter.Text = ""; }
+
+        private void BuildingsFilterReset(object sender, EventArgs e) { textBuildingFilter.Text = ""; }
 
         private void BuildingAdd(object sender, EventArgs e)
         {
@@ -511,7 +514,7 @@ namespace CompStore
             buttonBrandEdit.Enabled = sel;
             buttonBrandDelete.Enabled = sel;
         }
-        private void BrandFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void BrandFilterReset(object sender, EventArgs e) { textBrandFilter.Text = ""; }
 
         private void BrandAdd(object sender, EventArgs e)
         {
@@ -582,7 +585,7 @@ namespace CompStore
             buttonEqTypeEdit.Enabled = sel;
             buttonEqTypeDelete.Enabled = sel;
         }
-        private void EqTypeFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void EqTypeFilterReset(object sender, EventArgs e) { textEqTypeFilter.Text = ""; }
 
         private void EqTypeAdd(object sender, EventArgs e)
         {
@@ -653,7 +656,7 @@ namespace CompStore
             buttonModelEdit.Enabled = sel;
             buttonModelDelete.Enabled = sel;
         }
-        private void ModelFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void ModelFilterReset(object sender, EventArgs e) { textModelFilter.Text = ""; }
 
         private void ModelAdd(object sender, EventArgs e)
         {
@@ -736,7 +739,7 @@ namespace CompStore
             tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
         }
 
-        private void EquipmentFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void EquipmentFilterReset(object sender, EventArgs e) { textEquipmentFilter.Text = ""; }
 
         private void EquipmentAdd(object sender, EventArgs e)
         {
@@ -807,7 +810,7 @@ namespace CompStore
             buttonMoveEdit.Enabled = sel;
             buttonMoveDelete.Enabled = sel;
         }
-        private void MoveFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void MoveFilterReset(object sender, EventArgs e) { textMoveFilter.Text = ""; }
 
         private void MoveAdd(object sender, EventArgs e)
         {

@@ -834,7 +834,7 @@ namespace CompStore
                         equipment.userText = !reader.IsDBNull(9) ? reader.GetString(9) : "";
                         equipment.roomText = !reader.IsDBNull(10) ? reader.GetString(10) : "";
                         equipment.isDtText = !reader.IsDBNull(11) ? 
-                            DateTime.ParseExact(reader.GetString(12), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                            DateTime.ParseExact(reader.GetString(11), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipments.Add(equipment);
                     }
                 }
