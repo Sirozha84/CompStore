@@ -67,6 +67,7 @@ namespace CompStore
             this.comboEquipment.Name = "comboEquipment";
             this.comboEquipment.Size = new System.Drawing.Size(332, 21);
             this.comboEquipment.TabIndex = 0;
+            this.comboEquipment.SelectedIndexChanged += new System.EventHandler(this.EnterCheck);
             // 
             // labelEquipment
             // 
@@ -146,6 +147,7 @@ namespace CompStore
             this.comboRoom.Name = "comboRoom";
             this.comboRoom.Size = new System.Drawing.Size(332, 21);
             this.comboRoom.TabIndex = 2;
+            this.comboRoom.SelectedIndexChanged += new System.EventHandler(this.EnterCheck);
             // 
             // labelRoom
             // 

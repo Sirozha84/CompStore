@@ -728,7 +728,8 @@ namespace CompStore
             int sel = listEquipments.SelectedIndices.Count;
             buttonEquipmentEdit.Enabled = sel == 1;
             buttonEquipmentDelete.Enabled = sel == 1;
-            
+            buttonEquipmentMove.Enabled = sel > 0;
+
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
             foreach (Move m in moves)
@@ -780,6 +781,19 @@ namespace CompStore
             if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
             if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
         }
+
+        private void EquipmentsMove(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            Move move = new Move();
+            FormMove form = new FormMove(move, true);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                foreach (ListViewItem item in listEquipments.SelectedItems)
+                    DB.MoveAdd(move.newMove(((Equipment)item.Tag).ID));
+                EquipmentsRefresh();
+            }
+        }
         #endregion
 
         #region Перемещение
@@ -815,7 +829,7 @@ namespace CompStore
         private void MoveAdd(object sender, EventArgs e)
         {
             Move move = new Move();
-            FormMove form = new FormMove(move);
+            FormMove form = new FormMove(move, false);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.MoveAdd(move);
@@ -826,7 +840,7 @@ namespace CompStore
         {
             if (listMoves.SelectedIndices.Count == 0) return;
             Move move = (Move)listMoves.SelectedItems[0].Tag;
-            FormMove form = new FormMove(move);
+            FormMove form = new FormMove(move, false);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.MoveUpdate(move);
@@ -866,7 +880,5 @@ namespace CompStore
             string c = list.Items.Count.ToString();
             return c != "0" ? " (" + c + ")" : "";
         }
-
-
     }
 }

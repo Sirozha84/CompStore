@@ -35,5 +35,16 @@ namespace CompStore
                      roomText.ToLower().Contains(search) |
                      comment.ToLower().Contains(search));
         }
+
+        public Move newMove(int equipment)
+        {
+            Move move = new Move();
+            move.equipment = equipment;
+            move.user = user;
+            move.room = room;
+            move.date = date;
+            move.comment = comment;
+            return move;
+        }
     }
 }

@@ -6,13 +6,15 @@ namespace CompStore
 {
     public partial class FormMove : Form
     {
+        bool pack;
         Move move;
         List<User> users;
 
-        public FormMove(Move move)
+        public FormMove(Move move, bool pack)
         {
             InitializeComponent();
             this.move = move;
+            this.pack = pack;
 
             if (move.date < dateMove.MinDate) move.date = DateTime.Now;
 
@@ -20,6 +22,7 @@ namespace CompStore
             comboEquipment.DisplayMember = "nameINText";
             comboEquipment.ValueMember = "ID";
             comboEquipment.SelectedValue = move.equipment;
+            comboEquipment.Enabled = !pack;
 
             users = DB.UsersLoad();
             comboUser.DataSource = users;
@@ -39,7 +42,7 @@ namespace CompStore
             if (move.eqText != null)
                 Text = "Редактирование перемещения \"" + move.eqText + "\"";
             else
-                Text = "Добавление нового перемещения";
+                Text = pack ? "Перемещение объектов" : "Добавление нового перемещения";
         }
 
         private void comboUser_SelectedIndexChanged(object sender, EventArgs e)
@@ -47,15 +50,23 @@ namespace CompStore
             try
             {
                 comboRoom.SelectedValue = users.Find(o => o.ID == (int)comboUser.SelectedValue).room;
+                EnterCheck(null, null);
             }
             catch { }
         }
+
+        private void EnterCheck(object sender, EventArgs e)
+        {
+            buttonOK.Enabled = (pack | comboEquipment.SelectedIndex >= 0) & 
+                               comboUser.SelectedIndex >= 0;
+        }
+
         private void OK(object sender, EventArgs e)
         {
-            move.equipment = (int)comboEquipment.SelectedValue;
+            move.equipment = pack ? 0 : (int)comboEquipment.SelectedValue;
             move.user = (int)comboUser.SelectedValue;
             move.room = (int)comboRoom.SelectedValue;
             DialogResult = DialogResult.OK;
-        }
+        }               
     }
 }

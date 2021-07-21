@@ -29,29 +29,30 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode40,
-            treeNode41,
-            treeNode42,
-            treeNode43,
-            treeNode44,
-            treeNode45});
-            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode47});
-            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode49,
-            treeNode50,
-            treeNode51});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30,
+            treeNode31,
+            treeNode32});
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode34});
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode36,
+            treeNode37,
+            treeNode38});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +85,7 @@ namespace CompStore
             this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonEquipmentFilterReset = new System.Windows.Forms.Button();
-            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
             this.textEquipmentFilter = new System.Windows.Forms.TextBox();
-            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
-            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
             this.panelFilials = new System.Windows.Forms.Panel();
             this.labelFilialFilter = new System.Windows.Forms.Label();
             this.buttonFilialResetFilter = new System.Windows.Forms.Button();
@@ -208,6 +206,10 @@ namespace CompStore
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelMoves = new System.Windows.Forms.Label();
+            this.buttonEquipmentMove = new System.Windows.Forms.Button();
+            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
+            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
+            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelEqDown.SuspendLayout();
@@ -233,36 +235,36 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode40.Name = "nodeFilials";
-            treeNode40.Text = "Филиалы";
-            treeNode41.Name = "nodeBuildings";
-            treeNode41.Text = "Здания";
-            treeNode42.Name = "nodeRooms";
-            treeNode42.Text = "Помещения";
-            treeNode43.Name = "nodeDeps";
-            treeNode43.Text = "Подразделения";
-            treeNode44.Name = "nodePosts";
-            treeNode44.Text = "Должности";
-            treeNode45.Name = "nodeUsers";
-            treeNode45.Text = "Сотрудники";
-            treeNode46.Name = "nodeCompany";
-            treeNode46.Text = "Предприятие";
-            treeNode47.Name = "nodeMoves";
-            treeNode47.Text = "Перемещения";
-            treeNode48.Name = "nodeEquipment";
-            treeNode48.Text = "Оборудование";
-            treeNode49.Name = "nodeEqType";
-            treeNode49.Text = "Типы оборудования";
-            treeNode50.Name = "nodeBrands";
-            treeNode50.Text = "Производители";
-            treeNode51.Name = "nodeModels";
-            treeNode51.Text = "Модели";
-            treeNode52.Name = "nodeCommon";
-            treeNode52.Text = "Общие разделы";
+            treeNode27.Name = "nodeFilials";
+            treeNode27.Text = "Филиалы";
+            treeNode28.Name = "nodeBuildings";
+            treeNode28.Text = "Здания";
+            treeNode29.Name = "nodeRooms";
+            treeNode29.Text = "Помещения";
+            treeNode30.Name = "nodeDeps";
+            treeNode30.Text = "Подразделения";
+            treeNode31.Name = "nodePosts";
+            treeNode31.Text = "Должности";
+            treeNode32.Name = "nodeUsers";
+            treeNode32.Text = "Сотрудники";
+            treeNode33.Name = "nodeCompany";
+            treeNode33.Text = "Предприятие";
+            treeNode34.Name = "nodeMoves";
+            treeNode34.Text = "Перемещения";
+            treeNode35.Name = "nodeEquipment";
+            treeNode35.Text = "Оборудование";
+            treeNode36.Name = "nodeEqType";
+            treeNode36.Text = "Типы оборудования";
+            treeNode37.Name = "nodeBrands";
+            treeNode37.Text = "Производители";
+            treeNode38.Name = "nodeModels";
+            treeNode38.Text = "Модели";
+            treeNode39.Name = "nodeCommon";
+            treeNode39.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode46,
-            treeNode48,
-            treeNode52});
+            treeNode33,
+            treeNode35,
+            treeNode39});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -425,6 +427,7 @@ namespace CompStore
             // 
             // panelEqUp
             // 
+            this.panelEqUp.Controls.Add(this.buttonEquipmentMove);
             this.panelEqUp.Controls.Add(this.labelEquipments);
             this.panelEqUp.Controls.Add(this.labelEquipmentFilter);
             this.panelEqUp.Controls.Add(this.listEquipments);
@@ -536,16 +539,6 @@ namespace CompStore
             this.buttonEquipmentFilterReset.UseVisualStyleBackColor = true;
             this.buttonEquipmentFilterReset.Click += new System.EventHandler(this.EquipmentFilterReset);
             // 
-            // buttonEquipmentAdd
-            // 
-            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
-            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
-            this.buttonEquipmentAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentAdd.TabIndex = 11;
-            this.buttonEquipmentAdd.Text = "Добавить";
-            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
-            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
-            // 
             // textEquipmentFilter
             // 
             this.textEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -554,28 +547,6 @@ namespace CompStore
             this.textEquipmentFilter.Size = new System.Drawing.Size(300, 20);
             this.textEquipmentFilter.TabIndex = 14;
             this.textEquipmentFilter.TextChanged += new System.EventHandler(this.EquipmentsDraw);
-            // 
-            // buttonEquipmentEdit
-            // 
-            this.buttonEquipmentEdit.Enabled = false;
-            this.buttonEquipmentEdit.Location = new System.Drawing.Point(81, 23);
-            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
-            this.buttonEquipmentEdit.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentEdit.TabIndex = 12;
-            this.buttonEquipmentEdit.Text = "Править";
-            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
-            this.buttonEquipmentEdit.Click += new System.EventHandler(this.EquipmentEdit);
-            // 
-            // buttonEquipmentDelete
-            // 
-            this.buttonEquipmentDelete.Enabled = false;
-            this.buttonEquipmentDelete.Location = new System.Drawing.Point(162, 23);
-            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
-            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentDelete.TabIndex = 13;
-            this.buttonEquipmentDelete.Text = "Удалить";
-            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
-            this.buttonEquipmentDelete.Click += new System.EventHandler(this.EquipmentDelete);
             // 
             // panelFilials
             // 
@@ -1867,13 +1838,68 @@ namespace CompStore
             this.labelMoves.TabIndex = 1;
             this.labelMoves.Text = "Перемещения";
             // 
+            // buttonEquipmentMove
+            // 
+            this.buttonEquipmentMove.Enabled = false;
+            this.buttonEquipmentMove.Image = global::CompStore.Properties.Resources.right;
+            this.buttonEquipmentMove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEquipmentMove.Location = new System.Drawing.Point(253, 23);
+            this.buttonEquipmentMove.Name = "buttonEquipmentMove";
+            this.buttonEquipmentMove.Size = new System.Drawing.Size(100, 23);
+            this.buttonEquipmentMove.TabIndex = 17;
+            this.buttonEquipmentMove.Text = "Переместить";
+            this.buttonEquipmentMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonEquipmentMove.UseVisualStyleBackColor = true;
+            this.buttonEquipmentMove.Click += new System.EventHandler(this.EquipmentsMove);
+            // 
+            // buttonEquipmentAdd
+            // 
+            this.buttonEquipmentAdd.Image = global::CompStore.Properties.Resources.plus;
+            this.buttonEquipmentAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
+            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
+            this.buttonEquipmentAdd.Size = new System.Drawing.Size(80, 23);
+            this.buttonEquipmentAdd.TabIndex = 11;
+            this.buttonEquipmentAdd.Text = "Добавить";
+            this.buttonEquipmentAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
+            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
+            // 
+            // buttonEquipmentEdit
+            // 
+            this.buttonEquipmentEdit.Enabled = false;
+            this.buttonEquipmentEdit.Image = global::CompStore.Properties.Resources.marked_list_points;
+            this.buttonEquipmentEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEquipmentEdit.Location = new System.Drawing.Point(86, 23);
+            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
+            this.buttonEquipmentEdit.Size = new System.Drawing.Size(80, 23);
+            this.buttonEquipmentEdit.TabIndex = 12;
+            this.buttonEquipmentEdit.Text = "Изменить";
+            this.buttonEquipmentEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
+            this.buttonEquipmentEdit.Click += new System.EventHandler(this.EquipmentEdit);
+            // 
+            // buttonEquipmentDelete
+            // 
+            this.buttonEquipmentDelete.Enabled = false;
+            this.buttonEquipmentDelete.Image = global::CompStore.Properties.Resources.delete_1;
+            this.buttonEquipmentDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEquipmentDelete.Location = new System.Drawing.Point(172, 23);
+            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
+            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentDelete.TabIndex = 13;
+            this.buttonEquipmentDelete.Text = "Удалить";
+            this.buttonEquipmentDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
+            this.buttonEquipmentDelete.Click += new System.EventHandler(this.EquipmentDelete);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelEquipments);
+            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
@@ -1886,6 +1912,7 @@ namespace CompStore
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeMenu);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "FormMain";
@@ -2081,6 +2108,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnEMRoom;
         private System.Windows.Forms.ColumnHeader columnEMComment;
         private System.Windows.Forms.ColumnHeader columnEMEquipment;
+        private System.Windows.Forms.Button buttonEquipmentMove;
     }
 }
 
