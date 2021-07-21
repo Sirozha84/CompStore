@@ -41,6 +41,7 @@ namespace CompStore
             this.labelIN = new System.Windows.Forms.Label();
             this.labelBuyDate = new System.Windows.Forms.Label();
             this.dateBuy = new System.Windows.Forms.DateTimePicker();
+            this.checkBuy = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -150,11 +151,19 @@ namespace CompStore
             // 
             // dateBuy
             // 
-            this.dateBuy.Location = new System.Drawing.Point(140, 91);
+            this.dateBuy.Location = new System.Drawing.Point(161, 91);
             this.dateBuy.Name = "dateBuy";
-            this.dateBuy.ShowCheckBox = true;
-            this.dateBuy.Size = new System.Drawing.Size(157, 20);
+            this.dateBuy.Size = new System.Drawing.Size(140, 20);
             this.dateBuy.TabIndex = 5;
+            // 
+            // checkBuy
+            // 
+            this.checkBuy.AutoSize = true;
+            this.checkBuy.Location = new System.Drawing.Point(140, 94);
+            this.checkBuy.Name = "checkBuy";
+            this.checkBuy.Size = new System.Drawing.Size(15, 14);
+            this.checkBuy.TabIndex = 75;
+            this.checkBuy.UseVisualStyleBackColor = true;
             // 
             // FormEquipment
             // 
@@ -163,6 +172,7 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.checkBuy);
             this.Controls.Add(this.labelBuyDate);
             this.Controls.Add(this.dateBuy);
             this.Controls.Add(this.textIN);
@@ -200,5 +210,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelIN;
         private System.Windows.Forms.Label labelBuyDate;
         private System.Windows.Forms.DateTimePicker dateBuy;
+        private System.Windows.Forms.CheckBox checkBuy;
     }
 }

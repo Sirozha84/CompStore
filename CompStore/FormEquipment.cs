@@ -20,8 +20,9 @@ namespace CompStore
 
             textIN.DataBindings.Add("Text", equipment, "iN");
 
+            checkBuy.DataBindings.Add("Checked", equipment, "buy");
             dateBuy.DataBindings.Add("Value", equipment, "buyDate");
-            dateBuy.DataBindings.Add("Checked", equipment, "buy");
+            dateBuy.DataBindings.Add("Enabled", checkBuy, "Checked");
 
             textCom.DataBindings.Add("Text", equipment, "comment");
 
@@ -34,6 +35,7 @@ namespace CompStore
         private void OK(object sender, EventArgs e)
         {
             comboModel.DataBindings[0].WriteValue();
+            dateBuy.DataBindings[1].WriteValue();
             DialogResult = DialogResult.OK;
         }
 

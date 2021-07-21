@@ -866,7 +866,7 @@ namespace CompStore
                 com.CommandText = "UPDATE equipments SET " +
                     "model = '" + equipment.model + "', " +
                     "sn = '" + equipment.sn + "', " +
-                    "in = '" + equipment.iN + "', " +
+                    "[in] = '" + equipment.iN + "', " +
                     "buy = '" + (equipment.buy ? "1" : "0") + "', " +
                     "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
                     "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;

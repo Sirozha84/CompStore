@@ -49,6 +49,8 @@ namespace CompStore
             this.textCom = new System.Windows.Forms.TextBox();
             this.labelCom = new System.Windows.Forms.Label();
             this.labelPost = new System.Windows.Forms.Label();
+            this.checkEmp = new System.Windows.Forms.CheckBox();
+            this.checkDis = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -150,36 +152,34 @@ namespace CompStore
             // labelDateDis
             // 
             this.labelDateDis.AutoSize = true;
-            this.labelDateDis.Location = new System.Drawing.Point(16, 200);
+            this.labelDateDis.Location = new System.Drawing.Point(66, 200);
             this.labelDateDis.Name = "labelDateDis";
-            this.labelDateDis.Size = new System.Drawing.Size(98, 13);
+            this.labelDateDis.Size = new System.Drawing.Size(48, 13);
             this.labelDateDis.TabIndex = 73;
-            this.labelDateDis.Text = "Дата увольнения:";
+            this.labelDateDis.Text = "Уволен:";
             // 
             // labelDateDep
             // 
             this.labelDateDep.AutoSize = true;
-            this.labelDateDep.Location = new System.Drawing.Point(37, 174);
+            this.labelDateDep.Location = new System.Drawing.Point(67, 174);
             this.labelDateDep.Name = "labelDateDep";
-            this.labelDateDep.Size = new System.Drawing.Size(77, 13);
+            this.labelDateDep.Size = new System.Drawing.Size(47, 13);
             this.labelDateDep.TabIndex = 72;
-            this.labelDateDep.Text = "Дата приёма:";
+            this.labelDateDep.Text = "Принят:";
             // 
             // dateDis
             // 
             this.dateDis.Checked = false;
-            this.dateDis.Location = new System.Drawing.Point(120, 197);
+            this.dateDis.Location = new System.Drawing.Point(141, 197);
             this.dateDis.Name = "dateDis";
-            this.dateDis.ShowCheckBox = true;
-            this.dateDis.Size = new System.Drawing.Size(157, 20);
+            this.dateDis.Size = new System.Drawing.Size(140, 20);
             this.dateDis.TabIndex = 7;
             // 
             // dateEmp
             // 
-            this.dateEmp.Location = new System.Drawing.Point(120, 171);
+            this.dateEmp.Location = new System.Drawing.Point(141, 171);
             this.dateEmp.Name = "dateEmp";
-            this.dateEmp.ShowCheckBox = true;
-            this.dateEmp.Size = new System.Drawing.Size(157, 20);
+            this.dateEmp.Size = new System.Drawing.Size(140, 20);
             this.dateEmp.TabIndex = 6;
             // 
             // comboRoom
@@ -242,6 +242,24 @@ namespace CompStore
             this.labelPost.TabIndex = 63;
             this.labelPost.Text = "Должность:";
             // 
+            // checkEmp
+            // 
+            this.checkEmp.AutoSize = true;
+            this.checkEmp.Location = new System.Drawing.Point(120, 174);
+            this.checkEmp.Name = "checkEmp";
+            this.checkEmp.Size = new System.Drawing.Size(15, 14);
+            this.checkEmp.TabIndex = 81;
+            this.checkEmp.UseVisualStyleBackColor = true;
+            // 
+            // checkDis
+            // 
+            this.checkDis.AutoSize = true;
+            this.checkDis.Location = new System.Drawing.Point(120, 200);
+            this.checkDis.Name = "checkDis";
+            this.checkDis.Size = new System.Drawing.Size(15, 14);
+            this.checkDis.TabIndex = 82;
+            this.checkDis.UseVisualStyleBackColor = true;
+            // 
             // FormUser
             // 
             this.AcceptButton = this.buttonOK;
@@ -249,6 +267,8 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(434, 311);
+            this.Controls.Add(this.checkDis);
+            this.Controls.Add(this.checkEmp);
             this.Controls.Add(this.comboDep);
             this.Controls.Add(this.labelDep);
             this.Controls.Add(this.textO);
@@ -303,5 +323,7 @@ namespace CompStore
         private System.Windows.Forms.TextBox textCom;
         private System.Windows.Forms.Label labelCom;
         private System.Windows.Forms.Label labelPost;
+        private System.Windows.Forms.CheckBox checkEmp;
+        private System.Windows.Forms.CheckBox checkDis;
     }
 }

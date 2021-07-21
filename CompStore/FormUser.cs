@@ -33,11 +33,13 @@ namespace CompStore
             comboRoom.ValueMember = "ID";
             comboRoom.DataBindings.Add("SelectedValue", user, "room");
 
-            dateEmp.DataBindings.Add("Value", user, "empDate"); //Если сделать сначала чекед, потом время, то чекед всегда тру.
-            dateEmp.DataBindings.Add("Checked", user, "emp");   //Наверное активируется при изменении значения времени.
+            checkEmp.DataBindings.Add("Checked", user, "emp");
+            dateEmp.DataBindings.Add("Value", user, "empDate");
+            dateEmp.DataBindings.Add("Enabled", checkEmp, "Checked");
             
+            checkDis.DataBindings.Add("Checked", user, "dis");
             dateDis.DataBindings.Add("Value", user, "disDate");
-            dateDis.DataBindings.Add("Checked", user, "dis");
+            dateDis.DataBindings.Add("Enabled", checkDis, "Checked");
 
             textCom.DataBindings.Add("Text", user, "comment");
 
