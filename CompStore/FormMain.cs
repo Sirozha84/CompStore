@@ -42,7 +42,19 @@ namespace CompStore
             panelMoves.Visible = treeMenu.SelectedNode.Name == "nodeMoves";
         }
 
+        #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
+        
+        private void menuExit(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        
+        private void menuAbout(object sender, EventArgs e)
+        {
+            MessageBox.Show("CompStore\nВерсия: 0.1 (01.07.2021)\nАвтор: Сергей Гордеев", "О программе");
+        }
+        #endregion
 
         #region Филиалы
         private void FilialsView(object sender, EventArgs e)
@@ -101,12 +113,18 @@ namespace CompStore
         {
             if (listFilials.SelectedIndices.Count == 0) return;
             Filial filial = (Filial)listFilials.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить филиал \"" + filial.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("филиал", filial.name))
             {
                 DB.FilialDelete(filial);
                 FilialsRefresh();
             }
+        }
+
+        private void FilialsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) FilialEdit(null, null);
+            if (e.KeyCode == Keys.Delete) FilialDelete(null, null);
         }
         #endregion
 
@@ -166,15 +184,21 @@ namespace CompStore
         {
             if (listRooms.SelectedIndices.Count == 0) return;
             Room room = (Room)listRooms.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить помещение \"" + room.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("помещение", room.name))
             {
                 DB.RoomDelete(room);
                 RoomsRefresh();
             }
         }
+
+        private void RoomsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) RoomEdit(null, null);
+            if (e.KeyCode == Keys.Delete) RoomDelete(null, null);
+        }
         #endregion
-        
+
         #region Должности
         private void PostsView(object sender, EventArgs e)
         {
@@ -231,12 +255,18 @@ namespace CompStore
         {
             if (listPosts.SelectedIndices.Count == 0) return;
             Post post = (Post)listPosts.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить должность \"" + post.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("должность", post.name))
             {
                 DB.PostDelete(post);
                 PostsRefresh();
             }
+        }
+
+        private void PostsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) PostEdit(null, null);
+            if (e.KeyCode == Keys.Delete) PostDelete(null, null);
         }
         #endregion
 
@@ -296,12 +326,18 @@ namespace CompStore
         {
             if (listDeps.SelectedIndices.Count == 0) return;
             Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить подразделение \"" + dep.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("подразделение", dep.name))
             {
                 DB.DepDelete(dep);
                 DepsRefresh();
             }
+        }
+
+        private void DepsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) DepEdit(null, null);
+            if (e.KeyCode == Keys.Delete) DepDelete(null, null);
         }
         #endregion
 
@@ -361,12 +397,18 @@ namespace CompStore
         {
             if (listBuildings.SelectedIndices.Count == 0) return;
             Building building = (Building)listBuildings.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить здание \"" + building.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("здание", building.name))
             {
                 DB.BuildingDelete(building);
                 BuildingsRefresh();
             }
+        }
+
+        private void BuildingsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) BuildingEdit(null, null);
+            if (e.KeyCode == Keys.Delete) BuildingDelete(null, null);
         }
         #endregion
 
@@ -426,12 +468,18 @@ namespace CompStore
         {
             if (listUsers.SelectedIndices.Count == 0) return;
             User user = (User)listUsers.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить сотрудника \"" + user.nameText + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("сотрудника", user.nameText))
             {
                 DB.UserDelete(user);
                 UsersRefresh();
             }
+        }
+
+        private void UsersKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) UserEdit(null, null);
+            if (e.KeyCode == Keys.Delete) UserDelete(null, null);
         }
         #endregion
 
@@ -491,12 +539,18 @@ namespace CompStore
         {
             if (listBrands.SelectedIndices.Count == 0) return;
             Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить производителя \"" + brand.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("производителя", brand.name))
             {
                 DB.BrandDelete(brand);
                 BrandsRefresh();
             }
+        }
+
+        private void BrandsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) BrandEdit(null, null);
+            if (e.KeyCode == Keys.Delete) BrandDelete(null, null);
         }
         #endregion
 
@@ -556,12 +610,18 @@ namespace CompStore
         {
             if (listEqTypes.SelectedIndices.Count == 0) return;
             EqType eqType = (EqType)listEqTypes.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить тип оборудования \"" + eqType.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("тип оборудования", eqType.name))
             {
                 DB.EqTypeDelete(eqType);
                 EqTypesRefresh();
             }
+        }
+
+        private void EqTypesKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) EqTypeEdit(null, null);
+            if (e.KeyCode == Keys.Delete) EqTypeDelete(null, null);
         }
         #endregion
 
@@ -621,12 +681,18 @@ namespace CompStore
         {
             if (listModels.SelectedIndices.Count == 0) return;
             Model model = (Model)listModels.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить модель \"" + model.name + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("модель", model.name))
             {
                 DB.ModelDelete(model);
                 ModelsRefresh();
             }
+        }
+
+        private void ModelsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) ModelEdit(null, null);
+            if (e.KeyCode == Keys.Delete) ModelDelete(null, null);
         }
         #endregion
 
@@ -656,9 +722,9 @@ namespace CompStore
         
         private void EquipmentsSelChange(object sender, EventArgs e)
         {
-            bool sel = listEquipments.SelectedIndices.Count > 0;
-            buttonEquipmentEdit.Enabled = sel;
-            buttonEquipmentDelete.Enabled = sel;
+            int sel = listEquipments.SelectedIndices.Count;
+            buttonEquipmentEdit.Enabled = sel == 1;
+            buttonEquipmentDelete.Enabled = sel == 1;
             
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
@@ -698,16 +764,22 @@ namespace CompStore
         {
             if (listEquipments.SelectedIndices.Count == 0) return;
             Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить оборудование \"" + equipment.nameText + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("оборудование", equipment.nameText))
             {
                 DB.EquipmentDelete(equipment);
                 EquipmentsRefresh();
             }
         }
+
+        private void EquipmentsKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
+            if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
+        }
         #endregion
 
-        #region Модели
+        #region Перемещение
         private void MovesView(object sender, EventArgs e)
         {
             if (panelMoves.Visible) MovesRefresh();
@@ -763,24 +835,35 @@ namespace CompStore
         {
             if (listMoves.SelectedIndices.Count == 0) return;
             Move move = (Move)listMoves.SelectedItems[0].Tag;
-            if (MessageBox.Show("Уверены что хотите удалить перемещение \"" + move.eqText + "\"?",
-                "Удаление записи", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (DeleteRecord("перемещение оборудования", move.eqText))
             {
                 DB.MoveDelete(move);
                 MovesRefresh();
             }
         }
+
+        private void MovesKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listFilials.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) MoveEdit(null, null);
+            if (e.KeyCode == Keys.Delete) MoveDelete(null, null);
+        }
         #endregion
 
-        /// <summary>
-        /// Строка с подписью числа в скобках для вкладок.
-        /// </summary>
-        /// <param name="list">Список</param>
-        /// <returns></returns>
+        // Вопрос об удалении записи в справочнике/журнале
+        bool DeleteRecord(string listName, string recordName)
+        {
+            return MessageBox.Show("Внимание! Вы уверены что хотите удалить " + listName + " \"" + recordName + "\"?",
+                "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK;
+        }
+
+        // Строка с подписью числа в скобках для вкладок из листвью.
         string ListCount(ListView list)
         {
             string c = list.Items.Count.ToString();
             return c != "0" ? " (" + c + ")" : "";
         }
+
+
     }
 }

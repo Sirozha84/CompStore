@@ -61,12 +61,19 @@ namespace CompStore
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelEquipments = new System.Windows.Forms.Panel();
+            this.panelEqDown = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabEqMoves = new System.Windows.Forms.TabPage();
+            this.listEqMoves = new System.Windows.Forms.ListView();
+            this.columnEMDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMEquipment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEMComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.splitterEq = new System.Windows.Forms.Splitter();
+            this.panelEqUp = new System.Windows.Forms.Panel();
+            this.labelEquipments = new System.Windows.Forms.Label();
             this.labelEquipmentFilter = new System.Windows.Forms.Label();
-            this.buttonEquipmentFilterReset = new System.Windows.Forms.Button();
-            this.textEquipmentFilter = new System.Windows.Forms.TextBox();
-            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
-            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
-            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
             this.listEquipments = new System.Windows.Forms.ListView();
             this.columnEqName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqSN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -76,7 +83,11 @@ namespace CompStore
             this.columnIssDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.labelEquipments = new System.Windows.Forms.Label();
+            this.buttonEquipmentFilterReset = new System.Windows.Forms.Button();
+            this.buttonEquipmentAdd = new System.Windows.Forms.Button();
+            this.textEquipmentFilter = new System.Windows.Forms.TextBox();
+            this.buttonEquipmentEdit = new System.Windows.Forms.Button();
+            this.buttonEquipmentDelete = new System.Windows.Forms.Button();
             this.panelFilials = new System.Windows.Forms.Panel();
             this.labelFilialFilter = new System.Windows.Forms.Label();
             this.buttonFilialResetFilter = new System.Windows.Forms.Button();
@@ -197,19 +208,12 @@ namespace CompStore
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelMoves = new System.Windows.Forms.Label();
-            this.panelEqUp = new System.Windows.Forms.Panel();
-            this.splitterEq = new System.Windows.Forms.Splitter();
-            this.panelEqDown = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabEqMoves = new System.Windows.Forms.TabPage();
-            this.listEqMoves = new System.Windows.Forms.ListView();
-            this.columnEMDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEMUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEMRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEMComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnEMEquipment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
+            this.panelEqDown.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabEqMoves.SuspendLayout();
+            this.panelEqUp.SuspendLayout();
             this.panelFilials.SuspendLayout();
             this.panelRooms.SuspendLayout();
             this.panelPosts.SuspendLayout();
@@ -220,10 +224,6 @@ namespace CompStore
             this.panelEqTypes.SuspendLayout();
             this.panelModels.SuspendLayout();
             this.panelMoves.SuspendLayout();
-            this.panelEqUp.SuspendLayout();
-            this.panelEqDown.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabEqMoves.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -290,15 +290,17 @@ namespace CompStore
             // инициализацияToolStripMenuItem
             // 
             this.инициализацияToolStripMenuItem.Name = "инициализацияToolStripMenuItem";
-            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.инициализацияToolStripMenuItem.Text = "Инициализация";
             this.инициализацияToolStripMenuItem.Click += new System.EventHandler(this.инициализацияToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.выходToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.menuExit);
             // 
             // справкаToolStripMenuItem
             // 
@@ -311,8 +313,9 @@ namespace CompStore
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.menuAbout);
             // 
             // statusStrip1
             // 
@@ -337,6 +340,115 @@ namespace CompStore
             this.panelEquipments.Visible = false;
             this.panelEquipments.VisibleChanged += new System.EventHandler(this.EquipmentsView);
             // 
+            // panelEqDown
+            // 
+            this.panelEqDown.Controls.Add(this.tabControl1);
+            this.panelEqDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelEqDown.Location = new System.Drawing.Point(0, 328);
+            this.panelEqDown.Name = "panelEqDown";
+            this.panelEqDown.Size = new System.Drawing.Size(1019, 381);
+            this.panelEqDown.TabIndex = 21;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabEqMoves);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1019, 381);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabEqMoves
+            // 
+            this.tabEqMoves.Controls.Add(this.listEqMoves);
+            this.tabEqMoves.Location = new System.Drawing.Point(4, 22);
+            this.tabEqMoves.Name = "tabEqMoves";
+            this.tabEqMoves.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEqMoves.Size = new System.Drawing.Size(1011, 355);
+            this.tabEqMoves.TabIndex = 0;
+            this.tabEqMoves.Text = "Перемещения";
+            this.tabEqMoves.UseVisualStyleBackColor = true;
+            // 
+            // listEqMoves
+            // 
+            this.listEqMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnEMDate,
+            this.columnEMEquipment,
+            this.columnEMUser,
+            this.columnEMRoom,
+            this.columnEMComment});
+            this.listEqMoves.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listEqMoves.FullRowSelect = true;
+            this.listEqMoves.HideSelection = false;
+            this.listEqMoves.Location = new System.Drawing.Point(3, 3);
+            this.listEqMoves.MultiSelect = false;
+            this.listEqMoves.Name = "listEqMoves";
+            this.listEqMoves.Size = new System.Drawing.Size(1005, 349);
+            this.listEqMoves.TabIndex = 3;
+            this.listEqMoves.UseCompatibleStateImageBehavior = false;
+            this.listEqMoves.View = System.Windows.Forms.View.Details;
+            // 
+            // columnEMDate
+            // 
+            this.columnEMDate.Text = "Дата";
+            this.columnEMDate.Width = 100;
+            // 
+            // columnEMEquipment
+            // 
+            this.columnEMEquipment.Text = "Оборудование";
+            this.columnEMEquipment.Width = 200;
+            // 
+            // columnEMUser
+            // 
+            this.columnEMUser.Text = "Ответственный";
+            this.columnEMUser.Width = 200;
+            // 
+            // columnEMRoom
+            // 
+            this.columnEMRoom.Text = "Помещение";
+            this.columnEMRoom.Width = 200;
+            // 
+            // columnEMComment
+            // 
+            this.columnEMComment.Text = "Примечание";
+            this.columnEMComment.Width = 280;
+            // 
+            // splitterEq
+            // 
+            this.splitterEq.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitterEq.Location = new System.Drawing.Point(0, 320);
+            this.splitterEq.Name = "splitterEq";
+            this.splitterEq.Size = new System.Drawing.Size(1019, 8);
+            this.splitterEq.TabIndex = 20;
+            this.splitterEq.TabStop = false;
+            // 
+            // panelEqUp
+            // 
+            this.panelEqUp.Controls.Add(this.labelEquipments);
+            this.panelEqUp.Controls.Add(this.labelEquipmentFilter);
+            this.panelEqUp.Controls.Add(this.listEquipments);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentFilterReset);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentAdd);
+            this.panelEqUp.Controls.Add(this.textEquipmentFilter);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentEdit);
+            this.panelEqUp.Controls.Add(this.buttonEquipmentDelete);
+            this.panelEqUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEqUp.Location = new System.Drawing.Point(0, 0);
+            this.panelEqUp.Name = "panelEqUp";
+            this.panelEqUp.Size = new System.Drawing.Size(1019, 320);
+            this.panelEqUp.TabIndex = 17;
+            // 
+            // labelEquipments
+            // 
+            this.labelEquipments.AutoSize = true;
+            this.labelEquipments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelEquipments.Location = new System.Drawing.Point(0, 0);
+            this.labelEquipments.Name = "labelEquipments";
+            this.labelEquipments.Size = new System.Drawing.Size(132, 20);
+            this.labelEquipments.TabIndex = 1;
+            this.labelEquipments.Text = "Оборудование";
+            // 
             // labelEquipmentFilter
             // 
             this.labelEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -346,58 +458,6 @@ namespace CompStore
             this.labelEquipmentFilter.Size = new System.Drawing.Size(47, 13);
             this.labelEquipmentFilter.TabIndex = 16;
             this.labelEquipmentFilter.Text = "Фильтр";
-            // 
-            // buttonEquipmentFilterReset
-            // 
-            this.buttonEquipmentFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEquipmentFilterReset.Location = new System.Drawing.Point(934, 23);
-            this.buttonEquipmentFilterReset.Name = "buttonEquipmentFilterReset";
-            this.buttonEquipmentFilterReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentFilterReset.TabIndex = 15;
-            this.buttonEquipmentFilterReset.Text = "Очистить";
-            this.buttonEquipmentFilterReset.UseVisualStyleBackColor = true;
-            this.buttonEquipmentFilterReset.Click += new System.EventHandler(this.EquipmentFilterReset);
-            // 
-            // textEquipmentFilter
-            // 
-            this.textEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEquipmentFilter.Location = new System.Drawing.Point(628, 25);
-            this.textEquipmentFilter.Name = "textEquipmentFilter";
-            this.textEquipmentFilter.Size = new System.Drawing.Size(300, 20);
-            this.textEquipmentFilter.TabIndex = 14;
-            this.textEquipmentFilter.TextChanged += new System.EventHandler(this.EquipmentsDraw);
-            // 
-            // buttonEquipmentDelete
-            // 
-            this.buttonEquipmentDelete.Enabled = false;
-            this.buttonEquipmentDelete.Location = new System.Drawing.Point(162, 23);
-            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
-            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentDelete.TabIndex = 13;
-            this.buttonEquipmentDelete.Text = "Удалить";
-            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
-            this.buttonEquipmentDelete.Click += new System.EventHandler(this.EquipmentDelete);
-            // 
-            // buttonEquipmentEdit
-            // 
-            this.buttonEquipmentEdit.Enabled = false;
-            this.buttonEquipmentEdit.Location = new System.Drawing.Point(81, 23);
-            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
-            this.buttonEquipmentEdit.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentEdit.TabIndex = 12;
-            this.buttonEquipmentEdit.Text = "Править";
-            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
-            this.buttonEquipmentEdit.Click += new System.EventHandler(this.EquipmentEdit);
-            // 
-            // buttonEquipmentAdd
-            // 
-            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
-            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
-            this.buttonEquipmentAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonEquipmentAdd.TabIndex = 11;
-            this.buttonEquipmentAdd.Text = "Добавить";
-            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
-            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
             // 
             // listEquipments
             // 
@@ -423,6 +483,7 @@ namespace CompStore
             this.listEquipments.View = System.Windows.Forms.View.Details;
             this.listEquipments.SelectedIndexChanged += new System.EventHandler(this.EquipmentsSelChange);
             this.listEquipments.DoubleClick += new System.EventHandler(this.EquipmentEdit);
+            this.listEquipments.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EquipmentsKeyboard);
             // 
             // columnEqName
             // 
@@ -464,15 +525,57 @@ namespace CompStore
             this.columnEqComment.Text = "Примечание";
             this.columnEqComment.Width = 160;
             // 
-            // labelEquipments
+            // buttonEquipmentFilterReset
             // 
-            this.labelEquipments.AutoSize = true;
-            this.labelEquipments.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEquipments.Location = new System.Drawing.Point(0, 0);
-            this.labelEquipments.Name = "labelEquipments";
-            this.labelEquipments.Size = new System.Drawing.Size(132, 20);
-            this.labelEquipments.TabIndex = 1;
-            this.labelEquipments.Text = "Оборудование";
+            this.buttonEquipmentFilterReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEquipmentFilterReset.Location = new System.Drawing.Point(934, 23);
+            this.buttonEquipmentFilterReset.Name = "buttonEquipmentFilterReset";
+            this.buttonEquipmentFilterReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentFilterReset.TabIndex = 15;
+            this.buttonEquipmentFilterReset.Text = "Очистить";
+            this.buttonEquipmentFilterReset.UseVisualStyleBackColor = true;
+            this.buttonEquipmentFilterReset.Click += new System.EventHandler(this.EquipmentFilterReset);
+            // 
+            // buttonEquipmentAdd
+            // 
+            this.buttonEquipmentAdd.Location = new System.Drawing.Point(0, 23);
+            this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
+            this.buttonEquipmentAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentAdd.TabIndex = 11;
+            this.buttonEquipmentAdd.Text = "Добавить";
+            this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
+            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
+            // 
+            // textEquipmentFilter
+            // 
+            this.textEquipmentFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textEquipmentFilter.Location = new System.Drawing.Point(628, 25);
+            this.textEquipmentFilter.Name = "textEquipmentFilter";
+            this.textEquipmentFilter.Size = new System.Drawing.Size(300, 20);
+            this.textEquipmentFilter.TabIndex = 14;
+            this.textEquipmentFilter.TextChanged += new System.EventHandler(this.EquipmentsDraw);
+            // 
+            // buttonEquipmentEdit
+            // 
+            this.buttonEquipmentEdit.Enabled = false;
+            this.buttonEquipmentEdit.Location = new System.Drawing.Point(81, 23);
+            this.buttonEquipmentEdit.Name = "buttonEquipmentEdit";
+            this.buttonEquipmentEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentEdit.TabIndex = 12;
+            this.buttonEquipmentEdit.Text = "Править";
+            this.buttonEquipmentEdit.UseVisualStyleBackColor = true;
+            this.buttonEquipmentEdit.Click += new System.EventHandler(this.EquipmentEdit);
+            // 
+            // buttonEquipmentDelete
+            // 
+            this.buttonEquipmentDelete.Enabled = false;
+            this.buttonEquipmentDelete.Location = new System.Drawing.Point(162, 23);
+            this.buttonEquipmentDelete.Name = "buttonEquipmentDelete";
+            this.buttonEquipmentDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonEquipmentDelete.TabIndex = 13;
+            this.buttonEquipmentDelete.Text = "Удалить";
+            this.buttonEquipmentDelete.UseVisualStyleBackColor = true;
+            this.buttonEquipmentDelete.Click += new System.EventHandler(this.EquipmentDelete);
             // 
             // panelFilials
             // 
@@ -576,6 +679,7 @@ namespace CompStore
             this.listFilials.View = System.Windows.Forms.View.Details;
             this.listFilials.SelectedIndexChanged += new System.EventHandler(this.FilialsSelChange);
             this.listFilials.DoubleClick += new System.EventHandler(this.FilialEdit);
+            this.listFilials.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilialsKeyboard);
             // 
             // colFilName
             // 
@@ -705,6 +809,7 @@ namespace CompStore
             this.listRooms.View = System.Windows.Forms.View.Details;
             this.listRooms.SelectedIndexChanged += new System.EventHandler(this.RoomsSelChange);
             this.listRooms.DoubleClick += new System.EventHandler(this.RoomEdit);
+            this.listRooms.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RoomsKeyboard);
             // 
             // columnRoomFilial
             // 
@@ -835,6 +940,7 @@ namespace CompStore
             this.listPosts.View = System.Windows.Forms.View.Details;
             this.listPosts.SelectedIndexChanged += new System.EventHandler(this.PostsSelChange);
             this.listPosts.DoubleClick += new System.EventHandler(this.PostEdit);
+            this.listPosts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PostsKeyboard);
             // 
             // columnPostName
             // 
@@ -951,6 +1057,7 @@ namespace CompStore
             this.listBuildings.View = System.Windows.Forms.View.Details;
             this.listBuildings.SelectedIndexChanged += new System.EventHandler(this.BuildingsSelChange);
             this.listBuildings.DoubleClick += new System.EventHandler(this.BuildingEdit);
+            this.listBuildings.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BuildingsKeyboard);
             // 
             // columnBuildingFilial
             // 
@@ -1078,6 +1185,7 @@ namespace CompStore
             this.listDeps.View = System.Windows.Forms.View.Details;
             this.listDeps.SelectedIndexChanged += new System.EventHandler(this.DepsSelChange);
             this.listDeps.DoubleClick += new System.EventHandler(this.DepEdit);
+            this.listDeps.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DepsKeyboard);
             // 
             // columnDepName
             // 
@@ -1203,6 +1311,7 @@ namespace CompStore
             this.listUsers.View = System.Windows.Forms.View.Details;
             this.listUsers.SelectedIndexChanged += new System.EventHandler(this.UsersSelChange);
             this.listUsers.DoubleClick += new System.EventHandler(this.UserEdit);
+            this.listUsers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UsersKeyboard);
             // 
             // columnUserName
             // 
@@ -1340,6 +1449,7 @@ namespace CompStore
             this.listBrands.View = System.Windows.Forms.View.Details;
             this.listBrands.SelectedIndexChanged += new System.EventHandler(this.BrandsSelChange);
             this.listBrands.DoubleClick += new System.EventHandler(this.BrandEdit);
+            this.listBrands.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandsKeyboard);
             // 
             // columnBrandName
             // 
@@ -1461,6 +1571,7 @@ namespace CompStore
             this.listEqTypes.View = System.Windows.Forms.View.Details;
             this.listEqTypes.SelectedIndexChanged += new System.EventHandler(this.EqTypesSelChange);
             this.listEqTypes.DoubleClick += new System.EventHandler(this.EqTypeEdit);
+            this.listEqTypes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EqTypesKeyboard);
             // 
             // columnEqType
             // 
@@ -1580,6 +1691,7 @@ namespace CompStore
             this.listModels.View = System.Windows.Forms.View.Details;
             this.listModels.SelectedIndexChanged += new System.EventHandler(this.ModelsSelChange);
             this.listModels.DoubleClick += new System.EventHandler(this.ModelEdit);
+            this.listModels.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelsKeyboard);
             // 
             // columnModelEqType
             // 
@@ -1715,6 +1827,7 @@ namespace CompStore
             this.listMoves.View = System.Windows.Forms.View.Details;
             this.listMoves.SelectedIndexChanged += new System.EventHandler(this.MovesSelChange);
             this.listMoves.DoubleClick += new System.EventHandler(this.MoveEdit);
+            this.listMoves.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MovesKeyboard);
             // 
             // columnMoveDate
             // 
@@ -1751,115 +1864,16 @@ namespace CompStore
             this.labelMoves.TabIndex = 1;
             this.labelMoves.Text = "Перемещения";
             // 
-            // panelEqUp
-            // 
-            this.panelEqUp.Controls.Add(this.labelEquipments);
-            this.panelEqUp.Controls.Add(this.labelEquipmentFilter);
-            this.panelEqUp.Controls.Add(this.listEquipments);
-            this.panelEqUp.Controls.Add(this.buttonEquipmentFilterReset);
-            this.panelEqUp.Controls.Add(this.buttonEquipmentAdd);
-            this.panelEqUp.Controls.Add(this.textEquipmentFilter);
-            this.panelEqUp.Controls.Add(this.buttonEquipmentEdit);
-            this.panelEqUp.Controls.Add(this.buttonEquipmentDelete);
-            this.panelEqUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelEqUp.Location = new System.Drawing.Point(0, 0);
-            this.panelEqUp.Name = "panelEqUp";
-            this.panelEqUp.Size = new System.Drawing.Size(1019, 320);
-            this.panelEqUp.TabIndex = 17;
-            // 
-            // splitterEq
-            // 
-            this.splitterEq.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterEq.Location = new System.Drawing.Point(0, 320);
-            this.splitterEq.Name = "splitterEq";
-            this.splitterEq.Size = new System.Drawing.Size(1019, 8);
-            this.splitterEq.TabIndex = 20;
-            this.splitterEq.TabStop = false;
-            // 
-            // panelEqDown
-            // 
-            this.panelEqDown.Controls.Add(this.tabControl1);
-            this.panelEqDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEqDown.Location = new System.Drawing.Point(0, 328);
-            this.panelEqDown.Name = "panelEqDown";
-            this.panelEqDown.Size = new System.Drawing.Size(1019, 381);
-            this.panelEqDown.TabIndex = 21;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabEqMoves);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1019, 381);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabEqMoves
-            // 
-            this.tabEqMoves.Controls.Add(this.listEqMoves);
-            this.tabEqMoves.Location = new System.Drawing.Point(4, 22);
-            this.tabEqMoves.Name = "tabEqMoves";
-            this.tabEqMoves.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEqMoves.Size = new System.Drawing.Size(1011, 355);
-            this.tabEqMoves.TabIndex = 0;
-            this.tabEqMoves.Text = "Перемещения";
-            this.tabEqMoves.UseVisualStyleBackColor = true;
-            // 
-            // listEqMoves
-            // 
-            this.listEqMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnEMDate,
-            this.columnEMEquipment,
-            this.columnEMUser,
-            this.columnEMRoom,
-            this.columnEMComment});
-            this.listEqMoves.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listEqMoves.FullRowSelect = true;
-            this.listEqMoves.HideSelection = false;
-            this.listEqMoves.Location = new System.Drawing.Point(3, 3);
-            this.listEqMoves.MultiSelect = false;
-            this.listEqMoves.Name = "listEqMoves";
-            this.listEqMoves.Size = new System.Drawing.Size(1005, 349);
-            this.listEqMoves.TabIndex = 3;
-            this.listEqMoves.UseCompatibleStateImageBehavior = false;
-            this.listEqMoves.View = System.Windows.Forms.View.Details;
-            // 
-            // columnEMDate
-            // 
-            this.columnEMDate.Text = "Дата";
-            this.columnEMDate.Width = 100;
-            // 
-            // columnEMUser
-            // 
-            this.columnEMUser.Text = "Ответственный";
-            this.columnEMUser.Width = 200;
-            // 
-            // columnEMRoom
-            // 
-            this.columnEMRoom.Text = "Помещение";
-            this.columnEMRoom.Width = 200;
-            // 
-            // columnEMComment
-            // 
-            this.columnEMComment.Text = "Примечание";
-            this.columnEMComment.Width = 280;
-            // 
-            // columnEMEquipment
-            // 
-            this.columnEMEquipment.Text = "Оборудование";
-            this.columnEMEquipment.Width = 200;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
-            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelPosts);
             this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.panelBuildings);
@@ -1876,6 +1890,11 @@ namespace CompStore
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.panelEquipments.ResumeLayout(false);
+            this.panelEqDown.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabEqMoves.ResumeLayout(false);
+            this.panelEqUp.ResumeLayout(false);
+            this.panelEqUp.PerformLayout();
             this.panelFilials.ResumeLayout(false);
             this.panelFilials.PerformLayout();
             this.panelRooms.ResumeLayout(false);
@@ -1896,11 +1915,6 @@ namespace CompStore
             this.panelModels.PerformLayout();
             this.panelMoves.ResumeLayout(false);
             this.panelMoves.PerformLayout();
-            this.panelEqUp.ResumeLayout(false);
-            this.panelEqUp.PerformLayout();
-            this.panelEqDown.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabEqMoves.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
