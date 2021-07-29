@@ -231,6 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="My Inventory.ico" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -73,7 +73,7 @@ namespace CompStore
             listFilials.BeginUpdate();
             listFilials.Items.Clear();
             foreach (Filial filial in filials)
-                if (filial.Contains(textFilialFilter.Text))
+                if (filial.Contains(toolFilialFilter.Text))
                     listFilials.Items.Add(filial.ToListView());
             listFilials.EndUpdate();
             FilialsSelChange(null, null);
@@ -81,10 +81,10 @@ namespace CompStore
         private void FilialsSelChange(object sender, EventArgs e)
         {
             bool sel = listFilials.SelectedIndices.Count > 0;
-            buttonFEdit.Enabled = sel;
-            buttonFDel.Enabled = sel;
+            toolFilialEdit.Enabled = sel;
+            toolFilialDelete.Enabled = sel;
         }
-        private void FilialFilterReset(object sender, EventArgs e) { textFilialFilter.Text = ""; }
+        private void FilialFilterReset(object sender, EventArgs e) { toolFilialFilter.Text = ""; }
 
         private void FilialAdd(object sender, EventArgs e)
         {
@@ -145,7 +145,7 @@ namespace CompStore
             listRooms.BeginUpdate();
             listRooms.Items.Clear();
             foreach (Room room in rooms)
-                if (room.Contains(textRoomFilter.Text))
+                if (room.Contains(toolRoomFilter.Text))
                     listRooms.Items.Add(room.ToListView());
             listRooms.EndUpdate();
             RoomsSelChange(null, null);
@@ -153,10 +153,10 @@ namespace CompStore
         private void RoomsSelChange(object sender, EventArgs e)
         {
             bool sel = listRooms.SelectedIndices.Count > 0;
-            buttonRoomEdit.Enabled = sel;
-            buttonRoomDelete.Enabled = sel;
+            toolRoomEdit.Enabled = sel;
+            toolRoomDelete.Enabled = sel;
         }
-        private void buttonRoomsFilterReset_Click(object sender, EventArgs e) { textRoomFilter.Text = ""; }
+        private void RoomFilterReset(object sender, EventArgs e) { toolRoomFilter.Text = ""; }
 
         private void RoomAdd(object sender, EventArgs e)
         {
@@ -216,7 +216,7 @@ namespace CompStore
             listPosts.BeginUpdate();
             listPosts.Items.Clear();
             foreach (Post post in posts)
-                if (post.Contains(textPostFilter.Text))
+                if (post.Contains(toolPostFilter.Text))
                     listPosts.Items.Add(post.ToListView());
             listPosts.EndUpdate();
             PostsSelChange(null, null);
@@ -224,10 +224,10 @@ namespace CompStore
         private void PostsSelChange(object sender, EventArgs e)
         {
             bool sel = listPosts.SelectedIndices.Count > 0;
-            buttonPostEdit.Enabled = sel;
-            buttonPostDelete.Enabled = sel;
+            toolPostEdit.Enabled = sel;
+            toolPostDelete.Enabled = sel;
         }
-        private void PostFilterReset(object sender, EventArgs e) { textPostFilter.Text = ""; }
+        private void PostFilterReset(object sender, EventArgs e) { toolPostFilter.Text = ""; }
 
         private void PostAdd(object sender, EventArgs e)
         {
@@ -287,7 +287,7 @@ namespace CompStore
             listDeps.BeginUpdate();
             listDeps.Items.Clear();
             foreach (Dep dep in deps)
-                if (dep.Contains(textDepFilter.Text))
+                if (dep.Contains(toolDepFilter.Text))
                     listDeps.Items.Add(dep.ToListView());
             listDeps.EndUpdate();
             DepsSelChange(null, null);
@@ -295,11 +295,11 @@ namespace CompStore
         private void DepsSelChange(object sender, EventArgs e)
         {
             bool sel = listDeps.SelectedIndices.Count > 0;
-            buttonDepEdit.Enabled = sel;
-            buttonDepDelete.Enabled = sel;
+            toolDepEdit.Enabled = sel;
+            toolDepDelete.Enabled = sel;
         }
 
-        private void DepFilterReset(object sender, EventArgs e) { textDepFilter.Text = ""; }
+        private void DepFilterReset(object sender, EventArgs e) { toolDepFilter.Text = ""; }
 
         private void DepAdd(object sender, EventArgs e)
         {
@@ -359,7 +359,7 @@ namespace CompStore
             listBuildings.BeginUpdate();
             listBuildings.Items.Clear();
             foreach (Building building in buildings)
-                if (building.Contains(textBuildingFilter.Text))
+                if (building.Contains(toolBuildingFilter.Text))
                     listBuildings.Items.Add(building.ToListView());
             listBuildings.EndUpdate();
             BuildingsSelChange(null, null);
@@ -368,11 +368,11 @@ namespace CompStore
         private void BuildingsSelChange(object sender, EventArgs e)
         {
             bool sel = listBuildings.SelectedIndices.Count > 0;
-            buttonBuildingEdit.Enabled = sel;
-            buttonBuildingDelete.Enabled = sel;
+            toolBuildingEdit.Enabled = sel;
+            toolBuildingDelete.Enabled = sel;
         }
 
-        private void BuildingsFilterReset(object sender, EventArgs e) { textBuildingFilter.Text = ""; }
+        private void BuildingsFilterReset(object sender, EventArgs e) { toolBuildingFilter.Text = ""; }
 
         private void BuildingAdd(object sender, EventArgs e)
         {
@@ -432,7 +432,7 @@ namespace CompStore
             listUsers.BeginUpdate();
             listUsers.Items.Clear();
             foreach (User user in users)
-                if (user.Contains(textUserFilter.Text))
+                if (user.Contains(toolUserFilter.Text))
                     listUsers.Items.Add(user.ToListView());
             listUsers.EndUpdate();
             UsersSelChange(null, null);
@@ -440,10 +440,10 @@ namespace CompStore
         private void UsersSelChange(object sender, EventArgs e)
         {
             bool sel = listUsers.SelectedIndices.Count > 0;
-            buttonUserEdit.Enabled = sel;
-            buttonUserDelete.Enabled = sel;
+            toolUserEdit.Enabled = sel;
+            toolUserDelete.Enabled = sel;
         }
-        private void UserFilterReset(object sender, EventArgs e) { textUserFilter.Text = ""; }
+        private void UserFilterReset(object sender, EventArgs e) { toolUserFilter.Text = ""; }
 
         private void UserAdd(object sender, EventArgs e)
         {
@@ -503,7 +503,7 @@ namespace CompStore
             listBrands.BeginUpdate();
             listBrands.Items.Clear();
             foreach (Brand brand in brands)
-                if (brand.Contains(textBrandFilter.Text))
+                if (brand.Contains(toolBrandFilter.Text))
                     listBrands.Items.Add(brand.ToListView());
             listBrands.EndUpdate();
             BrandsSelChange(null, null);
@@ -511,10 +511,10 @@ namespace CompStore
         private void BrandsSelChange(object sender, EventArgs e)
         {
             bool sel = listBrands.SelectedIndices.Count > 0;
-            buttonBrandEdit.Enabled = sel;
-            buttonBrandDelete.Enabled = sel;
+            toolBrandEdit.Enabled = sel;
+            toolBrandDelete.Enabled = sel;
         }
-        private void BrandFilterReset(object sender, EventArgs e) { textBrandFilter.Text = ""; }
+        private void BrandFilterReset(object sender, EventArgs e) { toolBrandFilter.Text = ""; }
 
         private void BrandAdd(object sender, EventArgs e)
         {
@@ -574,7 +574,7 @@ namespace CompStore
             listEqTypes.BeginUpdate();
             listEqTypes.Items.Clear();
             foreach (EqType eqType in eqTypes)
-                if (eqType.Contains(textEqTypeFilter.Text))
+                if (eqType.Contains(toolETFilter.Text))
                     listEqTypes.Items.Add(eqType.ToListView());
             listEqTypes.EndUpdate();
             EqTypesSelChange(null, null);
@@ -582,10 +582,10 @@ namespace CompStore
         private void EqTypesSelChange(object sender, EventArgs e)
         {
             bool sel = listEqTypes.SelectedIndices.Count > 0;
-            buttonEqTypeEdit.Enabled = sel;
-            buttonEqTypeDelete.Enabled = sel;
+            toolETEdit.Enabled = sel;
+            toolETDelete.Enabled = sel;
         }
-        private void EqTypeFilterReset(object sender, EventArgs e) { textEqTypeFilter.Text = ""; }
+        private void EqTypeFilterReset(object sender, EventArgs e) { toolETFilter.Text = ""; }
 
         private void EqTypeAdd(object sender, EventArgs e)
         {
@@ -645,7 +645,7 @@ namespace CompStore
             listModels.BeginUpdate();
             listModels.Items.Clear();
             foreach (Model model in models)
-                if (model.Contains(textModelFilter.Text))
+                if (model.Contains(toolModelFilter.Text))
                     listModels.Items.Add(model.ToListView());
             listModels.EndUpdate();
             ModelsSelChange(null, null);
@@ -653,10 +653,10 @@ namespace CompStore
         private void ModelsSelChange(object sender, EventArgs e)
         {
             bool sel = listModels.SelectedIndices.Count > 0;
-            buttonModelEdit.Enabled = sel;
-            buttonModelDelete.Enabled = sel;
+            toolModelEdit.Enabled = sel;
+            toolModelDelete.Enabled = sel;
         }
-        private void ModelFilterReset(object sender, EventArgs e) { textModelFilter.Text = ""; }
+        private void ModelFilterReset(object sender, EventArgs e) { toolModelFilter.Text = ""; }
 
         private void ModelAdd(object sender, EventArgs e)
         {
@@ -717,7 +717,7 @@ namespace CompStore
             listEquipments.BeginUpdate();
             listEquipments.Items.Clear();
             foreach (Equipment equipment in equipments)
-                if (equipment.Contains(textEquipmentFilter.Text))
+                if (equipment.Contains(toolEqFilter.Text))
                     listEquipments.Items.Add(equipment.ToListView());
             listEquipments.EndUpdate();
             EquipmentsSelChange(null, null);
@@ -726,9 +726,9 @@ namespace CompStore
         private void EquipmentsSelChange(object sender, EventArgs e)
         {
             int sel = listEquipments.SelectedIndices.Count;
-            buttonEquipmentEdit.Enabled = sel == 1;
-            buttonEquipmentDelete.Enabled = sel == 1;
-            buttonEquipmentMove.Enabled = sel > 0;
+            toolEqEdit.Enabled = sel == 1;
+            toolEqDelete.Enabled = sel == 1;
+            toolEqMove.Enabled = sel > 0;
 
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
@@ -740,7 +740,7 @@ namespace CompStore
             tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
         }
 
-        private void EquipmentFilterReset(object sender, EventArgs e) { textEquipmentFilter.Text = ""; }
+        private void EquipmentFilterReset(object sender, EventArgs e) { toolEqFilter.Text = ""; }
 
         private void EquipmentAdd(object sender, EventArgs e)
         {
@@ -813,7 +813,7 @@ namespace CompStore
             listMoves.BeginUpdate();
             listMoves.Items.Clear();
             foreach (Move move in moves)
-                if (move.Contains(textMoveFilter.Text))
+                if (move.Contains(toolMoveFilter.Text))
                     listMoves.Items.Add(move.ToListView());
             listMoves.EndUpdate();
             MovesSelChange(null, null);
@@ -821,10 +821,10 @@ namespace CompStore
         private void MovesSelChange(object sender, EventArgs e)
         {
             bool sel = listMoves.SelectedIndices.Count > 0;
-            buttonMoveEdit.Enabled = sel;
-            buttonMoveDelete.Enabled = sel;
+            toolMoveEdit.Enabled = sel;
+            toolMoveDelete.Enabled = sel;
         }
-        private void MoveFilterReset(object sender, EventArgs e) { textMoveFilter.Text = ""; }
+        private void MoveFilterReset(object sender, EventArgs e) { toolMoveFilter.Text = ""; }
 
         private void MoveAdd(object sender, EventArgs e)
         {
@@ -880,5 +880,6 @@ namespace CompStore
             string c = list.Items.Count.ToString();
             return c != "0" ? " (" + c + ")" : "";
         }
+
     }
 }

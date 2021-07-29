@@ -63,9 +63,9 @@ namespace CompStore.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap delete_1 {
+        internal static System.Drawing.Bitmap add {
             get {
-                object obj = ResourceManager.GetObject("delete 1", resourceCulture);
+                object obj = ResourceManager.GetObject("add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace CompStore.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap delete_11 {
+        internal static System.Drawing.Bitmap cancel {
             get {
-                object obj = ResourceManager.GetObject("delete 11", resourceCulture);
+                object obj = ResourceManager.GetObject("cancel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace CompStore.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap marked_list_points {
+        internal static System.Drawing.Bitmap delete {
             get {
-                object obj = ResourceManager.GetObject("marked list points", resourceCulture);
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace CompStore.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plus {
+        internal static System.Drawing.Bitmap edit {
             get {
-                object obj = ResourceManager.GetObject("plus", resourceCulture);
+                object obj = ResourceManager.GetObject("edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,19 @@ namespace CompStore.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap right {
+        internal static System.Drawing.Bitmap move {
             get {
-                object obj = ResourceManager.GetObject("right", resourceCulture);
+                object obj = ResourceManager.GetObject("move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search {
+            get {
+                object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
