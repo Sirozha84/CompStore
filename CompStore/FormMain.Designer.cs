@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
@@ -170,6 +171,14 @@ namespace CompStore
             this.columnUserPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnUserCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelBrands = new System.Windows.Forms.Panel();
+            this.toolStripBrands = new System.Windows.Forms.ToolStrip();
+            this.toolBrandLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolBrandAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolBrandEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolBrandDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolBrandFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.toolBrandFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.toolBrandFilterLabel = new System.Windows.Forms.ToolStripLabel();
             this.listBrands = new System.Windows.Forms.ListView();
             this.columnBrandName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnBrandCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -213,14 +222,51 @@ namespace CompStore
             this.columnMoveUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.toolStripBrands = new System.Windows.Forms.ToolStrip();
-            this.toolBrandLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolBrandAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolBrandEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolBrandDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolBrandFilterReset = new System.Windows.Forms.ToolStripButton();
-            this.toolBrandFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.toolBrandFilterLabel = new System.Windows.Forms.ToolStripLabel();
+            this.contextMenuEquipment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmEqAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmEqEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmEqDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmEqMove = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuFilials = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmFilialAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmFilialEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmFilialDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuBuildings = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmBuildingAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmBuildingEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmBuildingDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuRooms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmRoomAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmRoomEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmRoomDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuDeps = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmDepAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmDepEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmDepDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuPosts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmPostAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmPostEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmPostDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuUsers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmUserAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmUserEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmUserDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuBrands = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmBrandAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmBrandEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmBrandDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuEqTypes = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmETAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmETEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmETDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuModels = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmModelAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmModelEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmModelDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuMoves = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmMoveAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmMoveEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmMoveDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelEqDown.SuspendLayout();
@@ -241,13 +287,24 @@ namespace CompStore
             this.panelUsers.SuspendLayout();
             this.toolStripUsers.SuspendLayout();
             this.panelBrands.SuspendLayout();
+            this.toolStripBrands.SuspendLayout();
             this.panelEqTypes.SuspendLayout();
             this.toolStripEqTypes.SuspendLayout();
             this.panelModels.SuspendLayout();
             this.toolStripModels.SuspendLayout();
             this.panelMoves.SuspendLayout();
             this.toolStripMoves.SuspendLayout();
-            this.toolStripBrands.SuspendLayout();
+            this.contextMenuEquipment.SuspendLayout();
+            this.contextMenuFilials.SuspendLayout();
+            this.contextMenuBuildings.SuspendLayout();
+            this.contextMenuRooms.SuspendLayout();
+            this.contextMenuDeps.SuspendLayout();
+            this.contextMenuPosts.SuspendLayout();
+            this.contextMenuUsers.SuspendLayout();
+            this.contextMenuBrands.SuspendLayout();
+            this.contextMenuEqTypes.SuspendLayout();
+            this.contextMenuModels.SuspendLayout();
+            this.contextMenuMoves.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -560,6 +617,7 @@ namespace CompStore
             this.columnIssDate,
             this.columnEqBuyDate,
             this.columnEqComment});
+            this.listEquipments.ContextMenuStrip = this.contextMenuEquipment;
             this.listEquipments.FullRowSelect = true;
             this.listEquipments.HideSelection = false;
             this.listEquipments.Location = new System.Drawing.Point(0, 25);
@@ -714,6 +772,7 @@ namespace CompStore
             this.colFilName,
             this.colFilAdress,
             this.colFilCom});
+            this.listFilials.ContextMenuStrip = this.contextMenuFilials;
             this.listFilials.FullRowSelect = true;
             this.listFilials.HideSelection = false;
             this.listFilials.Location = new System.Drawing.Point(0, 25);
@@ -845,6 +904,7 @@ namespace CompStore
             this.columnRoomBuilding,
             this.columnRoomName,
             this.columnRoomCom});
+            this.listRooms.ContextMenuStrip = this.contextMenuRooms;
             this.listRooms.FullRowSelect = true;
             this.listRooms.HideSelection = false;
             this.listRooms.Location = new System.Drawing.Point(0, 25);
@@ -975,6 +1035,7 @@ namespace CompStore
             // 
             this.listPosts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnPostName});
+            this.listPosts.ContextMenuStrip = this.contextMenuPosts;
             this.listPosts.FullRowSelect = true;
             this.listPosts.HideSelection = false;
             this.listPosts.Location = new System.Drawing.Point(0, 25);
@@ -1095,6 +1156,7 @@ namespace CompStore
             this.columnBuildingFilial,
             this.columnBuildingName,
             this.columnBuildingComment});
+            this.listBuildings.ContextMenuStrip = this.contextMenuBuildings;
             this.listBuildings.FullRowSelect = true;
             this.listBuildings.HideSelection = false;
             this.listBuildings.Location = new System.Drawing.Point(0, 25);
@@ -1224,6 +1286,7 @@ namespace CompStore
             this.listDeps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnDepName,
             this.columnDepComment});
+            this.listDeps.ContextMenuStrip = this.contextMenuDeps;
             this.listDeps.FullRowSelect = true;
             this.listDeps.HideSelection = false;
             this.listDeps.Location = new System.Drawing.Point(0, 25);
@@ -1351,6 +1414,7 @@ namespace CompStore
             this.columnUserPost,
             this.columnUserPlace,
             this.columnUserCom});
+            this.listUsers.ContextMenuStrip = this.contextMenuUsers;
             this.listUsers.FullRowSelect = true;
             this.listUsers.HideSelection = false;
             this.listUsers.Location = new System.Drawing.Point(0, 25);
@@ -1403,6 +1467,85 @@ namespace CompStore
             this.panelBrands.Visible = false;
             this.panelBrands.VisibleChanged += new System.EventHandler(this.BrandsView);
             // 
+            // toolStripBrands
+            // 
+            this.toolStripBrands.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripBrands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolBrandLabel,
+            this.toolBrandAdd,
+            this.toolBrandEdit,
+            this.toolBrandDelete,
+            this.toolBrandFilterReset,
+            this.toolBrandFilter,
+            this.toolBrandFilterLabel});
+            this.toolStripBrands.Location = new System.Drawing.Point(0, 0);
+            this.toolStripBrands.Name = "toolStripBrands";
+            this.toolStripBrands.Size = new System.Drawing.Size(1021, 25);
+            this.toolStripBrands.TabIndex = 16;
+            this.toolStripBrands.Text = "123";
+            // 
+            // toolBrandLabel
+            // 
+            this.toolBrandLabel.AutoSize = false;
+            this.toolBrandLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolBrandLabel.Name = "toolBrandLabel";
+            this.toolBrandLabel.Size = new System.Drawing.Size(170, 22);
+            this.toolBrandLabel.Text = "Производители";
+            this.toolBrandLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolBrandAdd
+            // 
+            this.toolBrandAdd.Image = global::CompStore.Properties.Resources.add;
+            this.toolBrandAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBrandAdd.Name = "toolBrandAdd";
+            this.toolBrandAdd.Size = new System.Drawing.Size(79, 22);
+            this.toolBrandAdd.Text = "Добавить";
+            this.toolBrandAdd.Click += new System.EventHandler(this.BrandAdd);
+            // 
+            // toolBrandEdit
+            // 
+            this.toolBrandEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.toolBrandEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBrandEdit.Name = "toolBrandEdit";
+            this.toolBrandEdit.Size = new System.Drawing.Size(81, 22);
+            this.toolBrandEdit.Text = "Изменить";
+            this.toolBrandEdit.Click += new System.EventHandler(this.BrandEdit);
+            // 
+            // toolBrandDelete
+            // 
+            this.toolBrandDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.toolBrandDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBrandDelete.Name = "toolBrandDelete";
+            this.toolBrandDelete.Size = new System.Drawing.Size(71, 22);
+            this.toolBrandDelete.Text = "Удалить";
+            this.toolBrandDelete.Click += new System.EventHandler(this.BrandDelete);
+            // 
+            // toolBrandFilterReset
+            // 
+            this.toolBrandFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolBrandFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBrandFilterReset.Image = global::CompStore.Properties.Resources.cancel;
+            this.toolBrandFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBrandFilterReset.Name = "toolBrandFilterReset";
+            this.toolBrandFilterReset.Size = new System.Drawing.Size(23, 22);
+            this.toolBrandFilterReset.Click += new System.EventHandler(this.BrandFilterReset);
+            // 
+            // toolBrandFilter
+            // 
+            this.toolBrandFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolBrandFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolBrandFilter.Name = "toolBrandFilter";
+            this.toolBrandFilter.Size = new System.Drawing.Size(300, 25);
+            this.toolBrandFilter.TextChanged += new System.EventHandler(this.BrandsDraw);
+            // 
+            // toolBrandFilterLabel
+            // 
+            this.toolBrandFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolBrandFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBrandFilterLabel.Image = global::CompStore.Properties.Resources.search;
+            this.toolBrandFilterLabel.Name = "toolBrandFilterLabel";
+            this.toolBrandFilterLabel.Size = new System.Drawing.Size(16, 22);
+            // 
             // listBrands
             // 
             this.listBrands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1411,6 +1554,7 @@ namespace CompStore
             this.listBrands.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnBrandName,
             this.columnBrandCom});
+            this.listBrands.ContextMenuStrip = this.contextMenuBrands;
             this.listBrands.FullRowSelect = true;
             this.listBrands.HideSelection = false;
             this.listBrands.Location = new System.Drawing.Point(0, 25);
@@ -1534,6 +1678,7 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listEqTypes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnEqType});
+            this.listEqTypes.ContextMenuStrip = this.contextMenuEqTypes;
             this.listEqTypes.FullRowSelect = true;
             this.listEqTypes.HideSelection = false;
             this.listEqTypes.Location = new System.Drawing.Point(0, 25);
@@ -1655,6 +1800,7 @@ namespace CompStore
             this.columnModelBrand,
             this.columnModelName,
             this.columnModelComment});
+            this.listModels.ContextMenuStrip = this.contextMenuModels;
             this.listModels.FullRowSelect = true;
             this.listModels.HideSelection = false;
             this.listModels.Location = new System.Drawing.Point(0, 25);
@@ -1792,6 +1938,7 @@ namespace CompStore
             this.columnMoveUser,
             this.columnMoveRoom,
             this.columnMoveCom});
+            this.listMoves.ContextMenuStrip = this.contextMenuMoves;
             this.listMoves.FullRowSelect = true;
             this.listMoves.HideSelection = false;
             this.listMoves.Location = new System.Drawing.Point(0, 25);
@@ -1830,97 +1977,424 @@ namespace CompStore
             this.columnMoveCom.Text = "Примечание";
             this.columnMoveCom.Width = 200;
             // 
-            // toolStripBrands
+            // contextMenuEquipment
             // 
-            this.toolStripBrands.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripBrands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolBrandLabel,
-            this.toolBrandAdd,
-            this.toolBrandEdit,
-            this.toolBrandDelete,
-            this.toolBrandFilterReset,
-            this.toolBrandFilter,
-            this.toolBrandFilterLabel});
-            this.toolStripBrands.Location = new System.Drawing.Point(0, 0);
-            this.toolStripBrands.Name = "toolStripBrands";
-            this.toolStripBrands.Size = new System.Drawing.Size(1021, 25);
-            this.toolStripBrands.TabIndex = 16;
-            this.toolStripBrands.Text = "123";
+            this.contextMenuEquipment.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmEqAdd,
+            this.cmEqEdit,
+            this.cmEqDelete,
+            this.cmEqMove});
+            this.contextMenuEquipment.Name = "contextMenuEquipment";
+            this.contextMenuEquipment.Size = new System.Drawing.Size(209, 92);
             // 
-            // toolBrandLabel
+            // cmEqAdd
             // 
-            this.toolBrandLabel.AutoSize = false;
-            this.toolBrandLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolBrandLabel.Name = "toolBrandLabel";
-            this.toolBrandLabel.Size = new System.Drawing.Size(170, 22);
-            this.toolBrandLabel.Text = "Производители";
-            this.toolBrandLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmEqAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmEqAdd.Name = "cmEqAdd";
+            this.cmEqAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmEqAdd.Size = new System.Drawing.Size(208, 22);
+            this.cmEqAdd.Text = "Добавить";
+            this.cmEqAdd.Click += new System.EventHandler(this.EquipmentAdd);
             // 
-            // toolBrandAdd
+            // cmEqEdit
             // 
-            this.toolBrandAdd.Image = global::CompStore.Properties.Resources.add;
-            this.toolBrandAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBrandAdd.Name = "toolBrandAdd";
-            this.toolBrandAdd.Size = new System.Drawing.Size(79, 22);
-            this.toolBrandAdd.Text = "Добавить";
-            this.toolBrandAdd.Click += new System.EventHandler(this.BrandAdd);
+            this.cmEqEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmEqEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmEqEdit.Name = "cmEqEdit";
+            this.cmEqEdit.Size = new System.Drawing.Size(208, 22);
+            this.cmEqEdit.Text = "Изменить";
+            this.cmEqEdit.Click += new System.EventHandler(this.EquipmentEdit);
             // 
-            // toolBrandEdit
+            // cmEqDelete
             // 
-            this.toolBrandEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.toolBrandEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBrandEdit.Name = "toolBrandEdit";
-            this.toolBrandEdit.Size = new System.Drawing.Size(81, 22);
-            this.toolBrandEdit.Text = "Изменить";
-            this.toolBrandEdit.Click += new System.EventHandler(this.BrandEdit);
+            this.cmEqDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmEqDelete.Name = "cmEqDelete";
+            this.cmEqDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmEqDelete.Size = new System.Drawing.Size(208, 22);
+            this.cmEqDelete.Text = "Удалить";
+            this.cmEqDelete.Click += new System.EventHandler(this.EquipmentDelete);
             // 
-            // toolBrandDelete
+            // cmEqMove
             // 
-            this.toolBrandDelete.Image = global::CompStore.Properties.Resources.delete;
-            this.toolBrandDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBrandDelete.Name = "toolBrandDelete";
-            this.toolBrandDelete.Size = new System.Drawing.Size(71, 22);
-            this.toolBrandDelete.Text = "Удалить";
-            this.toolBrandDelete.Click += new System.EventHandler(this.BrandDelete);
+            this.cmEqMove.Image = global::CompStore.Properties.Resources.move;
+            this.cmEqMove.Name = "cmEqMove";
+            this.cmEqMove.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Right)));
+            this.cmEqMove.Size = new System.Drawing.Size(208, 22);
+            this.cmEqMove.Text = "Переместить";
+            this.cmEqMove.Click += new System.EventHandler(this.EquipmentsMove);
             // 
-            // toolBrandFilterReset
+            // contextMenuFilials
             // 
-            this.toolBrandFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBrandFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBrandFilterReset.Image = global::CompStore.Properties.Resources.cancel;
-            this.toolBrandFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBrandFilterReset.Name = "toolBrandFilterReset";
-            this.toolBrandFilterReset.Size = new System.Drawing.Size(23, 22);
-            this.toolBrandFilterReset.Click += new System.EventHandler(this.BrandFilterReset);
+            this.contextMenuFilials.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmFilialAdd,
+            this.cmFilialEdit,
+            this.cmFilialDelete});
+            this.contextMenuFilials.Name = "contextMenuEquipment";
+            this.contextMenuFilials.Size = new System.Drawing.Size(149, 70);
             // 
-            // toolBrandFilter
+            // cmFilialAdd
             // 
-            this.toolBrandFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBrandFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolBrandFilter.Name = "toolBrandFilter";
-            this.toolBrandFilter.Size = new System.Drawing.Size(300, 25);
-            this.toolBrandFilter.TextChanged += new System.EventHandler(this.BrandsDraw);
+            this.cmFilialAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmFilialAdd.Name = "cmFilialAdd";
+            this.cmFilialAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmFilialAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmFilialAdd.Text = "Добавить";
+            this.cmFilialAdd.Click += new System.EventHandler(this.FilialAdd);
             // 
-            // toolBrandFilterLabel
+            // cmFilialEdit
             // 
-            this.toolBrandFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBrandFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBrandFilterLabel.Image = global::CompStore.Properties.Resources.search;
-            this.toolBrandFilterLabel.Name = "toolBrandFilterLabel";
-            this.toolBrandFilterLabel.Size = new System.Drawing.Size(16, 22);
+            this.cmFilialEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmFilialEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmFilialEdit.Name = "cmFilialEdit";
+            this.cmFilialEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmFilialEdit.Text = "Изменить";
+            this.cmFilialEdit.Click += new System.EventHandler(this.FilialEdit);
+            // 
+            // cmFilialDelete
+            // 
+            this.cmFilialDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmFilialDelete.Name = "cmFilialDelete";
+            this.cmFilialDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmFilialDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmFilialDelete.Text = "Удалить";
+            this.cmFilialDelete.Click += new System.EventHandler(this.FilialDelete);
+            // 
+            // contextMenuBuildings
+            // 
+            this.contextMenuBuildings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmBuildingAdd,
+            this.cmBuildingEdit,
+            this.cmBuildingDelete});
+            this.contextMenuBuildings.Name = "contextMenuEquipment";
+            this.contextMenuBuildings.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmBuildingAdd
+            // 
+            this.cmBuildingAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmBuildingAdd.Name = "cmBuildingAdd";
+            this.cmBuildingAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmBuildingAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmBuildingAdd.Text = "Добавить";
+            this.cmBuildingAdd.Click += new System.EventHandler(this.BuildingAdd);
+            // 
+            // cmBuildingEdit
+            // 
+            this.cmBuildingEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmBuildingEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmBuildingEdit.Name = "cmBuildingEdit";
+            this.cmBuildingEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmBuildingEdit.Text = "Изменить";
+            this.cmBuildingEdit.Click += new System.EventHandler(this.BuildingEdit);
+            // 
+            // cmBuildingDelete
+            // 
+            this.cmBuildingDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmBuildingDelete.Name = "cmBuildingDelete";
+            this.cmBuildingDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmBuildingDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmBuildingDelete.Text = "Удалить";
+            this.cmBuildingDelete.Click += new System.EventHandler(this.BuildingDelete);
+            // 
+            // contextMenuRooms
+            // 
+            this.contextMenuRooms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmRoomAdd,
+            this.cmRoomEdit,
+            this.cmRoomDelete});
+            this.contextMenuRooms.Name = "contextMenuEquipment";
+            this.contextMenuRooms.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmRoomAdd
+            // 
+            this.cmRoomAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmRoomAdd.Name = "cmRoomAdd";
+            this.cmRoomAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmRoomAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmRoomAdd.Text = "Добавить";
+            this.cmRoomAdd.Click += new System.EventHandler(this.RoomAdd);
+            // 
+            // cmRoomEdit
+            // 
+            this.cmRoomEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmRoomEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmRoomEdit.Name = "cmRoomEdit";
+            this.cmRoomEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmRoomEdit.Text = "Изменить";
+            this.cmRoomEdit.Click += new System.EventHandler(this.RoomEdit);
+            // 
+            // cmRoomDelete
+            // 
+            this.cmRoomDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmRoomDelete.Name = "cmRoomDelete";
+            this.cmRoomDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmRoomDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmRoomDelete.Text = "Удалить";
+            this.cmRoomDelete.Click += new System.EventHandler(this.RoomDelete);
+            // 
+            // contextMenuDeps
+            // 
+            this.contextMenuDeps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmDepAdd,
+            this.cmDepEdit,
+            this.cmDepDelete});
+            this.contextMenuDeps.Name = "contextMenuEquipment";
+            this.contextMenuDeps.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmDepAdd
+            // 
+            this.cmDepAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmDepAdd.Name = "cmDepAdd";
+            this.cmDepAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmDepAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmDepAdd.Text = "Добавить";
+            this.cmDepAdd.Click += new System.EventHandler(this.DepAdd);
+            // 
+            // cmDepEdit
+            // 
+            this.cmDepEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmDepEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmDepEdit.Name = "cmDepEdit";
+            this.cmDepEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmDepEdit.Text = "Изменить";
+            this.cmDepEdit.Click += new System.EventHandler(this.DepEdit);
+            // 
+            // cmDepDelete
+            // 
+            this.cmDepDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmDepDelete.Name = "cmDepDelete";
+            this.cmDepDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmDepDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmDepDelete.Text = "Удалить";
+            this.cmDepDelete.Click += new System.EventHandler(this.DepDelete);
+            // 
+            // contextMenuPosts
+            // 
+            this.contextMenuPosts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmPostAdd,
+            this.cmPostEdit,
+            this.cmPostDelete});
+            this.contextMenuPosts.Name = "contextMenuEquipment";
+            this.contextMenuPosts.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmPostAdd
+            // 
+            this.cmPostAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmPostAdd.Name = "cmPostAdd";
+            this.cmPostAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmPostAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmPostAdd.Text = "Добавить";
+            this.cmPostAdd.Click += new System.EventHandler(this.PostAdd);
+            // 
+            // cmPostEdit
+            // 
+            this.cmPostEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmPostEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmPostEdit.Name = "cmPostEdit";
+            this.cmPostEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmPostEdit.Text = "Изменить";
+            this.cmPostEdit.Click += new System.EventHandler(this.PostEdit);
+            // 
+            // cmPostDelete
+            // 
+            this.cmPostDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmPostDelete.Name = "cmPostDelete";
+            this.cmPostDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmPostDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmPostDelete.Text = "Удалить";
+            this.cmPostDelete.Click += new System.EventHandler(this.PostDelete);
+            // 
+            // contextMenuUsers
+            // 
+            this.contextMenuUsers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmUserAdd,
+            this.cmUserEdit,
+            this.cmUserDelete});
+            this.contextMenuUsers.Name = "contextMenuEquipment";
+            this.contextMenuUsers.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmUserAdd
+            // 
+            this.cmUserAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmUserAdd.Name = "cmUserAdd";
+            this.cmUserAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmUserAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmUserAdd.Text = "Добавить";
+            this.cmUserAdd.Click += new System.EventHandler(this.UserAdd);
+            // 
+            // cmUserEdit
+            // 
+            this.cmUserEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmUserEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmUserEdit.Name = "cmUserEdit";
+            this.cmUserEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmUserEdit.Text = "Изменить";
+            this.cmUserEdit.Click += new System.EventHandler(this.UserEdit);
+            // 
+            // cmUserDelete
+            // 
+            this.cmUserDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmUserDelete.Name = "cmUserDelete";
+            this.cmUserDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmUserDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmUserDelete.Text = "Удалить";
+            this.cmUserDelete.Click += new System.EventHandler(this.UserDelete);
+            // 
+            // contextMenuBrands
+            // 
+            this.contextMenuBrands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmBrandAdd,
+            this.cmBrandEdit,
+            this.cmBrandDelete});
+            this.contextMenuBrands.Name = "contextMenuEquipment";
+            this.contextMenuBrands.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmBrandAdd
+            // 
+            this.cmBrandAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmBrandAdd.Name = "cmBrandAdd";
+            this.cmBrandAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmBrandAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmBrandAdd.Text = "Добавить";
+            this.cmBrandAdd.Click += new System.EventHandler(this.BrandAdd);
+            // 
+            // cmBrandEdit
+            // 
+            this.cmBrandEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmBrandEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmBrandEdit.Name = "cmBrandEdit";
+            this.cmBrandEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmBrandEdit.Text = "Изменить";
+            this.cmBrandEdit.Click += new System.EventHandler(this.BrandEdit);
+            // 
+            // cmBrandDelete
+            // 
+            this.cmBrandDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmBrandDelete.Name = "cmBrandDelete";
+            this.cmBrandDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmBrandDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmBrandDelete.Text = "Удалить";
+            this.cmBrandDelete.Click += new System.EventHandler(this.BrandDelete);
+            // 
+            // contextMenuEqTypes
+            // 
+            this.contextMenuEqTypes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmETAdd,
+            this.cmETEdit,
+            this.cmETDelete});
+            this.contextMenuEqTypes.Name = "contextMenuEquipment";
+            this.contextMenuEqTypes.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmETAdd
+            // 
+            this.cmETAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmETAdd.Name = "cmETAdd";
+            this.cmETAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmETAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmETAdd.Text = "Добавить";
+            this.cmETAdd.Click += new System.EventHandler(this.EqTypeAdd);
+            // 
+            // cmETEdit
+            // 
+            this.cmETEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmETEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmETEdit.Name = "cmETEdit";
+            this.cmETEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmETEdit.Text = "Изменить";
+            this.cmETEdit.Click += new System.EventHandler(this.EqTypeEdit);
+            // 
+            // cmETDelete
+            // 
+            this.cmETDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmETDelete.Name = "cmETDelete";
+            this.cmETDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmETDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmETDelete.Text = "Удалить";
+            this.cmETDelete.Click += new System.EventHandler(this.EqTypeDelete);
+            // 
+            // contextMenuModels
+            // 
+            this.contextMenuModels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmModelAdd,
+            this.cmModelEdit,
+            this.cmModelDelete});
+            this.contextMenuModels.Name = "contextMenuEquipment";
+            this.contextMenuModels.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmModelAdd
+            // 
+            this.cmModelAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmModelAdd.Name = "cmModelAdd";
+            this.cmModelAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmModelAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmModelAdd.Text = "Добавить";
+            this.cmModelAdd.Click += new System.EventHandler(this.ModelAdd);
+            // 
+            // cmModelEdit
+            // 
+            this.cmModelEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmModelEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmModelEdit.Name = "cmModelEdit";
+            this.cmModelEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmModelEdit.Text = "Изменить";
+            this.cmModelEdit.Click += new System.EventHandler(this.ModelEdit);
+            // 
+            // cmModelDelete
+            // 
+            this.cmModelDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmModelDelete.Name = "cmModelDelete";
+            this.cmModelDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmModelDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmModelDelete.Text = "Удалить";
+            this.cmModelDelete.Click += new System.EventHandler(this.ModelDelete);
+            // 
+            // contextMenuMoves
+            // 
+            this.contextMenuMoves.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmMoveAdd,
+            this.cmMoveEdit,
+            this.cmMoveDelete});
+            this.contextMenuMoves.Name = "contextMenuEquipment";
+            this.contextMenuMoves.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmMoveAdd
+            // 
+            this.cmMoveAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmMoveAdd.Name = "cmMoveAdd";
+            this.cmMoveAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmMoveAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmMoveAdd.Text = "Добавить";
+            this.cmMoveAdd.Click += new System.EventHandler(this.MoveAdd);
+            // 
+            // cmMoveEdit
+            // 
+            this.cmMoveEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmMoveEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmMoveEdit.Name = "cmMoveEdit";
+            this.cmMoveEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmMoveEdit.Text = "Изменить";
+            this.cmMoveEdit.Click += new System.EventHandler(this.MoveEdit);
+            // 
+            // cmMoveDelete
+            // 
+            this.cmMoveDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmMoveDelete.Name = "cmMoveDelete";
+            this.cmMoveDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmMoveDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmMoveDelete.Text = "Удалить";
+            this.cmMoveDelete.Click += new System.EventHandler(this.MoveDelete);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelBuildings);
+            this.Controls.Add(this.panelFilials);
+            this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.panelEqTypes);
             this.Controls.Add(this.panelBrands);
             this.Controls.Add(this.panelRooms);
-            this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelUsers);
-            this.Controls.Add(this.panelEquipments);
-            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
@@ -1969,6 +2443,8 @@ namespace CompStore
             this.toolStripUsers.PerformLayout();
             this.panelBrands.ResumeLayout(false);
             this.panelBrands.PerformLayout();
+            this.toolStripBrands.ResumeLayout(false);
+            this.toolStripBrands.PerformLayout();
             this.panelEqTypes.ResumeLayout(false);
             this.panelEqTypes.PerformLayout();
             this.toolStripEqTypes.ResumeLayout(false);
@@ -1981,8 +2457,17 @@ namespace CompStore
             this.panelMoves.PerformLayout();
             this.toolStripMoves.ResumeLayout(false);
             this.toolStripMoves.PerformLayout();
-            this.toolStripBrands.ResumeLayout(false);
-            this.toolStripBrands.PerformLayout();
+            this.contextMenuEquipment.ResumeLayout(false);
+            this.contextMenuFilials.ResumeLayout(false);
+            this.contextMenuBuildings.ResumeLayout(false);
+            this.contextMenuRooms.ResumeLayout(false);
+            this.contextMenuDeps.ResumeLayout(false);
+            this.contextMenuPosts.ResumeLayout(false);
+            this.contextMenuUsers.ResumeLayout(false);
+            this.contextMenuBrands.ResumeLayout(false);
+            this.contextMenuEqTypes.ResumeLayout(false);
+            this.contextMenuModels.ResumeLayout(false);
+            this.contextMenuMoves.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2158,6 +2643,51 @@ namespace CompStore
         private System.Windows.Forms.ToolStripButton toolBrandFilterReset;
         private System.Windows.Forms.ToolStripTextBox toolBrandFilter;
         private System.Windows.Forms.ToolStripLabel toolBrandFilterLabel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuEquipment;
+        private System.Windows.Forms.ToolStripMenuItem cmEqAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmEqEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmEqDelete;
+        private System.Windows.Forms.ToolStripMenuItem cmEqMove;
+        private System.Windows.Forms.ContextMenuStrip contextMenuFilials;
+        private System.Windows.Forms.ToolStripMenuItem cmFilialAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmFilialEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmFilialDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuBuildings;
+        private System.Windows.Forms.ToolStripMenuItem cmBuildingAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmBuildingEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmBuildingDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuRooms;
+        private System.Windows.Forms.ToolStripMenuItem cmRoomAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmRoomEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmRoomDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuDeps;
+        private System.Windows.Forms.ToolStripMenuItem cmDepAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmDepEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmDepDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuPosts;
+        private System.Windows.Forms.ToolStripMenuItem cmPostAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmPostEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmPostDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuUsers;
+        private System.Windows.Forms.ToolStripMenuItem cmUserAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmUserEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmUserDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuBrands;
+        private System.Windows.Forms.ToolStripMenuItem cmBrandAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmBrandEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmBrandDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuEqTypes;
+        private System.Windows.Forms.ToolStripMenuItem cmETAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmETEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmETDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuModels;
+        private System.Windows.Forms.ToolStripMenuItem cmModelAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmModelEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmModelDelete;
+        private System.Windows.Forms.ContextMenuStrip contextMenuMoves;
+        private System.Windows.Forms.ToolStripMenuItem cmMoveAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmMoveEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmMoveDelete;
     }
 }
 

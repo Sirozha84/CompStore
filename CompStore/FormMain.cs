@@ -124,7 +124,6 @@ namespace CompStore
         {
             if (listFilials.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) FilialEdit(null, null);
-            if (e.KeyCode == Keys.Delete) FilialDelete(null, null);
         }
         #endregion
 
@@ -193,9 +192,8 @@ namespace CompStore
 
         private void RoomsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listRooms.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) RoomEdit(null, null);
-            if (e.KeyCode == Keys.Delete) RoomDelete(null, null);
         }
         #endregion
 
@@ -264,9 +262,8 @@ namespace CompStore
 
         private void PostsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listPosts.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) PostEdit(null, null);
-            if (e.KeyCode == Keys.Delete) PostDelete(null, null);
         }
         #endregion
 
@@ -336,9 +333,8 @@ namespace CompStore
 
         private void DepsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listDeps.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) DepEdit(null, null);
-            if (e.KeyCode == Keys.Delete) DepDelete(null, null);
         }
         #endregion
 
@@ -409,9 +405,8 @@ namespace CompStore
 
         private void BuildingsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listBuildings.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) BuildingEdit(null, null);
-            if (e.KeyCode == Keys.Delete) BuildingDelete(null, null);
         }
         #endregion
 
@@ -480,9 +475,8 @@ namespace CompStore
 
         private void UsersKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listUsers.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) UserEdit(null, null);
-            if (e.KeyCode == Keys.Delete) UserDelete(null, null);
         }
         #endregion
 
@@ -551,9 +545,8 @@ namespace CompStore
 
         private void BrandsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listBrands.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) BrandEdit(null, null);
-            if (e.KeyCode == Keys.Delete) BrandDelete(null, null);
         }
         #endregion
 
@@ -622,9 +615,8 @@ namespace CompStore
 
         private void EqTypesKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listEqTypes.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) EqTypeEdit(null, null);
-            if (e.KeyCode == Keys.Delete) EqTypeDelete(null, null);
         }
         #endregion
 
@@ -693,9 +685,8 @@ namespace CompStore
 
         private void ModelsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listModels.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) ModelEdit(null, null);
-            if (e.KeyCode == Keys.Delete) ModelDelete(null, null);
         }
         #endregion
 
@@ -729,6 +720,9 @@ namespace CompStore
             toolEqEdit.Enabled = sel == 1;
             toolEqDelete.Enabled = sel == 1;
             toolEqMove.Enabled = sel > 0;
+            cmEqEdit.Enabled = sel == 1;
+            cmEqDelete.Enabled = sel == 1;
+            cmEqMove.Enabled = sel > 0;
 
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
@@ -777,7 +771,7 @@ namespace CompStore
 
         private void EquipmentsKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listEquipments.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
             if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
         }
@@ -861,9 +855,8 @@ namespace CompStore
 
         private void MovesKeyboard(object sender, KeyEventArgs e)
         {
-            if (listFilials.SelectedIndices.Count == 0) return;
+            if (listMoves.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) MoveEdit(null, null);
-            if (e.KeyCode == Keys.Delete) MoveDelete(null, null);
         }
         #endregion
 
