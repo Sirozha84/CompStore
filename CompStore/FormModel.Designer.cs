@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBrand = new System.Windows.Forms.ComboBox();
             this.labelBrand = new System.Windows.Forms.Label();
             this.comboEqType = new System.Windows.Forms.ComboBox();
@@ -39,6 +40,7 @@ namespace CompStore
             this.textName = new System.Windows.Forms.TextBox();
             this.labelEqType = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // comboBrand
@@ -49,6 +51,7 @@ namespace CompStore
             this.comboBrand.Name = "comboBrand";
             this.comboBrand.Size = new System.Drawing.Size(232, 21);
             this.comboBrand.TabIndex = 1;
+            this.comboBrand.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // labelBrand
             // 
@@ -67,6 +70,7 @@ namespace CompStore
             this.comboEqType.Name = "comboEqType";
             this.comboEqType.Size = new System.Drawing.Size(232, 21);
             this.comboEqType.TabIndex = 0;
+            this.comboEqType.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // buttonOK
             // 
@@ -118,6 +122,7 @@ namespace CompStore
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 2;
+            this.textName.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelEqType
             // 
@@ -178,5 +183,6 @@ namespace CompStore
         private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.Label labelEqType;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

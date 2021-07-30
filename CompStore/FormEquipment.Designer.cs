@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textCom = new System.Windows.Forms.TextBox();
@@ -41,7 +42,8 @@ namespace CompStore
             this.labelIN = new System.Windows.Forms.Label();
             this.labelBuyDate = new System.Windows.Forms.Label();
             this.dateBuy = new System.Windows.Forms.DateTimePicker();
-            this.checkBuy = new System.Windows.Forms.CheckBox();
+            this.toolTipS = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipI = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // buttonOK
@@ -94,6 +96,7 @@ namespace CompStore
             this.textSN.Name = "textSN";
             this.textSN.Size = new System.Drawing.Size(232, 20);
             this.textSN.TabIndex = 3;
+            this.textSN.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelSN
             // 
@@ -112,6 +115,7 @@ namespace CompStore
             this.comboModel.Name = "comboModel";
             this.comboModel.Size = new System.Drawing.Size(232, 21);
             this.comboModel.TabIndex = 2;
+            this.comboModel.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // labelModel
             // 
@@ -130,6 +134,7 @@ namespace CompStore
             this.textIN.Name = "textIN";
             this.textIN.Size = new System.Drawing.Size(232, 20);
             this.textIN.TabIndex = 4;
+            this.textIN.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelIN
             // 
@@ -151,19 +156,11 @@ namespace CompStore
             // 
             // dateBuy
             // 
-            this.dateBuy.Location = new System.Drawing.Point(161, 91);
+            this.dateBuy.Location = new System.Drawing.Point(140, 91);
             this.dateBuy.Name = "dateBuy";
+            this.dateBuy.ShowCheckBox = true;
             this.dateBuy.Size = new System.Drawing.Size(140, 20);
             this.dateBuy.TabIndex = 5;
-            // 
-            // checkBuy
-            // 
-            this.checkBuy.AutoSize = true;
-            this.checkBuy.Location = new System.Drawing.Point(140, 94);
-            this.checkBuy.Name = "checkBuy";
-            this.checkBuy.Size = new System.Drawing.Size(15, 14);
-            this.checkBuy.TabIndex = 75;
-            this.checkBuy.UseVisualStyleBackColor = true;
             // 
             // FormEquipment
             // 
@@ -172,7 +169,6 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(384, 261);
-            this.Controls.Add(this.checkBuy);
             this.Controls.Add(this.labelBuyDate);
             this.Controls.Add(this.dateBuy);
             this.Controls.Add(this.textIN);
@@ -210,6 +206,7 @@ namespace CompStore
         private System.Windows.Forms.Label labelIN;
         private System.Windows.Forms.Label labelBuyDate;
         private System.Windows.Forms.DateTimePicker dateBuy;
-        private System.Windows.Forms.CheckBox checkBuy;
+        private System.Windows.Forms.ToolTip toolTipS;
+        private System.Windows.Forms.ToolTip toolTipI;
     }
 }

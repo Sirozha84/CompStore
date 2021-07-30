@@ -15,7 +15,7 @@ namespace CompStore
             InitializeComponent();
             this.building = building;
             names = DB.NamesLoad("buildings");
-            if (building.name != "") names.Remove(building.name);
+            if (building.name != "") names.Remove(building.filial.ToString() + "‼" + building.name);
 
             comboFilial.DataSource = DB.FilialsLoad();
             comboFilial.DisplayMember = "name";
