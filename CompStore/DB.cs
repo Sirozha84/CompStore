@@ -998,6 +998,7 @@ namespace CompStore
                 com.CommandText = "SELECT name FROM "+ table;
                 if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
                 if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
+                if (table == "users") com.CommandText = "SELECT f || \"‼\" || i || \"‼\" || o FROM users";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                     while (reader.Read())
                         list.Add(reader.GetString(0));

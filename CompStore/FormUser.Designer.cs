@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.comboDep = new System.Windows.Forms.ComboBox();
@@ -51,6 +52,7 @@ namespace CompStore
             this.labelPost = new System.Windows.Forms.Label();
             this.checkEmp = new System.Windows.Forms.CheckBox();
             this.checkDis = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // buttonOK
@@ -103,6 +105,7 @@ namespace CompStore
             this.textO.Name = "textO";
             this.textO.Size = new System.Drawing.Size(157, 20);
             this.textO.TabIndex = 2;
+            this.textO.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelO
             // 
@@ -121,6 +124,7 @@ namespace CompStore
             this.textI.Name = "textI";
             this.textI.Size = new System.Drawing.Size(157, 20);
             this.textI.TabIndex = 1;
+            this.textI.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelI
             // 
@@ -139,6 +143,7 @@ namespace CompStore
             this.textF.Name = "textF";
             this.textF.Size = new System.Drawing.Size(157, 20);
             this.textF.TabIndex = 0;
+            this.textF.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelF
             // 
@@ -325,5 +330,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelPost;
         private System.Windows.Forms.CheckBox checkEmp;
         private System.Windows.Forms.CheckBox checkDis;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
