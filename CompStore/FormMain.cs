@@ -863,7 +863,7 @@ namespace CompStore
         // Вопрос об удалении записи в справочнике/журнале
         bool DeleteRecord(string listName, string recordName)
         {
-            return MessageBox.Show("Внимание! Вы уверены что хотите удалить " + listName + " \"" + recordName + "\"?",
+            return MessageBox.Show("Внимание!\nВы уверены что хотите удалить " + listName + "\n\"" + recordName + "\"?",
                 "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK;
         }
 

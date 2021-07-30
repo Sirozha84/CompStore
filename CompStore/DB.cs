@@ -135,6 +135,7 @@ namespace CompStore
             return filials;
         }
 
+
         public static void FilialAdd(Filial filial)
         {
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
@@ -986,5 +987,23 @@ namespace CompStore
             }
         }
         #endregion
+
+        public static List<string> NamesLoad(string table)
+        {
+            List<string> list = new List<string>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT name FROM "+ table;
+                if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
+                if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                    while (reader.Read())
+                        list.Add(reader.GetString(0));
+                connect.Close();
+            }
+            return list;
+        }
     }
 }

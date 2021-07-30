@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textCom = new System.Windows.Forms.TextBox();
@@ -37,6 +38,7 @@ namespace CompStore
             this.labelName = new System.Windows.Forms.Label();
             this.comboBuilding = new System.Windows.Forms.ComboBox();
             this.labelBuilding = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // buttonOK
@@ -89,6 +91,7 @@ namespace CompStore
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 2;
+            this.textName.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelName
             // 
@@ -107,6 +110,7 @@ namespace CompStore
             this.comboBuilding.Name = "comboBuilding";
             this.comboBuilding.Size = new System.Drawing.Size(232, 21);
             this.comboBuilding.TabIndex = 1;
+            this.comboBuilding.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // labelBuilding
             // 
@@ -154,5 +158,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ComboBox comboBuilding;
         private System.Windows.Forms.Label labelBuilding;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

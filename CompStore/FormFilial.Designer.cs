@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelName = new System.Windows.Forms.Label();
             this.textName = new System.Windows.Forms.TextBox();
             this.textAdress = new System.Windows.Forms.TextBox();
@@ -37,6 +38,7 @@ namespace CompStore
             this.labelCom = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // labelName
@@ -56,6 +58,7 @@ namespace CompStore
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 1;
+            this.textName.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // textAdress
             // 
@@ -115,7 +118,7 @@ namespace CompStore
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.OK);
             // 
             // FormFilial
             // 
@@ -154,5 +157,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelCom;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

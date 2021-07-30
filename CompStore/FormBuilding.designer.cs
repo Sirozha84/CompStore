@@ -29,6 +29,7 @@ namespace CompStore
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboFilial = new System.Windows.Forms.ComboBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@ namespace CompStore
             this.textName = new System.Windows.Forms.TextBox();
             this.labelAdress = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // comboFilial
@@ -47,6 +49,7 @@ namespace CompStore
             this.comboFilial.Name = "comboFilial";
             this.comboFilial.Size = new System.Drawing.Size(232, 21);
             this.comboFilial.TabIndex = 25;
+            this.comboFilial.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // buttonOK
             // 
@@ -98,6 +101,7 @@ namespace CompStore
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
             this.textName.TabIndex = 20;
+            this.textName.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelAdress
             // 
@@ -117,7 +121,7 @@ namespace CompStore
             this.labelName.TabIndex = 18;
             this.labelName.Text = "Название:";
             // 
-            // FormBuildings
+            // FormBuilding
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,7 +139,7 @@ namespace CompStore
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormBuildings";
+            this.Name = "FormBuilding";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -154,5 +158,6 @@ namespace CompStore
         private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.Label labelAdress;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
