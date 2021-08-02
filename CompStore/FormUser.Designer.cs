@@ -53,6 +53,9 @@ namespace CompStore
             this.checkEmp = new System.Windows.Forms.CheckBox();
             this.checkDis = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonPostAdd = new System.Windows.Forms.Button();
+            this.buttonDepAdd = new System.Windows.Forms.Button();
+            this.buttonRoomAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -85,7 +88,7 @@ namespace CompStore
             this.comboDep.FormattingEnabled = true;
             this.comboDep.Location = new System.Drawing.Point(120, 117);
             this.comboDep.Name = "comboDep";
-            this.comboDep.Size = new System.Drawing.Size(302, 21);
+            this.comboDep.Size = new System.Drawing.Size(275, 21);
             this.comboDep.TabIndex = 4;
             // 
             // labelDep
@@ -195,7 +198,7 @@ namespace CompStore
             this.comboRoom.FormattingEnabled = true;
             this.comboRoom.Location = new System.Drawing.Point(120, 144);
             this.comboRoom.Name = "comboRoom";
-            this.comboRoom.Size = new System.Drawing.Size(302, 21);
+            this.comboRoom.Size = new System.Drawing.Size(275, 21);
             this.comboRoom.TabIndex = 5;
             // 
             // labelRoom
@@ -215,7 +218,7 @@ namespace CompStore
             this.comboPost.FormattingEnabled = true;
             this.comboPost.Location = new System.Drawing.Point(120, 90);
             this.comboPost.Name = "comboPost";
-            this.comboPost.Size = new System.Drawing.Size(302, 21);
+            this.comboPost.Size = new System.Drawing.Size(275, 21);
             this.comboPost.TabIndex = 3;
             // 
             // textCom
@@ -265,6 +268,42 @@ namespace CompStore
             this.checkDis.TabIndex = 82;
             this.checkDis.UseVisualStyleBackColor = true;
             // 
+            // buttonPostAdd
+            // 
+            this.buttonPostAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPostAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonPostAdd.Location = new System.Drawing.Point(400, 89);
+            this.buttonPostAdd.Name = "buttonPostAdd";
+            this.buttonPostAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonPostAdd.TabIndex = 83;
+            this.toolTip.SetToolTip(this.buttonPostAdd, "Добавить новый филиал");
+            this.buttonPostAdd.UseVisualStyleBackColor = true;
+            this.buttonPostAdd.Click += new System.EventHandler(this.PostAdd);
+            // 
+            // buttonDepAdd
+            // 
+            this.buttonDepAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDepAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonDepAdd.Location = new System.Drawing.Point(400, 116);
+            this.buttonDepAdd.Name = "buttonDepAdd";
+            this.buttonDepAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonDepAdd.TabIndex = 84;
+            this.toolTip.SetToolTip(this.buttonDepAdd, "Добавить новый филиал");
+            this.buttonDepAdd.UseVisualStyleBackColor = true;
+            this.buttonDepAdd.Click += new System.EventHandler(this.DepAdd);
+            // 
+            // buttonRoomAdd
+            // 
+            this.buttonRoomAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRoomAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonRoomAdd.Location = new System.Drawing.Point(400, 143);
+            this.buttonRoomAdd.Name = "buttonRoomAdd";
+            this.buttonRoomAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonRoomAdd.TabIndex = 85;
+            this.toolTip.SetToolTip(this.buttonRoomAdd, "Добавить новый филиал");
+            this.buttonRoomAdd.UseVisualStyleBackColor = true;
+            this.buttonRoomAdd.Click += new System.EventHandler(this.RoomAdd);
+            // 
             // FormUser
             // 
             this.AcceptButton = this.buttonOK;
@@ -272,6 +311,9 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(434, 311);
+            this.Controls.Add(this.buttonRoomAdd);
+            this.Controls.Add(this.buttonDepAdd);
+            this.Controls.Add(this.buttonPostAdd);
             this.Controls.Add(this.checkDis);
             this.Controls.Add(this.checkEmp);
             this.Controls.Add(this.comboDep);
@@ -331,5 +373,8 @@ namespace CompStore
         private System.Windows.Forms.CheckBox checkEmp;
         private System.Windows.Forms.CheckBox checkDis;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button buttonPostAdd;
+        private System.Windows.Forms.Button buttonDepAdd;
+        private System.Windows.Forms.Button buttonRoomAdd;
     }
 }

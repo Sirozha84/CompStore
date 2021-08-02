@@ -77,5 +77,20 @@ namespace CompStore
             DialogResult = DialogResult.OK;
         }
 
+        private void ModelAdd(object sender, EventArgs e)
+        {
+            Model model = new Model();
+            FormModel form = new FormModel(model);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ModelAdd(model);
+                List<Model> modelds = DB.ModelsLoad();
+                comboModel.DataSource = modelds;
+                int max = 0;
+                foreach (Model f in modelds)
+                    if (max < f.ID) max = f.ID;
+                comboModel.SelectedValue = max;
+            }
+        }
     }
 }

@@ -56,5 +56,21 @@ namespace CompStore
         {
             return comboBuilding.SelectedValue != null & comboBuilding.Text!="CompStore.Building" ? (int)comboBuilding.SelectedValue : 0;
         }
+
+        private void BuildingAddAdd(object sender, EventArgs e)
+        {
+            Building building = new Building();
+            FormBuilding form = new FormBuilding(building);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BuildingAdd(building);
+                List<Building> buildings = DB.BuildingsLoad();
+                comboBuilding.DataSource = buildings;
+                int max = 0;
+                foreach (Building b in buildings)
+                    if (max < b.ID) max = b.ID;
+                comboBuilding.SelectedValue = max;
+            }
+        }
     }
 }

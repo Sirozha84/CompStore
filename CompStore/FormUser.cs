@@ -81,5 +81,53 @@ namespace CompStore
             user.room = comboRoom.SelectedValue != null ? (int)comboRoom.SelectedValue : 0;
             DialogResult = DialogResult.OK;
         }
+
+        private void PostAdd(object sender, EventArgs e)
+        {
+            Post post = new Post();
+            FormPost form = new FormPost(post);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.PostAdd(post);
+                List<Post> postds = DB.PostsLoad();
+                comboPost.DataSource = postds;
+                int max = 0;
+                foreach (Post f in postds)
+                    if (max < f.ID) max = f.ID;
+                comboPost.SelectedValue = max;
+            }
+        }
+
+        private void DepAdd(object sender, EventArgs e)
+        {
+            Dep dep = new Dep();
+            FormDep form = new FormDep(dep);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.DepAdd(dep);
+                List<Dep> depds = DB.DepsLoad();
+                comboDep.DataSource = depds;
+                int max = 0;
+                foreach (Dep f in depds)
+                    if (max < f.ID) max = f.ID;
+                comboDep.SelectedValue = max;
+            }
+        }
+
+        private void RoomAdd(object sender, EventArgs e)
+        {
+            Room room = new Room();
+            FormRoom form = new FormRoom(room);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.RoomAdd(room);
+                List<Room> roomds = DB.RoomsLoad();
+                comboRoom.DataSource = roomds;
+                int max = 0;
+                foreach (Room f in roomds)
+                    if (max < f.ID) max = f.ID;
+                comboRoom.SelectedValue = max;
+            }
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace CompStore
             this.comboBuilding = new System.Windows.Forms.ComboBox();
             this.labelBuilding = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonBuildingAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -108,7 +109,7 @@ namespace CompStore
             this.comboBuilding.FormattingEnabled = true;
             this.comboBuilding.Location = new System.Drawing.Point(90, 12);
             this.comboBuilding.Name = "comboBuilding";
-            this.comboBuilding.Size = new System.Drawing.Size(232, 21);
+            this.comboBuilding.Size = new System.Drawing.Size(205, 21);
             this.comboBuilding.TabIndex = 1;
             this.comboBuilding.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
@@ -121,6 +122,18 @@ namespace CompStore
             this.labelBuilding.TabIndex = 18;
             this.labelBuilding.Text = "Здание:";
             // 
+            // buttonBuildingAdd
+            // 
+            this.buttonBuildingAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBuildingAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonBuildingAdd.Location = new System.Drawing.Point(300, 11);
+            this.buttonBuildingAdd.Name = "buttonBuildingAdd";
+            this.buttonBuildingAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonBuildingAdd.TabIndex = 27;
+            this.toolTip.SetToolTip(this.buttonBuildingAdd, "Добавить новый филиал");
+            this.buttonBuildingAdd.UseVisualStyleBackColor = true;
+            this.buttonBuildingAdd.Click += new System.EventHandler(this.BuildingAddAdd);
+            // 
             // FormRoom
             // 
             this.AcceptButton = this.buttonOK;
@@ -128,6 +141,7 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(334, 161);
+            this.Controls.Add(this.buttonBuildingAdd);
             this.Controls.Add(this.comboBuilding);
             this.Controls.Add(this.labelBuilding);
             this.Controls.Add(this.buttonOK);
@@ -159,5 +173,6 @@ namespace CompStore
         private System.Windows.Forms.ComboBox comboBuilding;
         private System.Windows.Forms.Label labelBuilding;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button buttonBuildingAdd;
     }
 }

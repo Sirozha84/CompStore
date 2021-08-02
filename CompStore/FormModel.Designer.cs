@@ -41,6 +41,8 @@ namespace CompStore
             this.labelEqType = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonTEAdd = new System.Windows.Forms.Button();
+            this.buttonBrandAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBrand
@@ -49,7 +51,7 @@ namespace CompStore
             this.comboBrand.FormattingEnabled = true;
             this.comboBrand.Location = new System.Drawing.Point(120, 39);
             this.comboBrand.Name = "comboBrand";
-            this.comboBrand.Size = new System.Drawing.Size(232, 21);
+            this.comboBrand.Size = new System.Drawing.Size(205, 21);
             this.comboBrand.TabIndex = 1;
             this.comboBrand.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
@@ -68,7 +70,7 @@ namespace CompStore
             this.comboEqType.FormattingEnabled = true;
             this.comboEqType.Location = new System.Drawing.Point(120, 12);
             this.comboEqType.Name = "comboEqType";
-            this.comboEqType.Size = new System.Drawing.Size(232, 21);
+            this.comboEqType.Size = new System.Drawing.Size(205, 21);
             this.comboEqType.TabIndex = 0;
             this.comboEqType.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
@@ -142,6 +144,28 @@ namespace CompStore
             this.labelName.TabIndex = 30;
             this.labelName.Text = "Название:";
             // 
+            // buttonTEAdd
+            // 
+            this.buttonTEAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTEAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonTEAdd.Location = new System.Drawing.Point(331, 11);
+            this.buttonTEAdd.Name = "buttonTEAdd";
+            this.buttonTEAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonTEAdd.TabIndex = 92;
+            this.buttonTEAdd.UseVisualStyleBackColor = true;
+            this.buttonTEAdd.Click += new System.EventHandler(this.EquipmentTypeAdd);
+            // 
+            // buttonBrandAdd
+            // 
+            this.buttonBrandAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBrandAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonBrandAdd.Location = new System.Drawing.Point(331, 38);
+            this.buttonBrandAdd.Name = "buttonBrandAdd";
+            this.buttonBrandAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonBrandAdd.TabIndex = 93;
+            this.buttonBrandAdd.UseVisualStyleBackColor = true;
+            this.buttonBrandAdd.Click += new System.EventHandler(this.BrandAdd);
+            // 
             // FormModel
             // 
             this.AcceptButton = this.buttonOK;
@@ -149,6 +173,8 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(364, 181);
+            this.Controls.Add(this.buttonBrandAdd);
+            this.Controls.Add(this.buttonTEAdd);
             this.Controls.Add(this.comboBrand);
             this.Controls.Add(this.labelBrand);
             this.Controls.Add(this.comboEqType);
@@ -184,5 +210,7 @@ namespace CompStore
         private System.Windows.Forms.Label labelEqType;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button buttonTEAdd;
+        private System.Windows.Forms.Button buttonBrandAdd;
     }
 }

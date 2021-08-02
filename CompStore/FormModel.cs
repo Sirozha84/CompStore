@@ -62,5 +62,37 @@ namespace CompStore
         {
             return comboBrand.SelectedValue != null & comboBrand.Text != "CompStore.Brand" ? (int)comboBrand.SelectedValue : 0;
         }
+
+        private void EquipmentTypeAdd(object sender, EventArgs e)
+        {
+            EqType eqtype = new EqType();
+            FormEqType form = new FormEqType(eqtype);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EqTypeAdd(eqtype);
+                List<EqType> eqtypeds = DB.EqTypesLoad();
+                comboEqType.DataSource = eqtypeds;
+                int max = 0;
+                foreach (EqType et in eqtypeds)
+                    if (max < et.ID) max = et.ID;
+                comboEqType.SelectedValue = max;
+            }
+        }
+
+        private void BrandAdd(object sender, EventArgs e)
+        {
+            Brand brand = new Brand();
+            FormBrand form = new FormBrand(brand);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.BrandAdd(brand);
+                List<Brand> brandds = DB.BrandsLoad();
+                comboBrand.DataSource = brandds;
+                int max = 0;
+                foreach (Brand b in brandds)
+                    if (max < b.ID) max = b.ID;
+                comboBrand.SelectedValue = max;
+            }
+        }
     }
 }

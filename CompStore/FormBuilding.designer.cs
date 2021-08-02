@@ -39,6 +39,7 @@ namespace CompStore
             this.labelAdress = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonFilialAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboFilial
@@ -47,7 +48,7 @@ namespace CompStore
             this.comboFilial.FormattingEnabled = true;
             this.comboFilial.Location = new System.Drawing.Point(90, 12);
             this.comboFilial.Name = "comboFilial";
-            this.comboFilial.Size = new System.Drawing.Size(232, 21);
+            this.comboFilial.Size = new System.Drawing.Size(205, 21);
             this.comboFilial.TabIndex = 25;
             this.comboFilial.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
@@ -121,6 +122,18 @@ namespace CompStore
             this.labelName.TabIndex = 18;
             this.labelName.Text = "Название:";
             // 
+            // buttonFilialAdd
+            // 
+            this.buttonFilialAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFilialAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonFilialAdd.Location = new System.Drawing.Point(300, 11);
+            this.buttonFilialAdd.Name = "buttonFilialAdd";
+            this.buttonFilialAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonFilialAdd.TabIndex = 26;
+            this.toolTip.SetToolTip(this.buttonFilialAdd, "Добавить новый филиал");
+            this.buttonFilialAdd.UseVisualStyleBackColor = true;
+            this.buttonFilialAdd.Click += new System.EventHandler(this.FilialAdd);
+            // 
             // FormBuilding
             // 
             this.AcceptButton = this.buttonOK;
@@ -128,6 +141,7 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(334, 161);
+            this.Controls.Add(this.buttonFilialAdd);
             this.Controls.Add(this.comboFilial);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -159,5 +173,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelAdress;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button buttonFilialAdd;
     }
 }

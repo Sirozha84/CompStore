@@ -57,5 +57,21 @@ namespace CompStore
         {
             return comboFilial.SelectedValue != null & comboFilial.Text != "CompStore.Filial" ? (int)comboFilial.SelectedValue : 0;
         }
+
+        private void FilialAdd(object sender, EventArgs e)
+        {
+            Filial filial = new Filial();
+            FormFilial form = new FormFilial(filial);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.FilialAdd(filial);
+                List<Filial> filialds = DB.FilialsLoad();
+                comboFilial.DataSource = filialds;
+                int max = 0;
+                foreach (Filial f in filialds)
+                    if (max < f.ID) max = f.ID;
+                comboFilial.SelectedValue = max;
+            }
+        }
     }
 }

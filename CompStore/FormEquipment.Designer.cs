@@ -44,6 +44,7 @@ namespace CompStore
             this.dateBuy = new System.Windows.Forms.DateTimePicker();
             this.toolTipS = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipI = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonModelAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -113,7 +114,7 @@ namespace CompStore
             this.comboModel.FormattingEnabled = true;
             this.comboModel.Location = new System.Drawing.Point(140, 12);
             this.comboModel.Name = "comboModel";
-            this.comboModel.Size = new System.Drawing.Size(232, 21);
+            this.comboModel.Size = new System.Drawing.Size(205, 21);
             this.comboModel.TabIndex = 2;
             this.comboModel.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
@@ -162,6 +163,17 @@ namespace CompStore
             this.dateBuy.Size = new System.Drawing.Size(140, 20);
             this.dateBuy.TabIndex = 5;
             // 
+            // buttonModelAdd
+            // 
+            this.buttonModelAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonModelAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonModelAdd.Location = new System.Drawing.Point(350, 11);
+            this.buttonModelAdd.Name = "buttonModelAdd";
+            this.buttonModelAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonModelAdd.TabIndex = 75;
+            this.buttonModelAdd.UseVisualStyleBackColor = true;
+            this.buttonModelAdd.Click += new System.EventHandler(this.ModelAdd);
+            // 
             // FormEquipment
             // 
             this.AcceptButton = this.buttonOK;
@@ -169,6 +181,7 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(384, 261);
+            this.Controls.Add(this.buttonModelAdd);
             this.Controls.Add(this.labelBuyDate);
             this.Controls.Add(this.dateBuy);
             this.Controls.Add(this.textIN);
@@ -208,5 +221,6 @@ namespace CompStore
         private System.Windows.Forms.DateTimePicker dateBuy;
         private System.Windows.Forms.ToolTip toolTipS;
         private System.Windows.Forms.ToolTip toolTipI;
+        private System.Windows.Forms.Button buttonModelAdd;
     }
 }

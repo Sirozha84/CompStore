@@ -23,6 +23,7 @@ namespace CompStore
             comboEquipment.ValueMember = "ID";
             comboEquipment.SelectedValue = move.equipment;
             comboEquipment.Enabled = !pack;
+            
 
             users = DB.UsersLoad();
             comboUser.DataSource = users;
@@ -45,7 +46,7 @@ namespace CompStore
                 Text = pack ? "Перемещение объектов" : "Добавление нового перемещения";
         }
 
-        private void comboUser_SelectedIndexChanged(object sender, EventArgs e)
+        private void UserSelect(object sender, EventArgs e)
         {
             try
             {
@@ -67,6 +68,54 @@ namespace CompStore
             move.user = (int)comboUser.SelectedValue;
             move.room = (int)comboRoom.SelectedValue;
             DialogResult = DialogResult.OK;
-        }               
+        }
+
+        private void EquipmentAdd(object sender, EventArgs e)
+        {
+            Equipment equipment = new Equipment();
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentAdd(equipment);
+                List<Equipment> equipmentds = DB.EquipmentsLoad();
+                comboEquipment.DataSource = equipmentds;
+                int max = 0;
+                foreach (Equipment f in equipmentds)
+                    if (max < f.ID) max = f.ID;
+                comboEquipment.SelectedValue = max;
+            }
+        }
+
+        private void UserAdd(object sender, EventArgs e)
+        {
+            User user = new User();
+            FormUser form = new FormUser(user);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.UserAdd(user);
+                List<User> userds = DB.UsersLoad();
+                comboUser.DataSource = userds;
+                int max = 0;
+                foreach (User f in userds)
+                    if (max < f.ID) max = f.ID;
+                comboUser.SelectedValue = max;
+            }
+        }
+
+        private void RoomAdd(object sender, EventArgs e)
+        {
+            Room room = new Room();
+            FormRoom form = new FormRoom(room);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.RoomAdd(room);
+                List<Room> roomds = DB.RoomsLoad();
+                comboRoom.DataSource = roomds;
+                int max = 0;
+                foreach (Room f in roomds)
+                    if (max < f.ID) max = f.ID;
+                comboRoom.SelectedValue = max;
+            }
+        }
     }
 }
