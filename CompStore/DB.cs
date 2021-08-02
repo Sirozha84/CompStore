@@ -91,8 +91,13 @@ namespace CompStore
                     "[model] INTEGER, " +
                     "[sn] TEXT, " +
                     "[in] TEXT, " +
+                    "[inv] TEXT, " +
+                    "[mac] TEXT, " +
+                    "[ip] TEXT, " +
+                    "[prop] TEXT, " +
                     "[buy] TEXT, " +
                     "[buydate] TEXT, " +
+                    "[price] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
                 
@@ -802,8 +807,13 @@ namespace CompStore
                     "equipments.model, " +
                     "equipments.sn, " +
                     "equipments.[in], " +
+                    "equipments.inv, " +
+                    "equipments.mac, " +
+                    "equipments.ip, " +
+                    "equipments.prop, " +
                     "equipments.buy, " +
                     "equipments.buydate, " +
+                    "equipments.price, " +
                     "equipments.comment, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
@@ -827,15 +837,20 @@ namespace CompStore
                         equipment.model = reader.GetInt32(1);
                         equipment.sn = reader.GetString(2);
                         equipment.iN = reader.GetString(3);
-                        equipment.buy = reader.GetString(4) == "1";
-                        equipment.buyDate = DateTime.ParseExact(reader.GetString(5), "yyyyMMdd", CultureInfo.InvariantCulture);
-                        equipment.comment = reader.GetString(6);
-                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
-                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
-                        equipment.userText = !reader.IsDBNull(9) ? reader.GetString(9) : "";
-                        equipment.roomText = !reader.IsDBNull(10) ? reader.GetString(10) : "";
-                        equipment.isDtText = !reader.IsDBNull(11) ? 
-                            DateTime.ParseExact(reader.GetString(11), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                        equipment.iNv = !reader.IsDBNull(4) ? (reader.GetString(4) == "1") : false;
+                        equipment.mac = !reader.IsDBNull(5) ? reader.GetString(5) : "";
+                        equipment.ip = !reader.IsDBNull(6) ? reader.GetString(6) : "";
+                        equipment.prop = !reader.IsDBNull(7) ? reader.GetString(7) : "";
+                        equipment.buy = reader.GetString(8) == "1";
+                        equipment.buyDate = DateTime.ParseExact(reader.GetString(9), "yyyyMMdd", CultureInfo.InvariantCulture);
+                        equipment.price = !reader.IsDBNull(10) ? reader.GetString(10) : "";
+                        equipment.comment = reader.GetString(11);
+                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(12) ? reader.GetString(12) : ND) : "";
+                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
+                        equipment.userText = !reader.IsDBNull(14) ? reader.GetString(14) : "";
+                        equipment.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
+                        equipment.isDtText = !reader.IsDBNull(16) ?
+                            DateTime.ParseExact(reader.GetString(16), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipments.Add(equipment);
                     }
                 }
@@ -853,8 +868,13 @@ namespace CompStore
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
+                    (equipment.iNv ? "1" : "0") + "', '" +
+                    equipment.mac + "', '" +
+                    equipment.ip + "', '" +
+                    equipment.prop + "', '" +
                     (equipment.buy ? "1" : "0") + "', '" +
                     equipment.buyDate.ToString("yyyyMMdd") + "', '" +
+                    equipment.price + "')" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -870,8 +890,13 @@ namespace CompStore
                     "model = '" + equipment.model + "', " +
                     "sn = '" + equipment.sn + "', " +
                     "[in] = '" + equipment.iN + "', " +
+                    "inv = '" + (equipment.iNv ? "1" : "0") + "', " +
+                    "mac = '" + equipment.mac + "', " +
+                    "ip = '" + equipment.ip + "', " +
+                    "prop = '" + equipment.prop + "', " +
                     "buy = '" + (equipment.buy ? "1" : "0") + "', " +
                     "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
+                    "price = '" + equipment.price + "', " +
                     "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

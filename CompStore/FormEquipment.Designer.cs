@@ -45,15 +45,24 @@ namespace CompStore
             this.toolTipS = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipI = new System.Windows.Forms.ToolTip(this.components);
             this.buttonModelAdd = new System.Windows.Forms.Button();
+            this.checkINV = new System.Windows.Forms.CheckBox();
+            this.textMac = new System.Windows.Forms.TextBox();
+            this.labelMac = new System.Windows.Forms.Label();
+            this.textIP = new System.Windows.Forms.TextBox();
+            this.labelIP = new System.Windows.Forms.Label();
+            this.textProp = new System.Windows.Forms.TextBox();
+            this.labelProp = new System.Windows.Forms.Label();
+            this.textPrice = new System.Windows.Forms.TextBox();
+            this.labelPrice = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(216, 226);
+            this.buttonOK.Location = new System.Drawing.Point(216, 346);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 7;
+            this.buttonOK.TabIndex = 9;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -62,10 +71,10 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(297, 226);
+            this.buttonCancel.Location = new System.Drawing.Point(297, 346);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -74,16 +83,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 117);
+            this.textCom.Location = new System.Drawing.Point(140, 259);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 103);
-            this.textCom.TabIndex = 6;
+            this.textCom.Size = new System.Drawing.Size(232, 81);
+            this.textCom.TabIndex = 8;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 120);
+            this.labelCom.Location = new System.Drawing.Point(61, 262);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 47;
@@ -96,7 +105,7 @@ namespace CompStore
             this.textSN.Location = new System.Drawing.Point(140, 39);
             this.textSN.Name = "textSN";
             this.textSN.Size = new System.Drawing.Size(232, 20);
-            this.textSN.TabIndex = 3;
+            this.textSN.TabIndex = 1;
             this.textSN.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelSN
@@ -115,7 +124,7 @@ namespace CompStore
             this.comboModel.Location = new System.Drawing.Point(140, 12);
             this.comboModel.Name = "comboModel";
             this.comboModel.Size = new System.Drawing.Size(205, 21);
-            this.comboModel.TabIndex = 2;
+            this.comboModel.TabIndex = 0;
             this.comboModel.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
             // labelModel
@@ -133,8 +142,8 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textIN.Location = new System.Drawing.Point(140, 65);
             this.textIN.Name = "textIN";
-            this.textIN.Size = new System.Drawing.Size(232, 20);
-            this.textIN.TabIndex = 4;
+            this.textIN.Size = new System.Drawing.Size(151, 20);
+            this.textIN.TabIndex = 2;
             this.textIN.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelIN
@@ -149,7 +158,7 @@ namespace CompStore
             // labelBuyDate
             // 
             this.labelBuyDate.AutoSize = true;
-            this.labelBuyDate.Location = new System.Drawing.Point(54, 94);
+            this.labelBuyDate.Location = new System.Drawing.Point(54, 210);
             this.labelBuyDate.Name = "labelBuyDate";
             this.labelBuyDate.Size = new System.Drawing.Size(80, 13);
             this.labelBuyDate.TabIndex = 74;
@@ -157,11 +166,11 @@ namespace CompStore
             // 
             // dateBuy
             // 
-            this.dateBuy.Location = new System.Drawing.Point(140, 91);
+            this.dateBuy.Location = new System.Drawing.Point(140, 207);
             this.dateBuy.Name = "dateBuy";
             this.dateBuy.ShowCheckBox = true;
             this.dateBuy.Size = new System.Drawing.Size(140, 20);
-            this.dateBuy.TabIndex = 5;
+            this.dateBuy.TabIndex = 7;
             // 
             // buttonModelAdd
             // 
@@ -170,9 +179,93 @@ namespace CompStore
             this.buttonModelAdd.Location = new System.Drawing.Point(350, 11);
             this.buttonModelAdd.Name = "buttonModelAdd";
             this.buttonModelAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonModelAdd.TabIndex = 75;
+            this.buttonModelAdd.TabIndex = 11;
             this.buttonModelAdd.UseVisualStyleBackColor = true;
             this.buttonModelAdd.Click += new System.EventHandler(this.ModelAdd);
+            // 
+            // checkINV
+            // 
+            this.checkINV.AutoSize = true;
+            this.checkINV.Location = new System.Drawing.Point(297, 67);
+            this.checkINV.Name = "checkINV";
+            this.checkINV.Size = new System.Drawing.Size(77, 17);
+            this.checkINV.TabIndex = 3;
+            this.checkINV.Text = "Валидный";
+            this.toolTipI.SetToolTip(this.checkINV, "На корпусе устройства указан верный инвентарный номер");
+            this.checkINV.UseVisualStyleBackColor = true;
+            // 
+            // textMac
+            // 
+            this.textMac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textMac.Location = new System.Drawing.Point(140, 91);
+            this.textMac.Name = "textMac";
+            this.textMac.Size = new System.Drawing.Size(232, 20);
+            this.textMac.TabIndex = 4;
+            // 
+            // labelMac
+            // 
+            this.labelMac.AutoSize = true;
+            this.labelMac.Location = new System.Drawing.Point(68, 94);
+            this.labelMac.Name = "labelMac";
+            this.labelMac.Size = new System.Drawing.Size(66, 13);
+            this.labelMac.TabIndex = 78;
+            this.labelMac.Text = "MAC-адрес:";
+            // 
+            // textIP
+            // 
+            this.textIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textIP.Location = new System.Drawing.Point(140, 117);
+            this.textIP.Name = "textIP";
+            this.textIP.Size = new System.Drawing.Size(232, 20);
+            this.textIP.TabIndex = 5;
+            // 
+            // labelIP
+            // 
+            this.labelIP.AutoSize = true;
+            this.labelIP.Location = new System.Drawing.Point(81, 120);
+            this.labelIP.Name = "labelIP";
+            this.labelIP.Size = new System.Drawing.Size(53, 13);
+            this.labelIP.TabIndex = 80;
+            this.labelIP.Text = "IP-адрес:";
+            // 
+            // textProp
+            // 
+            this.textProp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textProp.Location = new System.Drawing.Point(140, 143);
+            this.textProp.Multiline = true;
+            this.textProp.Name = "textProp";
+            this.textProp.Size = new System.Drawing.Size(232, 58);
+            this.textProp.TabIndex = 6;
+            // 
+            // labelProp
+            // 
+            this.labelProp.AutoSize = true;
+            this.labelProp.Location = new System.Drawing.Point(41, 146);
+            this.labelProp.Name = "labelProp";
+            this.labelProp.Size = new System.Drawing.Size(93, 13);
+            this.labelProp.TabIndex = 82;
+            this.labelProp.Text = "Характеристики:";
+            // 
+            // textPrice
+            // 
+            this.textPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textPrice.Location = new System.Drawing.Point(140, 233);
+            this.textPrice.Name = "textPrice";
+            this.textPrice.Size = new System.Drawing.Size(232, 20);
+            this.textPrice.TabIndex = 83;
+            // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Location = new System.Drawing.Point(98, 236);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(36, 13);
+            this.labelPrice.TabIndex = 84;
+            this.labelPrice.Text = "Цена:";
             // 
             // FormEquipment
             // 
@@ -180,7 +273,16 @@ namespace CompStore
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(384, 261);
+            this.ClientSize = new System.Drawing.Size(384, 381);
+            this.Controls.Add(this.textPrice);
+            this.Controls.Add(this.labelPrice);
+            this.Controls.Add(this.textProp);
+            this.Controls.Add(this.labelProp);
+            this.Controls.Add(this.textIP);
+            this.Controls.Add(this.labelIP);
+            this.Controls.Add(this.textMac);
+            this.Controls.Add(this.labelMac);
+            this.Controls.Add(this.checkINV);
             this.Controls.Add(this.buttonModelAdd);
             this.Controls.Add(this.labelBuyDate);
             this.Controls.Add(this.dateBuy);
@@ -222,5 +324,14 @@ namespace CompStore
         private System.Windows.Forms.ToolTip toolTipS;
         private System.Windows.Forms.ToolTip toolTipI;
         private System.Windows.Forms.Button buttonModelAdd;
+        private System.Windows.Forms.CheckBox checkINV;
+        private System.Windows.Forms.TextBox textMac;
+        private System.Windows.Forms.Label labelMac;
+        private System.Windows.Forms.TextBox textIP;
+        private System.Windows.Forms.Label labelIP;
+        private System.Windows.Forms.TextBox textProp;
+        private System.Windows.Forms.Label labelProp;
+        private System.Windows.Forms.TextBox textPrice;
+        private System.Windows.Forms.Label labelPrice;
     }
 }

@@ -36,8 +36,18 @@ namespace CompStore
 
             textIN.DataBindings.Add("Text", equipment, "iN");
 
+            checkINV.DataBindings.Add("Checked", equipment, "iNv");
+
+            textMac.DataBindings.Add("Text", equipment, "mac");
+
+            textIP.DataBindings.Add("Text", equipment, "ip");
+
+            textProp.DataBindings.Add("Text", equipment, "prop");
+
             dateBuy.Checked = equipment.buy;
             dateBuy.Value = equipment.buyDate;
+
+            textPrice.DataBindings.Add("Text", equipment, "price");
 
             textCom.DataBindings.Add("Text", equipment, "comment");
 
@@ -66,6 +76,7 @@ namespace CompStore
             else
                 toolTipI.Hide(textIN);
 
+            checkINV.Enabled = eni;
             buttonOK.Enabled = comboModel.SelectedIndex >= 0 & (textIN.Text != "" | textSN.Text != "");
         }
 

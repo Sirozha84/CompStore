@@ -50,8 +50,6 @@ namespace CompStore
             this.textCom = new System.Windows.Forms.TextBox();
             this.labelCom = new System.Windows.Forms.Label();
             this.labelPost = new System.Windows.Forms.Label();
-            this.checkEmp = new System.Windows.Forms.CheckBox();
-            this.checkDis = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonPostAdd = new System.Windows.Forms.Button();
             this.buttonDepAdd = new System.Windows.Forms.Button();
@@ -178,15 +176,17 @@ namespace CompStore
             // dateDis
             // 
             this.dateDis.Checked = false;
-            this.dateDis.Location = new System.Drawing.Point(141, 197);
+            this.dateDis.Location = new System.Drawing.Point(120, 197);
             this.dateDis.Name = "dateDis";
+            this.dateDis.ShowCheckBox = true;
             this.dateDis.Size = new System.Drawing.Size(140, 20);
             this.dateDis.TabIndex = 7;
             // 
             // dateEmp
             // 
-            this.dateEmp.Location = new System.Drawing.Point(141, 171);
+            this.dateEmp.Location = new System.Drawing.Point(120, 171);
             this.dateEmp.Name = "dateEmp";
+            this.dateEmp.ShowCheckBox = true;
             this.dateEmp.Size = new System.Drawing.Size(140, 20);
             this.dateEmp.TabIndex = 6;
             // 
@@ -250,24 +250,6 @@ namespace CompStore
             this.labelPost.TabIndex = 63;
             this.labelPost.Text = "Должность:";
             // 
-            // checkEmp
-            // 
-            this.checkEmp.AutoSize = true;
-            this.checkEmp.Location = new System.Drawing.Point(120, 174);
-            this.checkEmp.Name = "checkEmp";
-            this.checkEmp.Size = new System.Drawing.Size(15, 14);
-            this.checkEmp.TabIndex = 81;
-            this.checkEmp.UseVisualStyleBackColor = true;
-            // 
-            // checkDis
-            // 
-            this.checkDis.AutoSize = true;
-            this.checkDis.Location = new System.Drawing.Point(120, 200);
-            this.checkDis.Name = "checkDis";
-            this.checkDis.Size = new System.Drawing.Size(15, 14);
-            this.checkDis.TabIndex = 82;
-            this.checkDis.UseVisualStyleBackColor = true;
-            // 
             // buttonPostAdd
             // 
             this.buttonPostAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -314,8 +296,6 @@ namespace CompStore
             this.Controls.Add(this.buttonRoomAdd);
             this.Controls.Add(this.buttonDepAdd);
             this.Controls.Add(this.buttonPostAdd);
-            this.Controls.Add(this.checkDis);
-            this.Controls.Add(this.checkEmp);
             this.Controls.Add(this.comboDep);
             this.Controls.Add(this.labelDep);
             this.Controls.Add(this.textO);
@@ -370,8 +350,6 @@ namespace CompStore
         private System.Windows.Forms.TextBox textCom;
         private System.Windows.Forms.Label labelCom;
         private System.Windows.Forms.Label labelPost;
-        private System.Windows.Forms.CheckBox checkEmp;
-        private System.Windows.Forms.CheckBox checkDis;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button buttonPostAdd;
         private System.Windows.Forms.Button buttonDepAdd;

@@ -42,13 +42,11 @@ namespace CompStore
             comboRoom.ValueMember = "ID";
             comboRoom.SelectedValue = user.room;
 
-            checkEmp.DataBindings.Add("Checked", user, "emp");
-            dateEmp.DataBindings.Add("Value", user, "empDate");
-            dateEmp.DataBindings.Add("Enabled", checkEmp, "Checked");
-            
-            checkDis.DataBindings.Add("Checked", user, "dis");
-            dateDis.DataBindings.Add("Value", user, "disDate");
-            dateDis.DataBindings.Add("Enabled", checkDis, "Checked");
+            dateEmp.Checked = user.emp;
+            dateEmp.Value = user.empDate;
+
+            dateDis.Checked = user.dis;
+            dateDis.Value = user.disDate;
 
             textCom.DataBindings.Add("Text", user, "comment");
 
@@ -76,9 +74,13 @@ namespace CompStore
 
         private void OK(object sender, EventArgs e)
         {
-            user.post = comboPost.SelectedValue != null  ? (int)comboPost.SelectedValue : 0;
+            user.post = comboPost.SelectedValue != null ? (int)comboPost.SelectedValue : 0;
             user.dep = comboDep.SelectedValue != null ? (int)comboDep.SelectedValue : 0;
             user.room = comboRoom.SelectedValue != null ? (int)comboRoom.SelectedValue : 0;
+            user.emp = dateEmp.Checked;
+            user.empDate = dateEmp.Value;
+            user.dis = dateDis.Checked;
+            user.disDate = dateDis.Value;
             DialogResult = DialogResult.OK;
         }
 

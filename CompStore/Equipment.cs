@@ -9,8 +9,13 @@ namespace CompStore
         public int model { get; set; }
         public string sn { get; set; }
         public string iN { get; set; }
+        public bool iNv { get; set; }
+        public string mac { get; set; }
+        public string ip { get; set; }
+        public string prop { get; set; }
         public bool buy { get; set; }
         public DateTime buyDate { get; set; }
+        public string price { get; set; }
         public string comment { get; set; }
         public string nameText { get; set; }
         public string nameINText { get; set; }
