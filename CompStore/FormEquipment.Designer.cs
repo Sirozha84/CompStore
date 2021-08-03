@@ -44,8 +44,8 @@ namespace CompStore
             this.dateBuy = new System.Windows.Forms.DateTimePicker();
             this.toolTipS = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipI = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonModelAdd = new System.Windows.Forms.Button();
             this.checkINV = new System.Windows.Forms.CheckBox();
+            this.buttonModelAdd = new System.Windows.Forms.Button();
             this.textMac = new System.Windows.Forms.TextBox();
             this.labelMac = new System.Windows.Forms.Label();
             this.textIP = new System.Windows.Forms.TextBox();
@@ -62,7 +62,7 @@ namespace CompStore
             this.buttonOK.Location = new System.Drawing.Point(216, 346);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 9;
+            this.buttonOK.TabIndex = 10;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -74,7 +74,7 @@ namespace CompStore
             this.buttonCancel.Location = new System.Drawing.Point(297, 346);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 10;
+            this.buttonCancel.TabIndex = 11;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -87,7 +87,7 @@ namespace CompStore
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
             this.textCom.Size = new System.Drawing.Size(232, 81);
-            this.textCom.TabIndex = 8;
+            this.textCom.TabIndex = 9;
             // 
             // labelCom
             // 
@@ -172,17 +172,6 @@ namespace CompStore
             this.dateBuy.Size = new System.Drawing.Size(140, 20);
             this.dateBuy.TabIndex = 7;
             // 
-            // buttonModelAdd
-            // 
-            this.buttonModelAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonModelAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonModelAdd.Location = new System.Drawing.Point(350, 11);
-            this.buttonModelAdd.Name = "buttonModelAdd";
-            this.buttonModelAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonModelAdd.TabIndex = 11;
-            this.buttonModelAdd.UseVisualStyleBackColor = true;
-            this.buttonModelAdd.Click += new System.EventHandler(this.ModelAdd);
-            // 
             // checkINV
             // 
             this.checkINV.AutoSize = true;
@@ -193,6 +182,17 @@ namespace CompStore
             this.checkINV.Text = "Валидный";
             this.toolTipI.SetToolTip(this.checkINV, "На корпусе устройства указан верный инвентарный номер");
             this.checkINV.UseVisualStyleBackColor = true;
+            // 
+            // buttonModelAdd
+            // 
+            this.buttonModelAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonModelAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonModelAdd.Location = new System.Drawing.Point(350, 11);
+            this.buttonModelAdd.Name = "buttonModelAdd";
+            this.buttonModelAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonModelAdd.TabIndex = 12;
+            this.buttonModelAdd.UseVisualStyleBackColor = true;
+            this.buttonModelAdd.Click += new System.EventHandler(this.ModelAdd);
             // 
             // textMac
             // 
@@ -256,7 +256,7 @@ namespace CompStore
             this.textPrice.Location = new System.Drawing.Point(140, 233);
             this.textPrice.Name = "textPrice";
             this.textPrice.Size = new System.Drawing.Size(232, 20);
-            this.textPrice.TabIndex = 83;
+            this.textPrice.TabIndex = 8;
             // 
             // labelPrice
             // 

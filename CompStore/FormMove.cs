@@ -93,10 +93,11 @@ namespace CompStore
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.UserAdd(user);
-                List<User> userds = DB.UsersLoad();
-                comboUser.DataSource = userds;
+                users = DB.UsersLoad();
+                comboUser.DataSource = users;
+                comboRoom.DataSource = DB.RoomsLoad();
                 int max = 0;
-                foreach (User f in userds)
+                foreach (User f in users)
                     if (max < f.ID) max = f.ID;
                 comboUser.SelectedValue = max;
             }

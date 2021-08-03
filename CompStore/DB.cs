@@ -109,6 +109,14 @@ namespace CompStore
                     "[date] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
+
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [providerss] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[name] TEXT, " +
+                    "[adress] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
                 connect.Close();
             }
         }
@@ -815,7 +823,7 @@ namespace CompStore
                     "equipments.buydate, " +
                     "equipments.price, " +
                     "equipments.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
                     "buildings.name || \", \" || rooms.name, " +
@@ -827,7 +835,7 @@ namespace CompStore
                     "LEFT JOIN (SELECT equipment, user, room, date, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
                     "LEFT JOIN users ON m.user = users.ID " +
                     "LEFT JOIN rooms ON m.room = rooms.ID " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID";
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID ORDER BY nameText, sn, [in]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -1007,6 +1015,76 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM [moves] WHERE ID = " + move.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+        #endregion
+
+        #region Поставщики [providers]
+        public static List<Provider> ProvidersLoad()
+        {
+            List<Provider> providers = new List<Provider>();
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "SELECT * FROM providers ORDER BY name";
+                using (SQLiteDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Provider provider = new Provider();
+                        provider.ID = reader.GetInt32(0);
+                        provider.name = reader.GetString(1);
+                        provider.adress = reader.GetString(2);
+                        provider.comment = reader.GetString(3);
+                        providers.Add(provider);
+                    }
+                }
+                connect.Close();
+            }
+            return providers;
+        }
+
+
+        public static void ProviderAdd(Provider provider)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "INSERT INTO providers (name, adress, comment) VALUES ('" +
+                    provider.name + "', '" +
+                    provider.adress + "', '" +
+                    provider.comment + "')";
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void ProviderUpdate(Provider provider)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "UPDATE providers SET " +
+                    "name = '" + provider.name + "', " +
+                    "adress = '" + provider.adress + "', " +
+                    "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void ProviderDelete(Provider provider)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM providers WHERE ID = " + provider.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
