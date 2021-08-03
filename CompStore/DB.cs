@@ -864,7 +864,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO equipments (model, sn, [in], buy, buydate, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, comment) VALUES ('" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
@@ -874,7 +874,7 @@ namespace CompStore
                     equipment.prop + "', '" +
                     (equipment.buy ? "1" : "0") + "', '" +
                     equipment.buyDate.ToString("yyyyMMdd") + "', '" +
-                    equipment.price + "')" +
+                    equipment.price + "', '" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
