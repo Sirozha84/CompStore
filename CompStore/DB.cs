@@ -98,6 +98,7 @@ namespace CompStore
                     "[buy] TEXT, " +
                     "[buydate] TEXT, " +
                     "[price] TEXT, " +
+                    "[provider] INTEGER, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
                 
@@ -110,10 +111,12 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [providerss] ( " +
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [providers] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[name] TEXT, " +
                     "[adress] TEXT, " +
+                    "[phone] TEXT, " +
+                    "[manager] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
@@ -822,12 +825,14 @@ namespace CompStore
                     "equipments.buy, " +
                     "equipments.buydate, " +
                     "equipments.price, " +
+                    "equipments.provider, " +
                     "equipments.comment, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText, " +
                     "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
                     "buildings.name || \", \" || rooms.name, " +
-                    "m.date " +
+                    "m.date, " +
+                    "providers.name " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
@@ -835,7 +840,9 @@ namespace CompStore
                     "LEFT JOIN (SELECT equipment, user, room, date, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
                     "LEFT JOIN users ON m.user = users.ID " +
                     "LEFT JOIN rooms ON m.room = rooms.ID " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID ORDER BY nameText, sn, [in]";
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN providers ON equipments.provider = providers.ID " +
+                    "ORDER BY nameText, sn, [in]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())
@@ -852,13 +859,15 @@ namespace CompStore
                         equipment.buy = reader.GetString(8) == "1";
                         equipment.buyDate = DateTime.ParseExact(reader.GetString(9), "yyyyMMdd", CultureInfo.InvariantCulture);
                         equipment.price = !reader.IsDBNull(10) ? reader.GetString(10) : "";
-                        equipment.comment = reader.GetString(11);
-                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(12) ? reader.GetString(12) : ND) : "";
-                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
-                        equipment.userText = !reader.IsDBNull(14) ? reader.GetString(14) : "";
-                        equipment.roomText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
-                        equipment.isDtText = !reader.IsDBNull(16) ?
-                            DateTime.ParseExact(reader.GetString(16), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                        equipment.provider = !reader.IsDBNull(11) ? reader.GetInt32(11) : 0;
+                        equipment.comment = reader.GetString(12);
+                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(12) ? reader.GetString(13) : ND) : "";
+                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(14) : ND) : "";
+                        equipment.userText = !reader.IsDBNull(15) ? reader.GetString(14) : "";
+                        equipment.roomText = !reader.IsDBNull(16) ? reader.GetString(15) : "";
+                        equipment.isDtText = !reader.IsDBNull(17) ?
+                            DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                        equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
                         equipments.Add(equipment);
                     }
                 }
@@ -872,7 +881,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, provider, comment) VALUES ('" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
@@ -883,6 +892,7 @@ namespace CompStore
                     (equipment.buy ? "1" : "0") + "', '" +
                     equipment.buyDate.ToString("yyyyMMdd") + "', '" +
                     equipment.price + "', '" +
+                    equipment.provider + "', '" +
                     equipment.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -905,6 +915,7 @@ namespace CompStore
                     "buy = '" + (equipment.buy ? "1" : "0") + "', " +
                     "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
                     "price = '" + equipment.price + "', " +
+                    "provider = '" + equipment.provider + "', " +
                     "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -1038,7 +1049,9 @@ namespace CompStore
                         provider.ID = reader.GetInt32(0);
                         provider.name = reader.GetString(1);
                         provider.adress = reader.GetString(2);
-                        provider.comment = reader.GetString(3);
+                        provider.phone = reader.GetString(3);
+                        provider.manager = reader.GetString(4);
+                        provider.comment = reader.GetString(5);
                         providers.Add(provider);
                     }
                 }
@@ -1054,9 +1067,11 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO providers (name, adress, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO providers (name, adress, phone, manager, comment) VALUES ('" +
                     provider.name + "', '" +
                     provider.adress + "', '" +
+                    provider.phone + "', '" +
+                    provider.manager + "', '" +
                     provider.comment + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -1072,6 +1087,8 @@ namespace CompStore
                 com.CommandText = "UPDATE providers SET " +
                     "name = '" + provider.name + "', " +
                     "adress = '" + provider.adress + "', " +
+                    "phone = '" + provider.phone + "', " +
+                    "manager = '" + provider.manager + "', " +
                     "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
                 com.ExecuteNonQuery();
                 connect.Close();

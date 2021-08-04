@@ -49,6 +49,11 @@ namespace CompStore
 
             textPrice.DataBindings.Add("Text", equipment, "price");
 
+            comboProvider.DataSource = DB.ProvidersLoad();
+            comboProvider.DisplayMember = "name";
+            comboProvider.ValueMember = "ID";
+            comboProvider.SelectedValue = equipment.provider;
+
             textCom.DataBindings.Add("Text", equipment, "comment");
 
             if (equipment.nameText != null)
@@ -85,6 +90,7 @@ namespace CompStore
             equipment.model = comboModel.SelectedValue != null ? (int)comboModel.SelectedValue : 0;
             equipment.buy = dateBuy.Checked;
             equipment.buyDate = dateBuy.Value;
+            equipment.provider = comboProvider.SelectedValue != null ? (int)comboProvider.SelectedValue : 0;
             DialogResult = DialogResult.OK;
         }
 
@@ -101,6 +107,22 @@ namespace CompStore
                 foreach (Model f in modelds)
                     if (max < f.ID) max = f.ID;
                 comboModel.SelectedValue = max;
+            }
+        }
+
+        private void ProviderAdd(object sender, EventArgs e)
+        {
+            Provider provider = new Provider();
+            FormProvider form = new FormProvider(provider);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ProviderAdd(provider);
+                List<Provider> providers = DB.ProvidersLoad();
+                comboProvider.DataSource = providers;
+                int max = 0;
+                foreach (Provider p in providers)
+                    if (max < p.ID) max = p.ID;
+                comboProvider.SelectedValue = max;
             }
         }
     }

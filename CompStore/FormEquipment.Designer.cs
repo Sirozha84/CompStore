@@ -54,15 +54,18 @@ namespace CompStore
             this.labelProp = new System.Windows.Forms.Label();
             this.textPrice = new System.Windows.Forms.TextBox();
             this.labelPrice = new System.Windows.Forms.Label();
+            this.comboProvider = new System.Windows.Forms.ComboBox();
+            this.labelProvider = new System.Windows.Forms.Label();
+            this.buttonProviderAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(216, 346);
+            this.buttonOK.Location = new System.Drawing.Point(216, 376);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 10;
+            this.buttonOK.TabIndex = 11;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -71,10 +74,10 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(297, 346);
+            this.buttonCancel.Location = new System.Drawing.Point(297, 376);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 11;
+            this.buttonCancel.TabIndex = 12;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -83,16 +86,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 259);
+            this.textCom.Location = new System.Drawing.Point(140, 288);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 81);
-            this.textCom.TabIndex = 9;
+            this.textCom.Size = new System.Drawing.Size(232, 82);
+            this.textCom.TabIndex = 10;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 262);
+            this.labelCom.Location = new System.Drawing.Point(61, 291);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 47;
@@ -190,7 +193,7 @@ namespace CompStore
             this.buttonModelAdd.Location = new System.Drawing.Point(350, 11);
             this.buttonModelAdd.Name = "buttonModelAdd";
             this.buttonModelAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonModelAdd.TabIndex = 12;
+            this.buttonModelAdd.TabIndex = 13;
             this.buttonModelAdd.UseVisualStyleBackColor = true;
             this.buttonModelAdd.Click += new System.EventHandler(this.ModelAdd);
             // 
@@ -267,13 +270,45 @@ namespace CompStore
             this.labelPrice.TabIndex = 84;
             this.labelPrice.Text = "Цена:";
             // 
+            // comboProvider
+            // 
+            this.comboProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboProvider.FormattingEnabled = true;
+            this.comboProvider.Location = new System.Drawing.Point(140, 259);
+            this.comboProvider.Name = "comboProvider";
+            this.comboProvider.Size = new System.Drawing.Size(205, 21);
+            this.comboProvider.TabIndex = 9;
+            // 
+            // labelProvider
+            // 
+            this.labelProvider.AutoSize = true;
+            this.labelProvider.Location = new System.Drawing.Point(66, 262);
+            this.labelProvider.Name = "labelProvider";
+            this.labelProvider.Size = new System.Drawing.Size(68, 13);
+            this.labelProvider.TabIndex = 86;
+            this.labelProvider.Text = "Поставщик:";
+            // 
+            // buttonProviderAdd
+            // 
+            this.buttonProviderAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProviderAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonProviderAdd.Location = new System.Drawing.Point(348, 258);
+            this.buttonProviderAdd.Name = "buttonProviderAdd";
+            this.buttonProviderAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonProviderAdd.TabIndex = 14;
+            this.buttonProviderAdd.UseVisualStyleBackColor = true;
+            this.buttonProviderAdd.Click += new System.EventHandler(this.ProviderAdd);
+            // 
             // FormEquipment
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(384, 381);
+            this.ClientSize = new System.Drawing.Size(384, 411);
+            this.Controls.Add(this.buttonProviderAdd);
+            this.Controls.Add(this.comboProvider);
+            this.Controls.Add(this.labelProvider);
             this.Controls.Add(this.textPrice);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.textProp);
@@ -333,5 +368,8 @@ namespace CompStore
         private System.Windows.Forms.Label labelProp;
         private System.Windows.Forms.TextBox textPrice;
         private System.Windows.Forms.Label labelPrice;
+        private System.Windows.Forms.ComboBox comboProvider;
+        private System.Windows.Forms.Label labelProvider;
+        private System.Windows.Forms.Button buttonProviderAdd;
     }
 }

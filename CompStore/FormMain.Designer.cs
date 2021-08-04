@@ -49,10 +49,12 @@ namespace CompStore
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
             System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
             System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Поставщики");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
             treeNode10,
             treeNode11,
-            treeNode12});
+            treeNode12,
+            treeNode13});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -267,6 +269,25 @@ namespace CompStore
             this.cmMoveAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMoveEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMoveDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelProviders = new System.Windows.Forms.Panel();
+            this.toolStripProviders = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabelProviders = new System.Windows.Forms.ToolStripLabel();
+            this.toolProviderAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolProviderEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolProviderDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolProviderFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.toolProviderFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.toolProviderFilterLabel = new System.Windows.Forms.ToolStripLabel();
+            this.listProviders = new System.Windows.Forms.ListView();
+            this.columnProviderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnProviderAdress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnProviderPhone = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnProviderManager = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnProviderComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuProviders = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmProviderAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmProviderEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmProviderDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.panelEquipments.SuspendLayout();
             this.panelEqDown.SuspendLayout();
@@ -305,6 +326,9 @@ namespace CompStore
             this.panelMoves.SuspendLayout();
             this.toolStripMoves.SuspendLayout();
             this.contextMenuMoves.SuspendLayout();
+            this.panelProviders.SuspendLayout();
+            this.toolStripProviders.SuspendLayout();
+            this.contextMenuProviders.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -338,12 +362,14 @@ namespace CompStore
             treeNode11.Text = "Производители";
             treeNode12.Name = "nodeModels";
             treeNode12.Text = "Модели";
-            treeNode13.Name = "nodeCommon";
-            treeNode13.Text = "Общие разделы";
+            treeNode13.Name = "nodeProviders";
+            treeNode13.Text = "Поставщики";
+            treeNode14.Name = "nodeCommon";
+            treeNode14.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode7,
             treeNode9,
-            treeNode13});
+            treeNode14});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -2383,11 +2409,191 @@ namespace CompStore
             this.cmMoveDelete.Text = "Удалить";
             this.cmMoveDelete.Click += new System.EventHandler(this.MoveDelete);
             // 
+            // panelProviders
+            // 
+            this.panelProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelProviders.Controls.Add(this.toolStripProviders);
+            this.panelProviders.Controls.Add(this.listProviders);
+            this.panelProviders.Location = new System.Drawing.Point(163, 27);
+            this.panelProviders.Name = "panelProviders";
+            this.panelProviders.Size = new System.Drawing.Size(1021, 709);
+            this.panelProviders.TabIndex = 18;
+            this.panelProviders.Visible = false;
+            this.panelProviders.VisibleChanged += new System.EventHandler(this.ProvidersView);
+            // 
+            // toolStripProviders
+            // 
+            this.toolStripProviders.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripProviders.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelProviders,
+            this.toolProviderAdd,
+            this.toolProviderEdit,
+            this.toolProviderDelete,
+            this.toolProviderFilterReset,
+            this.toolProviderFilter,
+            this.toolProviderFilterLabel});
+            this.toolStripProviders.Location = new System.Drawing.Point(0, 0);
+            this.toolStripProviders.Name = "toolStripProviders";
+            this.toolStripProviders.Size = new System.Drawing.Size(1021, 25);
+            this.toolStripProviders.TabIndex = 13;
+            this.toolStripProviders.Text = "toolStrip1";
+            // 
+            // toolStripLabelProviders
+            // 
+            this.toolStripLabelProviders.AutoSize = false;
+            this.toolStripLabelProviders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripLabelProviders.Name = "toolStripLabelProviders";
+            this.toolStripLabelProviders.Size = new System.Drawing.Size(170, 22);
+            this.toolStripLabelProviders.Text = "Филиалы";
+            this.toolStripLabelProviders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolProviderAdd
+            // 
+            this.toolProviderAdd.Image = global::CompStore.Properties.Resources.add;
+            this.toolProviderAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProviderAdd.Name = "toolProviderAdd";
+            this.toolProviderAdd.Size = new System.Drawing.Size(79, 22);
+            this.toolProviderAdd.Text = "Добавить";
+            this.toolProviderAdd.Click += new System.EventHandler(this.ProviderAdd);
+            // 
+            // toolProviderEdit
+            // 
+            this.toolProviderEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.toolProviderEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProviderEdit.Name = "toolProviderEdit";
+            this.toolProviderEdit.Size = new System.Drawing.Size(81, 22);
+            this.toolProviderEdit.Text = "Изменить";
+            this.toolProviderEdit.Click += new System.EventHandler(this.ProviderEdit);
+            // 
+            // toolProviderDelete
+            // 
+            this.toolProviderDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.toolProviderDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProviderDelete.Name = "toolProviderDelete";
+            this.toolProviderDelete.Size = new System.Drawing.Size(71, 22);
+            this.toolProviderDelete.Text = "Удалить";
+            this.toolProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
+            // 
+            // toolProviderFilterReset
+            // 
+            this.toolProviderFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolProviderFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolProviderFilterReset.Image = global::CompStore.Properties.Resources.cancel;
+            this.toolProviderFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProviderFilterReset.Name = "toolProviderFilterReset";
+            this.toolProviderFilterReset.Size = new System.Drawing.Size(23, 22);
+            this.toolProviderFilterReset.Click += new System.EventHandler(this.ProviderFilterReset);
+            // 
+            // toolProviderFilter
+            // 
+            this.toolProviderFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolProviderFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolProviderFilter.Name = "toolProviderFilter";
+            this.toolProviderFilter.Size = new System.Drawing.Size(300, 25);
+            this.toolProviderFilter.TextChanged += new System.EventHandler(this.ProvidersDraw);
+            // 
+            // toolProviderFilterLabel
+            // 
+            this.toolProviderFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolProviderFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolProviderFilterLabel.Image = global::CompStore.Properties.Resources.search;
+            this.toolProviderFilterLabel.Name = "toolProviderFilterLabel";
+            this.toolProviderFilterLabel.Size = new System.Drawing.Size(16, 22);
+            // 
+            // listProviders
+            // 
+            this.listProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listProviders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnProviderName,
+            this.columnProviderAdress,
+            this.columnProviderPhone,
+            this.columnProviderManager,
+            this.columnProviderComment});
+            this.listProviders.ContextMenuStrip = this.contextMenuProviders;
+            this.listProviders.FullRowSelect = true;
+            this.listProviders.HideSelection = false;
+            this.listProviders.Location = new System.Drawing.Point(0, 25);
+            this.listProviders.MultiSelect = false;
+            this.listProviders.Name = "listProviders";
+            this.listProviders.Size = new System.Drawing.Size(1021, 684);
+            this.listProviders.TabIndex = 2;
+            this.listProviders.UseCompatibleStateImageBehavior = false;
+            this.listProviders.View = System.Windows.Forms.View.Details;
+            this.listProviders.SelectedIndexChanged += new System.EventHandler(this.ProvidersSelChange);
+            this.listProviders.DoubleClick += new System.EventHandler(this.ProviderEdit);
+            this.listProviders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProvidersKeyboard);
+            // 
+            // columnProviderName
+            // 
+            this.columnProviderName.Text = "Название";
+            this.columnProviderName.Width = 200;
+            // 
+            // columnProviderAdress
+            // 
+            this.columnProviderAdress.Text = "Адрес";
+            this.columnProviderAdress.Width = 200;
+            // 
+            // columnProviderPhone
+            // 
+            this.columnProviderPhone.Text = "Телефоны";
+            this.columnProviderPhone.Width = 200;
+            // 
+            // columnProviderManager
+            // 
+            this.columnProviderManager.Text = "Контактное лицо";
+            this.columnProviderManager.Width = 200;
+            // 
+            // columnProviderComment
+            // 
+            this.columnProviderComment.Text = "Примечание";
+            this.columnProviderComment.Width = 190;
+            // 
+            // contextMenuProviders
+            // 
+            this.contextMenuProviders.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmProviderAdd,
+            this.cmProviderEdit,
+            this.cmProviderDelete});
+            this.contextMenuProviders.Name = "contextMenuEquipment";
+            this.contextMenuProviders.Size = new System.Drawing.Size(149, 70);
+            // 
+            // cmProviderAdd
+            // 
+            this.cmProviderAdd.Image = global::CompStore.Properties.Resources.add;
+            this.cmProviderAdd.Name = "cmProviderAdd";
+            this.cmProviderAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
+            this.cmProviderAdd.Size = new System.Drawing.Size(148, 22);
+            this.cmProviderAdd.Text = "Добавить";
+            this.cmProviderAdd.Click += new System.EventHandler(this.ProviderAdd);
+            // 
+            // cmProviderEdit
+            // 
+            this.cmProviderEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.cmProviderEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.cmProviderEdit.Name = "cmProviderEdit";
+            this.cmProviderEdit.Size = new System.Drawing.Size(148, 22);
+            this.cmProviderEdit.Text = "Изменить";
+            this.cmProviderEdit.Click += new System.EventHandler(this.ProviderEdit);
+            // 
+            // cmProviderDelete
+            // 
+            this.cmProviderDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.cmProviderDelete.Name = "cmProviderDelete";
+            this.cmProviderDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.cmProviderDelete.Size = new System.Drawing.Size(148, 22);
+            this.cmProviderDelete.Text = "Удалить";
+            this.cmProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelProviders);
             this.Controls.Add(this.panelEqTypes);
             this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelFilials);
@@ -2468,6 +2674,11 @@ namespace CompStore
             this.toolStripMoves.ResumeLayout(false);
             this.toolStripMoves.PerformLayout();
             this.contextMenuMoves.ResumeLayout(false);
+            this.panelProviders.ResumeLayout(false);
+            this.panelProviders.PerformLayout();
+            this.toolStripProviders.ResumeLayout(false);
+            this.toolStripProviders.PerformLayout();
+            this.contextMenuProviders.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2688,6 +2899,25 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem cmMoveAdd;
         private System.Windows.Forms.ToolStripMenuItem cmMoveEdit;
         private System.Windows.Forms.ToolStripMenuItem cmMoveDelete;
+        private System.Windows.Forms.Panel panelProviders;
+        private System.Windows.Forms.ToolStrip toolStripProviders;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelProviders;
+        private System.Windows.Forms.ToolStripButton toolProviderAdd;
+        private System.Windows.Forms.ToolStripButton toolProviderEdit;
+        private System.Windows.Forms.ToolStripButton toolProviderDelete;
+        private System.Windows.Forms.ToolStripButton toolProviderFilterReset;
+        private System.Windows.Forms.ToolStripTextBox toolProviderFilter;
+        private System.Windows.Forms.ToolStripLabel toolProviderFilterLabel;
+        private System.Windows.Forms.ListView listProviders;
+        private System.Windows.Forms.ColumnHeader columnProviderName;
+        private System.Windows.Forms.ColumnHeader columnProviderAdress;
+        private System.Windows.Forms.ColumnHeader columnProviderPhone;
+        private System.Windows.Forms.ColumnHeader columnProviderManager;
+        private System.Windows.Forms.ColumnHeader columnProviderComment;
+        private System.Windows.Forms.ContextMenuStrip contextMenuProviders;
+        private System.Windows.Forms.ToolStripMenuItem cmProviderAdd;
+        private System.Windows.Forms.ToolStripMenuItem cmProviderEdit;
+        private System.Windows.Forms.ToolStripMenuItem cmProviderDelete;
     }
 }
 

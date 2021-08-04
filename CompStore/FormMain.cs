@@ -17,6 +17,7 @@ namespace CompStore
         List<Model> models;
         List<Equipment> equipments;
         List<Move> moves;
+        List<Provider> providers;
 
         public FormMain()
         {
@@ -40,6 +41,7 @@ namespace CompStore
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
             panelMoves.Visible = treeMenu.SelectedNode.Name == "nodeMoves";
+            panelProviders.Visible = treeMenu.SelectedNode.Name == "nodeProviders";
         }
 
         #region Главное меню
@@ -83,6 +85,8 @@ namespace CompStore
             bool sel = listFilials.SelectedIndices.Count > 0;
             toolFilialEdit.Enabled = sel;
             toolFilialDelete.Enabled = sel;
+            cmFilialEdit.Enabled = sel;
+            cmFilialDelete.Enabled = sel;
         }
         private void FilialFilterReset(object sender, EventArgs e) { toolFilialFilter.Text = ""; }
 
@@ -154,6 +158,8 @@ namespace CompStore
             bool sel = listRooms.SelectedIndices.Count > 0;
             toolRoomEdit.Enabled = sel;
             toolRoomDelete.Enabled = sel;
+            cmRoomEdit.Enabled = sel;
+            cmRoomDelete.Enabled = sel;
         }
         private void RoomFilterReset(object sender, EventArgs e) { toolRoomFilter.Text = ""; }
 
@@ -224,6 +230,8 @@ namespace CompStore
             bool sel = listPosts.SelectedIndices.Count > 0;
             toolPostEdit.Enabled = sel;
             toolPostDelete.Enabled = sel;
+            cmPostEdit.Enabled = sel;
+            cmPostDelete.Enabled = sel;
         }
         private void PostFilterReset(object sender, EventArgs e) { toolPostFilter.Text = ""; }
 
@@ -294,6 +302,8 @@ namespace CompStore
             bool sel = listDeps.SelectedIndices.Count > 0;
             toolDepEdit.Enabled = sel;
             toolDepDelete.Enabled = sel;
+            cmDepEdit.Enabled = sel;
+            cmDepDelete.Enabled = sel;
         }
 
         private void DepFilterReset(object sender, EventArgs e) { toolDepFilter.Text = ""; }
@@ -366,6 +376,8 @@ namespace CompStore
             bool sel = listBuildings.SelectedIndices.Count > 0;
             toolBuildingEdit.Enabled = sel;
             toolBuildingDelete.Enabled = sel;
+            cmBuildingEdit.Enabled = sel;
+            cmBuildingDelete.Enabled = sel;
         }
 
         private void BuildingsFilterReset(object sender, EventArgs e) { toolBuildingFilter.Text = ""; }
@@ -437,6 +449,8 @@ namespace CompStore
             bool sel = listUsers.SelectedIndices.Count > 0;
             toolUserEdit.Enabled = sel;
             toolUserDelete.Enabled = sel;
+            cmUserEdit.Enabled = sel;
+            cmUserDelete.Enabled = sel;
         }
         private void UserFilterReset(object sender, EventArgs e) { toolUserFilter.Text = ""; }
 
@@ -507,6 +521,8 @@ namespace CompStore
             bool sel = listBrands.SelectedIndices.Count > 0;
             toolBrandEdit.Enabled = sel;
             toolBrandDelete.Enabled = sel;
+            cmBrandEdit.Enabled = sel;
+            cmBrandDelete.Enabled = sel;
         }
         private void BrandFilterReset(object sender, EventArgs e) { toolBrandFilter.Text = ""; }
 
@@ -577,6 +593,8 @@ namespace CompStore
             bool sel = listEqTypes.SelectedIndices.Count > 0;
             toolETEdit.Enabled = sel;
             toolETDelete.Enabled = sel;
+            cmETEdit.Enabled = sel;
+            cmETDelete.Enabled = sel;
         }
         private void EqTypeFilterReset(object sender, EventArgs e) { toolETFilter.Text = ""; }
 
@@ -647,6 +665,8 @@ namespace CompStore
             bool sel = listModels.SelectedIndices.Count > 0;
             toolModelEdit.Enabled = sel;
             toolModelDelete.Enabled = sel;
+            cmModelEdit.Enabled = sel;
+            cmMoveDelete.Enabled = sel;
         }
         private void ModelFilterReset(object sender, EventArgs e) { toolModelFilter.Text = ""; }
 
@@ -817,6 +837,8 @@ namespace CompStore
             bool sel = listMoves.SelectedIndices.Count > 0;
             toolMoveEdit.Enabled = sel;
             toolMoveDelete.Enabled = sel;
+            cmMoveEdit.Enabled = sel;
+            cmMoveDelete.Enabled = sel;
         }
         private void MoveFilterReset(object sender, EventArgs e) { toolMoveFilter.Text = ""; }
 
@@ -857,6 +879,79 @@ namespace CompStore
         {
             if (listMoves.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) MoveEdit(null, null);
+        }
+        #endregion
+
+        #region Поставщики
+        private void ProvidersView(object sender, EventArgs e)
+        {
+            if (panelProviders.Visible) ProvidersRefresh();
+        }
+
+        void ProvidersRefresh()
+        {
+            providers = DB.ProvidersLoad();
+            ProvidersDraw(null, null);
+        }
+
+        private void ProvidersDraw(object sender, EventArgs e)
+        {
+            listProviders.BeginUpdate();
+            listProviders.Items.Clear();
+            foreach (Provider provider in providers)
+                if (provider.Contains(toolProviderFilter.Text))
+                    listProviders.Items.Add(provider.ToListView());
+            listProviders.EndUpdate();
+            ProvidersSelChange(null, null);
+        }
+        private void ProvidersSelChange(object sender, EventArgs e)
+        {
+            bool sel = listProviders.SelectedIndices.Count > 0;
+            toolProviderEdit.Enabled = sel;
+            toolProviderDelete.Enabled = sel;
+            cmProviderEdit.Enabled = sel;
+            cmProviderDelete.Enabled = sel;
+        }
+        private void ProviderFilterReset(object sender, EventArgs e) { toolProviderFilter.Text = ""; }
+
+        private void ProviderAdd(object sender, EventArgs e)
+        {
+            Provider provider = new Provider();
+            FormProvider form = new FormProvider(provider);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ProviderAdd(provider);
+                ProvidersRefresh();
+            }
+        }
+
+        private void ProviderEdit(object sender, EventArgs e)
+        {
+            if (listProviders.SelectedIndices.Count == 0) return;
+            Provider provider = (Provider)listProviders.SelectedItems[0].Tag;
+            FormProvider form = new FormProvider(provider);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.ProviderUpdate(provider);
+                ProvidersRefresh();
+            }
+        }
+
+        private void ProviderDelete(object sender, EventArgs e)
+        {
+            if (listProviders.SelectedIndices.Count == 0) return;
+            Provider provider = (Provider)listProviders.SelectedItems[0].Tag;
+            if (DeleteRecord("поставщика", provider.name))
+            {
+                DB.ProviderDelete(provider);
+                ProvidersRefresh();
+            }
+        }
+
+        private void ProvidersKeyboard(object sender, KeyEventArgs e)
+        {
+            if (listProviders.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) ProviderEdit(null, null);
         }
         #endregion
 

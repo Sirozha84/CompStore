@@ -5,26 +5,30 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public partial class FormFilial : Form
+    public partial class FormProvider : Form
     {
         List<string> names;
 
-        public FormFilial(Filial filial)
+        public FormProvider(Provider provider)
         {
             InitializeComponent();
-            names = DB.NamesLoad("filials");
-            if (filial.name != "") names.Remove(filial.name);
+            names = DB.NamesLoad("providers");
+            if (provider.name != "") names.Remove(provider.name);
 
-            textName.DataBindings.Add("Text", filial, "name");
+            textName.DataBindings.Add("Text", provider, "name");
             
-            textAdress.DataBindings.Add("Text", filial, "adress");
+            textAdress.DataBindings.Add("Text", provider, "adress");
+
+            textPhone.DataBindings.Add("Text", provider, "phone");
+
+            textManager.DataBindings.Add("Text", provider, "manager");
+
+            textCom.DataBindings.Add("Text", provider, "comment");
             
-            textCom.DataBindings.Add("Text", filial, "comment");
-            
-            if (filial.name != null)
-                Text = "Редактирование филиала \"" + filial.name + "\"";
+            if (provider.name != null)
+                Text = "Редактирование поставщика \"" + provider.name + "\"";
             else
-                Text = "Добавление нового филиала";
+                Text = "Добавление нового поставщика";
             CheckField(null, null);
         }
 
@@ -35,7 +39,7 @@ namespace CompStore
             
             textName.BackColor = en & !ex ? Color.LightGreen : Color.LightPink;
             if (ex)
-                toolTip.Show("Такой филиал уже существует", textName);
+                toolTip.Show("Такой поставщик уже существует", textName);
             else
                 toolTip.Hide(textName);
             

@@ -16,12 +16,14 @@ namespace CompStore
         public bool buy { get; set; }
         public DateTime buyDate { get; set; }
         public string price { get; set; }
+        public int provider { get; set; }
         public string comment { get; set; }
         public string nameText { get; set; }
         public string nameINText { get; set; }
         public string userText;
         public string roomText;
         public string isDtText;
+        public string provText;
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);
