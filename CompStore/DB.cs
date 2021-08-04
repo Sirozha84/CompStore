@@ -861,10 +861,10 @@ namespace CompStore
                         equipment.price = !reader.IsDBNull(10) ? reader.GetString(10) : "";
                         equipment.provider = !reader.IsDBNull(11) ? reader.GetInt32(11) : 0;
                         equipment.comment = reader.GetString(12);
-                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(12) ? reader.GetString(13) : ND) : "";
-                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(14) : ND) : "";
-                        equipment.userText = !reader.IsDBNull(15) ? reader.GetString(14) : "";
-                        equipment.roomText = !reader.IsDBNull(16) ? reader.GetString(15) : "";
+                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
+                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
+                        equipment.userText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
+                        equipment.roomText = !reader.IsDBNull(16) ? reader.GetString(16) : "";
                         equipment.isDtText = !reader.IsDBNull(17) ?
                             DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
