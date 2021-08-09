@@ -842,7 +842,7 @@ namespace CompStore
                     "LEFT JOIN rooms ON m.room = rooms.ID " +
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
                     "LEFT JOIN providers ON equipments.provider = providers.ID " +
-                    "ORDER BY nameText, sn, [in]";
+                    "ORDER BY nameText, [in]";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())

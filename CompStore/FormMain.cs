@@ -737,9 +737,11 @@ namespace CompStore
         private void EquipmentsSelChange(object sender, EventArgs e)
         {
             int sel = listEquipments.SelectedIndices.Count;
+            toolEqCopy.Enabled = sel == 1;
             toolEqEdit.Enabled = sel == 1;
             toolEqDelete.Enabled = sel == 1;
             toolEqMove.Enabled = sel > 0;
+            cmEqCopy.Enabled = sel == 1;
             cmEqEdit.Enabled = sel == 1;
             cmEqDelete.Enabled = sel == 1;
             cmEqMove.Enabled = sel > 0;
@@ -766,6 +768,27 @@ namespace CompStore
                 EquipmentsRefresh();
             }
         }
+
+        private void EquipmentCopy(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count != 1) return;
+            Equipment equipmentOr = (Equipment)listEquipments.SelectedItems[0].Tag;
+            Equipment equipment = new Equipment();
+            equipment.model = equipmentOr.model;
+            equipment.iNv = equipmentOr.iNv;
+            equipment.buy = equipmentOr.buy;
+            equipment.buyDate = equipmentOr.buyDate;
+            equipment.price = equipmentOr.price;
+            equipment.provider = equipmentOr.provider;
+            equipment.comment = equipmentOr.comment;
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentAdd(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
         private void EquipmentEdit(object sender, EventArgs e)
         {
             if (listEquipments.SelectedIndices.Count == 0) return;
