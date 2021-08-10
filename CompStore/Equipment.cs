@@ -20,6 +20,7 @@ namespace CompStore
         public string comment { get; set; }
         public string nameText { get; set; }
         public string nameINText { get; set; }
+        public int user;
         public string userText;
         public string roomText;
         public string isDtText;

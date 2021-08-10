@@ -78,6 +78,7 @@ namespace CompStore
                 if (filial.Contains(toolFilialFilter.Text))
                     listFilials.Items.Add(filial.ToListView());
             listFilials.EndUpdate();
+            StatusCount(filials.Count, listFilials);
             FilialsSelChange(null, null);
         }
         private void FilialsSelChange(object sender, EventArgs e)
@@ -151,6 +152,7 @@ namespace CompStore
                 if (room.Contains(toolRoomFilter.Text))
                     listRooms.Items.Add(room.ToListView());
             listRooms.EndUpdate();
+            StatusCount(rooms.Count, listRooms);
             RoomsSelChange(null, null);
         }
         private void RoomsSelChange(object sender, EventArgs e)
@@ -223,6 +225,7 @@ namespace CompStore
                 if (post.Contains(toolPostFilter.Text))
                     listPosts.Items.Add(post.ToListView());
             listPosts.EndUpdate();
+            StatusCount(posts.Count, listPosts);
             PostsSelChange(null, null);
         }
         private void PostsSelChange(object sender, EventArgs e)
@@ -295,6 +298,7 @@ namespace CompStore
                 if (dep.Contains(toolDepFilter.Text))
                     listDeps.Items.Add(dep.ToListView());
             listDeps.EndUpdate();
+            StatusCount(deps.Count, listDeps);
             DepsSelChange(null, null);
         }
         private void DepsSelChange(object sender, EventArgs e)
@@ -368,6 +372,7 @@ namespace CompStore
                 if (building.Contains(toolBuildingFilter.Text))
                     listBuildings.Items.Add(building.ToListView());
             listBuildings.EndUpdate();
+            StatusCount(buildings.Count, listBuildings);
             BuildingsSelChange(null, null);
         }
 
@@ -431,6 +436,7 @@ namespace CompStore
         void UsersRefresh()
         {
             users = DB.UsersLoad();
+            equipments = DB.EquipmentsLoad();
             UsersDraw(null, null);
         }
 
@@ -442,6 +448,7 @@ namespace CompStore
                 if (user.Contains(toolUserFilter.Text))
                     listUsers.Items.Add(user.ToListView());
             listUsers.EndUpdate();
+            StatusCount(users.Count, listUsers);
             UsersSelChange(null, null);
         }
         private void UsersSelChange(object sender, EventArgs e)
@@ -451,6 +458,16 @@ namespace CompStore
             toolUserDelete.Enabled = sel;
             cmUserEdit.Enabled = sel;
             cmUserDelete.Enabled = sel;
+            //Перерисовка нижней панели
+            listUsEquipment.BeginUpdate();
+            listUsEquipment.Items.Clear();
+            foreach (Equipment eq in equipments)
+                foreach (ListViewItem item in listUsers.SelectedItems)
+                    if (((User)item.Tag).ID == eq.user)
+                        listUsEquipment.Items.Add(eq.ToListView());
+            listUsEquipment.EndUpdate();
+            tabUsEquipments.Text = "Оборудование" + ListCount(listUsEquipment);
+
         }
         private void UserFilterReset(object sender, EventArgs e) { toolUserFilter.Text = ""; }
 
@@ -514,6 +531,7 @@ namespace CompStore
                 if (brand.Contains(toolBrandFilter.Text))
                     listBrands.Items.Add(brand.ToListView());
             listBrands.EndUpdate();
+            StatusCount(brands.Count, listBrands);
             BrandsSelChange(null, null);
         }
         private void BrandsSelChange(object sender, EventArgs e)
@@ -586,6 +604,7 @@ namespace CompStore
                 if (eqType.Contains(toolETFilter.Text))
                     listEqTypes.Items.Add(eqType.ToListView());
             listEqTypes.EndUpdate();
+            StatusCount(eqTypes.Count, listEqTypes);
             EqTypesSelChange(null, null);
         }
         private void EqTypesSelChange(object sender, EventArgs e)
@@ -658,6 +677,7 @@ namespace CompStore
                 if (model.Contains(toolModelFilter.Text))
                     listModels.Items.Add(model.ToListView());
             listModels.EndUpdate();
+            StatusCount(models.Count, listModels);
             ModelsSelChange(null, null);
         }
         private void ModelsSelChange(object sender, EventArgs e)
@@ -731,6 +751,7 @@ namespace CompStore
                 if (equipment.Contains(toolEqFilter.Text))
                     listEquipments.Items.Add(equipment.ToListView());
             listEquipments.EndUpdate();
+            StatusCount(equipments.Count, listEquipments);
             EquipmentsSelChange(null, null);
         }
         
@@ -745,7 +766,7 @@ namespace CompStore
             cmEqEdit.Enabled = sel == 1;
             cmEqDelete.Enabled = sel == 1;
             cmEqMove.Enabled = sel > 0;
-
+            //Перерисовка нижней панели
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
             foreach (Move m in moves)
@@ -853,6 +874,7 @@ namespace CompStore
                 if (move.Contains(toolMoveFilter.Text))
                     listMoves.Items.Add(move.ToListView());
             listMoves.EndUpdate();
+            StatusCount(moves.Count, listMoves);
             MovesSelChange(null, null);
         }
         private void MovesSelChange(object sender, EventArgs e)
@@ -925,6 +947,7 @@ namespace CompStore
                 if (provider.Contains(toolProviderFilter.Text))
                     listProviders.Items.Add(provider.ToListView());
             listProviders.EndUpdate();
+            StatusCount(providers.Count, listProviders);
             ProvidersSelChange(null, null);
         }
         private void ProvidersSelChange(object sender, EventArgs e)
@@ -992,5 +1015,11 @@ namespace CompStore
             return c != "0" ? " (" + c + ")" : "";
         }
 
+        void StatusCount(int all, ListView view)
+        {
+            int viewed = view.Items.Count;
+            statusCount.Text = "Позиций: " + viewed.ToString() + 
+                (all != viewed ? " из " + all.ToString() : "");
+        }
     }
 }

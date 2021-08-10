@@ -832,7 +832,8 @@ namespace CompStore
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
                     "buildings.name || \", \" || rooms.name, " +
                     "m.date, " +
-                    "providers.name " +
+                    "providers.name, " +
+                    "users.ID " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
@@ -868,6 +869,7 @@ namespace CompStore
                         equipment.isDtText = !reader.IsDBNull(17) ?
                             DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
+                        equipment.user = !reader.IsDBNull(19) ? reader.GetInt32(19) : 0;
                         equipments.Add(equipment);
                     }
                 }
