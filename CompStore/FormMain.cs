@@ -23,7 +23,7 @@ namespace CompStore
         {
             InitializeComponent();
             treeMenu.ExpandAll();
-
+            menuPrintPreview.Checked = Properties.Settings.Default.PrintPreview;
             //Отладочное: выбираем вкладку по умолчанию, потом это будет, например, последняя открытая
             treeMenu.SelectedNode = treeMenu.Nodes.Find("nodeEquipment", true)[0];
         }
@@ -47,12 +47,28 @@ namespace CompStore
         #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
         
-        private void menuExit(object sender, EventArgs e)
+        private void Exit(object sender, EventArgs e)
         {
             Application.Exit();
         }
-        
-        private void menuAbout(object sender, EventArgs e)
+
+        private void UserCard(object sender, EventArgs e)
+        {
+            if (listUsers.SelectedItems.Count != 1) return;
+            List<User> users = new List<User>();
+            foreach (ListViewItem u in listUsers.SelectedItems)
+                users.Add((User)u.Tag);
+            Reports.UserCard(Properties.Settings.Default.PrintPreview, users, equipments);
+        }
+
+        private void CheckPrintPreview(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PrintPreview ^= true;
+            Properties.Settings.Default.Save();
+            menuPrintPreview.Checked = Properties.Settings.Default.PrintPreview;
+        }
+
+        private void About(object sender, EventArgs e)
         {
             MessageBox.Show("CompStore\nВерсия: 0.1 (01.07.2021)\nАвтор: Сергей Гордеев", "О программе");
         }
@@ -454,6 +470,7 @@ namespace CompStore
         private void UsersSelChange(object sender, EventArgs e)
         {
             bool sel = listUsers.SelectedIndices.Count > 0;
+            menuUserCard.Enabled = sel;
             toolUserEdit.Enabled = sel;
             toolUserDelete.Enabled = sel;
             cmUserEdit.Enabled = sel;

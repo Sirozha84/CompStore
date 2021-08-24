@@ -58,12 +58,15 @@ namespace CompStore
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.инициализацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuInitDB = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuReports = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUserCard = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelEquipments = new System.Windows.Forms.Panel();
             this.panelEqDown = new System.Windows.Forms.Panel();
             this.tabEquipments = new System.Windows.Forms.TabControl();
@@ -185,14 +188,20 @@ namespace CompStore
             this.cmDepEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmDepDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panelUsers = new System.Windows.Forms.Panel();
-            this.toolStripUsers = new System.Windows.Forms.ToolStrip();
-            this.toolUserLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolUserAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolUserEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolUserDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolUserFilterReset = new System.Windows.Forms.ToolStripButton();
-            this.toolUserFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.toolUserFilterLabel = new System.Windows.Forms.ToolStripLabel();
+            this.panelUsDown = new System.Windows.Forms.Panel();
+            this.tabUsers = new System.Windows.Forms.TabControl();
+            this.tabUsEquipments = new System.Windows.Forms.TabPage();
+            this.listUsEquipment = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.splitterUsers = new System.Windows.Forms.Splitter();
+            this.panelUsUp = new System.Windows.Forms.Panel();
             this.listUsers = new System.Windows.Forms.ListView();
             this.columnUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnUserDep = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -203,6 +212,14 @@ namespace CompStore
             this.cmUserAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmUserEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmUserDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripUsers = new System.Windows.Forms.ToolStrip();
+            this.toolUserLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolUserAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolUserEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolUserDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolUserFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.toolUserFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.toolUserFilterLabel = new System.Windows.Forms.ToolStripLabel();
             this.panelBrands = new System.Windows.Forms.Panel();
             this.toolStripBrands = new System.Windows.Forms.ToolStrip();
             this.toolBrandLabel = new System.Windows.Forms.ToolStripLabel();
@@ -290,21 +307,8 @@ namespace CompStore
             this.cmProviderAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelUsUp = new System.Windows.Forms.Panel();
-            this.splitterUsers = new System.Windows.Forms.Splitter();
-            this.panelUsDown = new System.Windows.Forms.Panel();
-            this.tabUsers = new System.Windows.Forms.TabControl();
-            this.tabUsEquipments = new System.Windows.Forms.TabPage();
-            this.listUsEquipment = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuPrintPreview = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelEquipments.SuspendLayout();
@@ -330,8 +334,12 @@ namespace CompStore
             this.toolStripDeps.SuspendLayout();
             this.contextMenuDeps.SuspendLayout();
             this.panelUsers.SuspendLayout();
-            this.toolStripUsers.SuspendLayout();
+            this.panelUsDown.SuspendLayout();
+            this.tabUsers.SuspendLayout();
+            this.tabUsEquipments.SuspendLayout();
+            this.panelUsUp.SuspendLayout();
             this.contextMenuUsers.SuspendLayout();
+            this.toolStripUsers.SuspendLayout();
             this.panelBrands.SuspendLayout();
             this.toolStripBrands.SuspendLayout();
             this.contextMenuBrands.SuspendLayout();
@@ -347,10 +355,6 @@ namespace CompStore
             this.panelProviders.SuspendLayout();
             this.toolStripProviders.SuspendLayout();
             this.contextMenuProviders.SuspendLayout();
-            this.panelUsUp.SuspendLayout();
-            this.panelUsDown.SuspendLayout();
-            this.tabUsers.SuspendLayout();
-            this.tabUsEquipments.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -399,52 +403,71 @@ namespace CompStore
             // mainMenu
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem,
-            this.справкаToolStripMenuItem});
+            this.menuFile,
+            this.menuReports,
+            this.menuHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(1184, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "menuStrip1";
             // 
-            // файлToolStripMenuItem
+            // menuFile
             // 
-            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.инициализацияToolStripMenuItem,
-            this.выходToolStripMenuItem});
-            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.файлToolStripMenuItem.Text = "Файл";
+            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuInitDB,
+            this.menuExit});
+            this.menuFile.Name = "menuFile";
+            this.menuFile.Size = new System.Drawing.Size(48, 20);
+            this.menuFile.Text = "Файл";
             // 
-            // инициализацияToolStripMenuItem
+            // menuInitDB
             // 
-            this.инициализацияToolStripMenuItem.Name = "инициализацияToolStripMenuItem";
-            this.инициализацияToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.инициализацияToolStripMenuItem.Text = "Инициализация";
-            this.инициализацияToolStripMenuItem.Click += new System.EventHandler(this.инициализацияToolStripMenuItem_Click);
+            this.menuInitDB.Name = "menuInitDB";
+            this.menuInitDB.Size = new System.Drawing.Size(162, 22);
+            this.menuInitDB.Text = "Инициализация";
+            this.menuInitDB.Click += new System.EventHandler(this.инициализацияToolStripMenuItem_Click);
             // 
-            // выходToolStripMenuItem
+            // menuExit
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.menuExit);
+            this.menuExit.Name = "menuExit";
+            this.menuExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menuExit.Size = new System.Drawing.Size(162, 22);
+            this.menuExit.Text = "Выход";
+            this.menuExit.Click += new System.EventHandler(this.Exit);
             // 
-            // справкаToolStripMenuItem
+            // menuReports
             // 
-            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оПрограммеToolStripMenuItem});
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
+            this.menuReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuUserCard,
+            this.menuSep1,
+            this.menuPrintPreview});
+            this.menuReports.Name = "menuReports";
+            this.menuReports.Size = new System.Drawing.Size(60, 20);
+            this.menuReports.Text = "Отчёты";
             // 
-            // оПрограммеToolStripMenuItem
+            // menuUserCard
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.menuAbout);
+            this.menuUserCard.Enabled = false;
+            this.menuUserCard.Name = "menuUserCard";
+            this.menuUserCard.Size = new System.Drawing.Size(233, 22);
+            this.menuUserCard.Text = "Карточка учёта";
+            this.menuUserCard.Click += new System.EventHandler(this.UserCard);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAbout});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(65, 20);
+            this.menuHelp.Text = "Справка";
+            // 
+            // menuAbout
+            // 
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(180, 22);
+            this.menuAbout.Text = "О программе";
+            this.menuAbout.Click += new System.EventHandler(this.About);
             // 
             // statusStrip
             // 
@@ -455,6 +478,13 @@ namespace CompStore
             this.statusStrip.Size = new System.Drawing.Size(1184, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
+            // 
+            // statusCount
+            // 
+            this.statusCount.AutoSize = false;
+            this.statusCount.Name = "statusCount";
+            this.statusCount.Size = new System.Drawing.Size(300, 17);
+            this.statusCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelEquipments
             // 
@@ -1620,83 +1650,115 @@ namespace CompStore
             this.panelUsers.Visible = false;
             this.panelUsers.VisibleChanged += new System.EventHandler(this.UsersView);
             // 
-            // toolStripUsers
+            // panelUsDown
             // 
-            this.toolStripUsers.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripUsers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolUserLabel,
-            this.toolUserAdd,
-            this.toolUserEdit,
-            this.toolUserDelete,
-            this.toolUserFilterReset,
-            this.toolUserFilter,
-            this.toolUserFilterLabel});
-            this.toolStripUsers.Location = new System.Drawing.Point(0, 0);
-            this.toolStripUsers.Name = "toolStripUsers";
-            this.toolStripUsers.Size = new System.Drawing.Size(1021, 25);
-            this.toolStripUsers.TabIndex = 13;
+            this.panelUsDown.Controls.Add(this.tabUsers);
+            this.panelUsDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelUsDown.Location = new System.Drawing.Point(0, 408);
+            this.panelUsDown.Name = "panelUsDown";
+            this.panelUsDown.Size = new System.Drawing.Size(1021, 301);
+            this.panelUsDown.TabIndex = 16;
             // 
-            // toolUserLabel
+            // tabUsers
             // 
-            this.toolUserLabel.AutoSize = false;
-            this.toolUserLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolUserLabel.Name = "toolUserLabel";
-            this.toolUserLabel.Size = new System.Drawing.Size(170, 22);
-            this.toolUserLabel.Text = "Сотрудники";
-            this.toolUserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabUsers.Controls.Add(this.tabUsEquipments);
+            this.tabUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabUsers.Location = new System.Drawing.Point(0, 0);
+            this.tabUsers.Name = "tabUsers";
+            this.tabUsers.SelectedIndex = 0;
+            this.tabUsers.Size = new System.Drawing.Size(1021, 301);
+            this.tabUsers.TabIndex = 0;
             // 
-            // toolUserAdd
+            // tabUsEquipments
             // 
-            this.toolUserAdd.Image = global::CompStore.Properties.Resources.add;
-            this.toolUserAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolUserAdd.Name = "toolUserAdd";
-            this.toolUserAdd.Size = new System.Drawing.Size(79, 22);
-            this.toolUserAdd.Text = "Добавить";
-            this.toolUserAdd.Click += new System.EventHandler(this.UserAdd);
+            this.tabUsEquipments.Controls.Add(this.listUsEquipment);
+            this.tabUsEquipments.Location = new System.Drawing.Point(4, 22);
+            this.tabUsEquipments.Name = "tabUsEquipments";
+            this.tabUsEquipments.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUsEquipments.Size = new System.Drawing.Size(1013, 275);
+            this.tabUsEquipments.TabIndex = 0;
+            this.tabUsEquipments.Text = "Оборудование";
+            this.tabUsEquipments.UseVisualStyleBackColor = true;
             // 
-            // toolUserEdit
+            // listUsEquipment
             // 
-            this.toolUserEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.toolUserEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolUserEdit.Name = "toolUserEdit";
-            this.toolUserEdit.Size = new System.Drawing.Size(81, 22);
-            this.toolUserEdit.Text = "Изменить";
-            this.toolUserEdit.Click += new System.EventHandler(this.UserEdit);
+            this.listUsEquipment.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8});
+            this.listUsEquipment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listUsEquipment.FullRowSelect = true;
+            this.listUsEquipment.HideSelection = false;
+            this.listUsEquipment.Location = new System.Drawing.Point(3, 3);
+            this.listUsEquipment.Name = "listUsEquipment";
+            this.listUsEquipment.Size = new System.Drawing.Size(1007, 269);
+            this.listUsEquipment.TabIndex = 11;
+            this.listUsEquipment.UseCompatibleStateImageBehavior = false;
+            this.listUsEquipment.View = System.Windows.Forms.View.Details;
             // 
-            // toolUserDelete
+            // columnHeader1
             // 
-            this.toolUserDelete.Image = global::CompStore.Properties.Resources.delete;
-            this.toolUserDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolUserDelete.Name = "toolUserDelete";
-            this.toolUserDelete.Size = new System.Drawing.Size(71, 22);
-            this.toolUserDelete.Text = "Удалить";
-            this.toolUserDelete.Click += new System.EventHandler(this.UserDelete);
+            this.columnHeader1.Text = "Наименование";
+            this.columnHeader1.Width = 180;
             // 
-            // toolUserFilterReset
+            // columnHeader2
             // 
-            this.toolUserFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolUserFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolUserFilterReset.Image = global::CompStore.Properties.Resources.cancel;
-            this.toolUserFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolUserFilterReset.Name = "toolUserFilterReset";
-            this.toolUserFilterReset.Size = new System.Drawing.Size(23, 22);
-            this.toolUserFilterReset.Click += new System.EventHandler(this.UserFilterReset);
+            this.columnHeader2.Text = "Серийный номер";
+            this.columnHeader2.Width = 125;
             // 
-            // toolUserFilter
+            // columnHeader3
             // 
-            this.toolUserFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolUserFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolUserFilter.Name = "toolUserFilter";
-            this.toolUserFilter.Size = new System.Drawing.Size(300, 25);
-            this.toolUserFilter.TextChanged += new System.EventHandler(this.UsersDraw);
+            this.columnHeader3.Text = "Инвентарный номер";
+            this.columnHeader3.Width = 125;
             // 
-            // toolUserFilterLabel
+            // columnHeader4
             // 
-            this.toolUserFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolUserFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolUserFilterLabel.Image = global::CompStore.Properties.Resources.search;
-            this.toolUserFilterLabel.Name = "toolUserFilterLabel";
-            this.toolUserFilterLabel.Size = new System.Drawing.Size(16, 22);
+            this.columnHeader4.Text = "Ответственный";
+            this.columnHeader4.Width = 140;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Помещение";
+            this.columnHeader5.Width = 120;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Выдано";
+            this.columnHeader6.Width = 70;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Куплено";
+            this.columnHeader7.Width = 70;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Примечание";
+            this.columnHeader8.Width = 160;
+            // 
+            // splitterUsers
+            // 
+            this.splitterUsers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitterUsers.Location = new System.Drawing.Point(0, 400);
+            this.splitterUsers.Name = "splitterUsers";
+            this.splitterUsers.Size = new System.Drawing.Size(1021, 8);
+            this.splitterUsers.TabIndex = 15;
+            this.splitterUsers.TabStop = false;
+            // 
+            // panelUsUp
+            // 
+            this.panelUsUp.Controls.Add(this.listUsers);
+            this.panelUsUp.Controls.Add(this.toolStripUsers);
+            this.panelUsUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelUsUp.Location = new System.Drawing.Point(0, 0);
+            this.panelUsUp.Name = "panelUsUp";
+            this.panelUsUp.Size = new System.Drawing.Size(1021, 400);
+            this.panelUsUp.TabIndex = 14;
             // 
             // listUsers
             // 
@@ -1781,6 +1843,84 @@ namespace CompStore
             this.cmUserDelete.Size = new System.Drawing.Size(148, 22);
             this.cmUserDelete.Text = "Удалить";
             this.cmUserDelete.Click += new System.EventHandler(this.UserDelete);
+            // 
+            // toolStripUsers
+            // 
+            this.toolStripUsers.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripUsers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolUserLabel,
+            this.toolUserAdd,
+            this.toolUserEdit,
+            this.toolUserDelete,
+            this.toolUserFilterReset,
+            this.toolUserFilter,
+            this.toolUserFilterLabel});
+            this.toolStripUsers.Location = new System.Drawing.Point(0, 0);
+            this.toolStripUsers.Name = "toolStripUsers";
+            this.toolStripUsers.Size = new System.Drawing.Size(1021, 25);
+            this.toolStripUsers.TabIndex = 13;
+            // 
+            // toolUserLabel
+            // 
+            this.toolUserLabel.AutoSize = false;
+            this.toolUserLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolUserLabel.Name = "toolUserLabel";
+            this.toolUserLabel.Size = new System.Drawing.Size(170, 22);
+            this.toolUserLabel.Text = "Сотрудники";
+            this.toolUserLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolUserAdd
+            // 
+            this.toolUserAdd.Image = global::CompStore.Properties.Resources.add;
+            this.toolUserAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolUserAdd.Name = "toolUserAdd";
+            this.toolUserAdd.Size = new System.Drawing.Size(79, 22);
+            this.toolUserAdd.Text = "Добавить";
+            this.toolUserAdd.Click += new System.EventHandler(this.UserAdd);
+            // 
+            // toolUserEdit
+            // 
+            this.toolUserEdit.Image = global::CompStore.Properties.Resources.edit;
+            this.toolUserEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolUserEdit.Name = "toolUserEdit";
+            this.toolUserEdit.Size = new System.Drawing.Size(81, 22);
+            this.toolUserEdit.Text = "Изменить";
+            this.toolUserEdit.Click += new System.EventHandler(this.UserEdit);
+            // 
+            // toolUserDelete
+            // 
+            this.toolUserDelete.Image = global::CompStore.Properties.Resources.delete;
+            this.toolUserDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolUserDelete.Name = "toolUserDelete";
+            this.toolUserDelete.Size = new System.Drawing.Size(71, 22);
+            this.toolUserDelete.Text = "Удалить";
+            this.toolUserDelete.Click += new System.EventHandler(this.UserDelete);
+            // 
+            // toolUserFilterReset
+            // 
+            this.toolUserFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolUserFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolUserFilterReset.Image = global::CompStore.Properties.Resources.cancel;
+            this.toolUserFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolUserFilterReset.Name = "toolUserFilterReset";
+            this.toolUserFilterReset.Size = new System.Drawing.Size(23, 22);
+            this.toolUserFilterReset.Click += new System.EventHandler(this.UserFilterReset);
+            // 
+            // toolUserFilter
+            // 
+            this.toolUserFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolUserFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolUserFilter.Name = "toolUserFilter";
+            this.toolUserFilter.Size = new System.Drawing.Size(300, 25);
+            this.toolUserFilter.TextChanged += new System.EventHandler(this.UsersDraw);
+            // 
+            // toolUserFilterLabel
+            // 
+            this.toolUserFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolUserFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolUserFilterLabel.Image = global::CompStore.Properties.Resources.search;
+            this.toolUserFilterLabel.Name = "toolUserFilterLabel";
+            this.toolUserFilterLabel.Size = new System.Drawing.Size(16, 22);
             // 
             // panelBrands
             // 
@@ -2629,123 +2769,17 @@ namespace CompStore
             this.cmProviderDelete.Text = "Удалить";
             this.cmProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
             // 
-            // panelUsUp
+            // menuPrintPreview
             // 
-            this.panelUsUp.Controls.Add(this.listUsers);
-            this.panelUsUp.Controls.Add(this.toolStripUsers);
-            this.panelUsUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelUsUp.Location = new System.Drawing.Point(0, 0);
-            this.panelUsUp.Name = "panelUsUp";
-            this.panelUsUp.Size = new System.Drawing.Size(1021, 400);
-            this.panelUsUp.TabIndex = 14;
+            this.menuPrintPreview.Name = "menuPrintPreview";
+            this.menuPrintPreview.Size = new System.Drawing.Size(233, 22);
+            this.menuPrintPreview.Text = "Предварительный просмотр";
+            this.menuPrintPreview.Click += new System.EventHandler(this.CheckPrintPreview);
             // 
-            // splitterUsers
+            // menuSep1
             // 
-            this.splitterUsers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterUsers.Location = new System.Drawing.Point(0, 400);
-            this.splitterUsers.Name = "splitterUsers";
-            this.splitterUsers.Size = new System.Drawing.Size(1021, 8);
-            this.splitterUsers.TabIndex = 15;
-            this.splitterUsers.TabStop = false;
-            // 
-            // panelUsDown
-            // 
-            this.panelUsDown.Controls.Add(this.tabUsers);
-            this.panelUsDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelUsDown.Location = new System.Drawing.Point(0, 408);
-            this.panelUsDown.Name = "panelUsDown";
-            this.panelUsDown.Size = new System.Drawing.Size(1021, 301);
-            this.panelUsDown.TabIndex = 16;
-            // 
-            // tabUsers
-            // 
-            this.tabUsers.Controls.Add(this.tabUsEquipments);
-            this.tabUsers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabUsers.Location = new System.Drawing.Point(0, 0);
-            this.tabUsers.Name = "tabUsers";
-            this.tabUsers.SelectedIndex = 0;
-            this.tabUsers.Size = new System.Drawing.Size(1021, 301);
-            this.tabUsers.TabIndex = 0;
-            // 
-            // tabUsEquipments
-            // 
-            this.tabUsEquipments.Controls.Add(this.listUsEquipment);
-            this.tabUsEquipments.Location = new System.Drawing.Point(4, 22);
-            this.tabUsEquipments.Name = "tabUsEquipments";
-            this.tabUsEquipments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUsEquipments.Size = new System.Drawing.Size(1013, 275);
-            this.tabUsEquipments.TabIndex = 0;
-            this.tabUsEquipments.Text = "Оборудование";
-            this.tabUsEquipments.UseVisualStyleBackColor = true;
-            // 
-            // listUsEquipment
-            // 
-            this.listUsEquipment.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8});
-            this.listUsEquipment.ContextMenuStrip = this.contextMenuEquipment;
-            this.listUsEquipment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listUsEquipment.FullRowSelect = true;
-            this.listUsEquipment.HideSelection = false;
-            this.listUsEquipment.Location = new System.Drawing.Point(3, 3);
-            this.listUsEquipment.Name = "listUsEquipment";
-            this.listUsEquipment.Size = new System.Drawing.Size(1007, 269);
-            this.listUsEquipment.TabIndex = 11;
-            this.listUsEquipment.UseCompatibleStateImageBehavior = false;
-            this.listUsEquipment.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Наименование";
-            this.columnHeader1.Width = 180;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Серийный номер";
-            this.columnHeader2.Width = 125;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Инвентарный номер";
-            this.columnHeader3.Width = 125;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Ответственный";
-            this.columnHeader4.Width = 140;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Помещение";
-            this.columnHeader5.Width = 120;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Выдано";
-            this.columnHeader6.Width = 70;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Куплено";
-            this.columnHeader7.Width = 70;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Примечание";
-            this.columnHeader8.Width = 160;
-            // 
-            // statusCount
-            // 
-            this.statusCount.AutoSize = false;
-            this.statusCount.Name = "statusCount";
-            this.statusCount.Size = new System.Drawing.Size(300, 17);
-            this.statusCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuSep1.Name = "menuSep1";
+            this.menuSep1.Size = new System.Drawing.Size(230, 6);
             // 
             // FormMain
             // 
@@ -2811,9 +2845,14 @@ namespace CompStore
             this.toolStripDeps.PerformLayout();
             this.contextMenuDeps.ResumeLayout(false);
             this.panelUsers.ResumeLayout(false);
+            this.panelUsDown.ResumeLayout(false);
+            this.tabUsers.ResumeLayout(false);
+            this.tabUsEquipments.ResumeLayout(false);
+            this.panelUsUp.ResumeLayout(false);
+            this.panelUsUp.PerformLayout();
+            this.contextMenuUsers.ResumeLayout(false);
             this.toolStripUsers.ResumeLayout(false);
             this.toolStripUsers.PerformLayout();
-            this.contextMenuUsers.ResumeLayout(false);
             this.panelBrands.ResumeLayout(false);
             this.panelBrands.PerformLayout();
             this.toolStripBrands.ResumeLayout(false);
@@ -2839,11 +2878,6 @@ namespace CompStore
             this.toolStripProviders.ResumeLayout(false);
             this.toolStripProviders.PerformLayout();
             this.contextMenuProviders.ResumeLayout(false);
-            this.panelUsUp.ResumeLayout(false);
-            this.panelUsUp.PerformLayout();
-            this.panelUsDown.ResumeLayout(false);
-            this.tabUsers.ResumeLayout(false);
-            this.tabUsEquipments.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2853,10 +2887,10 @@ namespace CompStore
 
         private System.Windows.Forms.TreeView treeMenu;
         private System.Windows.Forms.MenuStrip mainMenu;
-        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuFile;
+        private System.Windows.Forms.ToolStripMenuItem menuExit;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.Panel panelEquipments;
         private System.Windows.Forms.Panel panelFilials;
@@ -2864,7 +2898,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader colFilName;
         private System.Windows.Forms.ColumnHeader colFilAdress;
         private System.Windows.Forms.ColumnHeader colFilCom;
-        private System.Windows.Forms.ToolStripMenuItem инициализацияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuInitDB;
         private System.Windows.Forms.Panel panelRooms;
         private System.Windows.Forms.ListView listRooms;
         private System.Windows.Forms.ColumnHeader columnRoomFilial;
@@ -3100,6 +3134,10 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ToolStripStatusLabel statusCount;
+        private System.Windows.Forms.ToolStripMenuItem menuReports;
+        private System.Windows.Forms.ToolStripMenuItem menuUserCard;
+        private System.Windows.Forms.ToolStripSeparator menuSep1;
+        private System.Windows.Forms.ToolStripMenuItem menuPrintPreview;
     }
 }
 
