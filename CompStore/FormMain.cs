@@ -54,7 +54,7 @@ namespace CompStore
 
         private void UserCard(object sender, EventArgs e)
         {
-            if (listUsers.SelectedItems.Count != 1) return;
+            if (listUsers.SelectedItems.Count == 0) return;
             List<User> users = new List<User>();
             foreach (ListViewItem u in listUsers.SelectedItems)
                 users.Add((User)u.Tag);
@@ -478,10 +478,11 @@ namespace CompStore
             //Перерисовка нижней панели
             listUsEquipment.BeginUpdate();
             listUsEquipment.Items.Clear();
-            foreach (Equipment eq in equipments)
-                foreach (ListViewItem item in listUsers.SelectedItems)
-                    if (((User)item.Tag).ID == eq.user)
-                        listUsEquipment.Items.Add(eq.ToListView());
+            if (listUsers.SelectedIndices.Count == 1)
+                foreach (Equipment eq in equipments)
+                    foreach (ListViewItem item in listUsers.SelectedItems)
+                        if (((User)item.Tag).ID == eq.user)
+                            listUsEquipment.Items.Add(eq.ToListView());
             listUsEquipment.EndUpdate();
             tabUsEquipments.Text = "Оборудование" + ListCount(listUsEquipment);
 
@@ -786,10 +787,11 @@ namespace CompStore
             //Перерисовка нижней панели
             listEqMoves.BeginUpdate();
             listEqMoves.Items.Clear();
-            foreach (Move m in moves)
-                foreach (ListViewItem item in listEquipments.SelectedItems)
-                    if (((Equipment)item.Tag).ID == m.equipment)
-                        listEqMoves.Items.Add(m.ToListView());
+            if (sel == 1)
+                foreach (Move m in moves)
+                    foreach (ListViewItem item in listEquipments.SelectedItems)
+                        if (((Equipment)item.Tag).ID == m.equipment)
+                            listEqMoves.Items.Add(m.ToListView());
             listEqMoves.EndUpdate();
             tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
         }

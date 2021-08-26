@@ -63,6 +63,8 @@ namespace CompStore
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReports = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUserCard = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuPrintPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -307,8 +309,6 @@ namespace CompStore
             this.cmProviderAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuPrintPreview = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelEquipments.SuspendLayout();
@@ -454,6 +454,18 @@ namespace CompStore
             this.menuUserCard.Text = "Карточка учёта";
             this.menuUserCard.Click += new System.EventHandler(this.UserCard);
             // 
+            // menuSep1
+            // 
+            this.menuSep1.Name = "menuSep1";
+            this.menuSep1.Size = new System.Drawing.Size(230, 6);
+            // 
+            // menuPrintPreview
+            // 
+            this.menuPrintPreview.Name = "menuPrintPreview";
+            this.menuPrintPreview.Size = new System.Drawing.Size(233, 22);
+            this.menuPrintPreview.Text = "Предварительный просмотр";
+            this.menuPrintPreview.Click += new System.EventHandler(this.CheckPrintPreview);
+            // 
             // menuHelp
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -465,7 +477,7 @@ namespace CompStore
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(180, 22);
+            this.menuAbout.Size = new System.Drawing.Size(149, 22);
             this.menuAbout.Text = "О программе";
             this.menuAbout.Click += new System.EventHandler(this.About);
             // 
@@ -1773,7 +1785,6 @@ namespace CompStore
             this.listUsers.FullRowSelect = true;
             this.listUsers.HideSelection = false;
             this.listUsers.Location = new System.Drawing.Point(0, 25);
-            this.listUsers.MultiSelect = false;
             this.listUsers.Name = "listUsers";
             this.listUsers.Size = new System.Drawing.Size(1021, 375);
             this.listUsers.TabIndex = 2;
@@ -2768,18 +2779,6 @@ namespace CompStore
             this.cmProviderDelete.Size = new System.Drawing.Size(148, 22);
             this.cmProviderDelete.Text = "Удалить";
             this.cmProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
-            // 
-            // menuPrintPreview
-            // 
-            this.menuPrintPreview.Name = "menuPrintPreview";
-            this.menuPrintPreview.Size = new System.Drawing.Size(233, 22);
-            this.menuPrintPreview.Text = "Предварительный просмотр";
-            this.menuPrintPreview.Click += new System.EventHandler(this.CheckPrintPreview);
-            // 
-            // menuSep1
-            // 
-            this.menuSep1.Name = "menuSep1";
-            this.menuSep1.Size = new System.Drawing.Size(230, 6);
             // 
             // FormMain
             // 
