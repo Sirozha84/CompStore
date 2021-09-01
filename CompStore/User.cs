@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace CompStore
 {
@@ -30,6 +31,11 @@ namespace CompStore
             str.SubItems.Add(roomText);
             str.SubItems.Add(comment);
             str.Tag = this;
+            if (dis)
+            {
+                str.ForeColor = Color.Gray;
+                str.BackColor = Color.LightGray;
+            }
             return str;
         }
 
