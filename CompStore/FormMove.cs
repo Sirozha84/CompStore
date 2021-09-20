@@ -38,6 +38,11 @@ namespace CompStore
 
             dateMove.DataBindings.Add("Value", move, "date");
 
+            comboMOL.DataSource = users.ToArray();
+            comboMOL.DisplayMember = "nameText";
+            comboMOL.ValueMember = "ID";
+            comboMOL.SelectedValue = move.mol;
+
             textCom.DataBindings.Add("Text", move, "comment");
 
             if (move.eqText != null)
@@ -67,6 +72,7 @@ namespace CompStore
             move.equipment = pack ? 0 : (int)comboEquipment.SelectedValue;
             move.user = (int)comboUser.SelectedValue;
             move.room = (int)comboRoom.SelectedValue;
+            move.mol = (int)comboMOL.SelectedValue;
             DialogResult = DialogResult.OK;
         }
 
@@ -96,6 +102,7 @@ namespace CompStore
                 users = DB.UsersLoad();
                 comboUser.DataSource = users;
                 comboRoom.DataSource = DB.RoomsLoad();
+                comboMOL.DataSource = users;
                 int max = 0;
                 foreach (User f in users)
                     if (max < f.ID) max = f.ID;
@@ -116,6 +123,24 @@ namespace CompStore
                 foreach (Room f in roomds)
                     if (max < f.ID) max = f.ID;
                 comboRoom.SelectedValue = max;
+            }
+        }
+
+        private void MOLAdd(object sender, EventArgs e)
+        {
+            User user = new User();
+            FormUser form = new FormUser(user);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.UserAdd(user);
+                users = DB.UsersLoad();
+                comboUser.DataSource = users;
+                comboRoom.DataSource = DB.RoomsLoad();
+                comboMOL.DataSource = users.ToArray();
+                int max = 0;
+                foreach (User f in users)
+                    if (max < f.ID) max = f.ID;
+                comboMOL.SelectedValue = max;
             }
         }
     }

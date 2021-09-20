@@ -25,6 +25,7 @@ namespace CompStore
         public string roomText;
         public string isDtText;
         public string provText;
+        public string molText;
         public ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);
@@ -34,6 +35,7 @@ namespace CompStore
             str.SubItems.Add(roomText);
             str.SubItems.Add(isDtText);
             str.SubItems.Add(buy ? buyDate.ToString("dd.MM.yyyy") : "");
+            str.SubItems.Add(molText);
             str.SubItems.Add(comment);
             str.Tag = this;
             return str;

@@ -10,11 +10,13 @@ namespace CompStore
         public int user { get; set; }
         public int room { get; set; }
         public DateTime date { get; set; }
+        public int mol { get; set; }
         public string comment { get; set; }
 
         public string eqText;
         public string userText;
         public string roomText;
+        public string molText;
 
         public ListViewItem ToListView()
         {
@@ -22,6 +24,7 @@ namespace CompStore
             str.SubItems.Add(eqText);
             str.SubItems.Add(userText);
             str.SubItems.Add(roomText);
+            str.SubItems.Add(molText);
             str.SubItems.Add(comment);
             str.Tag = this;
             return str;
@@ -33,6 +36,7 @@ namespace CompStore
             return (eqText.ToLower().Contains(search) |
                      userText.ToLower().Contains(search) |
                      roomText.ToLower().Contains(search) |
+                     molText.ToLower().Contains(search) |
                      comment.ToLower().Contains(search));
         }
 
@@ -43,6 +47,7 @@ namespace CompStore
             move.user = user;
             move.room = room;
             move.date = date;
+            move.mol = mol;
             move.comment = comment;
             return move;
         }

@@ -285,6 +285,7 @@ namespace CompStore
             this.columnMoveEq = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveRoom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMoveMOL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMoveCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuMoves = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmMoveAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -309,6 +310,7 @@ namespace CompStore
             this.cmProviderAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnEqMOL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelEquipments.SuspendLayout();
@@ -561,6 +563,7 @@ namespace CompStore
             this.listEqMoves.TabIndex = 3;
             this.listEqMoves.UseCompatibleStateImageBehavior = false;
             this.listEqMoves.View = System.Windows.Forms.View.Details;
+            this.listEqMoves.DoubleClick += new System.EventHandler(this.MoveEditFromEquipment);
             // 
             // columnEMDate
             // 
@@ -717,6 +720,7 @@ namespace CompStore
             this.columnEqPlace,
             this.columnIssDate,
             this.columnEqBuyDate,
+            this.columnEqMOL,
             this.columnEqComment});
             this.listEquipments.ContextMenuStrip = this.contextMenuEquipment;
             this.listEquipments.FullRowSelect = true;
@@ -734,7 +738,7 @@ namespace CompStore
             // columnEqName
             // 
             this.columnEqName.Text = "Наименование";
-            this.columnEqName.Width = 180;
+            this.columnEqName.Width = 170;
             // 
             // columnEqSN
             // 
@@ -748,13 +752,13 @@ namespace CompStore
             // 
             // columnEqUser
             // 
-            this.columnEqUser.Text = "Ответственный";
-            this.columnEqUser.Width = 140;
+            this.columnEqUser.Text = "Сотрудник";
+            this.columnEqUser.Width = 120;
             // 
             // columnEqPlace
             // 
             this.columnEqPlace.Text = "Помещение";
-            this.columnEqPlace.Width = 120;
+            this.columnEqPlace.Width = 100;
             // 
             // columnIssDate
             // 
@@ -769,7 +773,7 @@ namespace CompStore
             // columnEqComment
             // 
             this.columnEqComment.Text = "Примечание";
-            this.columnEqComment.Width = 160;
+            this.columnEqComment.Width = 150;
             // 
             // contextMenuEquipment
             // 
@@ -2525,6 +2529,7 @@ namespace CompStore
             this.columnMoveEq,
             this.columnMoveUser,
             this.columnMoveRoom,
+            this.columnMoveMOL,
             this.columnMoveCom});
             this.listMoves.ContextMenuStrip = this.contextMenuMoves;
             this.listMoves.FullRowSelect = true;
@@ -2548,22 +2553,27 @@ namespace CompStore
             // columnMoveEq
             // 
             this.columnMoveEq.Text = "Оборудование";
-            this.columnMoveEq.Width = 290;
+            this.columnMoveEq.Width = 190;
             // 
             // columnMoveUser
             // 
-            this.columnMoveUser.Text = "Ответственный";
+            this.columnMoveUser.Text = "Сотрудник";
             this.columnMoveUser.Width = 200;
             // 
             // columnMoveRoom
             // 
             this.columnMoveRoom.Text = "Помещение";
-            this.columnMoveRoom.Width = 200;
+            this.columnMoveRoom.Width = 140;
+            // 
+            // columnMoveMOL
+            // 
+            this.columnMoveMOL.Text = "М.О.Л.";
+            this.columnMoveMOL.Width = 200;
             // 
             // columnMoveCom
             // 
-            this.columnMoveCom.Text = "Примечание";
-            this.columnMoveCom.Width = 200;
+            this.columnMoveCom.Text = "Комментарий";
+            this.columnMoveCom.Width = 160;
             // 
             // contextMenuMoves
             // 
@@ -2780,20 +2790,24 @@ namespace CompStore
             this.cmProviderDelete.Text = "Удалить";
             this.cmProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
             // 
+            // columnEqMOL
+            // 
+            this.columnEqMOL.Text = "М.О.Л.";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.panelEquipments);
+            this.Controls.Add(this.panelMoves);
+            this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.panelProviders);
             this.Controls.Add(this.panelEqTypes);
             this.Controls.Add(this.panelBuildings);
             this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelBrands);
             this.Controls.Add(this.panelRooms);
-            this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelDeps);
             this.Controls.Add(this.panelModels);
             this.Controls.Add(this.panelPosts);
@@ -2950,7 +2964,7 @@ namespace CompStore
         private System.Windows.Forms.ColumnHeader columnMoveEq;
         private System.Windows.Forms.ColumnHeader columnMoveUser;
         private System.Windows.Forms.ColumnHeader columnMoveRoom;
-        private System.Windows.Forms.ColumnHeader columnMoveCom;
+        private System.Windows.Forms.ColumnHeader columnMoveMOL;
         private System.Windows.Forms.ColumnHeader columnIssDate;
         private System.Windows.Forms.Panel panelEqUp;
         private System.Windows.Forms.Panel panelEqDown;
@@ -3137,6 +3151,8 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem menuUserCard;
         private System.Windows.Forms.ToolStripSeparator menuSep1;
         private System.Windows.Forms.ToolStripMenuItem menuPrintPreview;
+        private System.Windows.Forms.ColumnHeader columnMoveCom;
+        private System.Windows.Forms.ColumnHeader columnEqMOL;
     }
 }
 

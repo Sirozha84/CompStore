@@ -44,6 +44,9 @@ namespace CompStore
             this.buttonEquipmentAdd = new System.Windows.Forms.Button();
             this.buttonUserAdd = new System.Windows.Forms.Button();
             this.buttonRoomAdd = new System.Windows.Forms.Button();
+            this.buttonMOLAdd = new System.Windows.Forms.Button();
+            this.comboMOL = new System.Windows.Forms.ComboBox();
+            this.labelMOL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelDate
@@ -84,10 +87,10 @@ namespace CompStore
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(316, 176);
+            this.buttonOK.Location = new System.Drawing.Point(316, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 5;
+            this.buttonOK.TabIndex = 6;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -96,10 +99,10 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(397, 176);
+            this.buttonCancel.Location = new System.Drawing.Point(397, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 6;
+            this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -108,16 +111,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 119);
+            this.textCom.Location = new System.Drawing.Point(140, 147);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(332, 51);
-            this.textCom.TabIndex = 4;
+            this.textCom.Size = new System.Drawing.Size(332, 73);
+            this.textCom.TabIndex = 5;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 122);
+            this.labelCom.Location = new System.Drawing.Point(63, 150);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 83;
@@ -136,11 +139,11 @@ namespace CompStore
             // labelUser
             // 
             this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(45, 42);
+            this.labelUser.Location = new System.Drawing.Point(71, 42);
             this.labelUser.Name = "labelUser";
-            this.labelUser.Size = new System.Drawing.Size(89, 13);
+            this.labelUser.Size = new System.Drawing.Size(63, 13);
             this.labelUser.TabIndex = 88;
-            this.labelUser.Text = "Ответственный:";
+            this.labelUser.Text = "Сотрудник:";
             // 
             // comboRoom
             // 
@@ -168,7 +171,7 @@ namespace CompStore
             this.buttonEquipmentAdd.Location = new System.Drawing.Point(450, 11);
             this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
             this.buttonEquipmentAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonEquipmentAdd.TabIndex = 91;
+            this.buttonEquipmentAdd.TabIndex = 8;
             this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
             this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
             // 
@@ -179,7 +182,7 @@ namespace CompStore
             this.buttonUserAdd.Location = new System.Drawing.Point(450, 38);
             this.buttonUserAdd.Name = "buttonUserAdd";
             this.buttonUserAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonUserAdd.TabIndex = 92;
+            this.buttonUserAdd.TabIndex = 9;
             this.buttonUserAdd.UseVisualStyleBackColor = true;
             this.buttonUserAdd.Click += new System.EventHandler(this.UserAdd);
             // 
@@ -190,9 +193,38 @@ namespace CompStore
             this.buttonRoomAdd.Location = new System.Drawing.Point(450, 65);
             this.buttonRoomAdd.Name = "buttonRoomAdd";
             this.buttonRoomAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonRoomAdd.TabIndex = 93;
+            this.buttonRoomAdd.TabIndex = 10;
             this.buttonRoomAdd.UseVisualStyleBackColor = true;
             this.buttonRoomAdd.Click += new System.EventHandler(this.RoomAdd);
+            // 
+            // buttonMOLAdd
+            // 
+            this.buttonMOLAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMOLAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonMOLAdd.Location = new System.Drawing.Point(450, 118);
+            this.buttonMOLAdd.Name = "buttonMOLAdd";
+            this.buttonMOLAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonMOLAdd.TabIndex = 11;
+            this.buttonMOLAdd.UseVisualStyleBackColor = true;
+            this.buttonMOLAdd.Click += new System.EventHandler(this.MOLAdd);
+            // 
+            // comboMOL
+            // 
+            this.comboMOL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMOL.FormattingEnabled = true;
+            this.comboMOL.Location = new System.Drawing.Point(140, 119);
+            this.comboMOL.Name = "comboMOL";
+            this.comboMOL.Size = new System.Drawing.Size(305, 21);
+            this.comboMOL.TabIndex = 4;
+            // 
+            // labelMOL
+            // 
+            this.labelMOL.AutoSize = true;
+            this.labelMOL.Location = new System.Drawing.Point(51, 122);
+            this.labelMOL.Name = "labelMOL";
+            this.labelMOL.Size = new System.Drawing.Size(83, 13);
+            this.labelMOL.TabIndex = 95;
+            this.labelMOL.Text = "Мат. отв. лицо:";
             // 
             // FormMove
             // 
@@ -200,7 +232,10 @@ namespace CompStore
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(484, 211);
+            this.ClientSize = new System.Drawing.Size(484, 261);
+            this.Controls.Add(this.buttonMOLAdd);
+            this.Controls.Add(this.comboMOL);
+            this.Controls.Add(this.labelMOL);
             this.Controls.Add(this.buttonRoomAdd);
             this.Controls.Add(this.buttonUserAdd);
             this.Controls.Add(this.buttonEquipmentAdd);
@@ -245,5 +280,8 @@ namespace CompStore
         private System.Windows.Forms.Button buttonEquipmentAdd;
         private System.Windows.Forms.Button buttonUserAdd;
         private System.Windows.Forms.Button buttonRoomAdd;
+        private System.Windows.Forms.Button buttonMOLAdd;
+        private System.Windows.Forms.ComboBox comboMOL;
+        private System.Windows.Forms.Label labelMOL;
     }
 }

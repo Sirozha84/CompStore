@@ -3,10 +3,12 @@ SELECT moves.ID,
        moves.user,
        moves.room,
        moves.date,
+       moves.mol,
        moves.comment,
        eqtypes.name || " " || brands.name || " " || models.name AS equipmentText,
        users.f || " " || users.i || " " || users.o AS userText,
-       buildings.name || ", " || rooms.name
+       buildings.name || ", " || rooms.name,
+       mols.f || " " || mols.i || " " || mols.o AS molText
   FROM moves
        LEFT JOIN
        equipments ON moves.equipment = equipments.ID
@@ -22,4 +24,6 @@ SELECT moves.ID,
        rooms ON moves.room = rooms.ID
        LEFT JOIN
        buildings ON rooms.building = buildings.ID
+       LEFT JOIN
+       users mols ON moves.mol = mols.ID 
  ORDER BY moves.date;

@@ -871,6 +871,18 @@ namespace CompStore
                 EquipmentsRefresh();
             }
         }
+
+        private void MoveEditFromEquipment(object sender, EventArgs e)
+        {
+            if (listEqMoves.SelectedIndices.Count == 0) return;
+            Move move = (Move)listEqMoves.SelectedItems[0].Tag;
+            FormMove form = new FormMove(move, false);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.MoveUpdate(move);
+                EquipmentsRefresh();
+            }
+        }
         #endregion
 
         #region Перемещение
