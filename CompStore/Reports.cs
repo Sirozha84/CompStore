@@ -211,6 +211,7 @@ namespace CompStore
                     itemNumber++;
                     e.HasMorePages = true;
                 }
+                pageNumber = 0;
             }
         }
 
