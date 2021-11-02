@@ -862,8 +862,11 @@ namespace CompStore
         private void EquipmentsMove(object sender, EventArgs e)
         {
             if (listEquipments.SelectedIndices.Count == 0) return;
+            bool pack = listEquipments.SelectedIndices.Count > 1;
             Move move = new Move();
-            FormMove form = new FormMove(move, true);
+            if (!pack) move.equipment = ((Equipment)listEquipments.SelectedItems[0].Tag).ID;
+            
+            FormMove form = new FormMove(move, pack);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 foreach (ListViewItem item in listEquipments.SelectedItems)

@@ -835,6 +835,7 @@ namespace CompStore
                     "m.date, " +
                     "providers.name, " +
                     "users.ID, " +
+                    "mols.ID, " +
                     "mols.f || \" \" || SUBSTR(mols.i, 1, 1) || \".\" || SUBSTR(mols.o, 1, 1) || \".\" AS molText " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
@@ -873,7 +874,8 @@ namespace CompStore
                             DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
                         equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
                         equipment.user = !reader.IsDBNull(19) ? reader.GetInt32(19) : 0;
-                        equipment.molText = !reader.IsDBNull(20) ? reader.GetString(20) : "";
+                        equipment.mol = !reader.IsDBNull(20) ? reader.GetInt32(20) : 0;
+                        equipment.molText = !reader.IsDBNull(21) ? reader.GetString(21) : "";
                         equipments.Add(equipment);
                     }
                 }

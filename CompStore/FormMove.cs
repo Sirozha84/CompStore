@@ -6,9 +6,10 @@ namespace CompStore
 {
     public partial class FormMove : Form
     {
-        bool pack;
+        bool pack;  //true - означает что перемещается комплект и надо сделать недоступным для выбора поле "Оборудование"
         Move move;
         List<User> users;
+        List<Equipment> equipments;
 
         public FormMove(Move move, bool pack)
         {
@@ -18,12 +19,12 @@ namespace CompStore
 
             if (move.date < dateMove.MinDate) move.date = DateTime.Now;
 
-            comboEquipment.DataSource = DB.EquipmentsLoad();
+            equipments = DB.EquipmentsLoad();
+            comboEquipment.DataSource = equipments;
             comboEquipment.DisplayMember = "nameINText";
             comboEquipment.ValueMember = "ID";
             comboEquipment.SelectedValue = move.equipment;
             comboEquipment.Enabled = !pack;
-            
 
             users = DB.UsersLoad();
             comboUser.DataSource = users;
@@ -48,7 +49,19 @@ namespace CompStore
             if (move.eqText != null)
                 Text = "Редактирование перемещения \"" + move.eqText + "\"";
             else
-                Text = pack ? "Перемещение объектов" : "Добавление нового перемещения";
+                Text = pack ? "Перемещение нескольких объектов" : "Добавление нового перемещения";
+
+            EquipmentSelect(null, null);
+        }
+
+        private void EquipmentSelect(object sender, EventArgs e)
+        {
+            try
+            {
+                comboMOL.SelectedValue = equipments.Find(o => o.ID == (int)comboEquipment.SelectedValue).mol;
+                EnterCheck(null, null);
+            }
+            catch { }
         }
 
         private void UserSelect(object sender, EventArgs e)
@@ -71,8 +84,8 @@ namespace CompStore
         {
             move.equipment = pack ? 0 : (int)comboEquipment.SelectedValue;
             move.user = (int)comboUser.SelectedValue;
-            move.room = (int)comboRoom.SelectedValue;
-            move.mol = (int)comboMOL.SelectedValue;
+            move.room = comboRoom.SelectedValue != null ? (int)comboRoom.SelectedValue : 0;
+            move.mol = comboMOL.SelectedValue != null ? (int)comboMOL.SelectedValue : 0;
             DialogResult = DialogResult.OK;
         }
 

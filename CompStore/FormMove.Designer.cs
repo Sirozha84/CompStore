@@ -73,7 +73,7 @@ namespace CompStore
             this.comboEquipment.Name = "comboEquipment";
             this.comboEquipment.Size = new System.Drawing.Size(305, 21);
             this.comboEquipment.TabIndex = 0;
-            this.comboEquipment.SelectedIndexChanged += new System.EventHandler(this.EnterCheck);
+            this.comboEquipment.SelectedIndexChanged += new System.EventHandler(this.EquipmentSelect);
             // 
             // labelEquipment
             // 
