@@ -30,31 +30,34 @@ namespace CompStore
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Поставщики");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Здания");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Помещения");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Подразделения");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Должности");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Сотрудники");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Предприятие", new System.Windows.Forms.TreeNode[] {
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23});
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Перемещения");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Оборудование", new System.Windows.Forms.TreeNode[] {
+            treeNode25});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Типы оборудования");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Производители");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Модели");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Поставщики");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30});
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Тест1");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Тест2");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Тест3");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -99,6 +102,7 @@ namespace CompStore
             this.columnEqPlace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnIssDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqBuyDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnEqMOL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnEqComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuEquipment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmEqAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -310,7 +314,36 @@ namespace CompStore
             this.cmProviderAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmProviderDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnEqMOL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panelList = new System.Windows.Forms.Panel();
+            this.panelDown = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listViewAdd1 = new System.Windows.Forms.ListView();
+            this.splitterH = new System.Windows.Forms.Splitter();
+            this.panelUp = new System.Windows.Forms.Panel();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabelName = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.listViewMain = new System.Windows.Forms.ListView();
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewAdd2 = new System.Windows.Forms.ListView();
+            this.listViewAdd3 = new System.Windows.Forms.ListView();
+            this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelEquipments.SuspendLayout();
@@ -357,6 +390,12 @@ namespace CompStore
             this.panelProviders.SuspendLayout();
             this.toolStripProviders.SuspendLayout();
             this.contextMenuProviders.SuspendLayout();
+            this.panelList.SuspendLayout();
+            this.panelDown.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.panelUp.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
@@ -366,38 +405,47 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.Name = "nodeFilials";
-            treeNode1.Text = "Филиалы";
-            treeNode2.Name = "nodeBuildings";
-            treeNode2.Text = "Здания";
-            treeNode3.Name = "nodeRooms";
-            treeNode3.Text = "Помещения";
-            treeNode4.Name = "nodeDeps";
-            treeNode4.Text = "Подразделения";
-            treeNode5.Name = "nodePosts";
-            treeNode5.Text = "Должности";
-            treeNode6.Name = "nodeUsers";
-            treeNode6.Text = "Сотрудники";
-            treeNode7.Name = "nodeCompany";
-            treeNode7.Text = "Предприятие";
-            treeNode8.Name = "nodeMoves";
-            treeNode8.Text = "Перемещения";
-            treeNode9.Name = "nodeEquipment";
-            treeNode9.Text = "Оборудование";
-            treeNode10.Name = "nodeEqType";
-            treeNode10.Text = "Типы оборудования";
-            treeNode11.Name = "nodeBrands";
-            treeNode11.Text = "Производители";
-            treeNode12.Name = "nodeModels";
-            treeNode12.Text = "Модели";
-            treeNode13.Name = "nodeProviders";
-            treeNode13.Text = "Поставщики";
-            treeNode14.Name = "nodeCommon";
-            treeNode14.Text = "Общие разделы";
+            treeNode18.Name = "nodeFilials";
+            treeNode18.Text = "Филиалы";
+            treeNode19.Name = "nodeBuildings";
+            treeNode19.Text = "Здания";
+            treeNode20.Name = "nodeRooms";
+            treeNode20.Text = "Помещения";
+            treeNode21.Name = "nodeDeps";
+            treeNode21.Text = "Подразделения";
+            treeNode22.Name = "nodePosts";
+            treeNode22.Text = "Должности";
+            treeNode23.Name = "nodeUsers";
+            treeNode23.Text = "Сотрудники";
+            treeNode24.Name = "nodeCompany";
+            treeNode24.Text = "Предприятие";
+            treeNode25.Name = "nodeMoves";
+            treeNode25.Text = "Перемещения";
+            treeNode26.Name = "nodeEquipment";
+            treeNode26.Text = "Оборудование";
+            treeNode27.Name = "nodeEqType";
+            treeNode27.Text = "Типы оборудования";
+            treeNode28.Name = "nodeBrands";
+            treeNode28.Text = "Производители";
+            treeNode29.Name = "nodeModels";
+            treeNode29.Text = "Модели";
+            treeNode30.Name = "nodeProviders";
+            treeNode30.Text = "Поставщики";
+            treeNode31.Name = "nodeCommon";
+            treeNode31.Text = "Общие разделы";
+            treeNode32.Name = "nodeTest1";
+            treeNode32.Text = "Тест1";
+            treeNode33.Name = "nodeTest2";
+            treeNode33.Text = "Тест2";
+            treeNode34.Name = "nodeTest3";
+            treeNode34.Text = "Тест3";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode9,
-            treeNode14});
+            treeNode24,
+            treeNode26,
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34});
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TabChange);
@@ -769,6 +817,10 @@ namespace CompStore
             // 
             this.columnEqBuyDate.Text = "Куплено";
             this.columnEqBuyDate.Width = 70;
+            // 
+            // columnEqMOL
+            // 
+            this.columnEqMOL.Text = "М.О.Л.";
             // 
             // columnEqComment
             // 
@@ -2790,15 +2842,285 @@ namespace CompStore
             this.cmProviderDelete.Text = "Удалить";
             this.cmProviderDelete.Click += new System.EventHandler(this.ProviderDelete);
             // 
-            // columnEqMOL
+            // panelList
             // 
-            this.columnEqMOL.Text = "М.О.Л.";
+            this.panelList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelList.Controls.Add(this.panelDown);
+            this.panelList.Controls.Add(this.splitterH);
+            this.panelList.Controls.Add(this.panelUp);
+            this.panelList.Location = new System.Drawing.Point(163, 27);
+            this.panelList.Name = "panelList";
+            this.panelList.Size = new System.Drawing.Size(1021, 709);
+            this.panelList.TabIndex = 19;
+            this.panelList.Visible = false;
+            // 
+            // panelDown
+            // 
+            this.panelDown.Controls.Add(this.tabControl1);
+            this.panelDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDown.Location = new System.Drawing.Point(0, 408);
+            this.panelDown.Name = "panelDown";
+            this.panelDown.Size = new System.Drawing.Size(1021, 301);
+            this.panelDown.TabIndex = 21;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1021, 301);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.listViewAdd3);
+            this.tabPage1.Controls.Add(this.listViewAdd2);
+            this.tabPage1.Controls.Add(this.listViewAdd1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1013, 275);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Перемещения";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listViewAdd1
+            // 
+            this.listViewAdd1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAdd1.FullRowSelect = true;
+            this.listViewAdd1.HideSelection = false;
+            this.listViewAdd1.Location = new System.Drawing.Point(3, 3);
+            this.listViewAdd1.MultiSelect = false;
+            this.listViewAdd1.Name = "listViewAdd1";
+            this.listViewAdd1.Size = new System.Drawing.Size(1007, 269);
+            this.listViewAdd1.TabIndex = 3;
+            this.listViewAdd1.UseCompatibleStateImageBehavior = false;
+            this.listViewAdd1.View = System.Windows.Forms.View.Details;
+            // 
+            // splitterH
+            // 
+            this.splitterH.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitterH.Location = new System.Drawing.Point(0, 400);
+            this.splitterH.Name = "splitterH";
+            this.splitterH.Size = new System.Drawing.Size(1021, 8);
+            this.splitterH.TabIndex = 20;
+            this.splitterH.TabStop = false;
+            // 
+            // panelUp
+            // 
+            this.panelUp.Controls.Add(this.toolStrip);
+            this.panelUp.Controls.Add(this.listViewMain);
+            this.panelUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelUp.Location = new System.Drawing.Point(0, 0);
+            this.panelUp.Name = "panelUp";
+            this.panelUp.Size = new System.Drawing.Size(1021, 400);
+            this.panelUp.TabIndex = 17;
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelName,
+            this.toolStripButtonAdd,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripButton3,
+            this.toolStripTextBox1,
+            this.toolStripLabel2,
+            this.toolStripButton4,
+            this.toolStripButton5,
+            this.toolStripButton6});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(1021, 25);
+            this.toolStrip.TabIndex = 22;
+            // 
+            // toolStripLabelName
+            // 
+            this.toolStripLabelName.AutoSize = false;
+            this.toolStripLabelName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripLabelName.Name = "toolStripLabelName";
+            this.toolStripLabelName.Size = new System.Drawing.Size(170, 22);
+            this.toolStripLabelName.Text = "Тест";
+            this.toolStripLabelName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = global::CompStore.Properties.Resources.edit;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(81, 22);
+            this.toolStripButton1.Text = "Изменить";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Image = global::CompStore.Properties.Resources.delete;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(71, 22);
+            this.toolStripButton2.Text = "Удалить";
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::CompStore.Properties.Resources.cancel;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(160, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripLabel2.Image = global::CompStore.Properties.Resources.search;
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(16, 22);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.Image = global::CompStore.Properties.Resources.move;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(99, 22);
+            this.toolStripButton4.Text = "Переместить";
+            // 
+            // listViewMain
+            // 
+            this.listViewMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader16,
+            this.columnHeader17,
+            this.columnHeader18,
+            this.columnHeader19,
+            this.columnHeader20,
+            this.columnHeader21,
+            this.columnHeader22});
+            this.listViewMain.ContextMenuStrip = this.contextMenuEquipment;
+            this.listViewMain.FullRowSelect = true;
+            this.listViewMain.HideSelection = false;
+            this.listViewMain.Location = new System.Drawing.Point(0, 25);
+            this.listViewMain.Name = "listViewMain";
+            this.listViewMain.Size = new System.Drawing.Size(1021, 375);
+            this.listViewMain.TabIndex = 10;
+            this.listViewMain.UseCompatibleStateImageBehavior = false;
+            this.listViewMain.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Наименование";
+            this.columnHeader14.Width = 170;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "Серийный номер";
+            this.columnHeader15.Width = 125;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "Инвентарный номер";
+            this.columnHeader16.Width = 125;
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "Сотрудник";
+            this.columnHeader17.Width = 120;
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "Помещение";
+            this.columnHeader18.Width = 100;
+            // 
+            // columnHeader19
+            // 
+            this.columnHeader19.Text = "Выдано";
+            this.columnHeader19.Width = 70;
+            // 
+            // columnHeader20
+            // 
+            this.columnHeader20.Text = "Куплено";
+            this.columnHeader20.Width = 70;
+            // 
+            // columnHeader21
+            // 
+            this.columnHeader21.Text = "М.О.Л.";
+            // 
+            // columnHeader22
+            // 
+            this.columnHeader22.Text = "Примечание";
+            this.columnHeader22.Width = 150;
+            // 
+            // listViewAdd2
+            // 
+            this.listViewAdd2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAdd2.FullRowSelect = true;
+            this.listViewAdd2.HideSelection = false;
+            this.listViewAdd2.Location = new System.Drawing.Point(3, 3);
+            this.listViewAdd2.MultiSelect = false;
+            this.listViewAdd2.Name = "listViewAdd2";
+            this.listViewAdd2.Size = new System.Drawing.Size(1007, 269);
+            this.listViewAdd2.TabIndex = 4;
+            this.listViewAdd2.UseCompatibleStateImageBehavior = false;
+            this.listViewAdd2.View = System.Windows.Forms.View.Details;
+            // 
+            // listViewAdd3
+            // 
+            this.listViewAdd3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAdd3.FullRowSelect = true;
+            this.listViewAdd3.HideSelection = false;
+            this.listViewAdd3.Location = new System.Drawing.Point(3, 3);
+            this.listViewAdd3.MultiSelect = false;
+            this.listViewAdd3.Name = "listViewAdd3";
+            this.listViewAdd3.Size = new System.Drawing.Size(1007, 269);
+            this.listViewAdd3.TabIndex = 5;
+            this.listViewAdd3.UseCompatibleStateImageBehavior = false;
+            this.listViewAdd3.View = System.Windows.Forms.View.Details;
+            // 
+            // toolStripButtonAdd
+            // 
+            this.toolStripButtonAdd.Image = global::CompStore.Properties.Resources.add;
+            this.toolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAdd.Name = "toolStripButtonAdd";
+            this.toolStripButtonAdd.Size = new System.Drawing.Size(79, 22);
+            this.toolStripButtonAdd.Text = "Добавить";
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(68, 22);
+            this.toolStripButton5.Text = "Ремонт";
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(78, 22);
+            this.toolStripButton6.Text = "Заправка";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.panelList);
             this.Controls.Add(this.panelEquipments);
             this.Controls.Add(this.panelMoves);
             this.Controls.Add(this.panelUsers);
@@ -2891,6 +3213,14 @@ namespace CompStore
             this.toolStripProviders.ResumeLayout(false);
             this.toolStripProviders.PerformLayout();
             this.contextMenuProviders.ResumeLayout(false);
+            this.panelList.ResumeLayout(false);
+            this.panelDown.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.panelUp.ResumeLayout(false);
+            this.panelUp.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3153,6 +3483,36 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem menuPrintPreview;
         private System.Windows.Forms.ColumnHeader columnMoveCom;
         private System.Windows.Forms.ColumnHeader columnEqMOL;
+        private System.Windows.Forms.Panel panelList;
+        private System.Windows.Forms.Panel panelDown;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListView listViewAdd1;
+        private System.Windows.Forms.Splitter splitterH;
+        private System.Windows.Forms.Panel panelUp;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelName;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ListView listViewMain;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.ColumnHeader columnHeader19;
+        private System.Windows.Forms.ColumnHeader columnHeader20;
+        private System.Windows.Forms.ColumnHeader columnHeader21;
+        private System.Windows.Forms.ColumnHeader columnHeader22;
+        private System.Windows.Forms.ListView listViewAdd3;
+        private System.Windows.Forms.ListView listViewAdd2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAdd;
+        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
     }
 }
 

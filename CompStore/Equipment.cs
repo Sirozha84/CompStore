@@ -3,9 +3,8 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public class Equipment
+    public class Equipment : Record
     {
-        public int ID { get; set; }
         public int model { get; set; }
         public string sn { get; set; }
         public string iN { get; set; }
@@ -27,15 +26,18 @@ namespace CompStore
         public string isDtText;
         public string provText;
         public string molText;
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);
             str.SubItems.Add(sn);
             str.SubItems.Add(iN);
             str.SubItems.Add(userText);
             str.SubItems.Add(roomText);
+            str.SubItems.Add(mac);
+            str.SubItems.Add(ip);
             str.SubItems.Add(isDtText);
             str.SubItems.Add(buy ? buyDate.ToString("dd.MM.yyyy") : "");
+            str.SubItems.Add("---"); 
             str.SubItems.Add(molText);
             str.SubItems.Add(comment);
             str.Tag = this;

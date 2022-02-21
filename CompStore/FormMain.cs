@@ -6,6 +6,10 @@ namespace CompStore
 {
     public partial class FormMain : Form
     {
+        string[] tabs;          //Здесь храним имена вкладок
+        List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
+
+        //Далее должно быть изничтожено:
         List<Filial> filials;
         List<Building> buildings;
         List<Room> rooms;
@@ -36,14 +40,108 @@ namespace CompStore
             panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
-            panelEquipments.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
+            //panelEquipments.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
             panelMoves.Visible = treeMenu.SelectedNode.Name == "nodeMoves";
             panelProviders.Visible = treeMenu.SelectedNode.Name == "nodeProviders";
+            //panelList.Visible = treeMenu.SelectedNode.Name == "nodeTest1" |
+            //                    treeMenu.SelectedNode.Name == "nodeTest2" |
+            //                    treeMenu.SelectedNode.Name == "nodeTest3"; ;
+            
+            panelList.Visible = true;
+            if (treeMenu.SelectedNode.Name == "nodeEquipment")
+            {
+                PreparePage("Оборудование","Перемещения", "Ремонты", "Заправки");
+                PrepareListView(listViewMain, "equipments");
+                PrepareListView(listViewAdd1, "moves", 0);
+                panelList.Visible = true;
+            }
+            
+            if (treeMenu.SelectedNode.Name == "nodeTest1")
+            {
+                panelDown.Visible = false;
+                splitterH.Visible = false;
+                panelUp.Dock = DockStyle.Fill;
+            }
+            if (treeMenu.SelectedNode.Name == "nodeTest2")
+            {
+                panelUp.Dock = DockStyle.Top;
+                panelDown.Visible = true;
+                splitterH.Visible = true;
+                tabControl1.TabPages.Clear();
+                tabControl1.TabPages.Add("Оборудование");
+                treeMenu.Focus();
+
+                //CreateListWiew(listViewAdd1, "equipments", 0);
+            }
+            if (treeMenu.SelectedNode.Name == "nodeTest3")
+            {
+                panelUp.Dock = DockStyle.Top;
+                panelDown.Visible = true;
+                splitterH.Visible = true;
+                tabControl1.TabPages.Clear();
+                tabControl1.TabPages.Add("Перемещения");
+                tabControl1.TabPages.Add("Ремонты");
+                tabControl1.TabPages.Add("Заправки");
+                treeMenu.Focus();
+
+                //listViewMain.Clear();
+                
+            }
+            ListViewRefresh();
+        }
+        void PreparePage(string name, params string[] tabs)
+        {
+            toolStripLabelName.Text = name;
+            if (tabs.Length==0)
+            {
+                panelDown.Visible = false;
+                splitterH.Visible = false;
+                panelUp.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                panelUp.Dock = DockStyle.Top;
+                panelDown.Visible = true;
+                splitterH.Visible = true;
+                tabControl1.TabPages.Clear();
+                foreach(string t in tabs)
+                tabControl1.TabPages.Add(t);
+                treeMenu.Focus();
+            }
         }
 
+        void PrepareListView(ListView list, string type, int tab = -1)
+        {
+            list.Clear();
+            if (type == "equipments")
+            {
+                list.Columns.Add("Оборудование", 200);
+                list.Columns.Add("Серийный номер", 160);
+                list.Columns.Add("Инвентарный номер", 160);
+                list.Columns.Add("Сотрудник", 100);
+                list.Columns.Add("Помещение", 100);
+                list.Columns.Add("Mac", 50);
+                list.Columns.Add("IP", 50);
+                list.Columns.Add("Выдано", 100);
+                list.Columns.Add("Куплено", 100);
+                list.Columns.Add("Списано", 100);
+                list.Columns.Add("М.О.Л.", 100);
+                list.Columns.Add("Примечание", 100);
+            }
+            if (type == "moves")
+            {
+                list.Columns.Add("Дата", 50);
+                list.Columns.Add("Оборудование", 160);
+                list.Columns.Add("Ответственный", 160);
+                list.Columns.Add("Помещение", 100);
+                list.Columns.Add("М.О.Л.", 100);
+                list.Columns.Add("Примечание", 100);
+            }
+            if (tab >= 0) list.Parent = tabControl1.TabPages[tab];
+        }
         #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
         
@@ -72,6 +170,146 @@ namespace CompStore
         {
             MessageBox.Show("CompStore\nВерсия: 0.1 (01.07.2021)\nАвтор: Сергей Гордеев", "О программе");
         }
+        #endregion
+
+        #region Обоорудование
+        /*private void EquipmentsView(object sender, EventArgs e)
+        {
+            if (panelEquipments.Visible) EquipmentsRefresh();
+        }*/
+
+        void ListViewRefresh()
+        {
+            records = DB.Load("equipments");
+            //moves = DB.MovesLoad();
+            ListViewDraw(null, null);
+        }
+
+        private void ListViewDraw(object sender, EventArgs e)
+        {
+            listViewMain.BeginUpdate();
+            listViewMain.Items.Clear();
+            foreach (Record rec in records)
+                //if (rec.Contains(toolEqFilter.Text))
+                listViewMain.Items.Add(rec.ToListView());
+            listViewMain.EndUpdate();
+            //StatusCount(equipments.Count, listEquipments);
+            ItemSelChange(null, null);
+        }
+
+        private void ItemSelChange(object sender, EventArgs e)
+        {
+            int sel = listEquipments.SelectedIndices.Count;
+            toolEqCopy.Enabled = sel == 1;
+            toolEqEdit.Enabled = sel == 1;
+            toolEqDelete.Enabled = sel == 1;
+            toolEqMove.Enabled = sel > 0;
+            cmEqCopy.Enabled = sel == 1;
+            cmEqEdit.Enabled = sel == 1;
+            cmEqDelete.Enabled = sel == 1;
+            cmEqMove.Enabled = sel > 0;
+            //Перерисовка нижней панели
+            listEqMoves.BeginUpdate();
+            listEqMoves.Items.Clear();
+            if (sel == 1)
+                foreach (Move m in moves)
+                    foreach (ListViewItem item in listEquipments.SelectedItems)
+                        if (((Equipment)item.Tag).ID == m.equipment)
+                            listEqMoves.Items.Add(m.ToListView());
+            listEqMoves.EndUpdate();
+            tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
+        }
+
+        private void FilterReset(object sender, EventArgs e) { toolEqFilter.Text = ""; }
+
+        private void ItemAdd(object sender, EventArgs e)
+        {
+            Equipment equipment = new Equipment();
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                //DB.EquipmentAdd(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
+        private void ItemCopy(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count != 1) return;
+            Equipment equipmentOr = (Equipment)listEquipments.SelectedItems[0].Tag;
+            Equipment equipment = new Equipment();
+            equipment.model = equipmentOr.model;
+            equipment.iNv = equipmentOr.iNv;
+            equipment.buy = equipmentOr.buy;
+            equipment.buyDate = equipmentOr.buyDate;
+            equipment.price = equipmentOr.price;
+            equipment.provider = equipmentOr.provider;
+            equipment.comment = equipmentOr.comment;
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentAdd(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
+        private void ItemEdit(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            FormEquipment form = new FormEquipment(equipment);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.EquipmentUpdate(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
+        private void ItemDelete(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            if (DeleteRecord("оборудование", equipment.nameText))
+            {
+                DB.EquipmentDelete(equipment);
+                EquipmentsRefresh();
+            }
+        }
+
+        private void Keyboard(object sender, KeyEventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
+            if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
+        }
+
+        /*private void ItemMove(object sender, EventArgs e)
+        {
+            if (listEquipments.SelectedIndices.Count == 0) return;
+            bool pack = listEquipments.SelectedIndices.Count > 1;
+            Move move = new Move();
+            if (!pack) move.equipment = ((Equipment)listEquipments.SelectedItems[0].Tag).ID;
+
+            FormMove form = new FormMove(move, pack);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                foreach (ListViewItem item in listEquipments.SelectedItems)
+                    DB.MoveAdd(move.newMove(((Equipment)item.Tag).ID));
+                EquipmentsRefresh();
+            }
+        }*/
+
+        /*private void MoveEditFromEquipment(object sender, EventArgs e)
+        {
+            if (listEqMoves.SelectedIndices.Count == 0) return;
+            Move move = (Move)listEqMoves.SelectedItems[0].Tag;
+            FormMove form = new FormMove(move, false);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.MoveUpdate(move);
+                EquipmentsRefresh();
+            }
+        }*/
         #endregion
 
         #region Филиалы
