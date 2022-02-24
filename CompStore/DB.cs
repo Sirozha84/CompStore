@@ -199,9 +199,53 @@ namespace CompStore
                     list.Add(equipment);
                 }
             }
+            if (type == "moves")
+            {
+                com.CommandText = "SELECT " +
+                    "moves.ID, " +
+                    "moves.equipment, " +
+                    "moves.user, " +
+                    "moves.room, " +
+                    "moves.date, " +
+                    "moves.mol, " +
+                    "moves.comment, " +
+                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
+                    "users.f || \" \" || users.i || \" \" || users.o, " +
+                    "buildings.name || \", \" || rooms.name, " +
+                    "mols.f || \" \" || mols.i || \" \" || mols.o " +
+                    "FROM moves " +
+                    "LEFT JOIN equipments ON moves.equipment = equipments.ID " +
+                    "LEFT JOIN models ON equipments.model = models.ID " +
+                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
+                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "LEFT JOIN users ON moves.user = users.ID " +
+                    "LEFT JOIN rooms ON moves.room = rooms.ID " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN users mols ON moves.mol = mols.ID " +
+                    "ORDER BY moves.date";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Move move = new Move();
+                    move.ID = reader.GetInt32(0);
+                    move.equipment = reader.GetInt32(1);
+                    move.user = reader.GetInt32(2);
+                    move.room = reader.GetInt32(3);
+                    move.date = DateTime.ParseExact(reader.GetString(4), "yyyyMMdd", CultureInfo.InvariantCulture);
+                    move.mol = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0;
+                    move.comment = reader.GetString(6);
+                    move.eqText = move.equipment != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
+                    move.userText = move.user != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
+                    move.roomText = move.room != 0 ? (!reader.IsDBNull(9) ? reader.GetString(9) : ND) : "";
+                    move.molText = move.mol != 0 ? (!reader.IsDBNull(10) ? reader.GetString(10) : ND) : "";
+                    list.Add(move);
+                }
+            }
+
             connect.Close();
             return list;
         }
+
         public static void Add(string type, Record item)
         {
             using (SQLiteConnection connect = new SQLiteConnection(dataSource))
@@ -224,6 +268,17 @@ namespace CompStore
                         equipment.price + "', '" +
                         equipment.provider + "', '" +
                         equipment.comment + "')";
+                }
+                if (type == "moves")
+                {
+                    Move move = (Move)item;
+                    com.CommandText = "INSERT INTO [moves] (equipment, user, room, date, mol, comment) VALUES ('" +
+                        move.equipment + "', '" +
+                        move.user + "', '" +
+                        move.room + "', '" +
+                        move.date.ToString("yyyyMMdd") + "', '" +
+                        move.mol + "', '" +
+                        move.comment + "')";
                 }
                 com.ExecuteNonQuery();
                 connect.Close();

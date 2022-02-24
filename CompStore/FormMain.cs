@@ -7,6 +7,7 @@ namespace CompStore
     public partial class FormMain : Form
     {
         List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
+        List<Record> moves;
         string curType;         //Текущий тип элемента
         string[] tabs;          //Здесь храним имена вкладок
 
@@ -21,7 +22,6 @@ namespace CompStore
         List<EqType> eqTypes;
         List<Model> models;
         List<Equipment> equipments;
-        List<Move> moves;
         List<Provider> providers;
 
         public FormMain()
@@ -63,6 +63,7 @@ namespace CompStore
         void PreparePage(string type, string name, params string[] tabs)
         {
             curType = type;
+            this.tabs = tabs;
             toolStripLabelName.Text = name;
             if (tabs.Length==0)
             {
@@ -84,9 +85,13 @@ namespace CompStore
             if (tabs.Length > 0) listViewAdd1.Parent = tabControl.TabPages[i++];
             if (tabs.Length > 1) listViewAdd2.Parent = tabControl.TabPages[i++];
             if (tabs.Length > 2) listViewAdd3.Parent = tabControl.TabPages[i++];
+            tCopy.Visible = cmCopy.Visible = type == "equipments";
+            tMove.Visible = type == "equipments";
+            tFix.Visible = type == "equipments";
+            tRefill.Visible = type == "equipments";
         }
 
-        void PrepareListView(ListView list, string type)//, int tab = -1)
+        void PrepareListView(ListView list, string type)
         {
             list.Clear();
             if (type == "equipments")
@@ -98,17 +103,17 @@ namespace CompStore
                 list.Columns.Add("Помещение", 100);
                 list.Columns.Add("Mac", 50);
                 list.Columns.Add("IP", 50);
-                list.Columns.Add("Выдано", 100);
-                list.Columns.Add("Куплено", 100);
-                list.Columns.Add("Списано", 100);
+                list.Columns.Add("Выдано", 66);
+                list.Columns.Add("Куплено", 66);
+                list.Columns.Add("Списано", 66);
                 list.Columns.Add("М.О.Л.", 100);
                 list.Columns.Add("Примечание", 100);
             }
             if (type == "moves")
             {
-                list.Columns.Add("Дата", 50);
-                list.Columns.Add("Оборудование", 160);
-                list.Columns.Add("Ответственный", 160);
+                list.Columns.Add("Дата", 66);
+                list.Columns.Add("Оборудование", 200);
+                list.Columns.Add("Ответственный", 200);
                 list.Columns.Add("Помещение", 100);
                 list.Columns.Add("М.О.Л.", 100);
                 list.Columns.Add("Примечание", 100);
@@ -148,8 +153,8 @@ namespace CompStore
 
         void ListViewRefresh()
         {
-            records = DB.Load("equipments");
-            //moves = DB.MovesLoad();
+            records = DB.Load(curType);
+            if (curType == "equipments") moves = DB.Load("moves");
             ListViewDraw(null, null);
         }
 
@@ -158,7 +163,7 @@ namespace CompStore
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
             foreach (Record rec in records)
-                if (rec.Contains(toolStripFilter.Text))
+                if (rec.Contains(tFilter.Text))
                 listViewMain.Items.Add(rec.ToListView());
             listViewMain.EndUpdate();
             StatusCount(records.Count, listViewMain);
@@ -167,28 +172,30 @@ namespace CompStore
 
         private void ItemSelChange(object sender, EventArgs e)
         {
-            int sel = listEquipments.SelectedIndices.Count;
-            toolEqCopy.Enabled = sel == 1;
-            toolEqEdit.Enabled = sel == 1;
-            toolEqDelete.Enabled = sel == 1;
-            toolEqMove.Enabled = sel > 0;
-            cmEqCopy.Enabled = sel == 1;
-            cmEqEdit.Enabled = sel == 1;
-            cmEqDelete.Enabled = sel == 1;
-            cmEqMove.Enabled = sel > 0;
+            int sel = listViewMain.SelectedIndices.Count;
+            tCopy.Enabled = cmCopy.Enabled = sel == 1;
+            tEdit.Enabled = cmEdit.Enabled = sel == 1;
+            tDelete.Enabled = cmDelete.Enabled = sel == 1;
+            tMove.Enabled=cmMove.Enabled = sel == 1;
+            tFix.Enabled = sel == 1;    //Как будет в контекстном меню - добавить и его
+            tRefill.Enabled = sel == 1;
+
             //Перерисовка нижней панели
-            listViewAdd1.BeginUpdate();
-            listViewAdd1.Items.Clear();
-            if (sel == 1)
-                foreach (Move m in moves)
-                    foreach (ListViewItem item in listViewMain.SelectedItems)
-                        if (((Equipment)item.Tag).ID == m.equipment)
-                            listViewAdd1.Items.Add(m.ToListView());
-            listViewAdd1.EndUpdate();
-            tabEqMoves.Text = "Перемещения" + ListCount(listViewAdd1);
+            if (curType == "equipments")
+            {
+                listViewAdd1.BeginUpdate();
+                listViewAdd1.Items.Clear();
+                if (sel == 1)
+                    foreach (Move m in moves)
+                        foreach (ListViewItem item in listViewMain.SelectedItems)
+                            if (((Equipment)item.Tag).ID == m.equipment)
+                                listViewAdd1.Items.Add(m.ToListView());
+                listViewAdd1.EndUpdate();
+                tabControl.TabPages[0].Text = tabs[0] + ListCount(listViewAdd1);
+            }
         }
 
-        private void FilterReset(object sender, EventArgs e) { toolEqFilter.Text = ""; }
+        private void FilterReset(object sender, EventArgs e) { tFilter.Text = ""; }
 
         private void ItemAdd(object sender, EventArgs e)
         {
@@ -969,7 +976,7 @@ namespace CompStore
         void EquipmentsRefresh()
         {
             equipments = DB.EquipmentsLoad();
-            moves = DB.MovesLoad();
+            //moves = DB.MovesLoad();
             EquipmentsDraw(null, null);
         }
 
@@ -1108,7 +1115,7 @@ namespace CompStore
 
         void MovesRefresh()
         {
-            moves = DB.MovesLoad();
+            //moves = DB.MovesLoad();
             MovesDraw(null, null);
         }
 

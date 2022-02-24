@@ -3,22 +3,20 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public class Move
+    public class Move:Record
     {
-        public int ID { get; set; }
         public int equipment { get; set; }
         public int user { get; set; }
         public int room { get; set; }
         public DateTime date { get; set; }
         public int mol { get; set; }
-        public string comment { get; set; }
 
         public string eqText;
         public string userText;
         public string roomText;
         public string molText;
 
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(date.ToString("dd.MM.yyyy"));
             str.SubItems.Add(eqText);
@@ -30,7 +28,7 @@ namespace CompStore
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return (eqText.ToLower().Contains(search) |
