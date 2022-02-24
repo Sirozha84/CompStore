@@ -17,13 +17,11 @@ namespace CompStore
         public string price { get; set; }
         public int provider { get; set; }
         public string nameINText { get; set; }
-        public int mol { get; set; }
         public int user;
         public string userText;
         public string roomText;
         public string isDtText;
         public string provText;
-        public string molText;
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);

@@ -9,6 +9,7 @@ namespace CompStore
         List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
         List<Record> moves;
         string curType;         //Текущий тип элемента
+        string curName;         //Текущий тип элемента (на человеческом)
         string[] tabs;          //Здесь храним имена вкладок
 
         //Далее должно быть изничтожено:
@@ -63,6 +64,7 @@ namespace CompStore
         void PreparePage(string type, string name, params string[] tabs)
         {
             curType = type;
+            curName = name;
             this.tabs = tabs;
             toolStripLabelName.Text = name;
             if (tabs.Length==0)
@@ -176,7 +178,7 @@ namespace CompStore
             tCopy.Enabled = cmCopy.Enabled = sel == 1;
             tEdit.Enabled = cmEdit.Enabled = sel == 1;
             tDelete.Enabled = cmDelete.Enabled = sel == 1;
-            tMove.Enabled=cmMove.Enabled = sel == 1;
+            tMove.Enabled = cmMove.Enabled = sel > 0;
             tFix.Enabled = sel == 1;    //Как будет в контекстном меню - добавить и его
             tRefill.Enabled = sel == 1;
 
@@ -205,6 +207,11 @@ namespace CompStore
             {
                 item = new Equipment();
                 form = new FormEquipment((Equipment)item);
+            }
+            if (curType == "moves")
+            {
+                item = new Move();
+                form = new FormMove((Move)item, false);
             }
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -236,12 +243,22 @@ namespace CompStore
 
         private void ItemEdit(object sender, EventArgs e)
         {
+            Record item = null;
+            Form form = null;
             if (listViewMain.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listViewMain.SelectedItems[0].Tag;
-            FormEquipment form = new FormEquipment(equipment);
+            if (curType == "equipments")
+            {
+                item = (Record)listViewMain.SelectedItems[0].Tag;
+                form = new FormEquipment((Equipment)item);
+            }
+            if (curType == "moves")
+            {
+                item = (Record)listViewMain.SelectedItems[0].Tag;
+                form = new FormMove((Move)item, false);
+            }
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.EquipmentUpdate(equipment);
+                DB.Update(curType, item);
                 ListViewRefresh();
             }
         }
@@ -249,10 +266,10 @@ namespace CompStore
         private void ItemDelete(object sender, EventArgs e)
         {
             if (listViewMain.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listViewMain.SelectedItems[0].Tag;
-            if (DeleteRecord("оборудование", equipment.nameText))
+            Record rec = (Record)listViewMain.SelectedItems[0].Tag;
+            if (DeleteRecord(curName, rec.nameText))
             {
-                DB.EquipmentDelete(equipment);
+                DB.Delete(curType, rec);
                 ListViewRefresh();
             }
         }
@@ -264,33 +281,40 @@ namespace CompStore
             if (e.KeyCode == Keys.Delete) ItemDelete(null, null);
         }
 
-        /*private void ItemMove(object sender, EventArgs e)
+        private void Move(object sender, EventArgs e)
         {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            bool pack = listEquipments.SelectedIndices.Count > 1;
+            if (listViewMain.SelectedIndices.Count == 0) return;
+            bool pack = listViewMain.SelectedIndices.Count > 1;
             Move move = new Move();
-            if (!pack) move.equipment = ((Equipment)listEquipments.SelectedItems[0].Tag).ID;
+            if (!pack) move.equipment = ((Equipment)listViewMain.SelectedItems[0].Tag).ID;
 
             FormMove form = new FormMove(move, pack);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                foreach (ListViewItem item in listEquipments.SelectedItems)
-                    DB.MoveAdd(move.newMove(((Equipment)item.Tag).ID));
-                EquipmentsRefresh();
+                foreach (ListViewItem item in listViewMain.SelectedItems)
+                    DB.Add("move", move.newMove(((Equipment)item.Tag).ID));
+                ListViewRefresh();
             }
-        }*/
+        }
 
-        /*private void MoveEditFromEquipment(object sender, EventArgs e)
+        private void MoveEditFromAdd(object sender, EventArgs e)
         {
-            if (listEqMoves.SelectedIndices.Count == 0) return;
-            Move move = (Move)listEqMoves.SelectedItems[0].Tag;
-            FormMove form = new FormMove(move, false);
-            if (form.ShowDialog() == DialogResult.OK)
+            string t = "";
+            Record subitem = null;
+            Form form = null;
+            if (curType == "equipments" && tabControl.SelectedIndex == 0)
             {
-                DB.MoveUpdate(move);
-                EquipmentsRefresh();
+                if (listViewAdd1.SelectedIndices.Count == 0) return;
+                subitem = (Move)listViewAdd1.SelectedItems[0].Tag;
+                form = new FormMove((Move)subitem, false);
+                t = "move";
             }
-        }*/
+            if (t != "" && form.ShowDialog() == DialogResult.OK)
+            {
+                DB.Update("move", subitem);
+                ListViewRefresh();
+            }
+        }
         #endregion
 
         #region Филиалы
@@ -671,7 +695,7 @@ namespace CompStore
         void UsersRefresh()
         {
             users = DB.UsersLoad();
-            equipments = DB.EquipmentsLoad();
+            //equipments = DB.EquipmentsLoad();
             UsersDraw(null, null);
         }
 
@@ -923,7 +947,7 @@ namespace CompStore
             toolModelEdit.Enabled = sel;
             toolModelDelete.Enabled = sel;
             cmModelEdit.Enabled = sel;
-            cmMoveDelete.Enabled = sel;
+            //cmMoveDelete.Enabled = sel;
         }
         private void ModelFilterReset(object sender, EventArgs e) { toolModelFilter.Text = ""; }
 
@@ -967,148 +991,8 @@ namespace CompStore
         }
         #endregion
 
-        #region Обоорудование
-        private void EquipmentsView(object sender, EventArgs e)
-        {
-            if (panelEquipments.Visible) EquipmentsRefresh();
-        }
-
-        void EquipmentsRefresh()
-        {
-            equipments = DB.EquipmentsLoad();
-            //moves = DB.MovesLoad();
-            EquipmentsDraw(null, null);
-        }
-
-        private void EquipmentsDraw(object sender, EventArgs e)
-        {
-            listEquipments.BeginUpdate();
-            listEquipments.Items.Clear();
-            foreach (Equipment equipment in equipments)
-                if (equipment.Contains(toolEqFilter.Text))
-                    listEquipments.Items.Add(equipment.ToListView());
-            listEquipments.EndUpdate();
-            StatusCount(equipments.Count, listEquipments);
-            EquipmentsSelChange(null, null);
-        }
-        
-        private void EquipmentsSelChange(object sender, EventArgs e)
-        {
-            int sel = listEquipments.SelectedIndices.Count;
-            toolEqCopy.Enabled = sel == 1;
-            toolEqEdit.Enabled = sel == 1;
-            toolEqDelete.Enabled = sel == 1;
-            toolEqMove.Enabled = sel > 0;
-            cmEqCopy.Enabled = sel == 1;
-            cmEqEdit.Enabled = sel == 1;
-            cmEqDelete.Enabled = sel == 1;
-            cmEqMove.Enabled = sel > 0;
-            //Перерисовка нижней панели
-            listEqMoves.BeginUpdate();
-            listEqMoves.Items.Clear();
-            if (sel == 1)
-                foreach (Move m in moves)
-                    foreach (ListViewItem item in listEquipments.SelectedItems)
-                        if (((Equipment)item.Tag).ID == m.equipment)
-                            listEqMoves.Items.Add(m.ToListView());
-            listEqMoves.EndUpdate();
-            tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
-        }
-
-        private void EquipmentFilterReset(object sender, EventArgs e) { toolEqFilter.Text = ""; }
-
-        private void EquipmentAdd(object sender, EventArgs e)
-        {
-            Equipment equipment = new Equipment();
-            FormEquipment form = new FormEquipment(equipment);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.EquipmentAdd(equipment);
-                EquipmentsRefresh();
-            }
-        }
-
-        private void EquipmentCopy(object sender, EventArgs e)
-        {
-            if (listEquipments.SelectedIndices.Count != 1) return;
-            Equipment equipmentOr = (Equipment)listEquipments.SelectedItems[0].Tag;
-            Equipment equipment = new Equipment();
-            equipment.model = equipmentOr.model;
-            equipment.iNv = equipmentOr.iNv;
-            equipment.buy = equipmentOr.buy;
-            equipment.buyDate = equipmentOr.buyDate;
-            equipment.price = equipmentOr.price;
-            equipment.provider = equipmentOr.provider;
-            equipment.comment = equipmentOr.comment;
-            FormEquipment form = new FormEquipment(equipment);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.EquipmentAdd(equipment);
-                EquipmentsRefresh();
-            }
-        }
-
-        private void EquipmentEdit(object sender, EventArgs e)
-        {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
-            FormEquipment form = new FormEquipment(equipment);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.EquipmentUpdate(equipment);
-                EquipmentsRefresh();
-            }
-        }
-
-        private void EquipmentDelete(object sender, EventArgs e)
-        {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
-            if (DeleteRecord("оборудование", equipment.nameText))
-            {
-                DB.EquipmentDelete(equipment);
-                EquipmentsRefresh();
-            }
-        }
-
-        private void EquipmentsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
-            if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
-        }
-
-        private void EquipmentsMove(object sender, EventArgs e)
-        {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            bool pack = listEquipments.SelectedIndices.Count > 1;
-            Move move = new Move();
-            if (!pack) move.equipment = ((Equipment)listEquipments.SelectedItems[0].Tag).ID;
-            
-            FormMove form = new FormMove(move, pack);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                foreach (ListViewItem item in listEquipments.SelectedItems)
-                    DB.MoveAdd(move.newMove(((Equipment)item.Tag).ID));
-                EquipmentsRefresh();
-            }
-        }
-
-        private void MoveEditFromEquipment(object sender, EventArgs e)
-        {
-            if (listEqMoves.SelectedIndices.Count == 0) return;
-            Move move = (Move)listEqMoves.SelectedItems[0].Tag;
-            FormMove form = new FormMove(move, false);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.MoveUpdate(move);
-                EquipmentsRefresh();
-            }
-        }
-        #endregion
-
         #region Перемещение
-        private void MovesView(object sender, EventArgs e)
+        /*private void MovesView(object sender, EventArgs e)
         {
             if (panelMoves.Visible) MovesRefresh();
         }
@@ -1177,7 +1061,7 @@ namespace CompStore
         {
             if (listMoves.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) MoveEdit(null, null);
-        }
+        }*/
         #endregion
 
         #region Поставщики

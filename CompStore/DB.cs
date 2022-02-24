@@ -272,7 +272,7 @@ namespace CompStore
                 if (type == "moves")
                 {
                     Move move = (Move)item;
-                    com.CommandText = "INSERT INTO [moves] (equipment, user, room, date, mol, comment) VALUES ('" +
+                    com.CommandText = "INSERT INTO moves (equipment, user, room, date, mol, comment) VALUES ('" +
                         move.equipment + "', '" +
                         move.user + "', '" +
                         move.room + "', '" +
@@ -280,6 +280,57 @@ namespace CompStore
                         move.mol + "', '" +
                         move.comment + "')";
                 }
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void Update(string type, Record item)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                if (type == "equipments")
+                {
+                    Equipment r = (Equipment)item;
+                    com.CommandText = "UPDATE equipments SET " +
+                        "model = '" + r.model + "', " +
+                        "sn = '" + r.sn + "', " +
+                        "[in] = '" + r.iN + "', " +
+                        "inv = '" + (r.iNv ? "1" : "0") + "', " +
+                        "mac = '" + r.mac + "', " +
+                        "ip = '" + r.ip + "', " +
+                        "prop = '" + r.prop + "', " +
+                        "buy = '" + (r.buy ? "1" : "0") + "', " +
+                        "buydate = '" + r.buyDate.ToString("yyyyMMdd") + "', " +
+                        "price = '" + r.price + "', " +
+                        "provider = '" + r.provider + "', " +
+                        "comment = '" + r.comment + "' WHERE ID = " + r.ID;
+                }
+                if (type == "moves")
+                {
+                    Move r= (Move)item;
+                    com.CommandText = "UPDATE moves SET " +
+                        "equipment = '" + r.equipment + "', " +
+                        "user = '" + r.user + "', " +
+                        "room = '" + r.room + "', " +
+                        "date = '" + r.date.ToString("yyyyMMdd") + "', " +
+                        "mol = '" + r.mol + "', " +
+                        "comment = '" + r.comment + "' WHERE ID = " + r.ID;
+                }
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
+
+        public static void Delete(string type, Record item)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                com.CommandText = "DELETE FROM " + type + " WHERE ID = " + item.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -966,6 +1017,7 @@ namespace CompStore
         #endregion
 
         #region Оборудование [equipment]
+        /*
         public static List<Equipment> EquipmentsLoad()
         {
             List<Equipment> equipments = new List<Equipment>();
@@ -1100,9 +1152,11 @@ namespace CompStore
                 connect.Close();
             }
         }
+        */
         #endregion
 
         #region Перемещения [moves]
+        /*
         public static List<Move> MovesLoad()
         {
             List<Move> moves = new List<Move>();
@@ -1204,6 +1258,7 @@ namespace CompStore
                 connect.Close();
             }
         }
+        */
         #endregion
 
         #region Поставщики [providers]

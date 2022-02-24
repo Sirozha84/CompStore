@@ -9,7 +9,7 @@ namespace CompStore
         bool pack;  //true - означает что перемещается комплект и надо сделать недоступным для выбора поле "Оборудование"
         Move move;
         List<User> users;
-        List<Equipment> equipments;
+        List<Record> equipments;
 
         public FormMove(Move move, bool pack)
         {
@@ -19,7 +19,7 @@ namespace CompStore
 
             if (move.date < dateMove.MinDate) move.date = DateTime.Now;
 
-            equipments = DB.EquipmentsLoad();
+            equipments = DB.Load("equipments");
             comboEquipment.DataSource = equipments;
             comboEquipment.DisplayMember = "nameINText";
             comboEquipment.ValueMember = "ID";
@@ -95,8 +95,8 @@ namespace CompStore
             FormEquipment form = new FormEquipment(equipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.EquipmentAdd(equipment);
-                List<Equipment> equipmentds = DB.EquipmentsLoad();
+                DB.Add("equipment", equipment);
+                List<Record> equipmentds = DB.Load("equipment");
                 comboEquipment.DataSource = equipmentds;
                 int max = 0;
                 foreach (Equipment f in equipmentds)
