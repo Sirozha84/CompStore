@@ -16,8 +16,6 @@ namespace CompStore
         public DateTime buyDate { get; set; }
         public string price { get; set; }
         public int provider { get; set; }
-        public string comment { get; set; }
-        public string nameText { get; set; }
         public string nameINText { get; set; }
         public int mol { get; set; }
         public int user;
@@ -44,7 +42,7 @@ namespace CompStore
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return (nameText.ToLower().Contains(search) |
@@ -53,6 +51,8 @@ namespace CompStore
                 userText.ToLower().Contains(search) |
                 roomText.ToLower().Contains(search) |
                 isDtText.ToLower().Contains(search) |
+                mac.ToLower().Contains(search) |
+                ip.ToLower().Contains(search) |
                 comment.ToLower().Contains(search));
         }
 

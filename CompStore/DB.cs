@@ -202,6 +202,33 @@ namespace CompStore
             connect.Close();
             return list;
         }
+        public static void Add(string type, Record item)
+        {
+            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            {
+                connect.Open();
+                SQLiteCommand com = new SQLiteCommand(connect);
+                if (type == "equipments")
+                {
+                    Equipment equipment = (Equipment)item;
+                    com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, provider, comment) VALUES ('" +
+                        equipment.model + "', '" +
+                        equipment.sn + "', '" +
+                        equipment.iN + "', '" +
+                        (equipment.iNv ? "1" : "0") + "', '" +
+                        equipment.mac + "', '" +
+                        equipment.ip + "', '" +
+                        equipment.prop + "', '" +
+                        (equipment.buy ? "1" : "0") + "', '" +
+                        equipment.buyDate.ToString("yyyyMMdd") + "', '" +
+                        equipment.price + "', '" +
+                        equipment.provider + "', '" +
+                        equipment.comment + "')";
+                }
+                com.ExecuteNonQuery();
+                connect.Close();
+            }
+        }
 
         #region Филиалы [filials]
         public static List<Filial> FilialsLoad()

@@ -6,8 +6,9 @@ namespace CompStore
 {
     public partial class FormMain : Form
     {
-        string[] tabs;          //Здесь храним имена вкладок
         List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
+        string curType;         //Текущий тип элемента
+        string[] tabs;          //Здесь храним имена вкладок
 
         //Далее должно быть изничтожено:
         List<Filial> filials;
@@ -40,60 +41,28 @@ namespace CompStore
             panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
-            //panelEquipments.Visible = treeMenu.SelectedNode.Name == "nodeEquipment";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
-            panelMoves.Visible = treeMenu.SelectedNode.Name == "nodeMoves";
             panelProviders.Visible = treeMenu.SelectedNode.Name == "nodeProviders";
-            //panelList.Visible = treeMenu.SelectedNode.Name == "nodeTest1" |
-            //                    treeMenu.SelectedNode.Name == "nodeTest2" |
-            //                    treeMenu.SelectedNode.Name == "nodeTest3"; ;
             
-            panelList.Visible = true;
+            panelList.Visible = true;   //Потом она останется одна и эта строка будет не нужна (ну и по умолчанию визибл ей надо будет сделать тру)
             if (treeMenu.SelectedNode.Name == "nodeEquipment")
             {
-                PreparePage("Оборудование","Перемещения", "Ремонты", "Заправки");
-                PrepareListView(listViewMain, "equipments");
-                PrepareListView(listViewAdd1, "moves", 0);
-                panelList.Visible = true;
+                PreparePage("equipments", "Оборудование","Перемещения", "Ремонты", "Заправки");
+                PrepareListView(listViewMain, curType);
+                PrepareListView(listViewAdd1, "moves");
             }
-            
-            if (treeMenu.SelectedNode.Name == "nodeTest1")
+            if (treeMenu.SelectedNode.Name == "nodeMoves")
             {
-                panelDown.Visible = false;
-                splitterH.Visible = false;
-                panelUp.Dock = DockStyle.Fill;
-            }
-            if (treeMenu.SelectedNode.Name == "nodeTest2")
-            {
-                panelUp.Dock = DockStyle.Top;
-                panelDown.Visible = true;
-                splitterH.Visible = true;
-                tabControl1.TabPages.Clear();
-                tabControl1.TabPages.Add("Оборудование");
-                treeMenu.Focus();
-
-                //CreateListWiew(listViewAdd1, "equipments", 0);
-            }
-            if (treeMenu.SelectedNode.Name == "nodeTest3")
-            {
-                panelUp.Dock = DockStyle.Top;
-                panelDown.Visible = true;
-                splitterH.Visible = true;
-                tabControl1.TabPages.Clear();
-                tabControl1.TabPages.Add("Перемещения");
-                tabControl1.TabPages.Add("Ремонты");
-                tabControl1.TabPages.Add("Заправки");
-                treeMenu.Focus();
-
-                //listViewMain.Clear();
-                
+                PreparePage("moves", "Перемещения");
+                PrepareListView(listViewMain, curType);
             }
             ListViewRefresh();
         }
-        void PreparePage(string name, params string[] tabs)
+        void PreparePage(string type, string name, params string[] tabs)
         {
+            curType = type;
             toolStripLabelName.Text = name;
             if (tabs.Length==0)
             {
@@ -106,14 +75,18 @@ namespace CompStore
                 panelUp.Dock = DockStyle.Top;
                 panelDown.Visible = true;
                 splitterH.Visible = true;
-                tabControl1.TabPages.Clear();
+                tabControl.TabPages.Clear();
                 foreach(string t in tabs)
-                tabControl1.TabPages.Add(t);
+                tabControl.TabPages.Add(t);
                 treeMenu.Focus();
             }
+            int i = 0;
+            if (tabs.Length > 0) listViewAdd1.Parent = tabControl.TabPages[i++];
+            if (tabs.Length > 1) listViewAdd2.Parent = tabControl.TabPages[i++];
+            if (tabs.Length > 2) listViewAdd3.Parent = tabControl.TabPages[i++];
         }
 
-        void PrepareListView(ListView list, string type, int tab = -1)
+        void PrepareListView(ListView list, string type)//, int tab = -1)
         {
             list.Clear();
             if (type == "equipments")
@@ -140,7 +113,6 @@ namespace CompStore
                 list.Columns.Add("М.О.Л.", 100);
                 list.Columns.Add("Примечание", 100);
             }
-            if (tab >= 0) list.Parent = tabControl1.TabPages[tab];
         }
         #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
@@ -172,11 +144,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Обоорудование
-        /*private void EquipmentsView(object sender, EventArgs e)
-        {
-            if (panelEquipments.Visible) EquipmentsRefresh();
-        }*/
+        #region *** Универсальная форма ***
 
         void ListViewRefresh()
         {
@@ -190,10 +158,10 @@ namespace CompStore
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
             foreach (Record rec in records)
-                //if (rec.Contains(toolEqFilter.Text))
+                if (rec.Contains(toolStripFilter.Text))
                 listViewMain.Items.Add(rec.ToListView());
             listViewMain.EndUpdate();
-            //StatusCount(equipments.Count, listEquipments);
+            StatusCount(records.Count, listViewMain);
             ItemSelChange(null, null);
         }
 
@@ -209,34 +177,40 @@ namespace CompStore
             cmEqDelete.Enabled = sel == 1;
             cmEqMove.Enabled = sel > 0;
             //Перерисовка нижней панели
-            listEqMoves.BeginUpdate();
-            listEqMoves.Items.Clear();
+            listViewAdd1.BeginUpdate();
+            listViewAdd1.Items.Clear();
             if (sel == 1)
                 foreach (Move m in moves)
-                    foreach (ListViewItem item in listEquipments.SelectedItems)
+                    foreach (ListViewItem item in listViewMain.SelectedItems)
                         if (((Equipment)item.Tag).ID == m.equipment)
-                            listEqMoves.Items.Add(m.ToListView());
-            listEqMoves.EndUpdate();
-            tabEqMoves.Text = "Перемещения" + ListCount(listEqMoves);
+                            listViewAdd1.Items.Add(m.ToListView());
+            listViewAdd1.EndUpdate();
+            tabEqMoves.Text = "Перемещения" + ListCount(listViewAdd1);
         }
 
         private void FilterReset(object sender, EventArgs e) { toolEqFilter.Text = ""; }
 
         private void ItemAdd(object sender, EventArgs e)
         {
-            Equipment equipment = new Equipment();
-            FormEquipment form = new FormEquipment(equipment);
+            Record item = null;
+            Form form = null;
+            if (curType == "equipments")
+            {
+                item = new Equipment();
+                form = new FormEquipment((Equipment)item);
+            }
             if (form.ShowDialog() == DialogResult.OK)
             {
-                //DB.EquipmentAdd(equipment);
-                EquipmentsRefresh();
+                DB.Add(curType, item);
+                ListViewRefresh();
             }
         }
 
         private void ItemCopy(object sender, EventArgs e)
         {
-            if (listEquipments.SelectedIndices.Count != 1) return;
-            Equipment equipmentOr = (Equipment)listEquipments.SelectedItems[0].Tag;
+            Record item = null;
+            if (listViewMain.SelectedIndices.Count != 1) return;
+            Equipment equipmentOr = (Equipment)listViewMain.SelectedItems[0].Tag;
             Equipment equipment = new Equipment();
             equipment.model = equipmentOr.model;
             equipment.iNv = equipmentOr.iNv;
@@ -248,39 +222,39 @@ namespace CompStore
             FormEquipment form = new FormEquipment(equipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.EquipmentAdd(equipment);
-                EquipmentsRefresh();
+                DB.Add(curType, item);
+                ListViewRefresh();
             }
         }
 
         private void ItemEdit(object sender, EventArgs e)
         {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            if (listViewMain.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listViewMain.SelectedItems[0].Tag;
             FormEquipment form = new FormEquipment(equipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.EquipmentUpdate(equipment);
-                EquipmentsRefresh();
+                ListViewRefresh();
             }
         }
 
         private void ItemDelete(object sender, EventArgs e)
         {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            Equipment equipment = (Equipment)listEquipments.SelectedItems[0].Tag;
+            if (listViewMain.SelectedIndices.Count == 0) return;
+            Equipment equipment = (Equipment)listViewMain.SelectedItems[0].Tag;
             if (DeleteRecord("оборудование", equipment.nameText))
             {
                 DB.EquipmentDelete(equipment);
-                EquipmentsRefresh();
+                ListViewRefresh();
             }
         }
 
         private void Keyboard(object sender, KeyEventArgs e)
         {
-            if (listEquipments.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) EquipmentEdit(null, null);
-            if (e.KeyCode == Keys.Delete) EquipmentDelete(null, null);
+            if (listViewMain.SelectedIndices.Count == 0) return;
+            if (e.KeyCode == Keys.Enter) ItemEdit(null, null);
+            if (e.KeyCode == Keys.Delete) ItemDelete(null, null);
         }
 
         /*private void ItemMove(object sender, EventArgs e)
