@@ -27,7 +27,7 @@ namespace CompStore
             
             textO.DataBindings.Add("Text", user, "o");
 
-            comboPost.DataSource = DB.PostsLoad();
+            comboPost.DataSource = DB.Load("posts");
             comboPost.DisplayMember = "name";
             comboPost.ValueMember = "ID";
             comboPost.SelectedValue = user.post;
@@ -90,8 +90,8 @@ namespace CompStore
             FormPost form = new FormPost(post);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.PostAdd(post);
-                List<Post> postds = DB.PostsLoad();
+                DB.Add("posts", post);
+                List<Record> postds = DB.Load("posts");
                 comboPost.DataSource = postds;
                 int max = 0;
                 foreach (Post f in postds)

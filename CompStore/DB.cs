@@ -209,9 +209,67 @@ namespace CompStore
                     list.Add(dep);
                 }
             }
-
-
-
+            if (type == "posts")
+            {
+                com.CommandText = "SELECT * FROM posts ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Post post = new Post();
+                    post.ID = reader.GetInt32(0);
+                    post.name = reader.GetString(1);
+                    list.Add(post);
+                }
+            }
+            if (type == "users")
+            {
+                com.CommandText = "SELECT " +
+                    "users.ID, " +
+                    "users.f, " +
+                    "users.i, " +
+                    "users.o, " +
+                    "users.post, " +
+                    "users.dep, " +
+                    "users.room, " +
+                    "users.emp, " +
+                    "users.empdate, " +
+                    "users.dis, " +
+                    "users.disdate, " +
+                    "users.comment, " +
+                    "users.f || \" \" || users.i || \" \" || users.o, " +
+                    "posts.name, " +
+                    "deps.name, " +
+                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
+                    "FROM users " +
+                    "LEFT JOIN posts ON users.post = posts.ID " +
+                    "LEFT JOIN deps ON users.dep = deps.ID " +
+                    "LEFT JOIN rooms ON users.room = rooms.ID " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "WHERE users.type = 'u' ORDER BY users.f, users.i, users.o";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    User user = new User();
+                    user.ID = reader.GetInt32(0);
+                    user.f = reader.GetString(1);
+                    user.i = reader.GetString(2);
+                    user.o = reader.GetString(3);
+                    user.post = reader.GetInt32(4);
+                    user.dep = reader.GetInt32(5);
+                    user.room = reader.GetInt32(6);
+                    user.emp = reader.GetString(7) == "1";
+                    user.empDate = DateTime.ParseExact(reader.GetString(8), "yyyyMMdd", CultureInfo.InvariantCulture);
+                    user.dis = reader.GetString(9) == "1";
+                    user.disDate = DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture);
+                    user.comment = reader.GetString(11);
+                    user.nameText = reader.GetString(12);
+                    user.postText = user.post != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
+                    user.depText = user.dep != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
+                    user.roomText = user.room != 0 ? (!reader.IsDBNull(15) ? reader.GetString(15) : ND) : "";
+                    list.Add(user);
+                }
+            }
             if (type == "equipments")
             {
                 com.CommandText = "SELECT " +
@@ -362,8 +420,29 @@ namespace CompStore
                         dep.name + "', '" +
                         dep.comment + "')";
                 }
-
-
+                if (type == "posts")
+                {
+                    Post post = (Post)item;
+                    com.CommandText = "INSERT INTO posts (name) VALUES ('" +
+                        post.name + "')";
+                }
+                if (type == "users")
+                {
+                    User user = (User)item;
+                    com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
+                        "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
+                        user.f + "', '" +
+                        user.i + "', '" +
+                        user.o + "', '" +
+                        user.post + "', '" +
+                        user.dep + "', '" +
+                        user.room + "', '" +
+                        (user.emp ? "1" : "0") + "', '" +
+                        user.empDate.ToString("yyyyMMdd") + "', '" +
+                        (user.dis ? "1" : "0") + "', '" +
+                        user.disDate.ToString("yyyyMMdd") + "', '" +
+                        user.comment + "')";
+                }
                 if (type == "equipments")
                 {
                     Equipment equipment = (Equipment)item;
@@ -434,9 +513,28 @@ namespace CompStore
                         "name = '" + dep.name + "', " +
                         "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
                 }
-
-
-
+                if (type == "posts")
+                {
+                    Post post = (Post)item;
+                    com.CommandText = "UPDATE posts SET " + 
+                        "name = '" + post.name + "' WHERE ID = " + post.ID;
+                }
+                if (type == "users")
+                {
+                    User user = (User)item;
+                    com.CommandText = "UPDATE users SET " +
+                        "f = '" + user.f + "', " +
+                        "i = '" + user.i + "', " +
+                        "o = '" + user.o + "', " +
+                        "post = '" + user.post + "', " +
+                        "dep = '" + user.dep + "', " +
+                        "room = '" + user.room + "', " +
+                        "emp = '" + (user.emp ? "1" : "0") + "', " +
+                        "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +
+                        "dis = '" + (user.dis ? "1" : "0") + "', " +
+                        "disdate = '" + user.disDate.ToString("yyyyMMdd") + "', " +
+                        "comment = '" + user.comment + "' WHERE ID = " + user.ID;
+                }
                 if (type == "equipments")
                 {
                     Equipment equipment = (Equipment)item;
@@ -501,187 +599,6 @@ namespace CompStore
         //*****************************************************************************************************************************************************************
         //*****************************************************************************************************************************************************************
         //*****************************************************************************************************************************************************************
-
-       
-
-        #region Должности [posts]
-        public static List<Post> PostsLoad()
-        {
-            List<Post> posts = new List<Post>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM posts ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Post post = new Post();
-                        post.ID = reader.GetInt32(0);
-                        post.name = reader.GetString(1);
-                        posts.Add(post);
-                    }
-                }
-                connect.Close();
-            }
-            return posts;
-        }
-        public static void PostAdd(Post post)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO posts (name) VALUES ('" + post.name + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void PostUpdate(Post post)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE posts SET " + "name = '" + post.name + "' WHERE ID = " + post.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void PostDelete(Post post)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM posts WHERE ID = " + post.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Сотрудники [users]
-        public static List<User> UsersLoad()
-        {
-            List<User> users = new List<User>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT " +
-                    "users.ID, " +
-                    "users.f, " +
-                    "users.i, " +
-                    "users.o, " +
-                    "users.post, " +
-                    "users.dep, " +
-                    "users.room, " +
-                    "users.emp, " +
-                    "users.empdate, " +
-                    "users.dis, " +
-                    "users.disdate, " +
-                    "users.comment, " +
-                    "users.f || \" \" || users.i || \" \" || users.o, " +
-                    "posts.name, "+
-                    "deps.name, "+
-                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
-                    "FROM users " +
-                    "LEFT JOIN posts ON users.post = posts.ID " +
-                    "LEFT JOIN deps ON users.dep = deps.ID " +
-                    "LEFT JOIN rooms ON users.room = rooms.ID " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
-                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
-                    "WHERE users.type = 'u' ORDER BY users.f, users.i, users.o";
-;
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        User user = new User();
-                        user.ID = reader.GetInt32(0);
-                        user.f = reader.GetString(1);
-                        user.i = reader.GetString(2);
-                        user.o = reader.GetString(3);
-                        user.post = reader.GetInt32(4);
-                        user.dep = reader.GetInt32(5);
-                        user.room = reader.GetInt32(6);
-                        user.emp = reader.GetString(7) == "1";
-                        user.empDate = DateTime.ParseExact(reader.GetString(8), "yyyyMMdd", CultureInfo.InvariantCulture);
-                        user.dis = reader.GetString(9) == "1";
-                        user.disDate = DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture);
-                        user.comment = reader.GetString(11);
-                        user.nameText = reader.GetString(12);
-                        user.postText = user.post != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
-                        user.depText = user.dep != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
-                        user.roomText = user.room != 0 ? (!reader.IsDBNull(15) ? reader.GetString(15) : ND) : "";
-                        users.Add(user);
-                    }
-                }
-                connect.Close();
-            }
-            return users;
-        }
-        public static void UserAdd(User user)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
-                                  "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
-                                  user.f + "', '" +
-                                  user.i + "', '" +
-                                  user.o + "', '" +
-                                  user.post + "', '" +
-                                  user.dep + "', '" +
-                                  user.room + "', '" +
-                                  (user.emp ? "1" : "0") + "', '" +
-                                  user.empDate.ToString("yyyyMMdd") + "', '" +
-                                  (user.dis ? "1" : "0") + "', '" +
-                                  user.disDate.ToString("yyyyMMdd") + "', '" +
-                                  user.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void UserUpdate(User user)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE users SET " +
-                                  "f = '" + user.f + "', " +
-                                  "i = '" + user.i + "', " +
-                                  "o = '" + user.o + "', " +
-                                  "post = '" + user.post + "', " +
-                                  "dep = '" + user.dep + "', " +
-                                  "room = '" + user.room + "', " +
-                                  "emp = '" + (user.emp ? "1" : "0") + "', " +
-                                  "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +
-                                  "dis = '" + (user.dis ? "1" : "0") + "', " +
-                                  "disdate = '" + user.disDate.ToString("yyyyMMdd") + "', " +
-                                  "comment = '" + user.comment + "' WHERE ID = " + user.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void UserDelete(User user)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM users WHERE ID = " + user.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
 
         #region Производители [brands]
         public static List<Brand> BrandsLoad()
@@ -749,7 +666,7 @@ namespace CompStore
         }
         #endregion
 
-        #region Должности [eqtypes]
+        #region Типы обородования [eqtypes]
         public static List<EqType> EqTypesLoad()
         {
             List<EqType> eqTypes = new List<EqType>();

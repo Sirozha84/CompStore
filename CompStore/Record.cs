@@ -12,6 +12,7 @@ namespace CompStore
 
         //Поля, которые не читаются из List<Record>, когда находятся в дочерних классах
         public string nameINText { get; set; }
+        public int room { get; set; }
 
         public int mol { get; set; }
         public string molText;                   

@@ -4,26 +4,22 @@ using System.Drawing;
 
 namespace CompStore
 {
-    public class User
+    public class User : Record
     {
-        public int ID { get; set; }
         public string f { get; set; }
         public string i { get; set; }
         public string o { get; set; }
         public int post { get; set; }
         public int dep { get; set; }
-        public int room { get; set; }
         public bool emp { get; set; }
         public DateTime empDate { get; set; }
         public bool dis { get; set; }
         public DateTime disDate { get; set; }
-        public string comment { get; set; }
 
-        public string nameText { get; set; }
         public string postText;
         public string depText;
         public string roomText;
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(nameText);
             str.SubItems.Add(depText);
@@ -39,7 +35,7 @@ namespace CompStore
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return (nameText.ToLower().Contains(search) |

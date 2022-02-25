@@ -7,22 +7,16 @@ namespace CompStore
     public partial class FormMain : Form
     {
         List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
+        List<Record> equipments;
         List<Record> moves;
         string curType;         //Текущий тип элемента
         string curName;         //Текущий тип элемента (на человеческом)
         string[] tabs;          //Здесь храним имена вкладок
 
         //Далее должно быть изничтожено:
-        List<Filial> filials;
-        List<Building> buildings;
-        List<Room> rooms;
-        List<Dep> deps;
-        List<Post> posts;
-        List<User> users;
         List<Brand> brands;
         List<EqType> eqTypes;
         List<Model> models;
-        List<Equipment> equipments;
         List<Provider> providers;
 
         public FormMain()
@@ -36,8 +30,6 @@ namespace CompStore
 
         private void TabChange(object sender, TreeViewEventArgs e)
         {
-            panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
-            panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
             panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
             panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
@@ -52,15 +44,21 @@ namespace CompStore
                 PreparePage("rooms", "Помещения");
             if (treeMenu.SelectedNode.Name == "nodeDeps")
                 PreparePage("deps", "Подразделения");
-
-
+            if (treeMenu.SelectedNode.Name == "nodePosts")
+                PreparePage("posts", "Должности");
+            if (treeMenu.SelectedNode.Name == "nodeUsers")
+            {
+                PreparePage("users", "Сотрудники", "Оборудование");
+                PrepareListView(listViewAdd1, "equipments");
+            }
             if (treeMenu.SelectedNode.Name == "nodeEquipment")
             {
-                PreparePage("equipments", "Оборудование","Перемещения", "Ремонты", "Заправки");
+                PreparePage("equipments", "Оборудование", "Перемещения", "Ремонты", "Заправки");
                 PrepareListView(listViewAdd1, "moves");
             }
             if (treeMenu.SelectedNode.Name == "nodeMoves")
                 PreparePage("moves", "Перемещения");
+
 
             PrepareListView(listViewMain, curType);
             ListViewRefresh();
@@ -124,8 +122,18 @@ namespace CompStore
                 list.Columns.Add("Наименование", 200);
                 list.Columns.Add("Примечание", 200);
             }
-
-
+            if (type == "posts")
+            {
+                list.Columns.Add("Наименование", 200);
+            }
+            if (type == "users")
+            {
+                list.Columns.Add("Фамилия Имя Отчество", 200);
+                list.Columns.Add("Подразделение", 160);
+                list.Columns.Add("Должность", 160);
+                list.Columns.Add("Расположение", 280);
+                list.Columns.Add("Примечание", 140);
+            }
             if (type == "equipments")
             {
                 list.Columns.Add("Оборудование", 200);
@@ -161,11 +169,11 @@ namespace CompStore
 
         private void UserCard(object sender, EventArgs e)
         {
-            if (listUsers.SelectedItems.Count == 0) return;
+            /*if (listUsers.SelectedItems.Count == 0) return;
             List<User> users = new List<User>();
             foreach (ListViewItem u in listUsers.SelectedItems)
                 users.Add((User)u.Tag);
-            Reports.UserCard(Properties.Settings.Default.PrintPreview, users, equipments);
+            Reports.UserCard(Properties.Settings.Default.PrintPreview, users, equipments);*/
         }
 
         private void CheckPrintPreview(object sender, EventArgs e)
@@ -186,6 +194,7 @@ namespace CompStore
         void ListViewRefresh()
         {
             records = DB.Load(curType);
+            if (curType == "users") equipments = DB.Load("equipments");
             if (curType == "equipments") moves = DB.Load("moves");
             ListViewDraw(null, null);
         }
@@ -213,6 +222,18 @@ namespace CompStore
             tRefill.Enabled = sel == 1;
 
             //Перерисовка нижней панели
+            if (curType == "users")
+            {
+                listViewAdd1.BeginUpdate();
+                listViewAdd1.Items.Clear();
+                if (sel== 1)
+                    foreach (Equipment eq in equipments)
+                        foreach (ListViewItem item in listViewMain.SelectedItems)
+                            if (((User)item.Tag).ID == eq.user)
+                                listViewAdd1.Items.Add(eq.ToListView());
+                listViewAdd1.EndUpdate();
+                tabControl.TabPages[0].Text = tabs[0] + ListCount(listViewAdd1);
+            }
             if (curType == "equipments")
             {
                 listViewAdd1.BeginUpdate();
@@ -232,45 +253,24 @@ namespace CompStore
         private void ItemAdd(object sender, EventArgs e)
         {
             Record item = null;
-            Form form = null;
-            if (curType == "filials")
-            {
-                item = new Filial();
-                form = new FormFilial((Filial)item);
-            }
-            if (curType == "buildings")
-            {
-                item = new Building();
-                form = new FormBuilding((Building)item);
-            }
-            if (curType == "rooms")
-            {
-                item = new Room();
-                form = new FormRoom((Room)item);
-            }
-            if (curType == "deps")
-            {
-                item = new Dep();
-                form = new FormDep((Dep)item);
-            }
+            if (curType == "filials") item = new Filial();
+            if (curType == "buildings") item = new Building();
+            if (curType == "rooms") item = new Room();
+            if (curType == "deps") item = new Dep();
+            if (curType == "posts") item = new Post();
+            if (curType == "users") item = new User();
+            if (curType == "equipments") item = new Equipment();
+            if (curType == "moves") item = new Move();
 
 
-            if (curType == "equipments")
-            {
-                item = new Equipment();
-                form = new FormEquipment((Equipment)item);
-            }
-            if (curType == "moves")
-            {
-                item = new Move();
-                form = new FormMove((Move)item, false);
-            }
+            Form form = itemForm(item);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Add(curType, item);
                 ListViewRefresh();
             }
         }
+    
 
         private void ItemCopy(object sender, EventArgs e)   //Пока работает только для оборудования
         {
@@ -296,17 +296,9 @@ namespace CompStore
         private void ItemEdit(object sender, EventArgs e)
         {
             Record item = null;
-            Form form = null;
             if (listViewMain.SelectedIndices.Count == 0) return;
             item = (Record)listViewMain.SelectedItems[0].Tag;
-            if (curType == "filials") form = new FormFilial((Filial)item);
-            if (curType == "buildings") form = new FormBuilding((Building)item);
-            if (curType == "rooms") form = new FormRoom((Room)item);
-            if (curType == "deps") form = new FormDep((Dep)item);
-
-
-            if (curType == "equipments") form = new FormEquipment((Equipment)item);
-            if (curType == "moves") form = new FormMove((Move)item, false);
+            Form form = itemForm(item);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Update(curType, item);
@@ -366,166 +358,23 @@ namespace CompStore
                 ListViewRefresh();
             }
         }
+
+        Form itemForm(Record item)
+        {
+            if (curType == "filials") return new FormFilial((Filial)item);
+            if (curType == "buildings") return new FormBuilding((Building)item);
+            if (curType == "rooms") return new FormRoom((Room)item);
+            if (curType == "deps") return new FormDep((Dep)item);
+            if (curType == "posts") return new FormPost((Post)item);
+            if (curType == "users") return new FormUser((User)item);
+            if (curType == "equipments") return new FormEquipment((Equipment)item);
+            if (curType == "moves") return new FormMove((Move)item, false);
+
+            return null;
+        }
+
         #endregion
 
-        #region Должности
-        private void PostsView(object sender, EventArgs e)
-        {
-            if (panelPosts.Visible) PostsRefresh();
-        }
-
-        void PostsRefresh()
-        {
-            posts = DB.PostsLoad();
-            PostsDraw(null, null);
-        }
-
-        private void PostsDraw(object sender, EventArgs e)
-        {
-            listPosts.BeginUpdate();
-            listPosts.Items.Clear();
-            foreach (Post post in posts)
-                if (post.Contains(toolPostFilter.Text))
-                    listPosts.Items.Add(post.ToListView());
-            listPosts.EndUpdate();
-            StatusCount(posts.Count, listPosts);
-            PostsSelChange(null, null);
-        }
-        private void PostsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listPosts.SelectedIndices.Count > 0;
-            toolPostEdit.Enabled = sel;
-            toolPostDelete.Enabled = sel;
-            cmPostEdit.Enabled = sel;
-            cmPostDelete.Enabled = sel;
-        }
-        private void PostFilterReset(object sender, EventArgs e) { toolPostFilter.Text = ""; }
-
-        private void PostAdd(object sender, EventArgs e)
-        {
-            Post post = new Post();
-            FormPost form = new FormPost(post);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.PostAdd(post);
-                PostsRefresh();
-            }
-        }
-        private void PostEdit(object sender, EventArgs e)
-        {
-            if (listPosts.SelectedIndices.Count == 0) return;
-            Post post = (Post)listPosts.SelectedItems[0].Tag;
-            FormPost form = new FormPost(post);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.PostUpdate(post);
-                PostsRefresh();
-            }
-        }
-
-        private void PostDelete(object sender, EventArgs e)
-        {
-            if (listPosts.SelectedIndices.Count == 0) return;
-            Post post = (Post)listPosts.SelectedItems[0].Tag;
-            if (DeleteRecord("должность", post.name))
-            {
-                DB.PostDelete(post);
-                PostsRefresh();
-            }
-        }
-
-        private void PostsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listPosts.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) PostEdit(null, null);
-        }
-        #endregion
-
-        #region Сотрудники
-        private void UsersView(object sender, EventArgs e)
-        {
-            if (panelUsers.Visible) UsersRefresh();
-        }
-
-        void UsersRefresh()
-        {
-            users = DB.UsersLoad();
-            //equipments = DB.EquipmentsLoad();
-            UsersDraw(null, null);
-        }
-
-        private void UsersDraw(object sender, EventArgs e)
-        {
-            listUsers.BeginUpdate();
-            listUsers.Items.Clear();
-            foreach (User user in users)
-                if (user.Contains(toolUserFilter.Text))
-                    listUsers.Items.Add(user.ToListView());
-            listUsers.EndUpdate();
-            StatusCount(users.Count, listUsers);
-            UsersSelChange(null, null);
-        }
-        private void UsersSelChange(object sender, EventArgs e)
-        {
-            bool sel = listUsers.SelectedIndices.Count > 0;
-            menuUserCard.Enabled = sel;
-            toolUserEdit.Enabled = sel;
-            toolUserDelete.Enabled = sel;
-            cmUserEdit.Enabled = sel;
-            cmUserDelete.Enabled = sel;
-            //Перерисовка нижней панели
-            listUsEquipment.BeginUpdate();
-            listUsEquipment.Items.Clear();
-            if (listUsers.SelectedIndices.Count == 1)
-                foreach (Equipment eq in equipments)
-                    foreach (ListViewItem item in listUsers.SelectedItems)
-                        if (((User)item.Tag).ID == eq.user)
-                            listUsEquipment.Items.Add(eq.ToListView());
-            listUsEquipment.EndUpdate();
-            tabUsEquipments.Text = "Оборудование" + ListCount(listUsEquipment);
-
-        }
-        private void UserFilterReset(object sender, EventArgs e) { toolUserFilter.Text = ""; }
-
-        private void UserAdd(object sender, EventArgs e)
-        {
-            User user = new User();
-            FormUser form = new FormUser(user);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.UserAdd(user);
-                UsersRefresh();
-            }
-        }
-        private void UserEdit(object sender, EventArgs e)
-        {
-            if (listUsers.SelectedIndices.Count == 0) return;
-            User user = (User)listUsers.SelectedItems[0].Tag;
-            FormUser form = new FormUser(user);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.UserUpdate(user);
-                UsersRefresh();
-            }
-        }
-
-        private void UserDelete(object sender, EventArgs e)
-        {
-            if (listUsers.SelectedIndices.Count == 0) return;
-            User user = (User)listUsers.SelectedItems[0].Tag;
-            if (DeleteRecord("сотрудника", user.nameText))
-            {
-                DB.UserDelete(user);
-                UsersRefresh();
-            }
-        }
-
-        private void UsersKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listUsers.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) UserEdit(null, null);
-        }
-        #endregion
 
         #region Производители
         private void BrandsView(object sender, EventArgs e)

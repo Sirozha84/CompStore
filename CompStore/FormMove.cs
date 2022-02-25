@@ -8,7 +8,7 @@ namespace CompStore
     {
         bool pack;  //true - означает что перемещается комплект и надо сделать недоступным для выбора поле "Оборудование"
         Move move;
-        List<User> users;
+        List<Record> users;
         List<Record> equipments;
 
         public FormMove(Move move, bool pack)
@@ -26,7 +26,7 @@ namespace CompStore
             comboEquipment.SelectedValue = move.equipment;
             comboEquipment.Enabled = !pack;
 
-            users = DB.UsersLoad();
+            users = DB.Load("users");
             comboUser.DataSource = users;
             comboUser.DisplayMember = "nameText";
             comboUser.ValueMember = "ID";
@@ -111,8 +111,8 @@ namespace CompStore
             FormUser form = new FormUser(user);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.UserAdd(user);
-                users = DB.UsersLoad();
+                DB.Add("users", user);
+                users = DB.Load("users");
                 comboUser.DataSource = users;
                 comboRoom.DataSource = DB.Load("rooms");
                 comboMOL.DataSource = users;
@@ -145,8 +145,8 @@ namespace CompStore
             FormUser form = new FormUser(user);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.UserAdd(user);
-                users = DB.UsersLoad();
+                DB.Add("users",user);
+                users = DB.Load("users");
                 comboUser.DataSource = users;
                 comboRoom.DataSource = DB.Load("rooms");
                 comboMOL.DataSource = users.ToArray();

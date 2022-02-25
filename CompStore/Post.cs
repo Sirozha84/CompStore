@@ -2,19 +2,16 @@
 
 namespace CompStore
 {
-    public class Post
+    public class Post : Record
     {
-        public int ID { get; set; }
-        public string name { get; set; }
-
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(name);
             str.Tag = this;
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return name.ToLower().Contains(search);
