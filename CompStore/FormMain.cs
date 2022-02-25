@@ -36,8 +36,6 @@ namespace CompStore
 
         private void TabChange(object sender, TreeViewEventArgs e)
         {
-            panelRooms.Visible = treeMenu.SelectedNode.Name == "nodeRooms";
-            panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
             panelUsers.Visible = treeMenu.SelectedNode.Name == "nodeUsers";
             panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
@@ -50,6 +48,10 @@ namespace CompStore
                 PreparePage("filials", "Филиалы");
             if (treeMenu.SelectedNode.Name == "nodeBuildings")
                 PreparePage("buildings", "Здания");
+            if (treeMenu.SelectedNode.Name == "nodeRooms")
+                PreparePage("rooms", "Помещения");
+            if (treeMenu.SelectedNode.Name == "nodeDeps")
+                PreparePage("deps", "Подразделения");
 
 
             if (treeMenu.SelectedNode.Name == "nodeEquipment")
@@ -100,14 +102,26 @@ namespace CompStore
             list.Clear();
             if (type == "filials")
             {
-                list.Columns.Add("Название", 200);
+                list.Columns.Add("Наименование", 200);
                 list.Columns.Add("Адрес", 200);
                 list.Columns.Add("Примечание", 200);
             }
             if (type == "buildings")
             {
                 list.Columns.Add("Филиал", 200);
-                list.Columns.Add("Название", 200);
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Примечание", 200);
+            }
+            if (type == "rooms")
+            {
+                list.Columns.Add("Филиал", 160);
+                list.Columns.Add("Здание", 160);
+                list.Columns.Add("Название", 160);
+                list.Columns.Add("Примечание", 160);
+            }
+            if (type == "deps")
+            {
+                list.Columns.Add("Наименование", 200);
                 list.Columns.Add("Примечание", 200);
             }
 
@@ -229,6 +243,16 @@ namespace CompStore
                 item = new Building();
                 form = new FormBuilding((Building)item);
             }
+            if (curType == "rooms")
+            {
+                item = new Room();
+                form = new FormRoom((Room)item);
+            }
+            if (curType == "deps")
+            {
+                item = new Dep();
+                form = new FormDep((Dep)item);
+            }
 
 
             if (curType == "equipments")
@@ -277,6 +301,9 @@ namespace CompStore
             item = (Record)listViewMain.SelectedItems[0].Tag;
             if (curType == "filials") form = new FormFilial((Filial)item);
             if (curType == "buildings") form = new FormBuilding((Building)item);
+            if (curType == "rooms") form = new FormRoom((Room)item);
+            if (curType == "deps") form = new FormDep((Dep)item);
+
 
             if (curType == "equipments") form = new FormEquipment((Equipment)item);
             if (curType == "moves") form = new FormMove((Move)item, false);
@@ -338,80 +365,6 @@ namespace CompStore
                 DB.Update("moves", subitem);
                 ListViewRefresh();
             }
-        }
-        #endregion
-
-
-        #region Помещения
-        private void RoomsView(object sender, EventArgs e)
-        {
-            if (panelRooms.Visible) RoomsRefresh();
-        }
-
-        void RoomsRefresh()
-        {
-            rooms = DB.RoomsLoad();
-            RoomsDraw(null, null);
-        }
-
-        private void RoomsDraw(object sender, EventArgs e)
-        {
-            listRooms.BeginUpdate();
-            listRooms.Items.Clear();
-            foreach (Room room in rooms)
-                if (room.Contains(toolRoomFilter.Text))
-                    listRooms.Items.Add(room.ToListView());
-            listRooms.EndUpdate();
-            StatusCount(rooms.Count, listRooms);
-            RoomsSelChange(null, null);
-        }
-        private void RoomsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listRooms.SelectedIndices.Count > 0;
-            toolRoomEdit.Enabled = sel;
-            toolRoomDelete.Enabled = sel;
-            cmRoomEdit.Enabled = sel;
-            cmRoomDelete.Enabled = sel;
-        }
-        private void RoomFilterReset(object sender, EventArgs e) { toolRoomFilter.Text = ""; }
-
-        private void RoomAdd(object sender, EventArgs e)
-        {
-            Room room = new Room();
-            FormRoom form = new FormRoom(room);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.RoomAdd(room);
-                RoomsRefresh();
-            }
-        }
-        private void RoomEdit(object sender, EventArgs e)
-        {
-            if (listRooms.SelectedIndices.Count == 0) return;
-            Room room = (Room)listRooms.SelectedItems[0].Tag;
-            FormRoom form = new FormRoom(room);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.RoomUpdate(room);
-                RoomsRefresh();
-            }
-        }
-
-        private void RoomDelete(object sender, EventArgs e)
-        {
-            if (listRooms.SelectedIndices.Count == 0) return;
-            Room room = (Room)listRooms.SelectedItems[0].Tag;
-            if (DeleteRecord("помещение", room.name))
-            {
-                DB.RoomDelete(room);
-                RoomsRefresh();
-            }
-        }
-
-        private void RoomsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listRooms.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) RoomEdit(null, null);
         }
         #endregion
 
@@ -485,80 +438,6 @@ namespace CompStore
         {
             if (listPosts.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) PostEdit(null, null);
-        }
-        #endregion
-
-        #region Подразделения
-        private void DepsView(object sender, EventArgs e)
-        {
-            if (panelDeps.Visible) DepsRefresh();
-        }
-
-        void DepsRefresh()
-        {
-            deps = DB.DepsLoad();
-            DepsDraw(null, null);
-        }
-
-        private void DepsDraw(object sender, EventArgs e)
-        {
-            listDeps.BeginUpdate();
-            listDeps.Items.Clear();
-            foreach (Dep dep in deps)
-                if (dep.Contains(toolDepFilter.Text))
-                    listDeps.Items.Add(dep.ToListView());
-            listDeps.EndUpdate();
-            StatusCount(deps.Count, listDeps);
-            DepsSelChange(null, null);
-        }
-        private void DepsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listDeps.SelectedIndices.Count > 0;
-            toolDepEdit.Enabled = sel;
-            toolDepDelete.Enabled = sel;
-            cmDepEdit.Enabled = sel;
-            cmDepDelete.Enabled = sel;
-        }
-
-        private void DepFilterReset(object sender, EventArgs e) { toolDepFilter.Text = ""; }
-
-        private void DepAdd(object sender, EventArgs e)
-        {
-            Dep dep = new Dep();
-            FormDep form = new FormDep(dep);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.DepAdd(dep);
-                DepsRefresh();
-            }
-        }
-        private void DepEdit(object sender, EventArgs e)
-        {
-            if (listDeps.SelectedIndices.Count == 0) return;
-            Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
-            FormDep form = new FormDep(dep);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.DepUpdate(dep);
-                DepsRefresh();
-            }
-        }
-
-        private void DepDelete(object sender, EventArgs e)
-        {
-            if (listDeps.SelectedIndices.Count == 0) return;
-            Dep dep = (Dep)listDeps.SelectedItems[0].Tag;
-            if (DeleteRecord("подразделение", dep.name))
-            {
-                DB.DepDelete(dep);
-                DepsRefresh();
-            }
-        }
-
-        private void DepsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listDeps.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) DepEdit(null, null);
         }
         #endregion
 

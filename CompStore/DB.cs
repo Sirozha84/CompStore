@@ -168,6 +168,48 @@ namespace CompStore
                     list.Add(building);
                 }
             }
+            if (type == "rooms")
+            {
+                com.CommandText = "SELECT " +
+                    "rooms.ID, " +
+                    "rooms.building, " +
+                    "rooms.name, " +
+                    "rooms.comment, " +
+                    "filials.name, " +
+                    "buildings.name, " +
+                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
+                    "FROM rooms " +
+                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "ORDER BY filials.name, buildings.name, rooms.name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Room room = new Room();
+                    room.ID = reader.GetInt32(0);
+                    room.building = reader.GetInt32(1);
+                    room.name = reader.GetString(2);
+                    room.comment = reader.GetString(3);
+                    room.filialText = room.building != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
+                    room.buildingText = room.building != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                    room.nameText = room.building != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
+                    list.Add(room);
+                }
+            }
+            if (type == "deps")
+            {
+                com.CommandText = "SELECT * FROM deps ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Dep dep = new Dep();
+                    dep.ID = reader.GetInt32(0);
+                    dep.name = dep.nameText = reader.GetString(1);
+                    dep.comment = reader.GetString(2);
+                    list.Add(dep);
+                }
+            }
+
 
 
             if (type == "equipments")
@@ -305,6 +347,21 @@ namespace CompStore
                         building.name + "', '" +
                         building.comment + "')";
                 }
+                if (type == "rooms")
+                {
+                    Room room = (Room)item;
+                    com.CommandText = "INSERT INTO rooms (building, name, comment) VALUES ('" +
+                        room.building + "', '" +
+                        room.name + "', '" +
+                        room.comment + "')";
+                }
+                if (type == "deps")
+                {
+                    Dep dep = (Dep)item;
+                    com.CommandText = "INSERT INTO deps (name, comment) VALUES ('" +
+                        dep.name + "', '" +
+                        dep.comment + "')";
+                }
 
 
                 if (type == "equipments")
@@ -362,6 +419,23 @@ namespace CompStore
                         "name = '" + building.name + "', " +
                         "comment = '" + building.comment + "' WHERE ID = " + building.ID;
                 }
+                if (type == "rooms")
+                {
+                    Room room = (Room)item;
+                    com.CommandText = "UPDATE rooms SET " +
+                        "building = '" + room.building + "', " +
+                        "name = '" + room.name + "', " +
+                        "comment = '" + room.comment + "' WHERE ID = " + room.ID;
+                }
+                if (type == "deps")
+                {
+                    Dep dep = (Dep)item;
+                    com.CommandText = "UPDATE deps SET " +
+                        "name = '" + dep.name + "', " +
+                        "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
+                }
+
+
 
                 if (type == "equipments")
                 {
@@ -429,86 +503,6 @@ namespace CompStore
         //*****************************************************************************************************************************************************************
 
        
-        #region Помещения [rooms]
-        public static List<Room> RoomsLoad()
-        {
-            List<Room> rooms = new List<Room>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT " +
-                    "rooms.ID, " +
-                    "rooms.building, " +
-                    "rooms.name, " +
-                    "rooms.comment, " +
-                    "filials.name, " +
-                    "buildings.name, " +
-                    "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
-                    "FROM rooms " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
-                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
-                    "ORDER BY filials.name, buildings.name, rooms.name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Room room = new Room();
-                        room.ID = reader.GetInt32(0);
-                        room.building = reader.GetInt32(1);
-                        room.name = reader.GetString(2);
-                        room.comment = reader.GetString(3);
-                        room.filialText = room.building != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
-                        room.buildingText = room.building != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
-                        room.nameText = room.building != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
-                        rooms.Add(room);
-                    }
-                }
-                connect.Close();
-            }
-            return rooms;
-        }
-        public static void RoomAdd(Room room)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO rooms (building, name, comment) VALUES ('" +
-                    room.building + "', '" +
-                    room.name + "', '" +
-                    room.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void RoomUpdate(Room room)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE rooms SET " +
-                    "building = '" + room.building + "', " +
-                    "name = '" + room.name + "', " +
-                    "comment = '" + room.comment + "' WHERE ID = " + room.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void RoomDelete(Room room)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM rooms WHERE ID = " + room.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
 
         #region Должности [posts]
         public static List<Post> PostsLoad()
@@ -563,72 +557,6 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM posts WHERE ID = " + post.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Отделы [deps]
-        public static List<Dep> DepsLoad()
-        {
-            List<Dep> deps = new List<Dep>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM deps ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Dep dep = new Dep();
-                        dep.ID = reader.GetInt32(0);
-                        dep.name = reader.GetString(1);
-                        dep.comment = reader.GetString(2);
-                        deps.Add(dep);
-                    }
-                }
-                connect.Close();
-            }
-            return deps;
-        }
-
-        public static void DepAdd(Dep dep)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO deps (name, comment) VALUES ('" +
-                    dep.name + "', '" +
-                    dep.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void DepUpdate(Dep dep)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE deps SET " +
-                    "name = '" + dep.name + "', " +
-                    "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void DepDelete(Dep dep)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM deps WHERE ID = " + dep.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }

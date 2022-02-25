@@ -32,7 +32,7 @@ namespace CompStore
             comboUser.ValueMember = "ID";
             comboUser.SelectedValue = move.user;
 
-            comboRoom.DataSource = DB.RoomsLoad();
+            comboRoom.DataSource = DB.Load("rooms");
             comboRoom.DisplayMember = "nameText";
             comboRoom.ValueMember = "ID";
             comboRoom.SelectedValue = move.room;
@@ -114,7 +114,7 @@ namespace CompStore
                 DB.UserAdd(user);
                 users = DB.UsersLoad();
                 comboUser.DataSource = users;
-                comboRoom.DataSource = DB.RoomsLoad();
+                comboRoom.DataSource = DB.Load("rooms");
                 comboMOL.DataSource = users;
                 int max = 0;
                 foreach (User f in users)
@@ -129,8 +129,8 @@ namespace CompStore
             FormRoom form = new FormRoom(room);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.RoomAdd(room);
-                List<Room> roomds = DB.RoomsLoad();
+                DB.Add("rooms", room);
+                List<Record> roomds = DB.Load("rooms");
                 comboRoom.DataSource = roomds;
                 int max = 0;
                 foreach (Room f in roomds)
@@ -148,7 +148,7 @@ namespace CompStore
                 DB.UserAdd(user);
                 users = DB.UsersLoad();
                 comboUser.DataSource = users;
-                comboRoom.DataSource = DB.RoomsLoad();
+                comboRoom.DataSource = DB.Load("rooms");
                 comboMOL.DataSource = users.ToArray();
                 int max = 0;
                 foreach (User f in users)

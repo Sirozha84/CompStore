@@ -32,12 +32,12 @@ namespace CompStore
             comboPost.ValueMember = "ID";
             comboPost.SelectedValue = user.post;
 
-            comboDep.DataSource = DB.DepsLoad();
+            comboDep.DataSource = DB.Load("deps");
             comboDep.DisplayMember = "name";
             comboDep.ValueMember = "ID";
             comboDep.SelectedValue = user.dep;
 
-            comboRoom.DataSource = DB.RoomsLoad();
+            comboRoom.DataSource = DB.Load("rooms");
             comboRoom.DisplayMember = "nameText";
             comboRoom.ValueMember = "ID";
             comboRoom.SelectedValue = user.room;
@@ -106,8 +106,8 @@ namespace CompStore
             FormDep form = new FormDep(dep);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.DepAdd(dep);
-                List<Dep> depds = DB.DepsLoad();
+                DB.Add("deps", dep);
+                List<Record> depds = DB.Load("deps");
                 comboDep.DataSource = depds;
                 int max = 0;
                 foreach (Dep f in depds)
@@ -122,11 +122,11 @@ namespace CompStore
             FormRoom form = new FormRoom(room);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.RoomAdd(room);
-                List<Room> roomds = DB.RoomsLoad();
-                comboRoom.DataSource = roomds;
+                DB.Add("rooms", room);
+                List<Record> rooms = DB.Load("rooms");
+                comboRoom.DataSource = rooms;
                 int max = 0;
-                foreach (Room f in roomds)
+                foreach (Room f in rooms)
                     if (max < f.ID) max = f.ID;
                 comboRoom.SelectedValue = max;
             }

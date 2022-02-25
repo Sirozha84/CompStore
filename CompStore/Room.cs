@@ -2,17 +2,13 @@
 
 namespace CompStore
 {
-    public class Room
+    public class Room : Record
     {
-        public int ID { get; set; }
         public int building { get; set; }
-        public string name { get; set; }
-        public string comment { get; set; }
         public string filialText { get; set; }
         public string buildingText { get; set; }
-        public string nameText { get; set; }
 
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(filialText);
             str.SubItems.Add(buildingText);
@@ -22,7 +18,7 @@ namespace CompStore
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return (filialText.ToLower().Contains(search) |
