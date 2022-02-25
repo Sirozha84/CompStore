@@ -30,13 +30,13 @@ namespace CompStore
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы", 5, 5);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания", 3, 3);
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники", 2, 2);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", 3, 3, new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", 4, 4, new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
@@ -70,23 +70,6 @@ namespace CompStore
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panelFilials = new System.Windows.Forms.Panel();
-            this.toolStripFilials = new System.Windows.Forms.ToolStrip();
-            this.toolFilialLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolFilialAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolFilialEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolFilialDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolFilialFilterReset = new System.Windows.Forms.ToolStripButton();
-            this.toolFilialFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.toolFilialFilterLabel = new System.Windows.Forms.ToolStripLabel();
-            this.listFilials = new System.Windows.Forms.ListView();
-            this.colFilName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colFilAdress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colFilCom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuFilials = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmFilialAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmFilialEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmFilialDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panelRooms = new System.Windows.Forms.Panel();
             this.toolStripRooms = new System.Windows.Forms.ToolStrip();
             this.toolRoomLabel = new System.Windows.Forms.ToolStripLabel();
@@ -120,23 +103,6 @@ namespace CompStore
             this.cmPostAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cmPostEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmPostDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelBuildings = new System.Windows.Forms.Panel();
-            this.toolStripBuildings = new System.Windows.Forms.ToolStrip();
-            this.toolBuildingLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolBuildingAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolBuildingEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolBuildingDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolBuildingFilterReset = new System.Windows.Forms.ToolStripButton();
-            this.toolBuildingFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.toolBuildingFilterLabel = new System.Windows.Forms.ToolStripLabel();
-            this.listBuildings = new System.Windows.Forms.ListView();
-            this.columnBuildingFilial = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnBuildingName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnBuildingComment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuBuildings = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmBuildingAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmBuildingEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmBuildingDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDeps = new System.Windows.Forms.Panel();
             this.toolStripDeps = new System.Windows.Forms.ToolStrip();
             this.toolDepLabel = new System.Windows.Forms.ToolStripLabel();
@@ -284,18 +250,12 @@ namespace CompStore
             this.cmMove = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.panelFilials.SuspendLayout();
-            this.toolStripFilials.SuspendLayout();
-            this.contextMenuFilials.SuspendLayout();
             this.panelRooms.SuspendLayout();
             this.toolStripRooms.SuspendLayout();
             this.contextMenuRooms.SuspendLayout();
             this.panelPosts.SuspendLayout();
             this.toolStripPosts.SuspendLayout();
             this.contextMenuPosts.SuspendLayout();
-            this.panelBuildings.SuspendLayout();
-            this.toolStripBuildings.SuspendLayout();
-            this.contextMenuBuildings.SuspendLayout();
             this.panelDeps.SuspendLayout();
             this.toolStripDeps.SuspendLayout();
             this.contextMenuDeps.SuspendLayout();
@@ -336,7 +296,9 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
+            treeNode1.ImageIndex = 5;
             treeNode1.Name = "nodeFilials";
+            treeNode1.SelectedImageIndex = 5;
             treeNode1.Text = "Филиалы";
             treeNode2.ImageIndex = 3;
             treeNode2.Name = "nodeBuildings";
@@ -352,9 +314,9 @@ namespace CompStore
             treeNode6.Name = "nodeUsers";
             treeNode6.SelectedImageIndex = 2;
             treeNode6.Text = "Сотрудники";
-            treeNode7.ImageIndex = 3;
+            treeNode7.ImageIndex = 4;
             treeNode7.Name = "nodeCompany";
-            treeNode7.SelectedImageIndex = 3;
+            treeNode7.SelectedImageIndex = 4;
             treeNode7.Text = "Предприятие";
             treeNode8.ImageIndex = 1;
             treeNode8.Name = "nodeMoves";
@@ -392,6 +354,8 @@ namespace CompStore
             this.imageListThree.Images.SetKeyName(1, "move.png");
             this.imageListThree.Images.SetKeyName(2, "user.png");
             this.imageListThree.Images.SetKeyName(3, "building.png");
+            this.imageListThree.Images.SetKeyName(4, "company.png");
+            this.imageListThree.Images.SetKeyName(5, "filial.png");
             // 
             // mainMenu
             // 
@@ -491,173 +455,6 @@ namespace CompStore
             this.statusCount.Size = new System.Drawing.Size(300, 17);
             this.statusCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panelFilials
-            // 
-            this.panelFilials.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFilials.Controls.Add(this.toolStripFilials);
-            this.panelFilials.Controls.Add(this.listFilials);
-            this.panelFilials.Location = new System.Drawing.Point(163, 27);
-            this.panelFilials.Name = "panelFilials";
-            this.panelFilials.Size = new System.Drawing.Size(1021, 709);
-            this.panelFilials.TabIndex = 6;
-            this.panelFilials.Visible = false;
-            this.panelFilials.VisibleChanged += new System.EventHandler(this.FilialsView);
-            // 
-            // toolStripFilials
-            // 
-            this.toolStripFilials.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripFilials.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolFilialLabel,
-            this.toolFilialAdd,
-            this.toolFilialEdit,
-            this.toolFilialDelete,
-            this.toolFilialFilterReset,
-            this.toolFilialFilter,
-            this.toolFilialFilterLabel});
-            this.toolStripFilials.Location = new System.Drawing.Point(0, 0);
-            this.toolStripFilials.Name = "toolStripFilials";
-            this.toolStripFilials.Size = new System.Drawing.Size(1021, 25);
-            this.toolStripFilials.TabIndex = 13;
-            this.toolStripFilials.Text = "toolStrip1";
-            // 
-            // toolFilialLabel
-            // 
-            this.toolFilialLabel.AutoSize = false;
-            this.toolFilialLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolFilialLabel.Name = "toolFilialLabel";
-            this.toolFilialLabel.Size = new System.Drawing.Size(170, 22);
-            this.toolFilialLabel.Text = "Филиалы";
-            this.toolFilialLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolFilialAdd
-            // 
-            this.toolFilialAdd.Image = global::CompStore.Properties.Resources.add;
-            this.toolFilialAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolFilialAdd.Name = "toolFilialAdd";
-            this.toolFilialAdd.Size = new System.Drawing.Size(79, 22);
-            this.toolFilialAdd.Text = "Добавить";
-            this.toolFilialAdd.Click += new System.EventHandler(this.FilialAdd);
-            // 
-            // toolFilialEdit
-            // 
-            this.toolFilialEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.toolFilialEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolFilialEdit.Name = "toolFilialEdit";
-            this.toolFilialEdit.Size = new System.Drawing.Size(81, 22);
-            this.toolFilialEdit.Text = "Изменить";
-            this.toolFilialEdit.Click += new System.EventHandler(this.FilialEdit);
-            // 
-            // toolFilialDelete
-            // 
-            this.toolFilialDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolFilialDelete.Image")));
-            this.toolFilialDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolFilialDelete.Name = "toolFilialDelete";
-            this.toolFilialDelete.Size = new System.Drawing.Size(71, 22);
-            this.toolFilialDelete.Text = "Удалить";
-            this.toolFilialDelete.Click += new System.EventHandler(this.FilialDelete);
-            // 
-            // toolFilialFilterReset
-            // 
-            this.toolFilialFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolFilialFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolFilialFilterReset.Image = global::CompStore.Properties.Resources.cancel;
-            this.toolFilialFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolFilialFilterReset.Name = "toolFilialFilterReset";
-            this.toolFilialFilterReset.Size = new System.Drawing.Size(23, 22);
-            this.toolFilialFilterReset.Click += new System.EventHandler(this.FilialFilterReset);
-            // 
-            // toolFilialFilter
-            // 
-            this.toolFilialFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolFilialFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolFilialFilter.Name = "toolFilialFilter";
-            this.toolFilialFilter.Size = new System.Drawing.Size(300, 25);
-            this.toolFilialFilter.TextChanged += new System.EventHandler(this.FilialsDraw);
-            // 
-            // toolFilialFilterLabel
-            // 
-            this.toolFilialFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolFilialFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolFilialFilterLabel.Image = global::CompStore.Properties.Resources.search;
-            this.toolFilialFilterLabel.Name = "toolFilialFilterLabel";
-            this.toolFilialFilterLabel.Size = new System.Drawing.Size(16, 22);
-            // 
-            // listFilials
-            // 
-            this.listFilials.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listFilials.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colFilName,
-            this.colFilAdress,
-            this.colFilCom});
-            this.listFilials.ContextMenuStrip = this.contextMenuFilials;
-            this.listFilials.FullRowSelect = true;
-            this.listFilials.HideSelection = false;
-            this.listFilials.Location = new System.Drawing.Point(0, 25);
-            this.listFilials.MultiSelect = false;
-            this.listFilials.Name = "listFilials";
-            this.listFilials.Size = new System.Drawing.Size(1021, 684);
-            this.listFilials.TabIndex = 2;
-            this.listFilials.UseCompatibleStateImageBehavior = false;
-            this.listFilials.View = System.Windows.Forms.View.Details;
-            this.listFilials.SelectedIndexChanged += new System.EventHandler(this.FilialsSelChange);
-            this.listFilials.DoubleClick += new System.EventHandler(this.FilialEdit);
-            this.listFilials.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilialsKeyboard);
-            // 
-            // colFilName
-            // 
-            this.colFilName.Text = "Название";
-            this.colFilName.Width = 200;
-            // 
-            // colFilAdress
-            // 
-            this.colFilAdress.Text = "Адрес";
-            this.colFilAdress.Width = 400;
-            // 
-            // colFilCom
-            // 
-            this.colFilCom.Text = "Примечание";
-            this.colFilCom.Width = 390;
-            // 
-            // contextMenuFilials
-            // 
-            this.contextMenuFilials.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmFilialAdd,
-            this.cmFilialEdit,
-            this.cmFilialDelete});
-            this.contextMenuFilials.Name = "contextMenuEquipment";
-            this.contextMenuFilials.Size = new System.Drawing.Size(149, 70);
-            // 
-            // cmFilialAdd
-            // 
-            this.cmFilialAdd.Image = global::CompStore.Properties.Resources.add;
-            this.cmFilialAdd.Name = "cmFilialAdd";
-            this.cmFilialAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.cmFilialAdd.Size = new System.Drawing.Size(148, 22);
-            this.cmFilialAdd.Text = "Добавить";
-            this.cmFilialAdd.Click += new System.EventHandler(this.FilialAdd);
-            // 
-            // cmFilialEdit
-            // 
-            this.cmFilialEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.cmFilialEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.cmFilialEdit.Name = "cmFilialEdit";
-            this.cmFilialEdit.Size = new System.Drawing.Size(148, 22);
-            this.cmFilialEdit.Text = "Изменить";
-            this.cmFilialEdit.Click += new System.EventHandler(this.FilialEdit);
-            // 
-            // cmFilialDelete
-            // 
-            this.cmFilialDelete.Image = ((System.Drawing.Image)(resources.GetObject("cmFilialDelete.Image")));
-            this.cmFilialDelete.Name = "cmFilialDelete";
-            this.cmFilialDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.cmFilialDelete.Size = new System.Drawing.Size(148, 22);
-            this.cmFilialDelete.Text = "Удалить";
-            this.cmFilialDelete.Click += new System.EventHandler(this.FilialDelete);
-            // 
             // panelRooms
             // 
             this.panelRooms.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -738,7 +535,6 @@ namespace CompStore
             // toolRoomFilter
             // 
             this.toolRoomFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolRoomFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolRoomFilter.Name = "toolRoomFilter";
             this.toolRoomFilter.Size = new System.Drawing.Size(300, 25);
             this.toolRoomFilter.TextChanged += new System.EventHandler(this.RoomsDraw);
@@ -911,7 +707,6 @@ namespace CompStore
             // toolPostFilter
             // 
             this.toolPostFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolPostFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolPostFilter.Name = "toolPostFilter";
             this.toolPostFilter.Size = new System.Drawing.Size(300, 25);
             this.toolPostFilter.TextChanged += new System.EventHandler(this.PostsDraw);
@@ -982,173 +777,6 @@ namespace CompStore
             this.cmPostDelete.Size = new System.Drawing.Size(148, 22);
             this.cmPostDelete.Text = "Удалить";
             this.cmPostDelete.Click += new System.EventHandler(this.PostDelete);
-            // 
-            // panelBuildings
-            // 
-            this.panelBuildings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBuildings.Controls.Add(this.toolStripBuildings);
-            this.panelBuildings.Controls.Add(this.listBuildings);
-            this.panelBuildings.Location = new System.Drawing.Point(163, 27);
-            this.panelBuildings.Name = "panelBuildings";
-            this.panelBuildings.Size = new System.Drawing.Size(1021, 709);
-            this.panelBuildings.TabIndex = 11;
-            this.panelBuildings.Visible = false;
-            this.panelBuildings.VisibleChanged += new System.EventHandler(this.BuildingsView);
-            // 
-            // toolStripBuildings
-            // 
-            this.toolStripBuildings.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripBuildings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolBuildingLabel,
-            this.toolBuildingAdd,
-            this.toolBuildingEdit,
-            this.toolBuildingDelete,
-            this.toolBuildingFilterReset,
-            this.toolBuildingFilter,
-            this.toolBuildingFilterLabel});
-            this.toolStripBuildings.Location = new System.Drawing.Point(0, 0);
-            this.toolStripBuildings.Name = "toolStripBuildings";
-            this.toolStripBuildings.Size = new System.Drawing.Size(1021, 25);
-            this.toolStripBuildings.TabIndex = 14;
-            this.toolStripBuildings.Text = "123";
-            // 
-            // toolBuildingLabel
-            // 
-            this.toolBuildingLabel.AutoSize = false;
-            this.toolBuildingLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolBuildingLabel.Name = "toolBuildingLabel";
-            this.toolBuildingLabel.Size = new System.Drawing.Size(170, 22);
-            this.toolBuildingLabel.Text = "Здания";
-            this.toolBuildingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolBuildingAdd
-            // 
-            this.toolBuildingAdd.Image = global::CompStore.Properties.Resources.add;
-            this.toolBuildingAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBuildingAdd.Name = "toolBuildingAdd";
-            this.toolBuildingAdd.Size = new System.Drawing.Size(79, 22);
-            this.toolBuildingAdd.Text = "Добавить";
-            this.toolBuildingAdd.Click += new System.EventHandler(this.BuildingAdd);
-            // 
-            // toolBuildingEdit
-            // 
-            this.toolBuildingEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.toolBuildingEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBuildingEdit.Name = "toolBuildingEdit";
-            this.toolBuildingEdit.Size = new System.Drawing.Size(81, 22);
-            this.toolBuildingEdit.Text = "Изменить";
-            this.toolBuildingEdit.Click += new System.EventHandler(this.BuildingEdit);
-            // 
-            // toolBuildingDelete
-            // 
-            this.toolBuildingDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolBuildingDelete.Image")));
-            this.toolBuildingDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBuildingDelete.Name = "toolBuildingDelete";
-            this.toolBuildingDelete.Size = new System.Drawing.Size(71, 22);
-            this.toolBuildingDelete.Text = "Удалить";
-            this.toolBuildingDelete.Click += new System.EventHandler(this.BuildingDelete);
-            // 
-            // toolBuildingFilterReset
-            // 
-            this.toolBuildingFilterReset.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBuildingFilterReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBuildingFilterReset.Image = global::CompStore.Properties.Resources.cancel;
-            this.toolBuildingFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBuildingFilterReset.Name = "toolBuildingFilterReset";
-            this.toolBuildingFilterReset.Size = new System.Drawing.Size(23, 22);
-            this.toolBuildingFilterReset.Click += new System.EventHandler(this.BuildingsFilterReset);
-            // 
-            // toolBuildingFilter
-            // 
-            this.toolBuildingFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBuildingFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolBuildingFilter.Name = "toolBuildingFilter";
-            this.toolBuildingFilter.Size = new System.Drawing.Size(300, 25);
-            this.toolBuildingFilter.TextChanged += new System.EventHandler(this.BuildingsDraw);
-            // 
-            // toolBuildingFilterLabel
-            // 
-            this.toolBuildingFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBuildingFilterLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolBuildingFilterLabel.Image = global::CompStore.Properties.Resources.search;
-            this.toolBuildingFilterLabel.Name = "toolBuildingFilterLabel";
-            this.toolBuildingFilterLabel.Size = new System.Drawing.Size(16, 22);
-            // 
-            // listBuildings
-            // 
-            this.listBuildings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBuildings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnBuildingFilial,
-            this.columnBuildingName,
-            this.columnBuildingComment});
-            this.listBuildings.ContextMenuStrip = this.contextMenuBuildings;
-            this.listBuildings.FullRowSelect = true;
-            this.listBuildings.HideSelection = false;
-            this.listBuildings.Location = new System.Drawing.Point(0, 25);
-            this.listBuildings.MultiSelect = false;
-            this.listBuildings.Name = "listBuildings";
-            this.listBuildings.Size = new System.Drawing.Size(1021, 684);
-            this.listBuildings.TabIndex = 2;
-            this.listBuildings.UseCompatibleStateImageBehavior = false;
-            this.listBuildings.View = System.Windows.Forms.View.Details;
-            this.listBuildings.SelectedIndexChanged += new System.EventHandler(this.BuildingsSelChange);
-            this.listBuildings.DoubleClick += new System.EventHandler(this.BuildingEdit);
-            this.listBuildings.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BuildingsKeyboard);
-            // 
-            // columnBuildingFilial
-            // 
-            this.columnBuildingFilial.Text = "Филиал";
-            this.columnBuildingFilial.Width = 200;
-            // 
-            // columnBuildingName
-            // 
-            this.columnBuildingName.Text = "Название";
-            this.columnBuildingName.Width = 200;
-            // 
-            // columnBuildingComment
-            // 
-            this.columnBuildingComment.Text = "Примечание";
-            this.columnBuildingComment.Width = 590;
-            // 
-            // contextMenuBuildings
-            // 
-            this.contextMenuBuildings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmBuildingAdd,
-            this.cmBuildingEdit,
-            this.cmBuildingDelete});
-            this.contextMenuBuildings.Name = "contextMenuEquipment";
-            this.contextMenuBuildings.Size = new System.Drawing.Size(149, 70);
-            // 
-            // cmBuildingAdd
-            // 
-            this.cmBuildingAdd.Image = global::CompStore.Properties.Resources.add;
-            this.cmBuildingAdd.Name = "cmBuildingAdd";
-            this.cmBuildingAdd.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.cmBuildingAdd.Size = new System.Drawing.Size(148, 22);
-            this.cmBuildingAdd.Text = "Добавить";
-            this.cmBuildingAdd.Click += new System.EventHandler(this.BuildingAdd);
-            // 
-            // cmBuildingEdit
-            // 
-            this.cmBuildingEdit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.cmBuildingEdit.Image = global::CompStore.Properties.Resources.edit;
-            this.cmBuildingEdit.Name = "cmBuildingEdit";
-            this.cmBuildingEdit.Size = new System.Drawing.Size(148, 22);
-            this.cmBuildingEdit.Text = "Изменить";
-            this.cmBuildingEdit.Click += new System.EventHandler(this.BuildingEdit);
-            // 
-            // cmBuildingDelete
-            // 
-            this.cmBuildingDelete.Image = ((System.Drawing.Image)(resources.GetObject("cmBuildingDelete.Image")));
-            this.cmBuildingDelete.Name = "cmBuildingDelete";
-            this.cmBuildingDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.cmBuildingDelete.Size = new System.Drawing.Size(148, 22);
-            this.cmBuildingDelete.Text = "Удалить";
-            this.cmBuildingDelete.Click += new System.EventHandler(this.BuildingDelete);
             // 
             // panelDeps
             // 
@@ -1230,7 +858,6 @@ namespace CompStore
             // toolDepFilter
             // 
             this.toolDepFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolDepFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolDepFilter.Name = "toolDepFilter";
             this.toolDepFilter.Size = new System.Drawing.Size(300, 25);
             this.toolDepFilter.TextChanged += new System.EventHandler(this.DepsDraw);
@@ -1584,7 +1211,6 @@ namespace CompStore
             // toolUserFilter
             // 
             this.toolUserFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolUserFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolUserFilter.Name = "toolUserFilter";
             this.toolUserFilter.Size = new System.Drawing.Size(300, 25);
             this.toolUserFilter.TextChanged += new System.EventHandler(this.UsersDraw);
@@ -1677,7 +1303,6 @@ namespace CompStore
             // toolBrandFilter
             // 
             this.toolBrandFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolBrandFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolBrandFilter.Name = "toolBrandFilter";
             this.toolBrandFilter.Size = new System.Drawing.Size(300, 25);
             this.toolBrandFilter.TextChanged += new System.EventHandler(this.BrandsDraw);
@@ -1838,7 +1463,6 @@ namespace CompStore
             // toolETFilter
             // 
             this.toolETFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolETFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolETFilter.Name = "toolETFilter";
             this.toolETFilter.Size = new System.Drawing.Size(300, 25);
             this.toolETFilter.TextChanged += new System.EventHandler(this.EqTypesDraw);
@@ -1993,7 +1617,6 @@ namespace CompStore
             // toolModelFilter
             // 
             this.toolModelFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolModelFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolModelFilter.Name = "toolModelFilter";
             this.toolModelFilter.Size = new System.Drawing.Size(300, 25);
             this.toolModelFilter.TextChanged += new System.EventHandler(this.ModelsDraw);
@@ -2166,7 +1789,6 @@ namespace CompStore
             // toolProviderFilter
             // 
             this.toolProviderFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolProviderFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolProviderFilter.Name = "toolProviderFilter";
             this.toolProviderFilter.Size = new System.Drawing.Size(300, 25);
             this.toolProviderFilter.TextChanged += new System.EventHandler(this.ProvidersDraw);
@@ -2450,7 +2072,6 @@ namespace CompStore
             // tFilter
             // 
             this.tFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tFilter.Name = "tFilter";
             this.tFilter.Size = new System.Drawing.Size(160, 25);
             this.tFilter.TextChanged += new System.EventHandler(this.ListViewDraw);
@@ -2571,8 +2192,6 @@ namespace CompStore
             this.Controls.Add(this.panelUsers);
             this.Controls.Add(this.panelProviders);
             this.Controls.Add(this.panelEqTypes);
-            this.Controls.Add(this.panelBuildings);
-            this.Controls.Add(this.panelFilials);
             this.Controls.Add(this.panelBrands);
             this.Controls.Add(this.panelRooms);
             this.Controls.Add(this.panelDeps);
@@ -2590,11 +2209,6 @@ namespace CompStore
             this.mainMenu.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.panelFilials.ResumeLayout(false);
-            this.panelFilials.PerformLayout();
-            this.toolStripFilials.ResumeLayout(false);
-            this.toolStripFilials.PerformLayout();
-            this.contextMenuFilials.ResumeLayout(false);
             this.panelRooms.ResumeLayout(false);
             this.panelRooms.PerformLayout();
             this.toolStripRooms.ResumeLayout(false);
@@ -2605,11 +2219,6 @@ namespace CompStore
             this.toolStripPosts.ResumeLayout(false);
             this.toolStripPosts.PerformLayout();
             this.contextMenuPosts.ResumeLayout(false);
-            this.panelBuildings.ResumeLayout(false);
-            this.panelBuildings.PerformLayout();
-            this.toolStripBuildings.ResumeLayout(false);
-            this.toolStripBuildings.PerformLayout();
-            this.contextMenuBuildings.ResumeLayout(false);
             this.panelDeps.ResumeLayout(false);
             this.panelDeps.PerformLayout();
             this.toolStripDeps.ResumeLayout(false);
@@ -2667,11 +2276,6 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.Panel panelFilials;
-        private System.Windows.Forms.ListView listFilials;
-        private System.Windows.Forms.ColumnHeader colFilName;
-        private System.Windows.Forms.ColumnHeader colFilAdress;
-        private System.Windows.Forms.ColumnHeader colFilCom;
         private System.Windows.Forms.ToolStripMenuItem menuInitDB;
         private System.Windows.Forms.Panel panelRooms;
         private System.Windows.Forms.ListView listRooms;
@@ -2681,11 +2285,6 @@ namespace CompStore
         private System.Windows.Forms.Panel panelPosts;
         private System.Windows.Forms.ListView listPosts;
         private System.Windows.Forms.ColumnHeader columnPostName;
-        private System.Windows.Forms.Panel panelBuildings;
-        private System.Windows.Forms.ListView listBuildings;
-        private System.Windows.Forms.ColumnHeader columnBuildingFilial;
-        private System.Windows.Forms.ColumnHeader columnBuildingName;
-        private System.Windows.Forms.ColumnHeader columnBuildingComment;
         private System.Windows.Forms.Panel panelDeps;
         private System.Windows.Forms.ListView listDeps;
         private System.Windows.Forms.ColumnHeader columnDepName;
@@ -2743,14 +2342,6 @@ namespace CompStore
         private System.Windows.Forms.ToolStripButton toolDepFilterReset;
         private System.Windows.Forms.ToolStripTextBox toolDepFilter;
         private System.Windows.Forms.ToolStripLabel toolDepFilterLabel;
-        private System.Windows.Forms.ToolStrip toolStripFilials;
-        private System.Windows.Forms.ToolStripLabel toolFilialLabel;
-        private System.Windows.Forms.ToolStripButton toolFilialAdd;
-        private System.Windows.Forms.ToolStripButton toolFilialEdit;
-        private System.Windows.Forms.ToolStripButton toolFilialDelete;
-        private System.Windows.Forms.ToolStripButton toolFilialFilterReset;
-        private System.Windows.Forms.ToolStripTextBox toolFilialFilter;
-        private System.Windows.Forms.ToolStripLabel toolFilialFilterLabel;
         private System.Windows.Forms.ToolStrip toolStripUsers;
         private System.Windows.Forms.ToolStripLabel toolUserLabel;
         private System.Windows.Forms.ToolStripButton toolUserAdd;
@@ -2759,14 +2350,6 @@ namespace CompStore
         private System.Windows.Forms.ToolStripButton toolUserFilterReset;
         private System.Windows.Forms.ToolStripTextBox toolUserFilter;
         private System.Windows.Forms.ToolStripLabel toolUserFilterLabel;
-        private System.Windows.Forms.ToolStrip toolStripBuildings;
-        private System.Windows.Forms.ToolStripLabel toolBuildingLabel;
-        private System.Windows.Forms.ToolStripButton toolBuildingAdd;
-        private System.Windows.Forms.ToolStripButton toolBuildingEdit;
-        private System.Windows.Forms.ToolStripButton toolBuildingDelete;
-        private System.Windows.Forms.ToolStripButton toolBuildingFilterReset;
-        private System.Windows.Forms.ToolStripTextBox toolBuildingFilter;
-        private System.Windows.Forms.ToolStripLabel toolBuildingFilterLabel;
         private System.Windows.Forms.ToolStrip toolStripRooms;
         private System.Windows.Forms.ToolStripLabel toolRoomLabel;
         private System.Windows.Forms.ToolStripButton toolRoomAdd;
@@ -2783,14 +2366,6 @@ namespace CompStore
         private System.Windows.Forms.ToolStripButton toolBrandFilterReset;
         private System.Windows.Forms.ToolStripTextBox toolBrandFilter;
         private System.Windows.Forms.ToolStripLabel toolBrandFilterLabel;
-        private System.Windows.Forms.ContextMenuStrip contextMenuFilials;
-        private System.Windows.Forms.ToolStripMenuItem cmFilialAdd;
-        private System.Windows.Forms.ToolStripMenuItem cmFilialEdit;
-        private System.Windows.Forms.ToolStripMenuItem cmFilialDelete;
-        private System.Windows.Forms.ContextMenuStrip contextMenuBuildings;
-        private System.Windows.Forms.ToolStripMenuItem cmBuildingAdd;
-        private System.Windows.Forms.ToolStripMenuItem cmBuildingEdit;
-        private System.Windows.Forms.ToolStripMenuItem cmBuildingDelete;
         private System.Windows.Forms.ContextMenuStrip contextMenuRooms;
         private System.Windows.Forms.ToolStripMenuItem cmRoomAdd;
         private System.Windows.Forms.ToolStripMenuItem cmRoomEdit;

@@ -16,7 +16,7 @@ namespace CompStore
             names = DB.NamesLoad("rooms");
             if (room.name != "") names.Remove(room.building.ToString()+"‼"+ room.name);
 
-            comboBuilding.DataSource = DB.BuildingsLoad();
+            comboBuilding.DataSource = DB.Load("buildings");
             comboBuilding.DisplayMember = "nameText";
             comboBuilding.ValueMember = "ID";
             comboBuilding.SelectedValue = room.building;
@@ -63,8 +63,8 @@ namespace CompStore
             FormBuilding form = new FormBuilding(building);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.BuildingAdd(building);
-                List<Building> buildings = DB.BuildingsLoad();
+                DB.Add("buildings",building);
+                List<Record> buildings = DB.Load("buildings");
                 comboBuilding.DataSource = buildings;
                 int max = 0;
                 foreach (Building b in buildings)

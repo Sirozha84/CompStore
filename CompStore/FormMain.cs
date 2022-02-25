@@ -36,8 +36,6 @@ namespace CompStore
 
         private void TabChange(object sender, TreeViewEventArgs e)
         {
-            panelFilials.Visible = treeMenu.SelectedNode.Name == "nodeFilials";
-            panelBuildings.Visible = treeMenu.SelectedNode.Name == "nodeBuildings";
             panelRooms.Visible = treeMenu.SelectedNode.Name == "nodeRooms";
             panelDeps.Visible = treeMenu.SelectedNode.Name == "nodeDeps";
             panelPosts.Visible = treeMenu.SelectedNode.Name == "nodePosts";
@@ -48,17 +46,21 @@ namespace CompStore
             panelProviders.Visible = treeMenu.SelectedNode.Name == "nodeProviders";
             
             panelList.Visible = true;   //Потом она останется одна и эта строка будет не нужна (ну и по умолчанию визибл ей надо будет сделать тру)
+            if (treeMenu.SelectedNode.Name == "nodeFilials")
+                PreparePage("filials", "Филиалы");
+            if (treeMenu.SelectedNode.Name == "nodeBuildings")
+                PreparePage("buildings", "Здания");
+
+
             if (treeMenu.SelectedNode.Name == "nodeEquipment")
             {
                 PreparePage("equipments", "Оборудование","Перемещения", "Ремонты", "Заправки");
-                PrepareListView(listViewMain, curType);
                 PrepareListView(listViewAdd1, "moves");
             }
             if (treeMenu.SelectedNode.Name == "nodeMoves")
-            {
                 PreparePage("moves", "Перемещения");
-                PrepareListView(listViewMain, curType);
-            }
+
+            PrepareListView(listViewMain, curType);
             ListViewRefresh();
         }
         void PreparePage(string type, string name, params string[] tabs)
@@ -92,10 +94,24 @@ namespace CompStore
             tFix.Visible = type == "equipments";
             tRefill.Visible = type == "equipments";
         }
-
+        
         void PrepareListView(ListView list, string type)
         {
             list.Clear();
+            if (type == "filials")
+            {
+                list.Columns.Add("Название", 200);
+                list.Columns.Add("Адрес", 200);
+                list.Columns.Add("Примечание", 200);
+            }
+            if (type == "buildings")
+            {
+                list.Columns.Add("Филиал", 200);
+                list.Columns.Add("Название", 200);
+                list.Columns.Add("Примечание", 200);
+            }
+
+
             if (type == "equipments")
             {
                 list.Columns.Add("Оборудование", 200);
@@ -203,6 +219,18 @@ namespace CompStore
         {
             Record item = null;
             Form form = null;
+            if (curType == "filials")
+            {
+                item = new Filial();
+                form = new FormFilial((Filial)item);
+            }
+            if (curType == "buildings")
+            {
+                item = new Building();
+                form = new FormBuilding((Building)item);
+            }
+
+
             if (curType == "equipments")
             {
                 item = new Equipment();
@@ -220,7 +248,7 @@ namespace CompStore
             }
         }
 
-        private void ItemCopy(object sender, EventArgs e)
+        private void ItemCopy(object sender, EventArgs e)   //Пока работает только для оборудования
         {
             Record item = null;
             if (listViewMain.SelectedIndices.Count != 1) return;
@@ -246,16 +274,12 @@ namespace CompStore
             Record item = null;
             Form form = null;
             if (listViewMain.SelectedIndices.Count == 0) return;
-            if (curType == "equipments")
-            {
-                item = (Record)listViewMain.SelectedItems[0].Tag;
-                form = new FormEquipment((Equipment)item);
-            }
-            if (curType == "moves")
-            {
-                item = (Record)listViewMain.SelectedItems[0].Tag;
-                form = new FormMove((Move)item, false);
-            }
+            item = (Record)listViewMain.SelectedItems[0].Tag;
+            if (curType == "filials") form = new FormFilial((Filial)item);
+            if (curType == "buildings") form = new FormBuilding((Building)item);
+
+            if (curType == "equipments") form = new FormEquipment((Equipment)item);
+            if (curType == "moves") form = new FormMove((Move)item, false);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Update(curType, item);
@@ -292,7 +316,7 @@ namespace CompStore
             if (form.ShowDialog() == DialogResult.OK)
             {
                 foreach (ListViewItem item in listViewMain.SelectedItems)
-                    DB.Add("move", move.newMove(((Equipment)item.Tag).ID));
+                    DB.Add("moves", move.newMove(((Equipment)item.Tag).ID));
                 ListViewRefresh();
             }
         }
@@ -307,89 +331,16 @@ namespace CompStore
                 if (listViewAdd1.SelectedIndices.Count == 0) return;
                 subitem = (Move)listViewAdd1.SelectedItems[0].Tag;
                 form = new FormMove((Move)subitem, false);
-                t = "move";
+                t = "moves";
             }
             if (t != "" && form.ShowDialog() == DialogResult.OK)
             {
-                DB.Update("move", subitem);
+                DB.Update("moves", subitem);
                 ListViewRefresh();
             }
         }
         #endregion
 
-        #region Филиалы
-        private void FilialsView(object sender, EventArgs e)
-        {
-            if (panelFilials.Visible) FilialsRefresh();
-        }
-
-        void FilialsRefresh()
-        {
-            filials = DB.FilialsLoad();
-            FilialsDraw(null, null);
-        }
-
-        private void FilialsDraw(object sender, EventArgs e)
-        {
-            listFilials.BeginUpdate();
-            listFilials.Items.Clear();
-            foreach (Filial filial in filials)
-                if (filial.Contains(toolFilialFilter.Text))
-                    listFilials.Items.Add(filial.ToListView());
-            listFilials.EndUpdate();
-            StatusCount(filials.Count, listFilials);
-            FilialsSelChange(null, null);
-        }
-        private void FilialsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listFilials.SelectedIndices.Count > 0;
-            toolFilialEdit.Enabled = sel;
-            toolFilialDelete.Enabled = sel;
-            cmFilialEdit.Enabled = sel;
-            cmFilialDelete.Enabled = sel;
-        }
-        private void FilialFilterReset(object sender, EventArgs e) { toolFilialFilter.Text = ""; }
-
-        private void FilialAdd(object sender, EventArgs e)
-        {
-            Filial filial = new Filial();
-            FormFilial form = new FormFilial(filial);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.FilialAdd(filial);
-                FilialsRefresh();
-            }
-        }
-
-        private void FilialEdit(object sender, EventArgs e)
-        {
-            if (listFilials.SelectedIndices.Count == 0) return;
-            Filial filial = (Filial)listFilials.SelectedItems[0].Tag;
-            FormFilial form = new FormFilial(filial);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.FilialUpdate(filial);
-                FilialsRefresh();
-            }
-        }
-
-        private void FilialDelete(object sender, EventArgs e)
-        {
-            if (listFilials.SelectedIndices.Count == 0) return;
-            Filial filial = (Filial)listFilials.SelectedItems[0].Tag;
-            if (DeleteRecord("филиал", filial.name))
-            {
-                DB.FilialDelete(filial);
-                FilialsRefresh();
-            }
-        }
-
-        private void FilialsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listFilials.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) FilialEdit(null, null);
-        }
-        #endregion
 
         #region Помещения
         private void RoomsView(object sender, EventArgs e)
@@ -608,81 +559,6 @@ namespace CompStore
         {
             if (listDeps.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) DepEdit(null, null);
-        }
-        #endregion
-
-        #region Здания
-        private void BuildingsView(object sender, EventArgs e)
-        {
-            if (panelBuildings.Visible) BuildingsRefresh();
-        }
-
-        void BuildingsRefresh()
-        {
-            buildings = DB.BuildingsLoad();
-            BuildingsDraw(null, null);
-        }
-
-        private void BuildingsDraw(object sender, EventArgs e)
-        {
-            listBuildings.BeginUpdate();
-            listBuildings.Items.Clear();
-            foreach (Building building in buildings)
-                if (building.Contains(toolBuildingFilter.Text))
-                    listBuildings.Items.Add(building.ToListView());
-            listBuildings.EndUpdate();
-            StatusCount(buildings.Count, listBuildings);
-            BuildingsSelChange(null, null);
-        }
-
-        private void BuildingsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listBuildings.SelectedIndices.Count > 0;
-            toolBuildingEdit.Enabled = sel;
-            toolBuildingDelete.Enabled = sel;
-            cmBuildingEdit.Enabled = sel;
-            cmBuildingDelete.Enabled = sel;
-        }
-
-        private void BuildingsFilterReset(object sender, EventArgs e) { toolBuildingFilter.Text = ""; }
-
-        private void BuildingAdd(object sender, EventArgs e)
-        {
-            Building building = new Building();
-            FormBuilding form = new FormBuilding(building);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.BuildingAdd(building);
-                BuildingsRefresh();
-            }
-        }
-        private void BuildingEdit(object sender, EventArgs e)
-        {
-            if (listBuildings.SelectedIndices.Count == 0) return;
-            Building building = (Building)listBuildings.SelectedItems[0].Tag;
-            FormBuilding form = new FormBuilding(building);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.BuildingUpdate(building);
-                BuildingsRefresh();
-            }
-        }
-
-        private void BuildingDelete(object sender, EventArgs e)
-        {
-            if (listBuildings.SelectedIndices.Count == 0) return;
-            Building building = (Building)listBuildings.SelectedItems[0].Tag;
-            if (DeleteRecord("здание", building.name))
-            {
-                DB.BuildingDelete(building);
-                BuildingsRefresh();
-            }
-        }
-
-        private void BuildingsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listBuildings.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) BuildingEdit(null, null);
         }
         #endregion
 
@@ -989,79 +865,6 @@ namespace CompStore
             if (listModels.SelectedIndices.Count == 0) return;
             if (e.KeyCode == Keys.Enter) ModelEdit(null, null);
         }
-        #endregion
-
-        #region Перемещение
-        /*private void MovesView(object sender, EventArgs e)
-        {
-            if (panelMoves.Visible) MovesRefresh();
-        }
-
-        void MovesRefresh()
-        {
-            //moves = DB.MovesLoad();
-            MovesDraw(null, null);
-        }
-
-        private void MovesDraw(object sender, EventArgs e)
-        {
-            listMoves.BeginUpdate();
-            listMoves.Items.Clear();
-            foreach (Move move in moves)
-                if (move.Contains(toolMoveFilter.Text))
-                    listMoves.Items.Add(move.ToListView());
-            listMoves.EndUpdate();
-            StatusCount(moves.Count, listMoves);
-            MovesSelChange(null, null);
-        }
-        private void MovesSelChange(object sender, EventArgs e)
-        {
-            bool sel = listMoves.SelectedIndices.Count > 0;
-            toolMoveEdit.Enabled = sel;
-            toolMoveDelete.Enabled = sel;
-            cmMoveEdit.Enabled = sel;
-            cmMoveDelete.Enabled = sel;
-        }
-        private void MoveFilterReset(object sender, EventArgs e) { toolMoveFilter.Text = ""; }
-
-        private void MoveAdd(object sender, EventArgs e)
-        {
-            Move move = new Move();
-            FormMove form = new FormMove(move, false);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.MoveAdd(move);
-                MovesRefresh();
-            }
-        }
-        private void MoveEdit(object sender, EventArgs e)
-        {
-            if (listMoves.SelectedIndices.Count == 0) return;
-            Move move = (Move)listMoves.SelectedItems[0].Tag;
-            FormMove form = new FormMove(move, false);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.MoveUpdate(move);
-                MovesRefresh();
-            }
-        }
-
-        private void MoveDelete(object sender, EventArgs e)
-        {
-            if (listMoves.SelectedIndices.Count == 0) return;
-            Move move = (Move)listMoves.SelectedItems[0].Tag;
-            if (DeleteRecord("перемещение оборудования", move.eqText))
-            {
-                DB.MoveDelete(move);
-                MovesRefresh();
-            }
-        }
-
-        private void MovesKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listMoves.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) MoveEdit(null, null);
-        }*/
         #endregion
 
         #region Поставщики

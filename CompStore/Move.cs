@@ -9,12 +9,10 @@ namespace CompStore
         public int user { get; set; }
         public int room { get; set; }
         public DateTime date { get; set; }
-        public int mol { get; set; }
 
         public string eqText;
         public string userText;
         public string roomText;
-        public string molText;
 
         public override ListViewItem ToListView()
         {

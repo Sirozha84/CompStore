@@ -133,6 +133,43 @@ namespace CompStore
 
             connect.Open();
             SQLiteCommand com = new SQLiteCommand(connect);
+            if (type == "filials")
+            {
+                com.CommandText = "SELECT * FROM filials ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Filial filial = new Filial();
+                    filial.ID = reader.GetInt32(0);
+                    filial.name = filial.nameText = reader.GetString(1);
+                    filial.adress = reader.GetString(2);
+                    filial.comment = reader.GetString(3);
+                    list.Add(filial);
+                }
+            }
+            if (type == "buildings")
+            {
+                com.CommandText = "SELECT buildings.ID, buildings.filial, buildings.name, buildings.comment, " +
+                    "filials.name AS filialText, " +
+                    "filials.name || \", зд. \" || [buildings].name " +
+                    "FROM buildings " +
+                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
+                    "ORDER BY filials.name, buildings.name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Building building = new Building();
+                    building.ID = reader.GetInt32(0);
+                    building.filial = reader.GetInt32(1);
+                    building.name = reader.GetString(2);
+                    building.comment = reader.GetString(3);
+                    building.filialText = building.filial != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
+                    building.nameText = building.filial != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                    list.Add(building);
+                }
+            }
+
+
             if (type == "equipments")
             {
                 com.CommandText = "SELECT " +
@@ -252,6 +289,24 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
+                if (type == "filials")
+                {
+                    Filial filial = (Filial)item;
+                    com.CommandText = "INSERT INTO filials (name, adress, comment) VALUES ('" +
+                        filial.name + "', '" +
+                        filial.adress + "', '" +
+                        filial.comment + "')";
+                }
+                if (type == "buildings")
+                {
+                    Building building = (Building)item;
+                    com.CommandText = "INSERT INTO buildings (filial, name, comment) VALUES ('" +
+                        building.filial + "', '" +
+                        building.name + "', '" +
+                        building.comment + "')";
+                }
+
+
                 if (type == "equipments")
                 {
                     Equipment equipment = (Equipment)item;
@@ -291,33 +346,50 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
+                if (type == "filials")
+                {
+                    Filial filial = (Filial)item;
+                    com.CommandText = "UPDATE filials SET " +
+                        "name = '" + filial.name + "', " +
+                        "adress = '" + filial.adress + "', " +
+                        "comment = '" + filial.comment + "' WHERE ID = " + filial.ID;
+                }
+                if (type == "buildings")
+                {
+                    Building building = (Building)item;
+                    com.CommandText = "UPDATE buildings SET " +
+                        "filial = '" + building.filial + "', " +
+                        "name = '" + building.name + "', " +
+                        "comment = '" + building.comment + "' WHERE ID = " + building.ID;
+                }
+
                 if (type == "equipments")
                 {
-                    Equipment r = (Equipment)item;
+                    Equipment equipment = (Equipment)item;
                     com.CommandText = "UPDATE equipments SET " +
-                        "model = '" + r.model + "', " +
-                        "sn = '" + r.sn + "', " +
-                        "[in] = '" + r.iN + "', " +
-                        "inv = '" + (r.iNv ? "1" : "0") + "', " +
-                        "mac = '" + r.mac + "', " +
-                        "ip = '" + r.ip + "', " +
-                        "prop = '" + r.prop + "', " +
-                        "buy = '" + (r.buy ? "1" : "0") + "', " +
-                        "buydate = '" + r.buyDate.ToString("yyyyMMdd") + "', " +
-                        "price = '" + r.price + "', " +
-                        "provider = '" + r.provider + "', " +
-                        "comment = '" + r.comment + "' WHERE ID = " + r.ID;
+                        "model = '" + equipment.model + "', " +
+                        "sn = '" + equipment.sn + "', " +
+                        "[in] = '" + equipment.iN + "', " +
+                        "inv = '" + (equipment.iNv ? "1" : "0") + "', " +
+                        "mac = '" + equipment.mac + "', " +
+                        "ip = '" + equipment.ip + "', " +
+                        "prop = '" + equipment.prop + "', " +
+                        "buy = '" + (equipment.buy ? "1" : "0") + "', " +
+                        "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
+                        "price = '" + equipment.price + "', " +
+                        "provider = '" + equipment.provider + "', " +
+                        "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
                 }
                 if (type == "moves")
                 {
-                    Move r= (Move)item;
+                    Move move = (Move)item;
                     com.CommandText = "UPDATE moves SET " +
-                        "equipment = '" + r.equipment + "', " +
-                        "user = '" + r.user + "', " +
-                        "room = '" + r.room + "', " +
-                        "date = '" + r.date.ToString("yyyyMMdd") + "', " +
-                        "mol = '" + r.mol + "', " +
-                        "comment = '" + r.comment + "' WHERE ID = " + r.ID;
+                        "equipment = '" + move.equipment + "', " +
+                        "user = '" + move.user + "', " +
+                        "room = '" + move.room + "', " +
+                        "date = '" + move.date.ToString("yyyyMMdd") + "', " +
+                        "mol = '" + move.mol + "', " +
+                        "comment = '" + move.comment + "' WHERE ID = " + move.ID;
                 }
                 com.ExecuteNonQuery();
                 connect.Close();
@@ -336,76 +408,27 @@ namespace CompStore
             }
         }
 
-        #region Филиалы [filials]
-        public static List<Filial> FilialsLoad()
-        {
-            List<Filial> filials = new List<Filial>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM filials ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Filial filial = new Filial();
-                        filial.ID = reader.GetInt32(0);
-                        filial.name = reader.GetString(1);
-                        filial.adress = reader.GetString(2);
-                        filial.comment = reader.GetString(3);
-                        filials.Add(filial);
-                    }
-                }
-                connect.Close();
-            }
-            return filials;
-        }
 
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
+        //*****************************************************************************************************************************************************************
 
-        public static void FilialAdd(Filial filial)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO filials (name, adress, comment) VALUES ('" +
-                    filial.name + "', '" +
-                    filial.adress + "', '" +
-                    filial.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void FilialUpdate(Filial filial)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE filials SET " +
-                    "name = '" + filial.name + "', " +
-                    "adress = '" + filial.adress + "', " +
-                    "comment = '" + filial.comment + "' WHERE ID = " + filial.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void FilialDelete(Filial filial)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM filials WHERE ID = " + filial.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-        
+       
         #region Помещения [rooms]
         public static List<Room> RoomsLoad()
         {
@@ -606,80 +629,6 @@ namespace CompStore
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
                 com.CommandText = "DELETE FROM deps WHERE ID = " + dep.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Здания [buildings]
-        public static List<Building> BuildingsLoad()
-        {
-            List<Building> buildings = new List<Building>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT buildings.ID, buildings.filial, buildings.name, buildings.comment, " +
-                    "filials.name AS filialText, "+
-                    "filials.name || \", зд. \" || [buildings].name " +
-                    "FROM buildings " +
-                    "LEFT JOIN filials ON buildings.filial = filials.ID " +
-                    "ORDER BY filials.name, buildings.name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Building building = new Building();
-                        building.ID = reader.GetInt32(0);
-                        building.filial = reader.GetInt32(1);
-                        building.name = reader.GetString(2);
-                        building.comment = reader.GetString(3);
-                        building.filialText = building.filial != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
-                        building.nameText = building.filial != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
-                        buildings.Add(building);
-                    }
-                }
-                connect.Close();
-            }
-            return buildings;
-        }
-        public static void BuildingAdd(Building building)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO buildings (filial, name, comment) VALUES ('" +
-                    building.filial + "', '" +
-                    building.name + "', '" +
-                    building.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void BuildingUpdate(Building building)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE buildings SET " +
-                    "filial = '" + building.filial + "', " +
-                    "name = '" + building.name + "', " +
-                    "comment = '" + building.comment + "' WHERE ID = " + building.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void BuildingDelete(Building building)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM buildings WHERE ID = " + building.ID;
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -1014,251 +963,6 @@ namespace CompStore
                 connect.Close();
             }
         }
-        #endregion
-
-        #region Оборудование [equipment]
-        /*
-        public static List<Equipment> EquipmentsLoad()
-        {
-            List<Equipment> equipments = new List<Equipment>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT " +
-                    "equipments.ID, " +
-                    "equipments.model, " +
-                    "equipments.sn, " +
-                    "equipments.[in], " +
-                    "equipments.inv, " +
-                    "equipments.mac, " +
-                    "equipments.ip, " +
-                    "equipments.prop, " +
-                    "equipments.buy, " +
-                    "equipments.buydate, " +
-                    "equipments.price, " +
-                    "equipments.provider, " +
-                    "equipments.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
-                    "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
-                    "buildings.name || \", \" || rooms.name, " +
-                    "m.date, " +
-                    "providers.name, " +
-                    "users.ID, " +
-                    "mols.ID, " +
-                    "mols.f || \" \" || SUBSTR(mols.i, 1, 1) || \".\" || SUBSTR(mols.o, 1, 1) || \".\" AS molText " +
-                    "FROM equipments " +
-                    "LEFT JOIN models ON equipments.model = models.ID " +
-                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID " +
-                    "LEFT JOIN (SELECT equipment, user, room, mol, date, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
-                    "LEFT JOIN users ON m.user = users.ID " +
-                    "LEFT JOIN rooms ON m.room = rooms.ID " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
-                    "LEFT JOIN providers ON equipments.provider = providers.ID " +
-                    "LEFT JOIN users mols ON m.mol = mols.ID " +
-                    "ORDER BY nameText, [in]";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Equipment equipment = new Equipment();
-                        equipment.ID = reader.GetInt32(0);
-                        equipment.model = reader.GetInt32(1);
-                        equipment.sn = reader.GetString(2);
-                        equipment.iN = reader.GetString(3);
-                        equipment.iNv = !reader.IsDBNull(4) ? (reader.GetString(4) == "1") : false;
-                        equipment.mac = !reader.IsDBNull(5) ? reader.GetString(5) : "";
-                        equipment.ip = !reader.IsDBNull(6) ? reader.GetString(6) : "";
-                        equipment.prop = !reader.IsDBNull(7) ? reader.GetString(7) : "";
-                        equipment.buy = reader.GetString(8) == "1";
-                        equipment.buyDate = DateTime.ParseExact(reader.GetString(9), "yyyyMMdd", CultureInfo.InvariantCulture);
-                        equipment.price = !reader.IsDBNull(10) ? reader.GetString(10) : "";
-                        equipment.provider = !reader.IsDBNull(11) ? reader.GetInt32(11) : 0;
-                        equipment.comment = reader.GetString(12);
-                        equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
-                        equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
-                        equipment.userText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
-                        equipment.roomText = !reader.IsDBNull(16) ? reader.GetString(16) : "";
-                        equipment.isDtText = !reader.IsDBNull(17) ?
-                            DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
-                        equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
-                        equipment.user = !reader.IsDBNull(19) ? reader.GetInt32(19) : 0;
-                        equipment.mol = !reader.IsDBNull(20) ? reader.GetInt32(20) : 0;
-                        equipment.molText = !reader.IsDBNull(21) ? reader.GetString(21) : "";
-                        equipments.Add(equipment);
-                    }
-                }
-                connect.Close();
-            }
-            return equipments;
-        }
-        public static void EquipmentAdd(Equipment equipment)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, provider, comment) VALUES ('" +
-                    equipment.model + "', '" +
-                    equipment.sn + "', '" +
-                    equipment.iN + "', '" +
-                    (equipment.iNv ? "1" : "0") + "', '" +
-                    equipment.mac + "', '" +
-                    equipment.ip + "', '" +
-                    equipment.prop + "', '" +
-                    (equipment.buy ? "1" : "0") + "', '" +
-                    equipment.buyDate.ToString("yyyyMMdd") + "', '" +
-                    equipment.price + "', '" +
-                    equipment.provider + "', '" +
-                    equipment.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void EquipmentUpdate(Equipment equipment)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE equipments SET " +
-                    "model = '" + equipment.model + "', " +
-                    "sn = '" + equipment.sn + "', " +
-                    "[in] = '" + equipment.iN + "', " +
-                    "inv = '" + (equipment.iNv ? "1" : "0") + "', " +
-                    "mac = '" + equipment.mac + "', " +
-                    "ip = '" + equipment.ip + "', " +
-                    "prop = '" + equipment.prop + "', " +
-                    "buy = '" + (equipment.buy ? "1" : "0") + "', " +
-                    "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
-                    "price = '" + equipment.price + "', " +
-                    "provider = '" + equipment.provider + "', " +
-                    "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void EquipmentDelete(Equipment equipment)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM equipments WHERE ID = " + equipment.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        */
-        #endregion
-
-        #region Перемещения [moves]
-        /*
-        public static List<Move> MovesLoad()
-        {
-            List<Move> moves = new List<Move>();
-            List<Equipment> equipments = EquipmentsLoad();
-            List<User> users = UsersLoad();
-            List<Room> rooms = RoomsLoad();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT " +
-                    "moves.ID, " +
-                    "moves.equipment, " +
-                    "moves.user, " +
-                    "moves.room, " +
-                    "moves.date, " +
-                    "moves.mol, " +
-                    "moves.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
-                    "users.f || \" \" || users.i || \" \" || users.o, " +
-                    "buildings.name || \", \" || rooms.name, " +
-                    "mols.f || \" \" || mols.i || \" \" || mols.o " +
-                    "FROM moves " +
-                    "LEFT JOIN equipments ON moves.equipment = equipments.ID " +
-                    "LEFT JOIN models ON equipments.model = models.ID " +
-                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID " +
-                    "LEFT JOIN users ON moves.user = users.ID " +
-                    "LEFT JOIN rooms ON moves.room = rooms.ID " +
-                    "LEFT JOIN buildings ON rooms.building = buildings.ID " +
-                    "LEFT JOIN users mols ON moves.mol = mols.ID " +
-                    "ORDER BY moves.date";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Move move = new Move();
-                        move.ID = reader.GetInt32(0);
-                        move.equipment = reader.GetInt32(1);
-                        move.user = reader.GetInt32(2);
-                        move.room = reader.GetInt32(3);
-                        move.date = DateTime.ParseExact(reader.GetString(4), "yyyyMMdd", CultureInfo.InvariantCulture);
-                        move.mol = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0;
-                        move.comment = reader.GetString(6);
-                        move.eqText = move.equipment != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
-                        move.userText = move.user != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
-                        move.roomText = move.room != 0 ? (!reader.IsDBNull(9) ? reader.GetString(9) : ND) : "";
-                        move.molText = move.mol != 0 ? (!reader.IsDBNull(10) ? reader.GetString(10) : ND) : "";
-                        moves.Add(move);
-                    }
-                }
-                connect.Close();
-            }
-            return moves;
-        }
-        public static void MoveAdd(Move move)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO [moves] (equipment, user, room, date, mol, comment) VALUES ('" +
-                    move.equipment + "', '" +
-                    move.user + "', '" +
-                    move.room + "', '" +
-                    move.date.ToString("yyyyMMdd") + "', '" +
-                    move.mol + "', '" +
-                    move.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void MoveUpdate(Move move)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE [moves] SET " +
-                    "[equipment] = '" + move.equipment + "', " +
-                    "[user] = '" + move.user + "', " +
-                    "[room] = '" + move.room + "', " +
-                    "[date] = '" + move.date.ToString("yyyyMMdd") + "', " +
-                    "[mol] = '" + move.mol + "', " +
-                    "[comment] = '" + move.comment + "' WHERE ID = " + move.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void MoveDelete(Move move)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM [moves] WHERE ID = " + move.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        */
         #endregion
 
         #region Поставщики [providers]

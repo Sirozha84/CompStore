@@ -17,8 +17,8 @@ namespace CompStore
             names = DB.NamesLoad("buildings");
             if (building.name != "") names.Remove(building.filial.ToString() + "‼" + building.name);
 
-            comboFilial.DataSource = DB.FilialsLoad();
-            comboFilial.DisplayMember = "name";
+            comboFilial.DataSource = DB.Load("filials");
+            comboFilial.DisplayMember = "nameText";
             comboFilial.ValueMember = "ID";
             comboFilial.SelectedValue = building.filial;
             
@@ -60,15 +60,15 @@ namespace CompStore
 
         private void FilialAdd(object sender, EventArgs e)
         {
-            Filial filial = new Filial();
-            FormFilial form = new FormFilial(filial);
+            Record filial = new Filial();
+            FormFilial form = new FormFilial((Filial)filial);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.FilialAdd(filial);
-                List<Filial> filialds = DB.FilialsLoad();
-                comboFilial.DataSource = filialds;
+                DB.Add("filials", filial);
+                List<Record> filials = DB.Load("filials");
+                comboFilial.DataSource = filials;
                 int max = 0;
-                foreach (Filial f in filialds)
+                foreach (Filial f in filials)
                     if (max < f.ID) max = f.ID;
                 comboFilial.SelectedValue = max;
             }

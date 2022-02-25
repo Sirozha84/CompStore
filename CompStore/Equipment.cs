@@ -16,7 +16,6 @@ namespace CompStore
         public DateTime buyDate { get; set; }
         public string price { get; set; }
         public int provider { get; set; }
-        public string nameINText { get; set; }
         public int user;
         public string userText;
         public string roomText;
