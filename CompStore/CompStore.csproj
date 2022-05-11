@@ -68,18 +68,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Brand.cs" />
+    <Compile Include="Vendor.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Dep.cs" />
     <Compile Include="EqType.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="Filial.cs" />
-    <Compile Include="FormBrand.cs">
+    <Compile Include="FormVendor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBrand.Designer.cs">
-      <DependentUpon>FormBrand.cs</DependentUpon>
+    <Compile Include="FormVendor.Designer.cs">
+      <DependentUpon>FormVendor.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBuilding.cs">
       <SubType>Form</SubType>
@@ -169,8 +169,8 @@
     <Compile Include="Room.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="FormBrand.resx">
-      <DependentUpon>FormBrand.cs</DependentUpon>
+    <EmbeddedResource Include="FormVendor.resx">
+      <DependentUpon>FormVendor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBuilding.resx">
       <DependentUpon>FormBuilding.cs</DependentUpon>

@@ -67,7 +67,7 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [brands] ( " +
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [vendors] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[name] TEXT, " +
                     "[comment] TEXT)";
@@ -81,7 +81,7 @@ namespace CompStore
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [models] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[eqtype] INTEGER, " +
-                    "[brand] INTEGER, " +
+                    "[vendor] INTEGER, " +
                     "[name] TEXT, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
@@ -286,8 +286,8 @@ namespace CompStore
                     "equipments.price, " +
                     "equipments.provider, " +
                     "equipments.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name AS nameText, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name AS nameText, " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
                     "buildings.name || \", \" || rooms.name, " +
                     "m.date, " +
@@ -298,7 +298,7 @@ namespace CompStore
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "LEFT JOIN vendors ON models.vendor = vendors.ID " +
                     "LEFT JOIN (SELECT equipment, user, room, mol, date, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
                     "LEFT JOIN users ON m.user = users.ID " +
                     "LEFT JOIN rooms ON m.room = rooms.ID " +
@@ -346,7 +346,7 @@ namespace CompStore
                     "moves.date, " +
                     "moves.mol, " +
                     "moves.comment, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || users.i || \" \" || users.o, " +
                     "buildings.name || \", \" || rooms.name, " +
                     "mols.f || \" \" || mols.i || \" \" || mols.o " +
@@ -354,7 +354,7 @@ namespace CompStore
                     "LEFT JOIN equipments ON moves.equipment = equipments.ID " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID " +
+                    "LEFT JOIN vendors ON models.vendor = vendors.ID " +
                     "LEFT JOIN users ON moves.user = users.ID " +
                     "LEFT JOIN rooms ON moves.room = rooms.ID " +
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
@@ -378,6 +378,82 @@ namespace CompStore
                     list.Add(move);
                 }
             }
+            if (type == "eqtypes")
+            {
+                com.CommandText = "SELECT * FROM eqtypes ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    EqType eqType = new EqType();
+                    eqType.ID = reader.GetInt32(0);
+                    eqType.name = reader.GetString(1);
+                    list.Add(eqType);
+                }
+                connect.Close();
+            }
+            if (type == "vendors")
+            {
+                com.CommandText = "SELECT * FROM vendors ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Vendor vendor = new Vendor();
+                    vendor.ID = reader.GetInt32(0);
+                    vendor.name = reader.GetString(1);
+                    vendor.comment = reader.GetString(2);
+                    list.Add(vendor);
+                }
+                connect.Close();
+            }
+            if (type == "models")
+            {
+                com.CommandText = "SELECT " +
+                    "models.id, " +
+                    "models.eqtype, " +
+                    "models.vendor, " +
+                    "models.name, " +
+                    "models.comment, " +
+                    "eqtypes.name AS modelText, " +
+                    "vendors.name AS vendorText, " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name " +
+                    "FROM models " +
+                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
+                    "LEFT JOIN vendors ON models.vendor = vendors.ID " +
+                    "ORDER BY modelText";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Model model = new Model();
+                    model.ID = reader.GetInt32(0);
+                    model.eqType = reader.GetInt32(1);
+                    model.vendor = reader.GetInt32(2);
+                    model.name = reader.GetString(3);
+                    model.comment = reader.GetString(4);
+                    model.eqTypeText = model.eqType != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                    model.vendorText = model.vendor != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
+                    model.nameText = model.eqType != 0 & model.vendor != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
+                    list.Add(model);
+                }
+                connect.Close();
+            }
+            if (type == "providers")
+            {
+                com.CommandText = "SELECT * FROM providers ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Provider provider = new Provider();
+                    provider.ID = reader.GetInt32(0);
+                    provider.name = reader.GetString(1);
+                    provider.adress = reader.GetString(2);
+                    provider.phone = reader.GetString(3);
+                    provider.manager = reader.GetString(4);
+                    provider.comment = reader.GetString(5);
+                    list.Add(provider);
+                }
+                connect.Close();
+            }
+
 
             connect.Close();
             return list;
@@ -471,6 +547,40 @@ namespace CompStore
                         move.mol + "', '" +
                         move.comment + "')";
                 }
+                if (type == "eqtypes")
+                {
+                    EqType eqType = (EqType)item;
+                    com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" + 
+                        eqType.name + "')";
+                }
+                if (type == "vendors")
+                {
+                    Vendor vendor = (Vendor)item;
+                    com.CommandText = "INSERT INTO vendors (name, comment) VALUES ('" +
+                        vendor.name + "', '" +
+                        vendor.comment + "')";
+                }
+                if (type == "models")
+                {
+                    Model model = (Model)item;
+                    com.CommandText = "INSERT INTO models (eqtype, vendor, name, comment) VALUES ('" +
+                         model.eqType + "', '" +
+                         model.vendor + "', '" +
+                         model.name + "', '" +
+                         model.comment + "')";
+                }
+                if (type == "providers")
+                {
+                    Provider provider = (Provider)item;
+                    com.CommandText = "INSERT INTO providers (name, adress, phone, manager, comment) VALUES ('" +
+                        provider.name + "', '" +
+                        provider.adress + "', '" +
+                        provider.phone + "', '" +
+                        provider.manager + "', '" +
+                        provider.comment + "')";
+                }
+
+
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -563,6 +673,39 @@ namespace CompStore
                         "mol = '" + move.mol + "', " +
                         "comment = '" + move.comment + "' WHERE ID = " + move.ID;
                 }
+                if (type == "eqtypes")
+                {
+                    EqType eqType = (EqType)item;
+                    com.CommandText = "UPDATE eqtypes SET " + 
+                        "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
+                }
+                if (type == "vendors")
+                {
+                    Vendor vendor = (Vendor)item;
+                    com.CommandText = "UPDATE vendors SET " +
+                        "name = '" + vendor.name + "', " +
+                        "comment = '" + vendor.comment + "' WHERE ID = " + vendor.ID;
+                }
+                if (type == "models")
+                {
+                    Model model = (Model)item;
+                    com.CommandText = "UPDATE models SET " +
+                        "eqtype = '" + model.eqType + "', " +
+                        "vendor = '" + model.vendor + "', " +
+                        "name = '" + model.name + "', " +
+                        "comment = '" + model.comment + "' WHERE ID = " + model.ID;
+                }
+                if (type == "providers")
+                {
+                    Provider provider = (Provider)item;
+                    com.CommandText = "UPDATE providers SET " +
+                        "name = '" + provider.name + "', " +
+                        "adress = '" + provider.adress + "', " +
+                        "phone = '" + provider.phone + "', " +
+                        "manager = '" + provider.manager + "', " +
+                        "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
+                }
+
                 com.ExecuteNonQuery();
                 connect.Close();
             }
@@ -580,312 +723,6 @@ namespace CompStore
             }
         }
 
-
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-        //*****************************************************************************************************************************************************************
-
-        #region Производители [brands]
-        public static List<Brand> BrandsLoad()
-        {
-            List<Brand> brands = new List<Brand>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM brands ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Brand brand = new Brand();
-                        brand.ID = reader.GetInt32(0);
-                        brand.name = reader.GetString(1);
-                        brand.comment = reader.GetString(2);
-                        brands.Add(brand);
-                    }
-                }
-                connect.Close();
-            }
-            return brands;
-        }
-
-        public static void BrandAdd(Brand brand)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO brands (name, comment) VALUES ('" +
-                    brand.name + "', '" +
-                    brand.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void BrandUpdate(Brand brand)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE brands SET " +
-                    "name = '" + brand.name + "', " +
-                    "comment = '" + brand.comment + "' WHERE ID = " + brand.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void BrandDelete(Brand brand)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM brands WHERE ID = " + brand.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Типы обородования [eqtypes]
-        public static List<EqType> EqTypesLoad()
-        {
-            List<EqType> eqTypes = new List<EqType>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM eqtypes ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        EqType eqType = new EqType();
-                        eqType.ID = reader.GetInt32(0);
-                        eqType.name = reader.GetString(1);
-                        eqTypes.Add(eqType);
-                    }
-                }
-                connect.Close();
-            }
-            return eqTypes;
-        }
-        public static void EqTypeAdd(EqType eqType)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" + eqType.name + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void EqTypeUpdate(EqType eqType)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE eqtypes SET " + "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void EqTypeDelete(EqType eqType)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM eqtypes WHERE ID = " + eqType.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Модели [models]
-        public static List<Model> ModelsLoad()
-        {
-            List<Model> models = new List<Model>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT "+
-                    "models.id, " +
-                    "models.eqtype, " +
-                    "models.brand, " +
-                    "models.name, " +
-                    "models.comment, " +
-                    "eqtypes.name AS modelText, " +
-                    "brands.name AS brandText, " +
-                    "eqtypes.name || \" \" || brands.name || \" \" || models.name " +
-                    "FROM models " +
-                    "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
-                    "LEFT JOIN brands ON models.brand = brands.ID " +
-                    "ORDER BY modelText";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Model model = new Model();
-                        model.ID = reader.GetInt32(0);
-                        model.eqType = reader.GetInt32(1);
-                        model.brand = reader.GetInt32(2);
-                        model.name = reader.GetString(3);
-                        model.comment = reader.GetString(4);
-                        model.eqTypeText = model.eqType != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
-                        model.brandText = model.brand != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
-                        model.nameText = model.eqType != 0 & model.brand != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
-                        models.Add(model);
-                    }
-                }
-                connect.Close();
-            }
-            return models;
-        }
-        public static void ModelAdd(Model model)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO models (eqtype, brand, name, comment) VALUES ('" +
-                    model.eqType + "', '" +
-                    model.brand + "', '" +
-                    model.name + "', '" +
-                    model.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        public static void ModelUpdate(Model model)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE models SET " +
-                    "eqtype = '" + model.eqType + "', " +
-                    "brand = '" + model.brand + "', " +
-                    "name = '" + model.name + "', " +
-                    "comment = '" + model.comment + "' WHERE ID = " + model.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void ModelDelete(Model model)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM models WHERE ID = " + model.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
-        #region Поставщики [providers]
-        public static List<Provider> ProvidersLoad()
-        {
-            List<Provider> providers = new List<Provider>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT * FROM providers ORDER BY name";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Provider provider = new Provider();
-                        provider.ID = reader.GetInt32(0);
-                        provider.name = reader.GetString(1);
-                        provider.adress = reader.GetString(2);
-                        provider.phone = reader.GetString(3);
-                        provider.manager = reader.GetString(4);
-                        provider.comment = reader.GetString(5);
-                        providers.Add(provider);
-                    }
-                }
-                connect.Close();
-            }
-            return providers;
-        }
-
-
-        public static void ProviderAdd(Provider provider)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "INSERT INTO providers (name, adress, phone, manager, comment) VALUES ('" +
-                    provider.name + "', '" +
-                    provider.adress + "', '" +
-                    provider.phone + "', '" +
-                    provider.manager + "', '" +
-                    provider.comment + "')";
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void ProviderUpdate(Provider provider)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "UPDATE providers SET " +
-                    "name = '" + provider.name + "', " +
-                    "adress = '" + provider.adress + "', " +
-                    "phone = '" + provider.phone + "', " +
-                    "manager = '" + provider.manager + "', " +
-                    "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-
-        public static void ProviderDelete(Provider provider)
-        {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM providers WHERE ID = " + provider.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
-        }
-        #endregion
-
         public static List<string> NamesLoad(string table)
         {
             List<string> list = new List<string>();
@@ -897,7 +734,7 @@ namespace CompStore
                 if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
                 if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
                 if (table == "users") com.CommandText = "SELECT f || \"‼\" || i || \"‼\" || o FROM users";
-                if (table == "models") com.CommandText = "SELECT brand || \"‼\" || name FROM models";
+                if (table == "models") com.CommandText = "SELECT vendor || \"‼\" || name FROM models";
                 if (table == "equipments") com.CommandText = "SELECT sn || \"‼\" || [in] FROM equipments";
                 using (SQLiteDataReader reader = com.ExecuteReader())
                     while (reader.Read())

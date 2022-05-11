@@ -30,8 +30,8 @@ namespace CompStore
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.comboBrand = new System.Windows.Forms.ComboBox();
-            this.labelBrand = new System.Windows.Forms.Label();
+            this.combovendor = new System.Windows.Forms.ComboBox();
+            this.labelvendor = new System.Windows.Forms.Label();
             this.comboEqType = new System.Windows.Forms.ComboBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -42,27 +42,27 @@ namespace CompStore
             this.labelName = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonTEAdd = new System.Windows.Forms.Button();
-            this.buttonBrandAdd = new System.Windows.Forms.Button();
+            this.buttonvendorAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBrand
+            // combovendor
             // 
-            this.comboBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBrand.FormattingEnabled = true;
-            this.comboBrand.Location = new System.Drawing.Point(120, 39);
-            this.comboBrand.Name = "comboBrand";
-            this.comboBrand.Size = new System.Drawing.Size(205, 21);
-            this.comboBrand.TabIndex = 1;
-            this.comboBrand.SelectedIndexChanged += new System.EventHandler(this.CheckField);
+            this.combovendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combovendor.FormattingEnabled = true;
+            this.combovendor.Location = new System.Drawing.Point(120, 39);
+            this.combovendor.Name = "combovendor";
+            this.combovendor.Size = new System.Drawing.Size(205, 21);
+            this.combovendor.TabIndex = 1;
+            this.combovendor.SelectedIndexChanged += new System.EventHandler(this.CheckField);
             // 
-            // labelBrand
+            // labelvendor
             // 
-            this.labelBrand.AutoSize = true;
-            this.labelBrand.Location = new System.Drawing.Point(25, 42);
-            this.labelBrand.Name = "labelBrand";
-            this.labelBrand.Size = new System.Drawing.Size(89, 13);
-            this.labelBrand.TabIndex = 38;
-            this.labelBrand.Text = "Производитель:";
+            this.labelvendor.AutoSize = true;
+            this.labelvendor.Location = new System.Drawing.Point(25, 42);
+            this.labelvendor.Name = "labelvendor";
+            this.labelvendor.Size = new System.Drawing.Size(89, 13);
+            this.labelvendor.TabIndex = 38;
+            this.labelvendor.Text = "Производитель:";
             // 
             // comboEqType
             // 
@@ -155,16 +155,16 @@ namespace CompStore
             this.buttonTEAdd.UseVisualStyleBackColor = true;
             this.buttonTEAdd.Click += new System.EventHandler(this.EquipmentTypeAdd);
             // 
-            // buttonBrandAdd
+            // buttonvendorAdd
             // 
-            this.buttonBrandAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrandAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonBrandAdd.Location = new System.Drawing.Point(331, 38);
-            this.buttonBrandAdd.Name = "buttonBrandAdd";
-            this.buttonBrandAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonBrandAdd.TabIndex = 93;
-            this.buttonBrandAdd.UseVisualStyleBackColor = true;
-            this.buttonBrandAdd.Click += new System.EventHandler(this.BrandAdd);
+            this.buttonvendorAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonvendorAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonvendorAdd.Location = new System.Drawing.Point(331, 38);
+            this.buttonvendorAdd.Name = "buttonvendorAdd";
+            this.buttonvendorAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonvendorAdd.TabIndex = 93;
+            this.buttonvendorAdd.UseVisualStyleBackColor = true;
+            this.buttonvendorAdd.Click += new System.EventHandler(this.vendorAdd);
             // 
             // FormModel
             // 
@@ -173,10 +173,10 @@ namespace CompStore
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(364, 181);
-            this.Controls.Add(this.buttonBrandAdd);
+            this.Controls.Add(this.buttonvendorAdd);
             this.Controls.Add(this.buttonTEAdd);
-            this.Controls.Add(this.comboBrand);
-            this.Controls.Add(this.labelBrand);
+            this.Controls.Add(this.combovendor);
+            this.Controls.Add(this.labelvendor);
             this.Controls.Add(this.comboEqType);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -199,8 +199,8 @@ namespace CompStore
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBrand;
-        private System.Windows.Forms.Label labelBrand;
+        private System.Windows.Forms.ComboBox combovendor;
+        private System.Windows.Forms.Label labelvendor;
         private System.Windows.Forms.ComboBox comboEqType;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
@@ -211,6 +211,6 @@ namespace CompStore
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button buttonTEAdd;
-        private System.Windows.Forms.Button buttonBrandAdd;
+        private System.Windows.Forms.Button buttonvendorAdd;
     }
 }

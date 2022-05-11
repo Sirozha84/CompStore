@@ -27,7 +27,7 @@ namespace CompStore
 
             if (equipment.buyDate < dateBuy.MinDate) equipment.buyDate = DateTime.Now;
 
-            comboModel.DataSource = DB.ModelsLoad();
+            comboModel.DataSource = DB.Load("models");
             comboModel.DisplayMember = "nameText";
             comboModel.ValueMember = "ID";
             comboModel.SelectedValue = equipment.model;
@@ -49,7 +49,7 @@ namespace CompStore
 
             textPrice.DataBindings.Add("Text", equipment, "price");
 
-            comboProvider.DataSource = DB.ProvidersLoad();
+            comboProvider.DataSource = DB.Load("providers");
             comboProvider.DisplayMember = "name";
             comboProvider.ValueMember = "ID";
             comboProvider.SelectedValue = equipment.provider;
@@ -100,11 +100,11 @@ namespace CompStore
             FormModel form = new FormModel(model);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.ModelAdd(model);
-                List<Model> modelds = DB.ModelsLoad();
-                comboModel.DataSource = modelds;
+                DB.Add("model", model);
+                List<Record> models = DB.Load("models");
+                comboModel.DataSource = models;
                 int max = 0;
-                foreach (Model f in modelds)
+                foreach (Model f in models)
                     if (max < f.ID) max = f.ID;
                 comboModel.SelectedValue = max;
             }
@@ -116,8 +116,8 @@ namespace CompStore
             FormProvider form = new FormProvider(provider);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.ProviderAdd(provider);
-                List<Provider> providers = DB.ProvidersLoad();
+                DB.Add("providers", provider);
+                List<Record> providers = DB.Load("providers");
                 comboProvider.DataSource = providers;
                 int max = 0;
                 foreach (Provider p in providers)

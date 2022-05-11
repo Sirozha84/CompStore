@@ -14,9 +14,6 @@ namespace CompStore
         string[] tabs;          //Здесь храним имена вкладок
 
         //Далее должно быть изничтожено:
-        List<Brand> brands;
-        List<EqType> eqTypes;
-        List<Model> models;
         List<Provider> providers;
 
         public FormMain()
@@ -30,10 +27,6 @@ namespace CompStore
 
         private void TabChange(object sender, TreeViewEventArgs e)
         {
-            panelBrands.Visible = treeMenu.SelectedNode.Name == "nodeBrands";
-            panelEqTypes.Visible = treeMenu.SelectedNode.Name == "nodeEqType";
-            panelModels.Visible = treeMenu.SelectedNode.Name == "nodeModels";
-            panelProviders.Visible = treeMenu.SelectedNode.Name == "nodeProviders";
             
             panelList.Visible = true;   //Потом она останется одна и эта строка будет не нужна (ну и по умолчанию визибл ей надо будет сделать тру)
             if (treeMenu.SelectedNode.Name == "nodeFilials")
@@ -58,6 +51,14 @@ namespace CompStore
             }
             if (treeMenu.SelectedNode.Name == "nodeMoves")
                 PreparePage("moves", "Перемещения");
+            if (treeMenu.SelectedNode.Name == "nodeEqType")
+                PreparePage("eqtypes", "Типы оборудования");
+            if (treeMenu.SelectedNode.Name == "nodeVendors")
+                PreparePage("vendors", "Типы оборудования");
+            if (treeMenu.SelectedNode.Name == "nodeModels")
+                PreparePage("models", "Модели");
+            if (treeMenu.SelectedNode.Name == "nodeProviders")
+                PreparePage("providers", "Поставщики");
 
 
             PrepareListView(listViewMain, curType);
@@ -158,6 +159,29 @@ namespace CompStore
                 list.Columns.Add("М.О.Л.", 100);
                 list.Columns.Add("Примечание", 100);
             }
+            if (type == "eqtypes")
+            {
+                list.Columns.Add("Наименование", 200);
+            }
+            if (type == "vendors")
+            {
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Примечание", 400);
+            }
+            if (type == "models")
+            {
+                list.Columns.Add("Тип оборудования", 200);
+                list.Columns.Add("Производитель", 200);
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Примечание", 200);
+            }
+            if (type == "providers")
+            {
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Адрес", 200);
+                list.Columns.Add("Телефон", 200);
+                list.Columns.Add("Контактное лицо", 200);
+            }
         }
         #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
@@ -205,7 +229,7 @@ namespace CompStore
             listViewMain.Items.Clear();
             foreach (Record rec in records)
                 if (rec.Contains(tFilter.Text))
-                listViewMain.Items.Add(rec.ToListView());
+                    listViewMain.Items.Add(rec.ToListView());
             listViewMain.EndUpdate();
             StatusCount(records.Count, listViewMain);
             ItemSelChange(null, null);
@@ -261,7 +285,10 @@ namespace CompStore
             if (curType == "users") item = new User();
             if (curType == "equipments") item = new Equipment();
             if (curType == "moves") item = new Move();
-
+            if (curType == "eqtypes") item = new EqType();
+            if (curType == "vendors") item = new Vendor();
+            if (curType == "models") item = new Model();
+            if (curType == "providers") item = new Provider();
 
             Form form = itemForm(item);
             if (form.ShowDialog() == DialogResult.OK)
@@ -369,304 +396,13 @@ namespace CompStore
             if (curType == "users") return new FormUser((User)item);
             if (curType == "equipments") return new FormEquipment((Equipment)item);
             if (curType == "moves") return new FormMove((Move)item, false);
-
+            if (curType == "eqtypes") return new FormEqType((EqType)item);
+            if (curType == "vendors") return new FormVendor((Vendor)item);
+            if (curType == "models") return new FormModel((Model)item);
+            if (curType == "providers") return new FormProvider((Provider)item);
             return null;
         }
 
-        #endregion
-
-
-        #region Производители
-        private void BrandsView(object sender, EventArgs e)
-        {
-            if (panelBrands.Visible) BrandsRefresh();
-        }
-
-        void BrandsRefresh()
-        {
-            brands = DB.BrandsLoad();
-            BrandsDraw(null, null);
-        }
-
-        private void BrandsDraw(object sender, EventArgs e)
-        {
-            listBrands.BeginUpdate();
-            listBrands.Items.Clear();
-            foreach (Brand brand in brands)
-                if (brand.Contains(toolBrandFilter.Text))
-                    listBrands.Items.Add(brand.ToListView());
-            listBrands.EndUpdate();
-            StatusCount(brands.Count, listBrands);
-            BrandsSelChange(null, null);
-        }
-        private void BrandsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listBrands.SelectedIndices.Count > 0;
-            toolBrandEdit.Enabled = sel;
-            toolBrandDelete.Enabled = sel;
-            cmBrandEdit.Enabled = sel;
-            cmBrandDelete.Enabled = sel;
-        }
-        private void BrandFilterReset(object sender, EventArgs e) { toolBrandFilter.Text = ""; }
-
-        private void BrandAdd(object sender, EventArgs e)
-        {
-            Brand brand = new Brand();
-            FormBrand form = new FormBrand(brand);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.BrandAdd(brand);
-                BrandsRefresh();
-            }
-        }
-        private void BrandEdit(object sender, EventArgs e)
-        {
-            if (listBrands.SelectedIndices.Count == 0) return;
-            Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
-            FormBrand form = new FormBrand(brand);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.BrandUpdate(brand);
-                BrandsRefresh();
-            }
-        }
-
-        private void BrandDelete(object sender, EventArgs e)
-        {
-            if (listBrands.SelectedIndices.Count == 0) return;
-            Brand brand = (Brand)listBrands.SelectedItems[0].Tag;
-            if (DeleteRecord("производителя", brand.name))
-            {
-                DB.BrandDelete(brand);
-                BrandsRefresh();
-            }
-        }
-
-        private void BrandsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listBrands.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) BrandEdit(null, null);
-        }
-        #endregion
-
-        #region Типы оборудования
-        private void EqTypesView(object sender, EventArgs e)
-        {
-            if (panelEqTypes.Visible) EqTypesRefresh();
-        }
-
-        void EqTypesRefresh()
-        {
-            eqTypes = DB.EqTypesLoad();
-            EqTypesDraw(null, null);
-        }
-
-        private void EqTypesDraw(object sender, EventArgs e)
-        {
-            listEqTypes.BeginUpdate();
-            listEqTypes.Items.Clear();
-            foreach (EqType eqType in eqTypes)
-                if (eqType.Contains(toolETFilter.Text))
-                    listEqTypes.Items.Add(eqType.ToListView());
-            listEqTypes.EndUpdate();
-            StatusCount(eqTypes.Count, listEqTypes);
-            EqTypesSelChange(null, null);
-        }
-        private void EqTypesSelChange(object sender, EventArgs e)
-        {
-            bool sel = listEqTypes.SelectedIndices.Count > 0;
-            toolETEdit.Enabled = sel;
-            toolETDelete.Enabled = sel;
-            cmETEdit.Enabled = sel;
-            cmETDelete.Enabled = sel;
-        }
-        private void EqTypeFilterReset(object sender, EventArgs e) { toolETFilter.Text = ""; }
-
-        private void EqTypeAdd(object sender, EventArgs e)
-        {
-            EqType eqType = new EqType();
-            FormEqType form = new FormEqType(eqType);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.EqTypeAdd(eqType);
-                EqTypesRefresh();
-            }
-        }
-        private void EqTypeEdit(object sender, EventArgs e)
-        {
-            if (listEqTypes.SelectedIndices.Count == 0) return;
-            EqType eqType = (EqType)listEqTypes.SelectedItems[0].Tag;
-            FormEqType form = new FormEqType(eqType);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.EqTypeUpdate(eqType);
-                EqTypesRefresh();
-            }
-        }
-
-        private void EqTypeDelete(object sender, EventArgs e)
-        {
-            if (listEqTypes.SelectedIndices.Count == 0) return;
-            EqType eqType = (EqType)listEqTypes.SelectedItems[0].Tag;
-            if (DeleteRecord("тип оборудования", eqType.name))
-            {
-                DB.EqTypeDelete(eqType);
-                EqTypesRefresh();
-            }
-        }
-
-        private void EqTypesKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listEqTypes.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) EqTypeEdit(null, null);
-        }
-        #endregion
-
-        #region Модели
-        private void ModelsView(object sender, EventArgs e)
-        {
-            if (panelModels.Visible) ModelsRefresh();
-        }
-
-        void ModelsRefresh()
-        {
-            models = DB.ModelsLoad();
-            ModelsDraw(null, null);
-        }
-
-        private void ModelsDraw(object sender, EventArgs e)
-        {
-            listModels.BeginUpdate();
-            listModels.Items.Clear();
-            foreach (Model model in models)
-                if (model.Contains(toolModelFilter.Text))
-                    listModels.Items.Add(model.ToListView());
-            listModels.EndUpdate();
-            StatusCount(models.Count, listModels);
-            ModelsSelChange(null, null);
-        }
-        private void ModelsSelChange(object sender, EventArgs e)
-        {
-            bool sel = listModels.SelectedIndices.Count > 0;
-            toolModelEdit.Enabled = sel;
-            toolModelDelete.Enabled = sel;
-            cmModelEdit.Enabled = sel;
-            //cmMoveDelete.Enabled = sel;
-        }
-        private void ModelFilterReset(object sender, EventArgs e) { toolModelFilter.Text = ""; }
-
-        private void ModelAdd(object sender, EventArgs e)
-        {
-            Model model = new Model();
-            FormModel form = new FormModel(model);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.ModelAdd(model);
-                ModelsRefresh();
-            }
-        }
-        private void ModelEdit(object sender, EventArgs e)
-        {
-            if (listModels.SelectedIndices.Count == 0) return;
-            Model model = (Model)listModels.SelectedItems[0].Tag;
-            FormModel form = new FormModel(model);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.ModelUpdate(model);
-                ModelsRefresh();
-            }
-        }
-
-        private void ModelDelete(object sender, EventArgs e)
-        {
-            if (listModels.SelectedIndices.Count == 0) return;
-            Model model = (Model)listModels.SelectedItems[0].Tag;
-            if (DeleteRecord("модель", model.name))
-            {
-                DB.ModelDelete(model);
-                ModelsRefresh();
-            }
-        }
-
-        private void ModelsKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listModels.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) ModelEdit(null, null);
-        }
-        #endregion
-
-        #region Поставщики
-        private void ProvidersView(object sender, EventArgs e)
-        {
-            if (panelProviders.Visible) ProvidersRefresh();
-        }
-
-        void ProvidersRefresh()
-        {
-            providers = DB.ProvidersLoad();
-            ProvidersDraw(null, null);
-        }
-
-        private void ProvidersDraw(object sender, EventArgs e)
-        {
-            listProviders.BeginUpdate();
-            listProviders.Items.Clear();
-            foreach (Provider provider in providers)
-                if (provider.Contains(toolProviderFilter.Text))
-                    listProviders.Items.Add(provider.ToListView());
-            listProviders.EndUpdate();
-            StatusCount(providers.Count, listProviders);
-            ProvidersSelChange(null, null);
-        }
-        private void ProvidersSelChange(object sender, EventArgs e)
-        {
-            bool sel = listProviders.SelectedIndices.Count > 0;
-            toolProviderEdit.Enabled = sel;
-            toolProviderDelete.Enabled = sel;
-            cmProviderEdit.Enabled = sel;
-            cmProviderDelete.Enabled = sel;
-        }
-        private void ProviderFilterReset(object sender, EventArgs e) { toolProviderFilter.Text = ""; }
-
-        private void ProviderAdd(object sender, EventArgs e)
-        {
-            Provider provider = new Provider();
-            FormProvider form = new FormProvider(provider);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.ProviderAdd(provider);
-                ProvidersRefresh();
-            }
-        }
-
-        private void ProviderEdit(object sender, EventArgs e)
-        {
-            if (listProviders.SelectedIndices.Count == 0) return;
-            Provider provider = (Provider)listProviders.SelectedItems[0].Tag;
-            FormProvider form = new FormProvider(provider);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                DB.ProviderUpdate(provider);
-                ProvidersRefresh();
-            }
-        }
-
-        private void ProviderDelete(object sender, EventArgs e)
-        {
-            if (listProviders.SelectedIndices.Count == 0) return;
-            Provider provider = (Provider)listProviders.SelectedItems[0].Tag;
-            if (DeleteRecord("поставщика", provider.name))
-            {
-                DB.ProviderDelete(provider);
-                ProvidersRefresh();
-            }
-        }
-
-        private void ProvidersKeyboard(object sender, KeyEventArgs e)
-        {
-            if (listProviders.SelectedIndices.Count == 0) return;
-            if (e.KeyCode == Keys.Enter) ProviderEdit(null, null);
-        }
         #endregion
 
         // Вопрос об удалении записи в справочнике/журнале

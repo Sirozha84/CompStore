@@ -1,7 +1,7 @@
 ﻿
 namespace CompStore
 {
-    partial class FormBrand
+    partial class FormVendor
     {
         /// <summary>
         /// Required designer variable.
@@ -100,7 +100,7 @@ namespace CompStore
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // FormBrand
+            // Formvendor
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,7 +116,7 @@ namespace CompStore
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormBrand";
+            this.Name = "Formvendor";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

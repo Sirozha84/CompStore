@@ -14,17 +14,17 @@ namespace CompStore
             InitializeComponent();
             this.model = model;
             names = DB.NamesLoad("models");
-            if (model.name != "") names.Remove(model.brand.ToString() + "‼" + model.name);
+            if (model.name != "") names.Remove(model.vendor.ToString() + "‼" + model.name);
 
-            comboEqType.DataSource = DB.EqTypesLoad();
+            comboEqType.DataSource = DB.Load("eqtypes");
             comboEqType.DisplayMember = "name";
             comboEqType.ValueMember = "ID";
             comboEqType.SelectedValue = model.eqType;
 
-            comboBrand.DataSource = DB.BrandsLoad();
-            comboBrand.DisplayMember = "name";
-            comboBrand.ValueMember = "ID";
-            comboBrand.SelectedValue = model.brand;
+            combovendor.DataSource = DB.Load("vendors");
+            combovendor.DisplayMember = "name";
+            combovendor.ValueMember = "ID";
+            combovendor.SelectedValue = model.vendor;
 
             textName.DataBindings.Add("Text", model, "name");
 
@@ -39,8 +39,8 @@ namespace CompStore
 
         private void CheckField(object sender, EventArgs e)
         {
-            bool en = comboEqType.SelectedIndex>=0 & comboBrand.SelectedIndex >= 0 & textName.Text != "";
-            bool ex = names.Find(o => o == Brand() + "‼" + textName.Text) != null;
+            bool en = comboEqType.SelectedIndex>=0 & combovendor.SelectedIndex >= 0 & textName.Text != "";
+            bool ex = names.Find(o => o == vendor() + "‼" + textName.Text) != null;
 
             textName.BackColor = en & !ex ? Color.LightGreen : Color.LightPink;
             if (ex)
@@ -54,13 +54,13 @@ namespace CompStore
         private void OK(object sender, EventArgs e)
         {
             model.eqType = comboEqType.SelectedValue != null ? (int)comboEqType.SelectedValue : 0;
-            model.brand = Brand();
+            model.vendor = vendor();
             DialogResult = DialogResult.OK;
         }
 
-        int Brand()
+        int vendor()
         {
-            return comboBrand.SelectedValue != null & comboBrand.Text != "CompStore.Brand" ? (int)comboBrand.SelectedValue : 0;
+            return combovendor.SelectedValue != null & combovendor.Text != "CompStore.Vendor" ? (int)combovendor.SelectedValue : 0;
         }
 
         private void EquipmentTypeAdd(object sender, EventArgs e)
@@ -69,8 +69,8 @@ namespace CompStore
             FormEqType form = new FormEqType(eqtype);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.EqTypeAdd(eqtype);
-                List<EqType> eqtypeds = DB.EqTypesLoad();
+                DB.Add("eqtypes", eqtype);
+                List<Record> eqtypeds = DB.Load("eqtypes");
                 comboEqType.DataSource = eqtypeds;
                 int max = 0;
                 foreach (EqType et in eqtypeds)
@@ -79,19 +79,19 @@ namespace CompStore
             }
         }
 
-        private void BrandAdd(object sender, EventArgs e)
+        private void vendorAdd(object sender, EventArgs e)
         {
-            Brand brand = new Brand();
-            FormBrand form = new FormBrand(brand);
+            Vendor vendor = new Vendor();
+            FormVendor form = new FormVendor(vendor);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.BrandAdd(brand);
-                List<Brand> brandds = DB.BrandsLoad();
-                comboBrand.DataSource = brandds;
+                DB.Add("vendors", vendor);
+                List<Record> vendors = DB.Load("vendors");
+                combovendor.DataSource = vendors;
                 int max = 0;
-                foreach (Brand b in brandds)
-                    if (max < b.ID) max = b.ID;
-                comboBrand.SelectedValue = max;
+                foreach (Vendor v in vendors)
+                    if (max < v.ID) max = v.ID;
+                combovendor.SelectedValue = max;
             }
         }
     }

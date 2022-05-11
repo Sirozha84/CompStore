@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public class Move:Record
+    public class Move : Record
     {
         public int equipment { get; set; }
         public int user { get; set; }

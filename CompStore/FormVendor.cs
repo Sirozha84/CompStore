@@ -5,22 +5,22 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public partial class FormBrand : Form
+    public partial class FormVendor : Form
     {
         List<string> names;
 
-        public FormBrand(Brand brand)
+        public FormVendor(Vendor vendor)
         {
             InitializeComponent();
-            names = DB.NamesLoad("brands");
-            if (brand.name != "") names.Remove(brand.name);
+            names = DB.NamesLoad("vendors");
+            if (vendor.name != "") names.Remove(vendor.name);
 
-            textName.DataBindings.Add("Text", brand, "name");
+            textName.DataBindings.Add("Text", vendor, "name");
             
-            textCom.DataBindings.Add("Text", brand, "comment");
+            textCom.DataBindings.Add("Text", vendor, "comment");
 
-            if (brand.name != null)
-                Text = "Редактирование производителя \"" + brand.name + "\"";
+            if (vendor.name != null)
+                Text = "Редактирование производителя \"" + vendor.name + "\"";
             else
                 Text = "Добавление нового производителя";
             CheckField(null, null);

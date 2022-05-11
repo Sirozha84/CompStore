@@ -2,16 +2,14 @@
 
 namespace CompStore
 {
-    public class Provider
+    public class Provider : Record
     {
-        public int ID { get; set; }
-        public string name { get; set; }
         public string adress { get; set; }
         public string phone { get; set; }
         public string manager { get; set; }
         public string comment { get; set; }
 
-        public ListViewItem ToListView()
+        public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(name);
             str.SubItems.Add(adress);
@@ -22,7 +20,7 @@ namespace CompStore
             return str;
         }
 
-        public bool Contains(string search)
+        public override bool Contains(string search)
         {
             search = search.ToLower();
             return (name.ToLower().Contains(search) |
