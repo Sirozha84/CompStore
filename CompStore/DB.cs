@@ -419,7 +419,7 @@ namespace CompStore
                     "FROM models " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN vendors ON models.vendor = vendors.ID " +
-                    "ORDER BY modelText";
+                    "ORDER BY eqtypes.name, vendors.name, models.name";
                 SQLiteDataReader reader = com.ExecuteReader();
                 while (reader.Read())
                 {
