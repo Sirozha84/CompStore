@@ -7,7 +7,6 @@ namespace CompStore
         public string adress { get; set; }
         public string phone { get; set; }
         public string manager { get; set; }
-        public string comment { get; set; }
 
         public override ListViewItem ToListView()
         {

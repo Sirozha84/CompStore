@@ -216,6 +216,7 @@ namespace CompStore
             this.comboMOL.Name = "comboMOL";
             this.comboMOL.Size = new System.Drawing.Size(305, 21);
             this.comboMOL.TabIndex = 4;
+            this.comboMOL.SelectedIndexChanged += new System.EventHandler(this.MOLSelect);
             // 
             // labelMOL
             // 

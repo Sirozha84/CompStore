@@ -10,14 +10,16 @@ namespace CompStore
         Move move;
         List<Record> users;
         List<Record> equipments;
+        bool isUser;
 
         public FormMove(Move move, bool pack)
         {
             InitializeComponent();
             this.move = move;
             this.pack = pack;
-
             if (move.date < dateMove.MinDate) move.date = DateTime.Now;
+
+            isUser = false;
 
             equipments = DB.Load("equipments");
             comboEquipment.DataSource = equipments;
@@ -50,6 +52,8 @@ namespace CompStore
                 Text = "Редактирование перемещения \"" + move.eqText + "\"";
             else
                 Text = pack ? "Перемещение нескольких объектов" : "Добавление нового перемещения";
+            
+            isUser = true;
 
             EquipmentSelect(null, null);
         }
@@ -66,12 +70,20 @@ namespace CompStore
 
         private void UserSelect(object sender, EventArgs e)
         {
+            if (isUser)
+                move.user = (int)comboUser.SelectedValue;
             try
             {
                 comboRoom.SelectedValue = users.Find(o => o.ID == (int)comboUser.SelectedValue).room;
                 EnterCheck(null, null);
             }
             catch { }
+        }
+
+        private void MOLSelect(object sender, EventArgs e)
+        {
+            if (isUser)
+                move.mol = comboMOL.SelectedValue != null ? (int)comboMOL.SelectedValue : 0;
         }
 
         private void EnterCheck(object sender, EventArgs e)
@@ -83,9 +95,7 @@ namespace CompStore
         private void OK(object sender, EventArgs e)
         {
             move.equipment = pack ? 0 : (int)comboEquipment.SelectedValue;
-            move.user = (int)comboUser.SelectedValue;
             move.room = comboRoom.SelectedValue != null ? (int)comboRoom.SelectedValue : 0;
-            move.mol = comboMOL.SelectedValue != null ? (int)comboMOL.SelectedValue : 0;
             DialogResult = DialogResult.OK;
         }
 
@@ -113,13 +123,16 @@ namespace CompStore
             {
                 DB.Add("users", user);
                 users = DB.Load("users");
+                isUser = false;
                 comboUser.DataSource = users;
                 comboRoom.DataSource = DB.Load("rooms");
-                comboMOL.DataSource = users;
+                comboMOL.DataSource = users.ToArray();// DB.Load("users"); ;
                 int max = 0;
                 foreach (User f in users)
                     if (max < f.ID) max = f.ID;
                 comboUser.SelectedValue = max;
+                comboMOL.SelectedValue = move.mol;
+                isUser = true;
             }
         }
 
@@ -147,13 +160,16 @@ namespace CompStore
             {
                 DB.Add("users",user);
                 users = DB.Load("users");
+                isUser = false;
                 comboUser.DataSource = users;
                 comboRoom.DataSource = DB.Load("rooms");
                 comboMOL.DataSource = users.ToArray();
                 int max = 0;
                 foreach (User f in users)
                     if (max < f.ID) max = f.ID;
+                comboUser.SelectedValue = move.user;
                 comboMOL.SelectedValue = max;
+                isUser = true;
             }
         }
     }

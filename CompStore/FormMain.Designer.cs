@@ -46,11 +46,11 @@ namespace CompStore
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения", 1, 1);
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", 0, 0, new System.Windows.Forms.TreeNode[] {
             treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Поставщики");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Общие разделы", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
             treeNode10,
             treeNode11,
             treeNode12,
@@ -154,16 +154,25 @@ namespace CompStore
             treeNode9.Name = "nodeEquipment";
             treeNode9.SelectedImageIndex = 0;
             treeNode9.Text = "Оборудование";
+            treeNode10.ImageIndex = 10;
             treeNode10.Name = "nodeEqType";
+            treeNode10.SelectedImageIndex = 10;
             treeNode10.Text = "Типы оборудования";
+            treeNode11.ImageIndex = 11;
             treeNode11.Name = "nodeVendors";
+            treeNode11.SelectedImageIndex = 11;
             treeNode11.Text = "Производители";
+            treeNode12.ImageIndex = 12;
             treeNode12.Name = "nodeModels";
+            treeNode12.SelectedImageIndex = 12;
             treeNode12.Text = "Модели";
+            treeNode13.ImageIndex = 4;
             treeNode13.Name = "nodeProviders";
+            treeNode13.SelectedImageIndex = 4;
             treeNode13.Text = "Поставщики";
-            treeNode14.ImageIndex = -2;
+            treeNode14.ImageIndex = 9;
             treeNode14.Name = "nodeCommon";
+            treeNode14.SelectedImageIndex = 9;
             treeNode14.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode7,
@@ -187,6 +196,10 @@ namespace CompStore
             this.imageListThree.Images.SetKeyName(6, "room.png");
             this.imageListThree.Images.SetKeyName(7, "dep.png");
             this.imageListThree.Images.SetKeyName(8, "post.png");
+            this.imageListThree.Images.SetKeyName(9, "dictionarys.png");
+            this.imageListThree.Images.SetKeyName(10, "eqtypes.png");
+            this.imageListThree.Images.SetKeyName(11, "vendors.png");
+            this.imageListThree.Images.SetKeyName(12, "models.png");
             // 
             // mainMenu
             // 

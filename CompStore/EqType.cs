@@ -4,7 +4,6 @@ namespace CompStore
 {
     public class EqType : Record
     {
-
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(name);

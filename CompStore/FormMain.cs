@@ -180,7 +180,8 @@ namespace CompStore
                 list.Columns.Add("Наименование", 200);
                 list.Columns.Add("Адрес", 200);
                 list.Columns.Add("Телефон", 200);
-                list.Columns.Add("Контактное лицо", 200);
+                list.Columns.Add("Контактное лицо", 180);
+                list.Columns.Add("Примечание", 180);
             }
         }
         #region Главное меню

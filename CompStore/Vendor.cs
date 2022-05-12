@@ -4,8 +4,6 @@ namespace CompStore
 {
     public class Vendor : Record
     {
-        public string comment { get; set; }
-
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(name);

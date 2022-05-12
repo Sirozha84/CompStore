@@ -6,10 +6,8 @@ namespace CompStore
     {
         public int eqType { get; set; }
         public int vendor { get; set; }
-        public string comment { get; set; }
         public string eqTypeText { get; set; }
         public string vendorText { get; set; }
-        public string nameText { get; set; }
 
         public override ListViewItem ToListView()
         {
