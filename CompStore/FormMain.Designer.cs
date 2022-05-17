@@ -66,6 +66,8 @@ namespace CompStore
             this.menuUserCard = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuPrintPreview = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuService = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -206,6 +208,7 @@ namespace CompStore
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
             this.menuReports,
+            this.menuService,
             this.menuHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -266,6 +269,21 @@ namespace CompStore
             this.menuPrintPreview.Size = new System.Drawing.Size(233, 22);
             this.menuPrintPreview.Text = "Предварительный просмотр";
             this.menuPrintPreview.Click += new System.EventHandler(this.CheckPrintPreview);
+            // 
+            // menuService
+            // 
+            this.menuService.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuProperties});
+            this.menuService.Name = "menuService";
+            this.menuService.Size = new System.Drawing.Size(59, 20);
+            this.menuService.Text = "Сервис";
+            // 
+            // menuProperties
+            // 
+            this.menuProperties.Name = "menuProperties";
+            this.menuProperties.Size = new System.Drawing.Size(180, 22);
+            this.menuProperties.Text = "Параметры";
+            this.menuProperties.Click += new System.EventHandler(this.PropertiesMenu);
             // 
             // menuHelp
             // 
@@ -672,6 +690,8 @@ namespace CompStore
         private System.Windows.Forms.ToolStripMenuItem cmDelete;
         private System.Windows.Forms.ToolStripMenuItem cmMove;
         private System.Windows.Forms.ImageList imageListThree;
+        private System.Windows.Forms.ToolStripMenuItem menuService;
+        private System.Windows.Forms.ToolStripMenuItem menuProperties;
     }
 }
 

@@ -208,6 +208,12 @@ namespace CompStore
             menuPrintPreview.Checked = Properties.Settings.Default.PrintPreview;
         }
 
+        private void PropertiesMenu(object sender, EventArgs e)
+        {
+            FormProperties form = new FormProperties();
+            form.ShowDialog();
+        }
+
         private void About(object sender, EventArgs e)
         {
             MessageBox.Show("CompStore\nВерсия: 0.1 (01.07.2021)\nАвтор: Сергей Гордеев", "О программе");

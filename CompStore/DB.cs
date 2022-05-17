@@ -7,7 +7,7 @@ namespace CompStore
 {
     static class DB
     {
-        const string dataSource = @"DataSource=CS.db; Version=3;";
+        public const string dataSource = @"DataSource=CS.db; Version=3;";
         const string ND = "#Н/Д";
 
         #region Инициализация таблиц
@@ -18,6 +18,11 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
+
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [properties] ( " +
+                    "[name] TEXT, " +
+                    "[value] TEXT)";
+                com.ExecuteNonQuery();
 
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [filials] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
@@ -101,7 +106,7 @@ namespace CompStore
                     "[provider] INTEGER, " +
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
-                
+
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [moves] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[equipment] INTEGER, " +
@@ -550,7 +555,7 @@ namespace CompStore
                 if (type == "eqtypes")
                 {
                     EqType eqType = (EqType)item;
-                    com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" + 
+                    com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" +
                         eqType.name + "')";
                 }
                 if (type == "vendors")
@@ -626,7 +631,7 @@ namespace CompStore
                 if (type == "posts")
                 {
                     Post post = (Post)item;
-                    com.CommandText = "UPDATE posts SET " + 
+                    com.CommandText = "UPDATE posts SET " +
                         "name = '" + post.name + "' WHERE ID = " + post.ID;
                 }
                 if (type == "users")
@@ -676,7 +681,7 @@ namespace CompStore
                 if (type == "eqtypes")
                 {
                     EqType eqType = (EqType)item;
-                    com.CommandText = "UPDATE eqtypes SET " + 
+                    com.CommandText = "UPDATE eqtypes SET " +
                         "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
                 }
                 if (type == "vendors")
@@ -730,7 +735,7 @@ namespace CompStore
             {
                 connect.Open();
                 SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT name FROM "+ table;
+                com.CommandText = "SELECT name FROM " + table;
                 if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
                 if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
                 if (table == "users") com.CommandText = "SELECT f || \"‼\" || i || \"‼\" || o FROM users";

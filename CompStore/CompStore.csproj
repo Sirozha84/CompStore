@@ -68,6 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompanyProperties.cs" />
+    <Compile Include="FormProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProperties.Designer.cs">
+      <DependentUpon>FormProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vendor.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="DB.cs" />
@@ -167,8 +174,10 @@
     <Compile Include="Record.cs" />
     <Compile Include="Reports.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="User.cs" />
+    <EmbeddedResource Include="FormProperties.resx">
+      <DependentUpon>FormProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormVendor.resx">
       <DependentUpon>FormVendor.cs</DependentUpon>
     </EmbeddedResource>
