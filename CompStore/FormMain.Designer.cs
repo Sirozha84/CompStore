@@ -252,7 +252,6 @@ namespace CompStore
             // 
             // menuUserCard
             // 
-            this.menuUserCard.Enabled = false;
             this.menuUserCard.Name = "menuUserCard";
             this.menuUserCard.Size = new System.Drawing.Size(233, 22);
             this.menuUserCard.Text = "Карточка учёта";
@@ -281,7 +280,7 @@ namespace CompStore
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(180, 22);
+            this.menuProperties.Size = new System.Drawing.Size(138, 22);
             this.menuProperties.Text = "Параметры";
             this.menuProperties.Click += new System.EventHandler(this.PropertiesMenu);
             // 

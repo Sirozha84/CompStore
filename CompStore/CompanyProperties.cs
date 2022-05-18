@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Data.SQLite;
 
 namespace CompStore
 {
@@ -6,6 +7,7 @@ namespace CompStore
     {
         public static string Companay;
         public static string Departament;
+        public static int LastUserCardNum;
 
         public static void Load()
         {
@@ -20,6 +22,9 @@ namespace CompStore
                     {
                         if (reader.GetString(0) == "company") Companay = reader.GetString(1);
                         if (reader.GetString(0) == "departament") Departament = reader.GetString(1);
+                        if (reader.GetString(0) == "lastucn")
+                            try { LastUserCardNum = Convert.ToInt32(reader.GetString(1)); }
+                            catch { LastUserCardNum = 1; };
                     }
                 connect.Close();
             }
@@ -36,6 +41,8 @@ namespace CompStore
                 com.CommandText = "INSERT INTO properties (name, value) values ('company', '" + Companay + "')";
                 com.ExecuteNonQuery();
                 com.CommandText = "INSERT INTO properties (name, value) values ('departament', '" + Departament + "')";
+                com.ExecuteNonQuery();
+                com.CommandText = "INSERT INTO properties (name, value) values ('lastucn', '" + LastUserCardNum + "')";
                 com.ExecuteNonQuery();
                 connect.Close();
             }

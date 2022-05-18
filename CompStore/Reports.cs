@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -13,7 +10,7 @@ namespace CompStore
     {
         static Graphics g;
         static List<User> users;
-        static List<Equipment> equipments;
+        static List<Record> equipments;
         static int itemNumber;
         static int pageNumber;
 
@@ -32,10 +29,11 @@ namespace CompStore
         static int[] columns;
         static int[] rows;
 
-        public static void UserCard(bool preview, List<User> usersList, List<Equipment> equipmentsList)
+        public static void UserCard(bool preview, List<User> usersList, List<Record> equipmentsList)
         {
             users = usersList;
             equipments = equipmentsList;
+            CompanyProperties.Load();
             itemNumber = 0;
             pageNumber = 0;
 
@@ -82,19 +80,20 @@ namespace CompStore
             {
                 rows = new int[] { 10, 15, 15, 15, 15, 15, 15, 15, 26, 41, 41, 15, 15, 15, 15, 15, 25, 27, 12, 30, 30, 30, 30, 30, 30, 30, 30, 30, 15, 15, 10, 20, 15 };
 
-                Write(3, st++, 3, 2, "КАРТОЧКА № ___", font20B);
+                Write(3, st++, 3, 2, "КАРТОЧКА № " + (CompanyProperties.LastUserCardNum++).ToString(), font20B);
+                CompanyProperties.Save();
                 Write(9, st++, 4, 1, "Типовая межотраслевая форма № МБ-2", font10);
                 Write(2, st, 4, 1, "учёта малоценных и быстроизнашивающихся предметов", font10B);
                 Write(9, st++, 4, 1, "Утверждена Постановлением Госкомстата России", font10);
                 Write(9, st++, 4, 1, "от 30.10.1997 № 71а", font10);
                 Write(0, st, "Организация", font10);
-                Write(1, st, 2, 1, "___", font10);
+                Write(1, st, 2, 1, CompanyProperties.Companay, font10);
                 write(11, st++, 2, 1, "Коды", font10, 1, 1);
                 write(9, st, 2, 1, "Форма по ОКУД", font10, 2, 0);
                 write(11, st, 2, 1, "0320001", font10, 1, 1);
                 Border(11, st++, 2, 2, 2);
                 Write(0, st, "Структурное подразделение", font10);
-                Write(1, st, 2, 1, "___", font10B);
+                Write(1, st, 2, 1, CompanyProperties.Departament, font10B);
                 write(9, st, 2, 1, "по ОКПО", font10, 2, 0);
                 st = 8;
 

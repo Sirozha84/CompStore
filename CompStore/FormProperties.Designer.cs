@@ -36,6 +36,8 @@
             this.textDep = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelLastUCN = new System.Windows.Forms.Label();
+            this.textLastUCN = new System.Windows.Forms.TextBox();
             this.groupCompany.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,10 +99,10 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(189, 133);
+            this.buttonOK.Location = new System.Drawing.Point(189, 160);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 0;
+            this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -109,12 +111,28 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(270, 133);
+            this.buttonCancel.Location = new System.Drawing.Point(270, 160);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // labelLastUCN
+            // 
+            this.labelLastUCN.AutoSize = true;
+            this.labelLastUCN.Location = new System.Drawing.Point(24, 126);
+            this.labelLastUCN.Name = "labelLastUCN";
+            this.labelLastUCN.Size = new System.Drawing.Size(169, 13);
+            this.labelLastUCN.TabIndex = 5;
+            this.labelLastUCN.Text = "Текущий номер карточки учёта:";
+            // 
+            // textLastUCN
+            // 
+            this.textLastUCN.Location = new System.Drawing.Point(199, 123);
+            this.textLastUCN.Name = "textLastUCN";
+            this.textLastUCN.Size = new System.Drawing.Size(139, 20);
+            this.textLastUCN.TabIndex = 2;
             // 
             // FormProperties
             // 
@@ -122,8 +140,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(357, 168);
+            this.ClientSize = new System.Drawing.Size(357, 195);
             this.Controls.Add(this.groupCompany);
+            this.Controls.Add(this.labelLastUCN);
+            this.Controls.Add(this.textLastUCN);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -137,6 +157,7 @@
             this.groupCompany.ResumeLayout(false);
             this.groupCompany.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -150,5 +171,7 @@
         private System.Windows.Forms.TextBox textDep;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelLastUCN;
+        private System.Windows.Forms.TextBox textLastUCN;
     }
 }

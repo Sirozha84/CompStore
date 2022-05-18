@@ -194,11 +194,12 @@ namespace CompStore
 
         private void UserCard(object sender, EventArgs e)
         {
-            /*if (listUsers.SelectedItems.Count == 0) return;
+            if (curType != "users" || 
+                listViewMain.SelectedItems.Count == 0) return;
             List<User> users = new List<User>();
-            foreach (ListViewItem u in listUsers.SelectedItems)
+            foreach (ListViewItem u in listViewMain.SelectedItems)
                 users.Add((User)u.Tag);
-            Reports.UserCard(Properties.Settings.Default.PrintPreview, users, equipments);*/
+            Reports.UserCard(Properties.Settings.Default.PrintPreview, users, equipments);
         }
 
         private void CheckPrintPreview(object sender, EventArgs e)
@@ -216,7 +217,7 @@ namespace CompStore
 
         private void About(object sender, EventArgs e)
         {
-            MessageBox.Show("CompStore\nВерсия: 0.1 (01.07.2021)\nАвтор: Сергей Гордеев", "О программе");
+            MessageBox.Show("CompStore\nВерсия: 0.2 (18.05.2022)\nАвтор: Сергей Гордеев", "О программе");
         }
         #endregion
 
@@ -251,6 +252,7 @@ namespace CompStore
             tMove.Enabled = cmMove.Enabled = sel > 0;
             tFix.Enabled = sel == 1;    //Как будет в контекстном меню - добавить и его
             tRefill.Enabled = sel == 1;
+            menuUserCard.Enabled = curType == "users" & sel > 0;
 
             //Перерисовка нижней панели
             if (curType == "users")
