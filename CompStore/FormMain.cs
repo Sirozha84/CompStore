@@ -57,6 +57,8 @@ namespace CompStore
                 PreparePage("vendors", "Типы оборудования");
             if (treeMenu.SelectedNode.Name == "nodeModels")
                 PreparePage("models", "Модели");
+            if (treeMenu.SelectedNode.Name == "nodeConsumables")
+                PreparePage("consumables", "Расходики");
             if (treeMenu.SelectedNode.Name == "nodeProviders")
                 PreparePage("providers", "Поставщики");
 
@@ -161,7 +163,7 @@ namespace CompStore
             }
             if (type == "eqtypes")
             {
-                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Наименование", 600);
             }
             if (type == "vendors")
             {
@@ -174,6 +176,11 @@ namespace CompStore
                 list.Columns.Add("Производитель", 200);
                 list.Columns.Add("Наименование", 200);
                 list.Columns.Add("Примечание", 200);
+            }
+            if (type == "consumables")
+            {
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Примечание", 400);
             }
             if (type == "providers")
             {
@@ -297,6 +304,7 @@ namespace CompStore
             if (curType == "eqtypes") item = new EqType();
             if (curType == "vendors") item = new Vendor();
             if (curType == "models") item = new Model();
+            if (curType == "consumables") item = new Consumable();
             if (curType == "providers") item = new Provider();
 
             Form form = itemForm(item);
@@ -408,6 +416,7 @@ namespace CompStore
             if (curType == "eqtypes") return new FormEqType((EqType)item);
             if (curType == "vendors") return new FormVendor((Vendor)item);
             if (curType == "models") return new FormModel((Model)item);
+            if (curType == "consumables") return new FormConsumables((Consumable)item);
             if (curType == "providers") return new FormProvider((Provider)item);
             return null;
         }

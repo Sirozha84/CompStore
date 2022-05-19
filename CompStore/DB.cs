@@ -117,6 +117,12 @@ namespace CompStore
                     "[comment] TEXT)";
                 com.ExecuteNonQuery();
 
+                com.CommandText = "CREATE TABLE IF NOT EXISTS [consumables] ( " +
+                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "[name] TEXT, " +
+                    "[comment] TEXT)";
+                com.ExecuteNonQuery();
+
                 com.CommandText = "CREATE TABLE IF NOT EXISTS [providers] ( " +
                     "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "[name] TEXT, " +
@@ -441,6 +447,19 @@ namespace CompStore
                 }
                 connect.Close();
             }
+            if (type == "consumables")
+            {
+                com.CommandText = "SELECT * FROM consumables ORDER BY name";
+                SQLiteDataReader reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Consumable con = new Consumable();
+                    con.ID = reader.GetInt32(0);
+                    con.name = con.nameText = reader.GetString(1);
+                    con.comment = reader.GetString(2);
+                    list.Add(con);
+                }
+            }
             if (type == "providers")
             {
                 com.CommandText = "SELECT * FROM providers ORDER BY name";
@@ -574,6 +593,13 @@ namespace CompStore
                          model.name + "', '" +
                          model.comment + "')";
                 }
+                if (type == "consumables")
+                {
+                    Consumable con = (Consumable)item;
+                    com.CommandText = "INSERT INTO consumables (name, comment) VALUES ('" +
+                        con.name + "', '" +
+                        con.comment + "')";
+                }
                 if (type == "providers")
                 {
                     Provider provider = (Provider)item;
@@ -699,6 +725,13 @@ namespace CompStore
                         "vendor = '" + model.vendor + "', " +
                         "name = '" + model.name + "', " +
                         "comment = '" + model.comment + "' WHERE ID = " + model.ID;
+                }
+                if (type == "consumables")
+                {
+                    Consumable con = (Consumable)item;
+                    com.CommandText = "UPDATE consumables SET " +
+                        "name = '" + con.name + "', " +
+                        "comment = '" + con.comment + "' WHERE ID = " + con.ID;
                 }
                 if (type == "providers")
                 {

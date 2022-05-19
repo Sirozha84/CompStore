@@ -49,12 +49,14 @@ namespace CompStore
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
             System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
             System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Расходники");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
             treeNode10,
             treeNode11,
             treeNode12,
-            treeNode13});
+            treeNode13,
+            treeNode14});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.imageListThree = new System.Windows.Forms.ImageList(this.components);
@@ -168,18 +170,20 @@ namespace CompStore
             treeNode12.Name = "nodeModels";
             treeNode12.SelectedImageIndex = 12;
             treeNode12.Text = "Модели";
-            treeNode13.ImageIndex = 4;
-            treeNode13.Name = "nodeProviders";
-            treeNode13.SelectedImageIndex = 4;
-            treeNode13.Text = "Поставщики";
-            treeNode14.ImageIndex = 9;
-            treeNode14.Name = "nodeCommon";
-            treeNode14.SelectedImageIndex = 9;
-            treeNode14.Text = "Общие разделы";
+            treeNode13.Name = "nodeConsumables";
+            treeNode13.Text = "Расходники";
+            treeNode14.ImageIndex = 4;
+            treeNode14.Name = "nodeProviders";
+            treeNode14.SelectedImageIndex = 4;
+            treeNode14.Text = "Поставщики";
+            treeNode15.ImageIndex = 9;
+            treeNode15.Name = "nodeCommon";
+            treeNode15.SelectedImageIndex = 9;
+            treeNode15.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode7,
             treeNode9,
-            treeNode14});
+            treeNode15});
             this.treeMenu.SelectedImageIndex = 0;
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
