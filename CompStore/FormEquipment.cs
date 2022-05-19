@@ -100,7 +100,7 @@ namespace CompStore
             FormModel form = new FormModel(model);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.Add("model", model);
+                DB.Add("models", model);
                 List<Record> models = DB.Load("models");
                 comboModel.DataSource = models;
                 int max = 0;
