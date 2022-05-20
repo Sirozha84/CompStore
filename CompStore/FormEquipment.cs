@@ -44,9 +44,6 @@ namespace CompStore
 
             textProp.DataBindings.Add("Text", equipment, "prop");
 
-            dateBuy.Checked = equipment.buy;
-            dateBuy.Value = equipment.buyDate;
-
             textPrice.DataBindings.Add("Text", equipment, "price");
 
             comboProvider.DataSource = DB.Load("providers");
@@ -54,12 +51,27 @@ namespace CompStore
             comboProvider.ValueMember = "ID";
             comboProvider.SelectedValue = equipment.provider;
 
+            dateBuy.Checked = equipment.buy;
+            dateBuy.Value = equipment.buyDate;
+
+            dateDec.Checked = equipment.dec;
+            dateDec.Value = equipment.decDate;
+
+            checkPrinter.DataBindings.Add("Checked", equipment, "printer");
+
+            comboCon.DataSource = DB.Load("consumables");
+            comboCon.DisplayMember = "name";
+            comboCon.ValueMember = "ID";
+            comboCon.SelectedValue = equipment.consumable;
+
             textCom.DataBindings.Add("Text", equipment, "comment");
 
             if (equipment.nameText != null)
                 Text = "Редактирование оборудования \"" + equipment.nameText + "\"";
             else
                 Text = "Добавление нового оборудования";
+
+            checkPrinterChange(null, null);
         }
 
         private void CheckField(object sender, EventArgs e)
@@ -83,15 +95,6 @@ namespace CompStore
 
             checkINV.Enabled = eni;
             buttonOK.Enabled = comboModel.SelectedIndex >= 0 & (textIN.Text != "" | textSN.Text != "");
-        }
-
-        private void OK(object sender, EventArgs e)
-        {
-            equipment.model = comboModel.SelectedValue != null ? (int)comboModel.SelectedValue : 0;
-            equipment.buy = dateBuy.Checked;
-            equipment.buyDate = dateBuy.Value;
-            equipment.provider = comboProvider.SelectedValue != null ? (int)comboProvider.SelectedValue : 0;
-            DialogResult = DialogResult.OK;
         }
 
         private void ModelAdd(object sender, EventArgs e)
@@ -124,6 +127,38 @@ namespace CompStore
                     if (max < p.ID) max = p.ID;
                 comboProvider.SelectedValue = max;
             }
+        }
+
+
+        private void checkPrinterChange(object sender, EventArgs e)
+        {
+            labelCon.Enabled = comboCon.Enabled = buttonConAdd.Enabled = checkPrinter.Checked;
+        }
+
+        private void ConAdd(object sender, EventArgs e)
+        {
+            Consumable con = new Consumable();
+            FormConsumable form = new FormConsumable(con);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.Add("consumables", con);
+                List<Record> consumables = DB.Load("consumables");
+                comboCon.DataSource = consumables;
+                int max = 0;
+                foreach (Consumable c in consumables)
+                    if (max < c.ID) max = c.ID;
+                comboCon.SelectedValue = max;
+            }
+        }
+
+        private void OK(object sender, EventArgs e)
+        {
+            equipment.model = comboModel.SelectedValue != null ? (int)comboModel.SelectedValue : 0;
+            equipment.buy = dateBuy.Checked;
+            equipment.buyDate = dateBuy.Value;
+            equipment.provider = comboProvider.SelectedValue != null ? (int)comboProvider.SelectedValue : 0;
+            equipment.consumable = comboCon.SelectedValue != null ? (int)comboCon.SelectedValue : 0;
+            DialogResult = DialogResult.OK;
         }
     }
 }

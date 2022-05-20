@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    public partial class FormConsumables : Form
+    public partial class FormConsumable : Form
     {
         List<string> names;
 
-        public FormConsumables(Consumable consumable)
+        public FormConsumable(Consumable consumable)
         {
             InitializeComponent();
             names = DB.NamesLoad("consumables");

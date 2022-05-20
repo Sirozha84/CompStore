@@ -8,140 +8,144 @@ namespace CompStore
     static class DB
     {
         public const string dataSource = @"DataSource=CS.db; Version=3;";
+        static SQLiteConnection connect;
         const string ND = "#Н/Д";
 
         #region Инициализация таблиц
         public static void Init()
         {
             //SQLiteConnection.CreateFile(FileDB); 
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
+            connect = new SQLiteConnection(dataSource);
+            connect.Open();
+            SQLiteCommand com = new SQLiteCommand(connect);
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [properties] ( " +
-                    "[name] TEXT, " +
-                    "[value] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [properties] ( " +
+                "[name] TEXT, " +
+                "[value] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [filials] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT, " +
-                    "[adress] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [filials] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT, " +
+                "[adress] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [rooms] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[building] INTEGER, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [rooms] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[building] INTEGER, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [posts] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [posts] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [deps] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [deps] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [buildings] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[filial] INTEGER, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [buildings] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[filial] INTEGER, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [users] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[type] TEXT, " +
-                    "[f] TEXT, " +
-                    "[i] TEXT, " +
-                    "[o] TEXT, " +
-                    "[post] INTEGER, " +
-                    "[dep] INTEGER, " +
-                    "[room] INTEGER, " +
-                    "[emp] TEXT, " +
-                    "[empdate] TEXT, " +
-                    "[dis] TEXT, " +
-                    "[disdate] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [users] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[type] TEXT, " +
+                "[f] TEXT, " +
+                "[i] TEXT, " +
+                "[o] TEXT, " +
+                "[post] INTEGER, " +
+                "[dep] INTEGER, " +
+                "[room] INTEGER, " +
+                "[emp] TEXT, " +
+                "[empdate] TEXT, " +
+                "[dis] TEXT, " +
+                "[disdate] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [vendors] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [vendors] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [eqtypes] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [eqtypes] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [models] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[eqtype] INTEGER, " +
-                    "[vendor] INTEGER, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [models] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[eqtype] INTEGER, " +
+                "[vendor] INTEGER, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [equipments] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[model] INTEGER, " +
-                    "[sn] TEXT, " +
-                    "[in] TEXT, " +
-                    "[inv] TEXT, " +
-                    "[mac] TEXT, " +
-                    "[ip] TEXT, " +
-                    "[prop] TEXT, " +
-                    "[buy] TEXT, " +
-                    "[buydate] TEXT, " +
-                    "[price] TEXT, " +
-                    "[provider] INTEGER, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [equipments] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[model] INTEGER, " +
+                "[sn] TEXT, " +
+                "[in] TEXT, " +
+                "[inv] TEXT, " +
+                "[mac] TEXT, " +
+                "[ip] TEXT, " +
+                "[prop] TEXT, " +
+                "[price] TEXT, " +
+                "[provider] INTEGER, " +
+                "[buy] TEXT, " +
+                "[buydate] TEXT, " +
+                "[dec] TEXT, " +
+                "[decdate] TEXT, " +
+                "[printer] TEXT, " +
+                "[consumable] INTEGER, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [moves] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[equipment] INTEGER, " +
-                    "[user] INTEGER, " +
-                    "[room] INTEGER, " +
-                    "[date] TEXT, " +
-                    "[mol] INTEGER, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [moves] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[equipment] INTEGER, " +
+                "[user] INTEGER, " +
+                "[room] INTEGER, " +
+                "[date] TEXT, " +
+                "[mol] INTEGER, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [consumables] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [consumables] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                com.CommandText = "CREATE TABLE IF NOT EXISTS [providers] ( " +
-                    "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "[name] TEXT, " +
-                    "[adress] TEXT, " +
-                    "[phone] TEXT, " +
-                    "[manager] TEXT, " +
-                    "[comment] TEXT)";
-                com.ExecuteNonQuery();
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [providers] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT, " +
+                "[adress] TEXT, " +
+                "[phone] TEXT, " +
+                "[manager] TEXT, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
 
-                connect.Close();
-            }
+            connect.Close();
+
         }
         #endregion
 
+        #region Загрузка данных
         public static List<Record> Load(string type)
         {
             List<Record> list = new List<Record>();
-            SQLiteConnection connect = new SQLiteConnection(dataSource);
-
+            connect = new SQLiteConnection(dataSource);
             connect.Open();
             SQLiteCommand com = new SQLiteCommand(connect);
             if (type == "filials")
@@ -292,10 +296,14 @@ namespace CompStore
                     "equipments.mac, " +
                     "equipments.ip, " +
                     "equipments.prop, " +
-                    "equipments.buy, " +
-                    "equipments.buydate, " +
                     "equipments.price, " +
                     "equipments.provider, " +
+                    "equipments.buy, " +
+                    "equipments.buydate, " +
+                    "equipments.dec, " +
+                    "equipments.decdate, " +
+                    "equipments.printer, " +
+                    "equipments.consumable, " +
                     "equipments.comment, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name AS nameText, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
@@ -329,21 +337,26 @@ namespace CompStore
                     equipment.mac = !reader.IsDBNull(5) ? reader.GetString(5) : "";
                     equipment.ip = !reader.IsDBNull(6) ? reader.GetString(6) : "";
                     equipment.prop = !reader.IsDBNull(7) ? reader.GetString(7) : "";
-                    equipment.buy = reader.GetString(8) == "1";
-                    equipment.buyDate = DateTime.ParseExact(reader.GetString(9), "yyyyMMdd", CultureInfo.InvariantCulture);
-                    equipment.price = !reader.IsDBNull(10) ? reader.GetString(10) : "";
-                    equipment.provider = !reader.IsDBNull(11) ? reader.GetInt32(11) : 0;
-                    equipment.comment = reader.GetString(12);
-                    equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
-                    equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
-                    equipment.userText = !reader.IsDBNull(15) ? reader.GetString(15) : "";
-                    equipment.roomText = !reader.IsDBNull(16) ? reader.GetString(16) : "";
-                    equipment.isDtText = !reader.IsDBNull(17) ?
-                        DateTime.ParseExact(reader.GetString(17), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
-                    equipment.provText = !reader.IsDBNull(18) ? reader.GetString(18) : "";
-                    equipment.user = !reader.IsDBNull(19) ? reader.GetInt32(19) : 0;
-                    equipment.mol = !reader.IsDBNull(20) ? reader.GetInt32(20) : 0;
-                    equipment.molText = !reader.IsDBNull(21) ? reader.GetString(21) : "";
+                    equipment.price = !reader.IsDBNull(8) ? reader.GetString(8) : "";
+                    equipment.provider = !reader.IsDBNull(9) ? reader.GetInt32(9) : 0;
+                    equipment.buy = reader.GetString(10) == "1";
+                    equipment.buyDate = DateTime.ParseExact(reader.GetString(11), "yyyyMMdd", CultureInfo.InvariantCulture);
+                    equipment.dec = !reader.IsDBNull(12) ? reader.GetString(12) == "1" : false;
+                    equipment.decDate = !reader.IsDBNull(13) ?
+                        DateTime.ParseExact(reader.GetString(13), "yyyyMMdd", CultureInfo.InvariantCulture) : DateTime.Now;
+                    equipment.printer = !reader.IsDBNull(14) ? reader.GetString(14) == "1" : false;
+                    equipment.consumable = !reader.IsDBNull(15) ? reader.GetInt32(15) : 0;
+                    equipment.comment = reader.GetString(16);
+                    equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(17) ? reader.GetString(17) : ND) : "";
+                    equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(18) ? reader.GetString(18) : ND) : "";
+                    equipment.userText = !reader.IsDBNull(19) ? reader.GetString(19) : "";
+                    equipment.roomText = !reader.IsDBNull(20) ? reader.GetString(20) : "";
+                    equipment.isDtText = !reader.IsDBNull(21) ?
+                        DateTime.ParseExact(reader.GetString(21), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
+                    equipment.provText = !reader.IsDBNull(22) ? reader.GetString(22) : "";
+                    equipment.user = !reader.IsDBNull(23) ? reader.GetInt32(23) : 0;
+                    equipment.mol = !reader.IsDBNull(24) ? reader.GetInt32(24) : 0;
+                    equipment.molText = !reader.IsDBNull(25) ? reader.GetString(25) : "";
                     list.Add(equipment);
                 }
             }
@@ -482,303 +495,309 @@ namespace CompStore
             connect.Close();
             return list;
         }
+        #endregion
 
+        #region Добавление записей
         public static void Add(string type, Record item)
         {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            connect = new SQLiteConnection(dataSource);
+            connect.Open();
+            SQLiteCommand com = new SQLiteCommand(connect);
+            if (type == "filials")
             {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                if (type == "filials")
-                {
-                    Filial filial = (Filial)item;
-                    com.CommandText = "INSERT INTO filials (name, adress, comment) VALUES ('" +
-                        filial.name + "', '" +
-                        filial.adress + "', '" +
-                        filial.comment + "')";
-                }
-                if (type == "buildings")
-                {
-                    Building building = (Building)item;
-                    com.CommandText = "INSERT INTO buildings (filial, name, comment) VALUES ('" +
-                        building.filial + "', '" +
-                        building.name + "', '" +
-                        building.comment + "')";
-                }
-                if (type == "rooms")
-                {
-                    Room room = (Room)item;
-                    com.CommandText = "INSERT INTO rooms (building, name, comment) VALUES ('" +
-                        room.building + "', '" +
-                        room.name + "', '" +
-                        room.comment + "')";
-                }
-                if (type == "deps")
-                {
-                    Dep dep = (Dep)item;
-                    com.CommandText = "INSERT INTO deps (name, comment) VALUES ('" +
-                        dep.name + "', '" +
-                        dep.comment + "')";
-                }
-                if (type == "posts")
-                {
-                    Post post = (Post)item;
-                    com.CommandText = "INSERT INTO posts (name) VALUES ('" +
-                        post.name + "')";
-                }
-                if (type == "users")
-                {
-                    User user = (User)item;
-                    com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
-                        "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
-                        user.f + "', '" +
-                        user.i + "', '" +
-                        user.o + "', '" +
-                        user.post + "', '" +
-                        user.dep + "', '" +
-                        user.room + "', '" +
-                        (user.emp ? "1" : "0") + "', '" +
-                        user.empDate.ToString("yyyyMMdd") + "', '" +
-                        (user.dis ? "1" : "0") + "', '" +
-                        user.disDate.ToString("yyyyMMdd") + "', '" +
-                        user.comment + "')";
-                }
-                if (type == "equipments")
-                {
-                    Equipment equipment = (Equipment)item;
-                    com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, buy, buydate, price, provider, comment) VALUES ('" +
-                        equipment.model + "', '" +
-                        equipment.sn + "', '" +
-                        equipment.iN + "', '" +
-                        (equipment.iNv ? "1" : "0") + "', '" +
-                        equipment.mac + "', '" +
-                        equipment.ip + "', '" +
-                        equipment.prop + "', '" +
-                        (equipment.buy ? "1" : "0") + "', '" +
-                        equipment.buyDate.ToString("yyyyMMdd") + "', '" +
-                        equipment.price + "', '" +
-                        equipment.provider + "', '" +
-                        equipment.comment + "')";
-                }
-                if (type == "moves")
-                {
-                    Move move = (Move)item;
-                    com.CommandText = "INSERT INTO moves (equipment, user, room, date, mol, comment) VALUES ('" +
-                        move.equipment + "', '" +
-                        move.user + "', '" +
-                        move.room + "', '" +
-                        move.date.ToString("yyyyMMdd") + "', '" +
-                        move.mol + "', '" +
-                        move.comment + "')";
-                }
-                if (type == "eqtypes")
-                {
-                    EqType eqType = (EqType)item;
-                    com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" +
-                        eqType.name + "')";
-                }
-                if (type == "vendors")
-                {
-                    Vendor vendor = (Vendor)item;
-                    com.CommandText = "INSERT INTO vendors (name, comment) VALUES ('" +
-                        vendor.name + "', '" +
-                        vendor.comment + "')";
-                }
-                if (type == "models")
-                {
-                    Model model = (Model)item;
-                    com.CommandText = "INSERT INTO models (eqtype, vendor, name, comment) VALUES ('" +
-                         model.eqType + "', '" +
-                         model.vendor + "', '" +
-                         model.name + "', '" +
-                         model.comment + "')";
-                }
-                if (type == "consumables")
-                {
-                    Consumable con = (Consumable)item;
-                    com.CommandText = "INSERT INTO consumables (name, comment) VALUES ('" +
-                        con.name + "', '" +
-                        con.comment + "')";
-                }
-                if (type == "providers")
-                {
-                    Provider provider = (Provider)item;
-                    com.CommandText = "INSERT INTO providers (name, adress, phone, manager, comment) VALUES ('" +
-                        provider.name + "', '" +
-                        provider.adress + "', '" +
-                        provider.phone + "', '" +
-                        provider.manager + "', '" +
-                        provider.comment + "')";
-                }
-
-
-                com.ExecuteNonQuery();
-                connect.Close();
+                Filial filial = (Filial)item;
+                com.CommandText = "INSERT INTO filials (name, adress, comment) VALUES ('" +
+                    filial.name + "', '" +
+                    filial.adress + "', '" +
+                    filial.comment + "')";
             }
-        }
+            if (type == "buildings")
+            {
+                Building building = (Building)item;
+                com.CommandText = "INSERT INTO buildings (filial, name, comment) VALUES ('" +
+                    building.filial + "', '" +
+                    building.name + "', '" +
+                    building.comment + "')";
+            }
+            if (type == "rooms")
+            {
+                Room room = (Room)item;
+                com.CommandText = "INSERT INTO rooms (building, name, comment) VALUES ('" +
+                    room.building + "', '" +
+                    room.name + "', '" +
+                    room.comment + "')";
+            }
+            if (type == "deps")
+            {
+                Dep dep = (Dep)item;
+                com.CommandText = "INSERT INTO deps (name, comment) VALUES ('" +
+                    dep.name + "', '" +
+                    dep.comment + "')";
+            }
+            if (type == "posts")
+            {
+                Post post = (Post)item;
+                com.CommandText = "INSERT INTO posts (name) VALUES ('" +
+                    post.name + "')";
+            }
+            if (type == "users")
+            {
+                User user = (User)item;
+                com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
+                    "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
+                    user.f + "', '" +
+                    user.i + "', '" +
+                    user.o + "', '" +
+                    user.post + "', '" +
+                    user.dep + "', '" +
+                    user.room + "', '" +
+                    (user.emp ? "1" : "0") + "', '" +
+                    user.empDate.ToString("yyyyMMdd") + "', '" +
+                    (user.dis ? "1" : "0") + "', '" +
+                    user.disDate.ToString("yyyyMMdd") + "', '" +
+                    user.comment + "')";
+            }
+            if (type == "equipments")
+            {
+                Equipment equipment = (Equipment)item;
+                com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, price, " +
+                    "provider, buy, buydate, dec, decdate, printer, consumable, comment) VALUES ('" +
+                    equipment.model + "', '" +
+                    equipment.sn + "', '" +
+                    equipment.iN + "', '" +
+                    (equipment.iNv ? "1" : "0") + "', '" +
+                    equipment.mac + "', '" +
+                    equipment.ip + "', '" +
+                    equipment.prop + "', '" +
+                    equipment.price + "', '" +
+                    equipment.provider + "', '" +
+                    (equipment.buy ? "1" : "0") + "', '" +
+                    equipment.buyDate.ToString("yyyyMMdd") + "', '" +
+                    (equipment.dec ? "1" : "0") + "', '" +
+                    equipment.decDate.ToString("yyyyMMdd") + "', '" +
+                    (equipment.printer ? "1" : "0") + "', '" +
+                    equipment.consumable + "', '" +
+                    equipment.comment + "')";
+            }
+            if (type == "moves")
+            {
+                Move move = (Move)item;
+                com.CommandText = "INSERT INTO moves (equipment, user, room, date, mol, comment) VALUES ('" +
+                    move.equipment + "', '" +
+                    move.user + "', '" +
+                    move.room + "', '" +
+                    move.date.ToString("yyyyMMdd") + "', '" +
+                    move.mol + "', '" +
+                    move.comment + "')";
+            }
+            if (type == "eqtypes")
+            {
+                EqType eqType = (EqType)item;
+                com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" +
+                    eqType.name + "')";
+            }
+            if (type == "vendors")
+            {
+                Vendor vendor = (Vendor)item;
+                com.CommandText = "INSERT INTO vendors (name, comment) VALUES ('" +
+                    vendor.name + "', '" +
+                    vendor.comment + "')";
+            }
+            if (type == "models")
+            {
+                Model model = (Model)item;
+                com.CommandText = "INSERT INTO models (eqtype, vendor, name, comment) VALUES ('" +
+                     model.eqType + "', '" +
+                     model.vendor + "', '" +
+                     model.name + "', '" +
+                     model.comment + "')";
+            }
+            if (type == "consumables")
+            {
+                Consumable con = (Consumable)item;
+                com.CommandText = "INSERT INTO consumables (name, comment) VALUES ('" +
+                    con.name + "', '" +
+                    con.comment + "')";
+            }
+            if (type == "providers")
+            {
+                Provider provider = (Provider)item;
+                com.CommandText = "INSERT INTO providers (name, adress, phone, manager, comment) VALUES ('" +
+                    provider.name + "', '" +
+                    provider.adress + "', '" +
+                    provider.phone + "', '" +
+                    provider.manager + "', '" +
+                    provider.comment + "')";
+            }
 
+
+            com.ExecuteNonQuery();
+            connect.Close();
+        }
+        #endregion
+
+        #region Обновление записей
         public static void Update(string type, Record item)
         {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
+            connect = new SQLiteConnection(dataSource);
+            connect.Open();
+            SQLiteCommand com = new SQLiteCommand(connect);
+            if (type == "filials")
             {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                if (type == "filials")
-                {
-                    Filial filial = (Filial)item;
-                    com.CommandText = "UPDATE filials SET " +
-                        "name = '" + filial.name + "', " +
-                        "adress = '" + filial.adress + "', " +
-                        "comment = '" + filial.comment + "' WHERE ID = " + filial.ID;
-                }
-                if (type == "buildings")
-                {
-                    Building building = (Building)item;
-                    com.CommandText = "UPDATE buildings SET " +
-                        "filial = '" + building.filial + "', " +
-                        "name = '" + building.name + "', " +
-                        "comment = '" + building.comment + "' WHERE ID = " + building.ID;
-                }
-                if (type == "rooms")
-                {
-                    Room room = (Room)item;
-                    com.CommandText = "UPDATE rooms SET " +
-                        "building = '" + room.building + "', " +
-                        "name = '" + room.name + "', " +
-                        "comment = '" + room.comment + "' WHERE ID = " + room.ID;
-                }
-                if (type == "deps")
-                {
-                    Dep dep = (Dep)item;
-                    com.CommandText = "UPDATE deps SET " +
-                        "name = '" + dep.name + "', " +
-                        "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
-                }
-                if (type == "posts")
-                {
-                    Post post = (Post)item;
-                    com.CommandText = "UPDATE posts SET " +
-                        "name = '" + post.name + "' WHERE ID = " + post.ID;
-                }
-                if (type == "users")
-                {
-                    User user = (User)item;
-                    com.CommandText = "UPDATE users SET " +
-                        "f = '" + user.f + "', " +
-                        "i = '" + user.i + "', " +
-                        "o = '" + user.o + "', " +
-                        "post = '" + user.post + "', " +
-                        "dep = '" + user.dep + "', " +
-                        "room = '" + user.room + "', " +
-                        "emp = '" + (user.emp ? "1" : "0") + "', " +
-                        "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +
-                        "dis = '" + (user.dis ? "1" : "0") + "', " +
-                        "disdate = '" + user.disDate.ToString("yyyyMMdd") + "', " +
-                        "comment = '" + user.comment + "' WHERE ID = " + user.ID;
-                }
-                if (type == "equipments")
-                {
-                    Equipment equipment = (Equipment)item;
-                    com.CommandText = "UPDATE equipments SET " +
-                        "model = '" + equipment.model + "', " +
-                        "sn = '" + equipment.sn + "', " +
-                        "[in] = '" + equipment.iN + "', " +
-                        "inv = '" + (equipment.iNv ? "1" : "0") + "', " +
-                        "mac = '" + equipment.mac + "', " +
-                        "ip = '" + equipment.ip + "', " +
-                        "prop = '" + equipment.prop + "', " +
-                        "buy = '" + (equipment.buy ? "1" : "0") + "', " +
-                        "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
-                        "price = '" + equipment.price + "', " +
-                        "provider = '" + equipment.provider + "', " +
-                        "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
-                }
-                if (type == "moves")
-                {
-                    Move move = (Move)item;
-                    com.CommandText = "UPDATE moves SET " +
-                        "equipment = '" + move.equipment + "', " +
-                        "user = '" + move.user + "', " +
-                        "room = '" + move.room + "', " +
-                        "date = '" + move.date.ToString("yyyyMMdd") + "', " +
-                        "mol = '" + move.mol + "', " +
-                        "comment = '" + move.comment + "' WHERE ID = " + move.ID;
-                }
-                if (type == "eqtypes")
-                {
-                    EqType eqType = (EqType)item;
-                    com.CommandText = "UPDATE eqtypes SET " +
-                        "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
-                }
-                if (type == "vendors")
-                {
-                    Vendor vendor = (Vendor)item;
-                    com.CommandText = "UPDATE vendors SET " +
-                        "name = '" + vendor.name + "', " +
-                        "comment = '" + vendor.comment + "' WHERE ID = " + vendor.ID;
-                }
-                if (type == "models")
-                {
-                    Model model = (Model)item;
-                    com.CommandText = "UPDATE models SET " +
-                        "eqtype = '" + model.eqType + "', " +
-                        "vendor = '" + model.vendor + "', " +
-                        "name = '" + model.name + "', " +
-                        "comment = '" + model.comment + "' WHERE ID = " + model.ID;
-                }
-                if (type == "consumables")
-                {
-                    Consumable con = (Consumable)item;
-                    com.CommandText = "UPDATE consumables SET " +
-                        "name = '" + con.name + "', " +
-                        "comment = '" + con.comment + "' WHERE ID = " + con.ID;
-                }
-                if (type == "providers")
-                {
-                    Provider provider = (Provider)item;
-                    com.CommandText = "UPDATE providers SET " +
-                        "name = '" + provider.name + "', " +
-                        "adress = '" + provider.adress + "', " +
-                        "phone = '" + provider.phone + "', " +
-                        "manager = '" + provider.manager + "', " +
-                        "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
-                }
-
-                com.ExecuteNonQuery();
-                connect.Close();
+                Filial filial = (Filial)item;
+                com.CommandText = "UPDATE filials SET " +
+                    "name = '" + filial.name + "', " +
+                    "adress = '" + filial.adress + "', " +
+                    "comment = '" + filial.comment + "' WHERE ID = " + filial.ID;
             }
+            if (type == "buildings")
+            {
+                Building building = (Building)item;
+                com.CommandText = "UPDATE buildings SET " +
+                    "filial = '" + building.filial + "', " +
+                    "name = '" + building.name + "', " +
+                    "comment = '" + building.comment + "' WHERE ID = " + building.ID;
+            }
+            if (type == "rooms")
+            {
+                Room room = (Room)item;
+                com.CommandText = "UPDATE rooms SET " +
+                    "building = '" + room.building + "', " +
+                    "name = '" + room.name + "', " +
+                    "comment = '" + room.comment + "' WHERE ID = " + room.ID;
+            }
+            if (type == "deps")
+            {
+                Dep dep = (Dep)item;
+                com.CommandText = "UPDATE deps SET " +
+                    "name = '" + dep.name + "', " +
+                    "comment = '" + dep.comment + "' WHERE ID = " + dep.ID;
+            }
+            if (type == "posts")
+            {
+                Post post = (Post)item;
+                com.CommandText = "UPDATE posts SET " +
+                    "name = '" + post.name + "' WHERE ID = " + post.ID;
+            }
+            if (type == "users")
+            {
+                User user = (User)item;
+                com.CommandText = "UPDATE users SET " +
+                    "f = '" + user.f + "', " +
+                    "i = '" + user.i + "', " +
+                    "o = '" + user.o + "', " +
+                    "post = '" + user.post + "', " +
+                    "dep = '" + user.dep + "', " +
+                    "room = '" + user.room + "', " +
+                    "emp = '" + (user.emp ? "1" : "0") + "', " +
+                    "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +
+                    "dis = '" + (user.dis ? "1" : "0") + "', " +
+                    "disdate = '" + user.disDate.ToString("yyyyMMdd") + "', " +
+                    "comment = '" + user.comment + "' WHERE ID = " + user.ID;
+            }
+            if (type == "equipments")
+            {
+                Equipment equipment = (Equipment)item;
+                com.CommandText = "UPDATE equipments SET " +
+                    "model = '" + equipment.model + "', " +
+                    "sn = '" + equipment.sn + "', " +
+                    "[in] = '" + equipment.iN + "', " +
+                    "inv = '" + (equipment.iNv ? "1" : "0") + "', " +
+                    "mac = '" + equipment.mac + "', " +
+                    "ip = '" + equipment.ip + "', " +
+                    "prop = '" + equipment.prop + "', " +
+                    "price = '" + equipment.price + "', " +
+                    "provider = '" + equipment.provider + "', " +
+                    "buy = '" + (equipment.buy ? "1" : "0") + "', " +
+                    "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
+                    "dec = '" + (equipment.dec ? "1" : "0") + "', " +
+                    "decdate = '" + equipment.decDate.ToString("yyyyMMdd") + "', " +
+                    "printer = '" + (equipment.printer ? "1" : "0") + "', " +
+                    "consumable = '" + equipment.consumable + "', " +
+                    "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
+            }
+            if (type == "moves")
+            {
+                Move move = (Move)item;
+                com.CommandText = "UPDATE moves SET " +
+                    "equipment = '" + move.equipment + "', " +
+                    "user = '" + move.user + "', " +
+                    "room = '" + move.room + "', " +
+                    "date = '" + move.date.ToString("yyyyMMdd") + "', " +
+                    "mol = '" + move.mol + "', " +
+                    "comment = '" + move.comment + "' WHERE ID = " + move.ID;
+            }
+            if (type == "eqtypes")
+            {
+                EqType eqType = (EqType)item;
+                com.CommandText = "UPDATE eqtypes SET " +
+                    "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
+            }
+            if (type == "vendors")
+            {
+                Vendor vendor = (Vendor)item;
+                com.CommandText = "UPDATE vendors SET " +
+                    "name = '" + vendor.name + "', " +
+                    "comment = '" + vendor.comment + "' WHERE ID = " + vendor.ID;
+            }
+            if (type == "models")
+            {
+                Model model = (Model)item;
+                com.CommandText = "UPDATE models SET " +
+                    "eqtype = '" + model.eqType + "', " +
+                    "vendor = '" + model.vendor + "', " +
+                    "name = '" + model.name + "', " +
+                    "comment = '" + model.comment + "' WHERE ID = " + model.ID;
+            }
+            if (type == "consumables")
+            {
+                Consumable con = (Consumable)item;
+                com.CommandText = "UPDATE consumables SET " +
+                    "name = '" + con.name + "', " +
+                    "comment = '" + con.comment + "' WHERE ID = " + con.ID;
+            }
+            if (type == "providers")
+            {
+                Provider provider = (Provider)item;
+                com.CommandText = "UPDATE providers SET " +
+                    "name = '" + provider.name + "', " +
+                    "adress = '" + provider.adress + "', " +
+                    "phone = '" + provider.phone + "', " +
+                    "manager = '" + provider.manager + "', " +
+                    "comment = '" + provider.comment + "' WHERE ID = " + provider.ID;
+            }
+
+            com.ExecuteNonQuery();
+            connect.Close();
         }
+        #endregion
 
         public static void Delete(string type, Record item)
         {
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "DELETE FROM " + type + " WHERE ID = " + item.ID;
-                com.ExecuteNonQuery();
-                connect.Close();
-            }
+            connect = new SQLiteConnection(dataSource);
+            connect.Open();
+            SQLiteCommand com = new SQLiteCommand(connect);
+            com.CommandText = "DELETE FROM " + type + " WHERE ID = " + item.ID;
+            com.ExecuteNonQuery();
+            connect.Close();
         }
 
         public static List<string> NamesLoad(string table)
         {
             List<string> list = new List<string>();
-            using (SQLiteConnection connect = new SQLiteConnection(dataSource))
-            {
-                connect.Open();
-                SQLiteCommand com = new SQLiteCommand(connect);
-                com.CommandText = "SELECT name FROM " + table;
-                if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
-                if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
-                if (table == "users") com.CommandText = "SELECT f || \"‼\" || i || \"‼\" || o FROM users";
-                if (table == "models") com.CommandText = "SELECT vendor || \"‼\" || name FROM models";
-                if (table == "equipments") com.CommandText = "SELECT sn || \"‼\" || [in] FROM equipments";
-                using (SQLiteDataReader reader = com.ExecuteReader())
-                    while (reader.Read())
-                        list.Add(reader.GetString(0));
-                connect.Close();
-            }
+            connect = new SQLiteConnection(dataSource);
+            connect.Open();
+            SQLiteCommand com = new SQLiteCommand(connect);
+            com.CommandText = "SELECT name FROM " + table;
+            if (table == "buildings") com.CommandText = "SELECT filial || \"‼\" || name FROM buildings";
+            if (table == "rooms") com.CommandText = "SELECT building || \"‼\" || name FROM rooms";
+            if (table == "users") com.CommandText = "SELECT f || \"‼\" || i || \"‼\" || o FROM users";
+            if (table == "models") com.CommandText = "SELECT vendor || \"‼\" || name FROM models";
+            if (table == "equipments") com.CommandText = "SELECT sn || \"‼\" || [in] FROM equipments";
+            using (SQLiteDataReader reader = com.ExecuteReader())
+                while (reader.Read())
+                    list.Add(reader.GetString(0));
+            connect.Close();
             return list;
         }
     }

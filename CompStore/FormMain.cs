@@ -416,7 +416,7 @@ namespace CompStore
             if (curType == "eqtypes") return new FormEqType((EqType)item);
             if (curType == "vendors") return new FormVendor((Vendor)item);
             if (curType == "models") return new FormModel((Model)item);
-            if (curType == "consumables") return new FormConsumables((Consumable)item);
+            if (curType == "consumables") return new FormConsumable((Consumable)item);
             if (curType == "providers") return new FormProvider((Provider)item);
             return null;
         }

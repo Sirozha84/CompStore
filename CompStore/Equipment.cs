@@ -12,10 +12,14 @@ namespace CompStore
         public string mac { get; set; }
         public string ip { get; set; }
         public string prop { get; set; }
-        public bool buy { get; set; }
-        public DateTime buyDate { get; set; }
         public string price { get; set; }
         public int provider { get; set; }
+        public bool buy { get; set; }
+        public DateTime buyDate { get; set; }
+        public bool dec { get; set; }
+        public DateTime decDate { get; set; }
+        public bool printer { get; set; }
+        public int consumable { get; set; }
         public int user;
         public string userText;
         public string roomText;

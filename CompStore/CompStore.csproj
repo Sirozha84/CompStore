@@ -70,11 +70,11 @@
   <ItemGroup>
     <Compile Include="CompanyProperties.cs" />
     <Compile Include="Consumable.cs" />
-    <Compile Include="FormConsumables.cs">
+    <Compile Include="FormConsumable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormConsumables.Designer.cs">
-      <DependentUpon>FormConsumables.cs</DependentUpon>
+    <Compile Include="FormConsumable.Designer.cs">
+      <DependentUpon>FormConsumable.cs</DependentUpon>
     </Compile>
     <Compile Include="FormProperties.cs">
       <SubType>Form</SubType>
@@ -182,8 +182,8 @@
     <Compile Include="Reports.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="User.cs" />
-    <EmbeddedResource Include="FormConsumables.resx">
-      <DependentUpon>FormConsumables.cs</DependentUpon>
+    <EmbeddedResource Include="FormConsumable.resx">
+      <DependentUpon>FormConsumable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProperties.resx">
       <DependentUpon>FormProperties.cs</DependentUpon>

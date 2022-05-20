@@ -1,6 +1,6 @@
 ﻿namespace CompStore
 {
-    partial class FormConsumables
+    partial class FormConsumable
     {
         /// <summary>
         /// Required designer variable.
