@@ -9,7 +9,7 @@ namespace CompStore
     {
         public const string dataSource = @"DataSource=CS.db; Version=3;";
         static SQLiteConnection connect;
-        const string ND = "#Н/Д";
+        static SQLiteDataReader reader;
 
         #region Инициализация таблиц
         public static void Init()
@@ -151,14 +151,14 @@ namespace CompStore
             if (type == "filials")
             {
                 com.CommandText = "SELECT * FROM filials ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Filial filial = new Filial();
-                    filial.ID = reader.GetInt32(0);
-                    filial.name = filial.nameText = reader.GetString(1);
-                    filial.adress = reader.GetString(2);
-                    filial.comment = reader.GetString(3);
+                    filial.ID = ReadInt(0);
+                    filial.name = filial.nameText = ReadStr(1);
+                    filial.adress = ReadStr(2);
+                    filial.comment = ReadStr(3);
                     list.Add(filial);
                 }
             }
@@ -170,16 +170,16 @@ namespace CompStore
                     "FROM buildings " +
                     "LEFT JOIN filials ON buildings.filial = filials.ID " +
                     "ORDER BY filials.name, buildings.name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Building building = new Building();
-                    building.ID = reader.GetInt32(0);
-                    building.filial = reader.GetInt32(1);
-                    building.name = reader.GetString(2);
-                    building.comment = reader.GetString(3);
-                    building.filialText = building.filial != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
-                    building.nameText = building.filial != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
+                    building.ID = ReadInt(0);
+                    building.filial = ReadInt(1);
+                    building.name = ReadStr(2);
+                    building.comment = ReadStr(3);
+                    building.filialText = ReadStr(4, building.filial);
+                    building.nameText = ReadStr(5, building.filial);
                     list.Add(building);
                 }
             }
@@ -197,42 +197,42 @@ namespace CompStore
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
                     "LEFT JOIN filials ON buildings.filial = filials.ID " +
                     "ORDER BY filials.name, buildings.name, rooms.name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Room room = new Room();
-                    room.ID = reader.GetInt32(0);
-                    room.building = reader.GetInt32(1);
-                    room.name = reader.GetString(2);
-                    room.comment = reader.GetString(3);
-                    room.filialText = room.building != 0 ? (!reader.IsDBNull(4) ? reader.GetString(4) : ND) : "";
-                    room.buildingText = room.building != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
-                    room.nameText = room.building != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
+                    room.ID = ReadInt(0);
+                    room.building = ReadInt(1);
+                    room.name = ReadStr(2);
+                    room.comment = ReadStr(3);
+                    room.filialText = ReadStr(4, room.building);
+                    room.buildingText = ReadStr(5, room.building);
+                    room.nameText = ReadStr(6, room.building);
                     list.Add(room);
                 }
             }
             if (type == "deps")
             {
                 com.CommandText = "SELECT * FROM deps ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Dep dep = new Dep();
-                    dep.ID = reader.GetInt32(0);
-                    dep.name = dep.nameText = reader.GetString(1);
-                    dep.comment = reader.GetString(2);
+                    dep.ID = ReadInt(0);
+                    dep.name = dep.nameText = ReadStr(1);
+                    dep.comment = ReadStr(2);
                     list.Add(dep);
                 }
             }
             if (type == "posts")
             {
                 com.CommandText = "SELECT * FROM posts ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Post post = new Post();
-                    post.ID = reader.GetInt32(0);
-                    post.name = reader.GetString(1);
+                    post.ID = ReadInt(0);
+                    post.name =ReadStr(1);
                     list.Add(post);
                 }
             }
@@ -262,26 +262,26 @@ namespace CompStore
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
                     "LEFT JOIN filials ON buildings.filial = filials.ID " +
                     "WHERE users.type = 'u' ORDER BY users.f, users.i, users.o";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     User user = new User();
-                    user.ID = reader.GetInt32(0);
-                    user.f = reader.GetString(1);
-                    user.i = reader.GetString(2);
-                    user.o = reader.GetString(3);
-                    user.post = reader.GetInt32(4);
-                    user.dep = reader.GetInt32(5);
-                    user.room = reader.GetInt32(6);
-                    user.emp = reader.GetString(7) == "1";
-                    user.empDate = DateTime.ParseExact(reader.GetString(8), "yyyyMMdd", CultureInfo.InvariantCulture);
-                    user.dis = reader.GetString(9) == "1";
-                    user.disDate = DateTime.ParseExact(reader.GetString(10), "yyyyMMdd", CultureInfo.InvariantCulture);
-                    user.comment = reader.GetString(11);
-                    user.nameText = reader.GetString(12);
-                    user.postText = user.post != 0 ? (!reader.IsDBNull(13) ? reader.GetString(13) : ND) : "";
-                    user.depText = user.dep != 0 ? (!reader.IsDBNull(14) ? reader.GetString(14) : ND) : "";
-                    user.roomText = user.room != 0 ? (!reader.IsDBNull(15) ? reader.GetString(15) : ND) : "";
+                    user.ID = ReadInt(0);
+                    user.f = ReadStr(1);
+                    user.i = ReadStr(2);
+                    user.o = ReadStr(3);
+                    user.post = ReadInt(4);
+                    user.dep = ReadInt(5);
+                    user.room = ReadInt(6);
+                    user.emp = ReadBool(7);
+                    user.empDate = ReadDate(8);
+                    user.dis = ReadBool(9);
+                    user.disDate = ReadDate(10);
+                    user.comment = ReadStr(11);
+                    user.nameText = ReadStr(12);
+                    user.postText = ReadStr(13, user.post);
+                    user.depText = ReadStr(14, user.dep);
+                    user.roomText = ReadStr(15, user.room);
                     list.Add(user);
                 }
             }
@@ -325,38 +325,36 @@ namespace CompStore
                     "LEFT JOIN providers ON equipments.provider = providers.ID " +
                     "LEFT JOIN users mols ON m.mol = mols.ID " +
                     "ORDER BY nameText, [in]";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Equipment equipment = new Equipment();
-                    equipment.ID = reader.GetInt32(0);
-                    equipment.model = reader.GetInt32(1);
-                    equipment.sn = reader.GetString(2);
-                    equipment.iN = reader.GetString(3);
-                    equipment.iNv = !reader.IsDBNull(4) ? (reader.GetString(4) == "1") : false;
-                    equipment.mac = !reader.IsDBNull(5) ? reader.GetString(5) : "";
-                    equipment.ip = !reader.IsDBNull(6) ? reader.GetString(6) : "";
-                    equipment.prop = !reader.IsDBNull(7) ? reader.GetString(7) : "";
-                    equipment.price = !reader.IsDBNull(8) ? reader.GetString(8) : "";
-                    equipment.provider = !reader.IsDBNull(9) ? reader.GetInt32(9) : 0;
-                    equipment.buy = reader.GetString(10) == "1";
-                    equipment.buyDate = DateTime.ParseExact(reader.GetString(11), "yyyyMMdd", CultureInfo.InvariantCulture);
-                    equipment.dec = !reader.IsDBNull(12) ? reader.GetString(12) == "1" : false;
-                    equipment.decDate = !reader.IsDBNull(13) ?
-                        DateTime.ParseExact(reader.GetString(13), "yyyyMMdd", CultureInfo.InvariantCulture) : DateTime.Now;
-                    equipment.printer = !reader.IsDBNull(14) ? reader.GetString(14) == "1" : false;
-                    equipment.consumable = !reader.IsDBNull(15) ? reader.GetInt32(15) : 0;
-                    equipment.comment = reader.GetString(16);
-                    equipment.nameText = equipment.model != 0 ? (!reader.IsDBNull(17) ? reader.GetString(17) : ND) : "";
-                    equipment.nameINText = equipment.model != 0 ? (!reader.IsDBNull(18) ? reader.GetString(18) : ND) : "";
-                    equipment.userText = !reader.IsDBNull(19) ? reader.GetString(19) : "";
-                    equipment.roomText = !reader.IsDBNull(20) ? reader.GetString(20) : "";
-                    equipment.isDtText = !reader.IsDBNull(21) ?
-                        DateTime.ParseExact(reader.GetString(21), "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "";
-                    equipment.provText = !reader.IsDBNull(22) ? reader.GetString(22) : "";
-                    equipment.user = !reader.IsDBNull(23) ? reader.GetInt32(23) : 0;
-                    equipment.mol = !reader.IsDBNull(24) ? reader.GetInt32(24) : 0;
-                    equipment.molText = !reader.IsDBNull(25) ? reader.GetString(25) : "";
+                    equipment.ID = ReadInt(0);
+                    equipment.model = ReadInt(1);
+                    equipment.sn = ReadStr(2);
+                    equipment.iN = ReadStr(3);
+                    equipment.iNv = ReadBool(4);
+                    equipment.mac = ReadStr(5);
+                    equipment.ip = ReadStr(6);
+                    equipment.prop = ReadStr(7);
+                    equipment.price = ReadStr(8);
+                    equipment.provider = ReadInt(9);
+                    equipment.buy = ReadBool(10);
+                    equipment.buyDate = ReadDate(11);
+                    equipment.dec = ReadBool(12);
+                    equipment.decDate = ReadDate(13);
+                    equipment.printer = ReadBool(14);
+                    equipment.consumable = ReadInt(15);
+                    equipment.comment = ReadStr(16);
+                    equipment.nameText = ReadStr(17);
+                    equipment.nameINText = ReadStr(18);
+                    equipment.userText = ReadStr(19);
+                    equipment.roomText = ReadStr(20);
+                    equipment.isDtText = ReadStr(21);
+                    equipment.provText = ReadStr(22);
+                    equipment.user = ReadInt(23);
+                    equipment.mol = ReadInt(24);
+                    equipment.molText = ReadStr(25);
                     list.Add(equipment);
                 }
             }
@@ -384,50 +382,48 @@ namespace CompStore
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
                     "LEFT JOIN users mols ON moves.mol = mols.ID " +
                     "ORDER BY moves.date";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Move move = new Move();
-                    move.ID = reader.GetInt32(0);
-                    move.equipment = reader.GetInt32(1);
-                    move.user = reader.GetInt32(2);
-                    move.room = reader.GetInt32(3);
-                    move.date = DateTime.ParseExact(reader.GetString(4), "yyyyMMdd", CultureInfo.InvariantCulture);
-                    move.mol = !reader.IsDBNull(5) ? reader.GetInt32(5) : 0;
-                    move.comment = reader.GetString(6);
-                    move.eqText = move.equipment != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
-                    move.userText = move.user != 0 ? (!reader.IsDBNull(8) ? reader.GetString(8) : ND) : "";
-                    move.roomText = move.room != 0 ? (!reader.IsDBNull(9) ? reader.GetString(9) : ND) : "";
-                    move.molText = move.mol != 0 ? (!reader.IsDBNull(10) ? reader.GetString(10) : ND) : "";
+                    move.ID = ReadInt(0);
+                    move.equipment = ReadInt(1);
+                    move.user = ReadInt(2);
+                    move.room = ReadInt(3);
+                    move.date = ReadDate(4);
+                    move.mol = ReadInt(5);
+                    move.comment = ReadStr(6);
+                    move.eqText = ReadStr(7, move.equipment);
+                    move.userText = ReadStr(8, move.user);
+                    move.roomText = ReadStr(9, move.room);
+                    move.molText = ReadStr(10, move.mol);
                     list.Add(move);
                 }
             }
             if (type == "eqtypes")
             {
                 com.CommandText = "SELECT * FROM eqtypes ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     EqType eqType = new EqType();
-                    eqType.ID = reader.GetInt32(0);
-                    eqType.name = reader.GetString(1);
+                    eqType.ID = ReadInt(0);
+                    eqType.name = ReadStr(1);
                     list.Add(eqType);
                 }
-                connect.Close();
             }
             if (type == "vendors")
             {
                 com.CommandText = "SELECT * FROM vendors ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Vendor vendor = new Vendor();
-                    vendor.ID = reader.GetInt32(0);
-                    vendor.name = reader.GetString(1);
-                    vendor.comment = reader.GetString(2);
+                    vendor.ID = ReadInt(0);
+                    vendor.name = ReadStr(1);
+                    vendor.comment = ReadStr(2);
                     list.Add(vendor);
                 }
-                connect.Close();
             }
             if (type == "models")
             {
@@ -444,57 +440,60 @@ namespace CompStore
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN vendors ON models.vendor = vendors.ID " +
                     "ORDER BY eqtypes.name, vendors.name, models.name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Model model = new Model();
-                    model.ID = reader.GetInt32(0);
-                    model.eqType = reader.GetInt32(1);
-                    model.vendor = reader.GetInt32(2);
-                    model.name = reader.GetString(3);
-                    model.comment = reader.GetString(4);
-                    model.eqTypeText = model.eqType != 0 ? (!reader.IsDBNull(5) ? reader.GetString(5) : ND) : "";
-                    model.vendorText = model.vendor != 0 ? (!reader.IsDBNull(6) ? reader.GetString(6) : ND) : "";
-                    model.nameText = model.eqType != 0 & model.vendor != 0 ? (!reader.IsDBNull(7) ? reader.GetString(7) : ND) : "";
+                    model.ID = ReadInt(0);
+                    model.eqType = ReadInt(1);
+                    model.vendor = ReadInt(2);
+                    model.name = ReadStr(3);
+                    model.comment = ReadStr(4);
+                    model.eqTypeText = ReadStr(5, model.eqType);
+                    model.vendorText = ReadStr(6, model.vendor);
+                    model.nameText = ReadStr(7, model.eqType);
                     list.Add(model);
                 }
-                connect.Close();
             }
             if (type == "consumables")
             {
                 com.CommandText = "SELECT * FROM consumables ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Consumable con = new Consumable();
-                    con.ID = reader.GetInt32(0);
-                    con.name = con.nameText = reader.GetString(1);
-                    con.comment = reader.GetString(2);
+                    con.ID = ReadInt(0);
+                    con.name = con.nameText = ReadStr(1);
+                    con.comment = ReadStr(2);
                     list.Add(con);
                 }
             }
             if (type == "providers")
             {
                 com.CommandText = "SELECT * FROM providers ORDER BY name";
-                SQLiteDataReader reader = com.ExecuteReader();
+                reader = com.ExecuteReader();
                 while (reader.Read())
                 {
                     Provider provider = new Provider();
-                    provider.ID = reader.GetInt32(0);
-                    provider.name = reader.GetString(1);
-                    provider.adress = reader.GetString(2);
-                    provider.phone = reader.GetString(3);
-                    provider.manager = reader.GetString(4);
-                    provider.comment = reader.GetString(5);
+                    provider.ID = ReadInt(0);
+                    provider.name = ReadStr(1);
+                    provider.adress = ReadStr(2);
+                    provider.phone = ReadStr(3);
+                    provider.manager = ReadStr(4);
+                    provider.comment = ReadStr(5);
                     list.Add(provider);
                 }
-                connect.Close();
             }
-
 
             connect.Close();
             return list;
         }
+
+        static int ReadInt(int i) { return !reader.IsDBNull(i) ? reader.GetInt32(i) : 0; }
+        static string ReadStr(int i, int s) { return s != 0 ? (!reader.IsDBNull(i) ? reader.GetString(i) : "#Н/Д") : ""; }
+        static string ReadStr(int i) { return !reader.IsDBNull(i) ? reader.GetString(i) : ""; }
+        static bool ReadBool(int i) { return !reader.IsDBNull(i) ? (reader.GetString(i) == "1") : false; }
+        static DateTime ReadDate(int i) { return !reader.IsDBNull(i) ? DateTime.ParseExact(reader.GetString(i), "yyyyMMdd", CultureInfo.InvariantCulture) : DateTime.Now; }
         #endregion
 
         #region Добавление записей
