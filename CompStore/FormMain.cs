@@ -160,7 +160,8 @@ namespace CompStore
             }
             if (type == "eqtypes")
             {
-                list.Columns.Add("Наименование", 600);
+                list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Это принтер", 100);
             }
             if (type == "vendors")
             {

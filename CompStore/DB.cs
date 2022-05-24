@@ -304,8 +304,6 @@ namespace CompStore
                     "equipments.buydate, " +
                     "equipments.dec, " +
                     "equipments.decdate, " +
-                    "equipments.printer, " +
-                    "equipments.consumable, " +
                     "equipments.comment, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name AS nameText, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
@@ -345,18 +343,16 @@ namespace CompStore
                     equipment.buyDate = ReadDate(11);
                     equipment.dec = ReadBool(12);
                     equipment.decDate = ReadDate(13);
-                    equipment.printer = ReadBool(14);
-                    equipment.consumable = ReadInt(15);
-                    equipment.comment = ReadStr(16);
-                    equipment.nameText = ReadStr(17);
-                    equipment.nameINText = ReadStr(18);
-                    equipment.userText = ReadStr(19);
-                    equipment.roomText = ReadStr(20);
-                    equipment.isDtText = ReadStr(21);
-                    equipment.provText = ReadStr(22);
-                    equipment.user = ReadInt(23);
-                    equipment.mol = ReadInt(24);
-                    equipment.molText = ReadStr(25);
+                    equipment.comment = ReadStr(14);
+                    equipment.nameText = ReadStr(15);
+                    equipment.nameINText = ReadStr(16);
+                    equipment.userText = ReadStr(17);
+                    equipment.roomText = ReadStr(18);
+                    equipment.isDtText = ReadStr(19);
+                    equipment.provText = ReadStr(20);
+                    equipment.user = ReadInt(21);
+                    equipment.mol = ReadInt(22);
+                    equipment.molText = ReadStr(23);
                     list.Add(equipment);
                 }
             }

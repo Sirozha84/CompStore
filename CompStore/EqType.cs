@@ -9,6 +9,7 @@ namespace CompStore
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(name);
+            str.SubItems.Add(printer ? "Да" : "");
             str.Tag = this;
             return str;
         }
