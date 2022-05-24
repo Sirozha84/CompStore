@@ -43,6 +43,9 @@ namespace CompStore
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonTEAdd = new System.Windows.Forms.Button();
             this.buttonvendorAdd = new System.Windows.Forms.Button();
+            this.buttonAddCon = new System.Windows.Forms.Button();
+            this.comboCon = new System.Windows.Forms.ComboBox();
+            this.labelCon = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // combovendor
@@ -77,7 +80,7 @@ namespace CompStore
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(196, 146);
+            this.buttonOK.Location = new System.Drawing.Point(196, 176);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 4;
@@ -89,7 +92,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(277, 146);
+            this.buttonCancel.Location = new System.Drawing.Point(277, 176);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -101,16 +104,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(120, 92);
+            this.textCom.Location = new System.Drawing.Point(120, 120);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 48);
+            this.textCom.Size = new System.Drawing.Size(232, 50);
             this.textCom.TabIndex = 3;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(41, 95);
+            this.labelCom.Location = new System.Drawing.Point(41, 123);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 33;
@@ -166,25 +169,57 @@ namespace CompStore
             this.buttonvendorAdd.UseVisualStyleBackColor = true;
             this.buttonvendorAdd.Click += new System.EventHandler(this.vendorAdd);
             // 
+            // buttonAddCon
+            // 
+            this.buttonAddCon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddCon.Image = global::CompStore.Properties.Resources.add;
+            this.buttonAddCon.Location = new System.Drawing.Point(331, 91);
+            this.buttonAddCon.Name = "buttonAddCon";
+            this.buttonAddCon.Size = new System.Drawing.Size(23, 23);
+            this.buttonAddCon.TabIndex = 96;
+            this.buttonAddCon.UseVisualStyleBackColor = true;
+            this.buttonAddCon.Click += new System.EventHandler(this.ConAdd);
+            // 
+            // comboCon
+            // 
+            this.comboCon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCon.FormattingEnabled = true;
+            this.comboCon.Location = new System.Drawing.Point(120, 92);
+            this.comboCon.Name = "comboCon";
+            this.comboCon.Size = new System.Drawing.Size(205, 21);
+            this.comboCon.TabIndex = 94;
+            // 
+            // labelCon
+            // 
+            this.labelCon.AutoSize = true;
+            this.labelCon.Location = new System.Drawing.Point(50, 96);
+            this.labelCon.Name = "labelCon";
+            this.labelCon.Size = new System.Drawing.Size(64, 13);
+            this.labelCon.TabIndex = 95;
+            this.labelCon.Text = "Расходник:";
+            // 
             // FormModel
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(364, 181);
-            this.Controls.Add(this.buttonvendorAdd);
-            this.Controls.Add(this.buttonTEAdd);
-            this.Controls.Add(this.combovendor);
-            this.Controls.Add(this.labelvendor);
+            this.ClientSize = new System.Drawing.Size(364, 211);
+            this.Controls.Add(this.labelEqType);
             this.Controls.Add(this.comboEqType);
+            this.Controls.Add(this.buttonTEAdd);
+            this.Controls.Add(this.labelvendor);
+            this.Controls.Add(this.combovendor);
+            this.Controls.Add(this.buttonvendorAdd);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.textName);
+            this.Controls.Add(this.labelCon);
+            this.Controls.Add(this.comboCon);
+            this.Controls.Add(this.buttonAddCon);
+            this.Controls.Add(this.labelCom);
+            this.Controls.Add(this.textCom);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.textCom);
-            this.Controls.Add(this.labelCom);
-            this.Controls.Add(this.textName);
-            this.Controls.Add(this.labelEqType);
-            this.Controls.Add(this.labelName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -212,5 +247,8 @@ namespace CompStore
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button buttonTEAdd;
         private System.Windows.Forms.Button buttonvendorAdd;
+        private System.Windows.Forms.Button buttonAddCon;
+        private System.Windows.Forms.ComboBox comboCon;
+        private System.Windows.Forms.Label labelCon;
     }
 }

@@ -35,12 +35,13 @@ namespace CompStore
             this.textName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkPrinter = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(166, 46);
+            this.buttonOK.Location = new System.Drawing.Point(166, 69);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 20;
@@ -52,7 +53,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(247, 46);
+            this.buttonCancel.Location = new System.Drawing.Point(247, 69);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 19;
@@ -78,13 +79,24 @@ namespace CompStore
             this.labelName.TabIndex = 17;
             this.labelName.Text = "Название:";
             // 
+            // checkPrinter
+            // 
+            this.checkPrinter.AutoSize = true;
+            this.checkPrinter.Location = new System.Drawing.Point(90, 39);
+            this.checkPrinter.Name = "checkPrinter";
+            this.checkPrinter.Size = new System.Drawing.Size(88, 17);
+            this.checkPrinter.TabIndex = 21;
+            this.checkPrinter.Text = "Это принтер";
+            this.checkPrinter.UseVisualStyleBackColor = true;
+            // 
             // FormEqType
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(334, 81);
+            this.ClientSize = new System.Drawing.Size(334, 104);
+            this.Controls.Add(this.checkPrinter);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textName);
@@ -108,5 +120,6 @@ namespace CompStore
         private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.CheckBox checkPrinter;
     }
 }

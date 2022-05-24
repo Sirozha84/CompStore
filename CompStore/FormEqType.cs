@@ -16,7 +16,9 @@ namespace CompStore
             if (eqtype.name != "") names.Remove(eqtype.name);
 
             textName.DataBindings.Add("Text", eqtype, "name");
-            
+
+            checkPrinter.DataBindings.Add("Checked", eqtype, "printer");
+
             if (eqtype.name != null)
                 Text = "Редактирование типа оборудования \"" + eqtype.name + "\"";
             else

@@ -80,7 +80,8 @@ namespace CompStore
 
             com.CommandText = "CREATE TABLE IF NOT EXISTS [eqtypes] ( " +
                 "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "[name] TEXT)";
+                "[name] TEXT, " +
+                "[printer] TEXT)";
             com.ExecuteNonQuery();
 
             com.CommandText = "CREATE TABLE IF NOT EXISTS [models] ( " +
@@ -88,6 +89,7 @@ namespace CompStore
                 "[eqtype] INTEGER, " +
                 "[vendor] INTEGER, " +
                 "[name] TEXT, " +
+                "[consumable] TEXT, " +
                 "[comment] TEXT)";
             com.ExecuteNonQuery();
 
@@ -409,6 +411,7 @@ namespace CompStore
                     EqType eqType = new EqType();
                     eqType.ID = ReadInt(0);
                     eqType.name = ReadStr(1);
+                    eqType.printer = ReadBool(2);
                     list.Add(eqType);
                 }
             }
@@ -432,13 +435,16 @@ namespace CompStore
                     "models.eqtype, " +
                     "models.vendor, " +
                     "models.name, " +
+                    "models.consumable, " +
                     "models.comment, " +
                     "eqtypes.name AS modelText, " +
                     "vendors.name AS vendorText, " +
-                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name, " +
+                    "consumables.name " +
                     "FROM models " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN vendors ON models.vendor = vendors.ID " +
+                    "LEFT JOIN consumables ON models.consumable = consumables.ID " +
                     "ORDER BY eqtypes.name, vendors.name, models.name";
                 reader = com.ExecuteReader();
                 while (reader.Read())
@@ -448,10 +454,12 @@ namespace CompStore
                     model.eqType = ReadInt(1);
                     model.vendor = ReadInt(2);
                     model.name = ReadStr(3);
-                    model.comment = ReadStr(4);
-                    model.eqTypeText = ReadStr(5, model.eqType);
-                    model.vendorText = ReadStr(6, model.vendor);
-                    model.nameText = ReadStr(7, model.eqType);
+                    model.consumable = ReadInt(4);
+                    model.comment = ReadStr(5);
+                    model.eqTypeText = ReadStr(6, model.eqType);
+                    model.vendorText = ReadStr(7, model.vendor);
+                    model.nameText = ReadStr(8, model.eqType);
+                    model.conText = ReadStr(9);
                     list.Add(model);
                 }
             }
@@ -592,8 +600,9 @@ namespace CompStore
             if (type == "eqtypes")
             {
                 EqType eqType = (EqType)item;
-                com.CommandText = "INSERT INTO eqtypes (name) VALUES ('" +
-                    eqType.name + "')";
+                com.CommandText = "INSERT INTO eqtypes (name, printer) VALUES ('" +
+                    eqType.name + "'," +
+                    (eqType.printer ? "1" : "0") + "')";
             }
             if (type == "vendors")
             {
@@ -605,10 +614,11 @@ namespace CompStore
             if (type == "models")
             {
                 Model model = (Model)item;
-                com.CommandText = "INSERT INTO models (eqtype, vendor, name, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO models (eqtype, vendor, name, consumable, comment) VALUES ('" +
                      model.eqType + "', '" +
                      model.vendor + "', '" +
                      model.name + "', '" +
+                     model.consumable + "', '" +
                      model.comment + "')";
             }
             if (type == "consumables")
@@ -730,7 +740,8 @@ namespace CompStore
             {
                 EqType eqType = (EqType)item;
                 com.CommandText = "UPDATE eqtypes SET " +
-                    "name = '" + eqType.name + "' WHERE ID = " + eqType.ID;
+                    "name = '" + eqType.name + "', " +
+                    "printer = '" + (eqType.printer ? "1" : "0") + "' WHERE ID = " + eqType.ID;
             }
             if (type == "vendors")
             {
@@ -746,6 +757,7 @@ namespace CompStore
                     "eqtype = '" + model.eqType + "', " +
                     "vendor = '" + model.vendor + "', " +
                     "name = '" + model.name + "', " +
+                    "consumable = '" +model.consumable + "', " +
                     "comment = '" + model.comment + "' WHERE ID = " + model.ID;
             }
             if (type == "consumables")

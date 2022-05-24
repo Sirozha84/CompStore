@@ -13,9 +13,6 @@ namespace CompStore
         string curName;         //Текущий тип элемента (на человеческом)
         string[] tabs;          //Здесь храним имена вкладок
 
-        //Далее должно быть изничтожено:
-        List<Provider> providers;
-
         public FormMain()
         {
             InitializeComponent();
@@ -175,6 +172,7 @@ namespace CompStore
                 list.Columns.Add("Тип оборудования", 200);
                 list.Columns.Add("Производитель", 200);
                 list.Columns.Add("Наименование", 200);
+                list.Columns.Add("Расходник", 100);
                 list.Columns.Add("Примечание", 200);
             }
             if (type == "consumables")

@@ -59,10 +59,6 @@ namespace CompStore
             this.buttonProviderAdd = new System.Windows.Forms.Button();
             this.labelDec = new System.Windows.Forms.Label();
             this.dateDec = new System.Windows.Forms.DateTimePicker();
-            this.checkPrinter = new System.Windows.Forms.CheckBox();
-            this.buttonConAdd = new System.Windows.Forms.Button();
-            this.comboCon = new System.Windows.Forms.ComboBox();
-            this.labelCon = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -92,16 +88,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(140, 363);
+            this.textCom.Location = new System.Drawing.Point(140, 312);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(232, 57);
+            this.textCom.Size = new System.Drawing.Size(232, 108);
             this.textCom.TabIndex = 10;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(61, 366);
+            this.labelCom.Location = new System.Drawing.Point(61, 315);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 47;
@@ -322,46 +318,6 @@ namespace CompStore
             this.dateDec.Size = new System.Drawing.Size(140, 20);
             this.dateDec.TabIndex = 87;
             // 
-            // checkPrinter
-            // 
-            this.checkPrinter.AutoSize = true;
-            this.checkPrinter.Location = new System.Drawing.Point(140, 312);
-            this.checkPrinter.Name = "checkPrinter";
-            this.checkPrinter.Size = new System.Drawing.Size(88, 17);
-            this.checkPrinter.TabIndex = 89;
-            this.checkPrinter.Text = "Это принтер";
-            this.checkPrinter.UseVisualStyleBackColor = true;
-            this.checkPrinter.CheckedChanged += new System.EventHandler(this.checkPrinterChange);
-            // 
-            // buttonConAdd
-            // 
-            this.buttonConAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonConAdd.Location = new System.Drawing.Point(350, 334);
-            this.buttonConAdd.Name = "buttonConAdd";
-            this.buttonConAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonConAdd.TabIndex = 91;
-            this.buttonConAdd.UseVisualStyleBackColor = true;
-            this.buttonConAdd.Click += new System.EventHandler(this.ConAdd);
-            // 
-            // comboCon
-            // 
-            this.comboCon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCon.FormattingEnabled = true;
-            this.comboCon.Location = new System.Drawing.Point(140, 335);
-            this.comboCon.Name = "comboCon";
-            this.comboCon.Size = new System.Drawing.Size(204, 21);
-            this.comboCon.TabIndex = 90;
-            // 
-            // labelCon
-            // 
-            this.labelCon.AutoSize = true;
-            this.labelCon.Location = new System.Drawing.Point(70, 338);
-            this.labelCon.Name = "labelCon";
-            this.labelCon.Size = new System.Drawing.Size(64, 13);
-            this.labelCon.TabIndex = 92;
-            this.labelCon.Text = "Расходник:";
-            // 
             // FormEquipment
             // 
             this.AcceptButton = this.buttonOK;
@@ -392,10 +348,6 @@ namespace CompStore
             this.Controls.Add(this.dateBuy);
             this.Controls.Add(this.labelDec);
             this.Controls.Add(this.dateDec);
-            this.Controls.Add(this.checkPrinter);
-            this.Controls.Add(this.labelCon);
-            this.Controls.Add(this.comboCon);
-            this.Controls.Add(this.buttonConAdd);
             this.Controls.Add(this.labelCom);
             this.Controls.Add(this.textCom);
             this.Controls.Add(this.buttonOK);
@@ -442,9 +394,5 @@ namespace CompStore
         private System.Windows.Forms.Button buttonProviderAdd;
         private System.Windows.Forms.Label labelDec;
         private System.Windows.Forms.DateTimePicker dateDec;
-        private System.Windows.Forms.CheckBox checkPrinter;
-        private System.Windows.Forms.Button buttonConAdd;
-        private System.Windows.Forms.ComboBox comboCon;
-        private System.Windows.Forms.Label labelCon;
     }
 }
