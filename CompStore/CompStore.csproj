@@ -82,6 +82,7 @@
     <Compile Include="FormProperties.Designer.cs">
       <DependentUpon>FormProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="DB.cs" />

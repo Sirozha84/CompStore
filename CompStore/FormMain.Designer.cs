@@ -44,19 +44,21 @@ namespace CompStore
             treeNode5,
             treeNode6});
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения", 1, 1);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Оборудование", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Расходники");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
-            treeNode10,
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Обслуживания", 11, 11);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Оборудование", 0, 0, new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Расходники", 13, 13);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
             treeNode11,
             treeNode12,
             treeNode13,
-            treeNode14});
+            treeNode14,
+            treeNode15});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.imageListThree = new System.Windows.Forms.ImageList(this.components);
@@ -154,36 +156,42 @@ namespace CompStore
             treeNode8.Name = "nodeMoves";
             treeNode8.SelectedImageIndex = 1;
             treeNode8.Text = "Перемещения";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "nodeEquipment";
-            treeNode9.SelectedImageIndex = 0;
-            treeNode9.Text = "Оборудование";
-            treeNode10.ImageIndex = 10;
-            treeNode10.Name = "nodeEqType";
-            treeNode10.SelectedImageIndex = 10;
-            treeNode10.Text = "Типы оборудования";
-            treeNode11.ImageIndex = 11;
-            treeNode11.Name = "nodeVendors";
-            treeNode11.SelectedImageIndex = 11;
-            treeNode11.Text = "Производители";
-            treeNode12.ImageIndex = 12;
-            treeNode12.Name = "nodeModels";
-            treeNode12.SelectedImageIndex = 12;
-            treeNode12.Text = "Модели";
-            treeNode13.Name = "nodeConsumables";
-            treeNode13.Text = "Расходники";
-            treeNode14.ImageIndex = 4;
-            treeNode14.Name = "nodeProviders";
-            treeNode14.SelectedImageIndex = 4;
-            treeNode14.Text = "Поставщики";
-            treeNode15.ImageIndex = 9;
-            treeNode15.Name = "nodeCommon";
-            treeNode15.SelectedImageIndex = 9;
-            treeNode15.Text = "Общие разделы";
+            treeNode9.ImageIndex = 11;
+            treeNode9.Name = "nodeServices";
+            treeNode9.SelectedImageIndex = 11;
+            treeNode9.Text = "Обслуживания";
+            treeNode10.ImageIndex = 0;
+            treeNode10.Name = "nodeEquipment";
+            treeNode10.SelectedImageIndex = 0;
+            treeNode10.Text = "Оборудование";
+            treeNode11.ImageIndex = 10;
+            treeNode11.Name = "nodeEqType";
+            treeNode11.SelectedImageIndex = 10;
+            treeNode11.Text = "Типы оборудования";
+            treeNode12.ImageIndex = 11;
+            treeNode12.Name = "nodeVendors";
+            treeNode12.SelectedImageIndex = 11;
+            treeNode12.Text = "Производители";
+            treeNode13.ImageIndex = 12;
+            treeNode13.Name = "nodeModels";
+            treeNode13.SelectedImageIndex = 12;
+            treeNode13.Text = "Модели";
+            treeNode14.ImageIndex = 13;
+            treeNode14.Name = "nodeConsumables";
+            treeNode14.SelectedImageIndex = 13;
+            treeNode14.Text = "Расходники";
+            treeNode15.ImageIndex = 4;
+            treeNode15.Name = "nodeProviders";
+            treeNode15.SelectedImageIndex = 4;
+            treeNode15.Text = "Поставщики";
+            treeNode16.ImageIndex = 9;
+            treeNode16.Name = "nodeCommon";
+            treeNode16.SelectedImageIndex = 9;
+            treeNode16.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode7,
-            treeNode9,
-            treeNode15});
+            treeNode10,
+            treeNode16});
             this.treeMenu.SelectedImageIndex = 0;
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
@@ -206,6 +214,7 @@ namespace CompStore
             this.imageListThree.Images.SetKeyName(10, "eqtypes.png");
             this.imageListThree.Images.SetKeyName(11, "vendors.png");
             this.imageListThree.Images.SetKeyName(12, "models.png");
+            this.imageListThree.Images.SetKeyName(13, "mouse.png");
             // 
             // mainMenu
             // 

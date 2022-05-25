@@ -9,6 +9,7 @@ namespace CompStore
         List<Record> records;   //Записи выбранной вкладки (абстрактный класс)
         List<Record> equipments;
         List<Record> moves;
+        List<Record> services;
         string curType;         //Текущий тип элемента
         string curName;         //Текущий тип элемента (на человеческом)
         string[] tabs;          //Здесь храним имена вкладок
@@ -43,11 +44,14 @@ namespace CompStore
             }
             if (treeMenu.SelectedNode.Name == "nodeEquipment")
             {
-                PreparePage("equipments", "Оборудование", "Перемещения", "Ремонты", "Заправки");
+                PreparePage("equipments", "Оборудование", "Перемещения", "Обслуживания");
                 PrepareListView(listViewAdd1, "moves");
+                PrepareListView(listViewAdd2, "services");
             }
             if (treeMenu.SelectedNode.Name == "nodeMoves")
                 PreparePage("moves", "Перемещения");
+            if (treeMenu.SelectedNode.Name == "nodeServices")
+                PreparePage("services", "Обслуживания");
             if (treeMenu.SelectedNode.Name == "nodeEqType")
                 PreparePage("eqtypes", "Типы оборудования");
             if (treeMenu.SelectedNode.Name == "nodeVendors")
@@ -158,6 +162,15 @@ namespace CompStore
                 list.Columns.Add("М.О.Л.", 100);
                 list.Columns.Add("Примечание", 100);
             }
+            if (type == "services")
+            {
+                list.Columns.Add("Дата", 66);
+                list.Columns.Add("Оборудование", 200);
+                list.Columns.Add("Вид работ", 100);
+                list.Columns.Add("Расходник", 100);
+                list.Columns.Add("Счётчик", 50);
+                list.Columns.Add("Примечание", 100);
+            }
             if (type == "eqtypes")
             {
                 list.Columns.Add("Наименование", 200);
@@ -190,6 +203,7 @@ namespace CompStore
                 list.Columns.Add("Примечание", 180);
             }
         }
+
         #region Главное меню
         private void инициализацияToolStripMenuItem_Click(object sender, EventArgs e) { DB.Init(); }
         
@@ -277,12 +291,20 @@ namespace CompStore
             {
                 listViewAdd1.BeginUpdate();
                 listViewAdd1.Items.Clear();
+                listViewAdd2.BeginUpdate();
+                listViewAdd2.Items.Clear();
                 if (sel == 1)
                     foreach (Move m in moves)
                         foreach (ListViewItem item in listViewMain.SelectedItems)
                             if (((Equipment)item.Tag).ID == m.equipment)
                                 listViewAdd1.Items.Add(m.ToListView());
+                if (sel == 2)
+                    foreach (Service s in services)
+                        foreach (ListViewItem item in listViewMain.SelectedItems)
+                            if (((Service)item.Tag).ID == s.equipment)
+                                listViewAdd2.Items.Add(s.ToListView());
                 listViewAdd1.EndUpdate();
+                listViewAdd2.EndUpdate();
                 tabControl.TabPages[0].Text = tabs[0] + ListCount(listViewAdd1);
             }
         }
@@ -300,6 +322,7 @@ namespace CompStore
             if (curType == "users") item = new User();
             if (curType == "equipments") item = new Equipment();
             if (curType == "moves") item = new Move();
+            if (curType == "services") item = new Service();
             if (curType == "eqtypes") item = new EqType();
             if (curType == "vendors") item = new Vendor();
             if (curType == "models") item = new Model();
@@ -412,6 +435,7 @@ namespace CompStore
             if (curType == "users") return new FormUser((User)item);
             if (curType == "equipments") return new FormEquipment((Equipment)item);
             if (curType == "moves") return new FormMove((Move)item, false);
+            //if (curType == "services") return new Forms
             if (curType == "eqtypes") return new FormEqType((EqType)item);
             if (curType == "vendors") return new FormVendor((Vendor)item);
             if (curType == "models") return new FormModel((Model)item);

@@ -123,6 +123,16 @@ namespace CompStore
                 "[comment] TEXT)";
             com.ExecuteNonQuery();
 
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [services] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[equipment] INTEGER, " +
+                "[date] TEXT, " +
+                "[work] INTEGER, " +
+                "[consumable] INTEGER, " +
+                "[counter] INTEGER, " +
+                "[comment] TEXT)";
+            com.ExecuteNonQuery();
+
             com.CommandText = "CREATE TABLE IF NOT EXISTS [consumables] ( " +
                 "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "[name] TEXT, " +
