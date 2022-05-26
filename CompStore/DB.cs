@@ -574,7 +574,7 @@ namespace CompStore
             {
                 Equipment equipment = (Equipment)item;
                 com.CommandText = "INSERT INTO equipments (model, sn, [in], inv, mac, ip, prop, price, " +
-                    "provider, buy, buydate, dec, decdate, printer, consumable, comment) VALUES ('" +
+                    "provider, buy, buydate, dec, decdate, comment) VALUES ('" +
                     equipment.model + "', '" +
                     equipment.sn + "', '" +
                     equipment.iN + "', '" +
@@ -588,8 +588,6 @@ namespace CompStore
                     equipment.buyDate.ToString("yyyyMMdd") + "', '" +
                     (equipment.dis ? "1" : "0") + "', '" +
                     equipment.disDate.ToString("yyyyMMdd") + "', '" +
-                    (equipment.printer ? "1" : "0") + "', '" +
-                    equipment.consumable + "', '" +
                     equipment.comment + "')";
             }
             if (type == "moves")

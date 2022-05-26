@@ -26,6 +26,7 @@ namespace CompStore
             if (equipment.iN != "") iNs.Remove(equipment.iN);
 
             if (equipment.buyDate < dateBuy.MinDate) equipment.buyDate = DateTime.Now;
+            if (equipment.disDate < dateDec.MinDate) equipment.disDate = DateTime.Now;
 
             comboModel.DataSource = DB.Load("models");
             comboModel.DisplayMember = "nameText";
