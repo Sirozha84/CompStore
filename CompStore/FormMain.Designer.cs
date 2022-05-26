@@ -30,35 +30,35 @@ namespace CompStore
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Филиалы", 5, 5);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Здания", 3, 3);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Помещения", 6, 6);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Подразделения", 7, 7);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Должности", 8, 8);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Сотрудники", 2, 2);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Предприятие", 4, 4, new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Перемещения", 1, 1);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Обслуживания", 11, 11);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Оборудование", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Расходники", 13, 13);
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
-            treeNode11,
-            treeNode12,
-            treeNode13,
-            treeNode14,
-            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Филиалы", 5, 5);
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Здания", 3, 3);
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Помещения", 6, 6);
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Подразделения", 7, 7);
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Должности", 8, 8);
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Сотрудники", 2, 2);
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Предприятие", 4, 4, new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Перемещения", 1, 1);
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Обслуживания", 11, 11);
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Оборудование", 0, 0, new System.Windows.Forms.TreeNode[] {
+            treeNode24,
+            treeNode25});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Типы оборудования", 10, 10);
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Производители", 11, 11);
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Модели", 12, 12);
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Расходники", 13, 13);
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Поставщики", 4, 4);
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Общие разделы", 9, 9, new System.Windows.Forms.TreeNode[] {
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30,
+            treeNode31});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.imageListThree = new System.Windows.Forms.ImageList(this.components);
@@ -104,6 +104,9 @@ namespace CompStore
             this.cmEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMove = new System.Windows.Forms.ToolStripMenuItem();
+            this.tShowAll = new System.Windows.Forms.ToolStripButton();
+            this.menuView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuShowAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panelList.SuspendLayout();
@@ -124,74 +127,74 @@ namespace CompStore
             this.treeMenu.ItemHeight = 24;
             this.treeMenu.Location = new System.Drawing.Point(0, 27);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.ImageIndex = 5;
-            treeNode1.Name = "nodeFilials";
-            treeNode1.SelectedImageIndex = 5;
-            treeNode1.Text = "Филиалы";
-            treeNode2.ImageIndex = 3;
-            treeNode2.Name = "nodeBuildings";
-            treeNode2.SelectedImageIndex = 3;
-            treeNode2.Text = "Здания";
-            treeNode3.ImageIndex = 6;
-            treeNode3.Name = "nodeRooms";
-            treeNode3.SelectedImageIndex = 6;
-            treeNode3.Text = "Помещения";
-            treeNode4.ImageIndex = 7;
-            treeNode4.Name = "nodeDeps";
-            treeNode4.SelectedImageIndex = 7;
-            treeNode4.Text = "Подразделения";
-            treeNode5.ImageIndex = 8;
-            treeNode5.Name = "nodePosts";
-            treeNode5.SelectedImageIndex = 8;
-            treeNode5.Text = "Должности";
-            treeNode6.ImageIndex = 2;
-            treeNode6.Name = "nodeUsers";
-            treeNode6.SelectedImageIndex = 2;
-            treeNode6.Text = "Сотрудники";
-            treeNode7.ImageIndex = 4;
-            treeNode7.Name = "nodeCompany";
-            treeNode7.SelectedImageIndex = 4;
-            treeNode7.Text = "Предприятие";
-            treeNode8.ImageIndex = 1;
-            treeNode8.Name = "nodeMoves";
-            treeNode8.SelectedImageIndex = 1;
-            treeNode8.Text = "Перемещения";
-            treeNode9.ImageIndex = 11;
-            treeNode9.Name = "nodeServices";
-            treeNode9.SelectedImageIndex = 11;
-            treeNode9.Text = "Обслуживания";
-            treeNode10.ImageIndex = 0;
-            treeNode10.Name = "nodeEquipment";
-            treeNode10.SelectedImageIndex = 0;
-            treeNode10.Text = "Оборудование";
-            treeNode11.ImageIndex = 10;
-            treeNode11.Name = "nodeEqType";
-            treeNode11.SelectedImageIndex = 10;
-            treeNode11.Text = "Типы оборудования";
-            treeNode12.ImageIndex = 11;
-            treeNode12.Name = "nodeVendors";
-            treeNode12.SelectedImageIndex = 11;
-            treeNode12.Text = "Производители";
-            treeNode13.ImageIndex = 12;
-            treeNode13.Name = "nodeModels";
-            treeNode13.SelectedImageIndex = 12;
-            treeNode13.Text = "Модели";
-            treeNode14.ImageIndex = 13;
-            treeNode14.Name = "nodeConsumables";
-            treeNode14.SelectedImageIndex = 13;
-            treeNode14.Text = "Расходники";
-            treeNode15.ImageIndex = 4;
-            treeNode15.Name = "nodeProviders";
-            treeNode15.SelectedImageIndex = 4;
-            treeNode15.Text = "Поставщики";
-            treeNode16.ImageIndex = 9;
-            treeNode16.Name = "nodeCommon";
-            treeNode16.SelectedImageIndex = 9;
-            treeNode16.Text = "Общие разделы";
+            treeNode17.ImageIndex = 5;
+            treeNode17.Name = "nodeFilials";
+            treeNode17.SelectedImageIndex = 5;
+            treeNode17.Text = "Филиалы";
+            treeNode18.ImageIndex = 3;
+            treeNode18.Name = "nodeBuildings";
+            treeNode18.SelectedImageIndex = 3;
+            treeNode18.Text = "Здания";
+            treeNode19.ImageIndex = 6;
+            treeNode19.Name = "nodeRooms";
+            treeNode19.SelectedImageIndex = 6;
+            treeNode19.Text = "Помещения";
+            treeNode20.ImageIndex = 7;
+            treeNode20.Name = "nodeDeps";
+            treeNode20.SelectedImageIndex = 7;
+            treeNode20.Text = "Подразделения";
+            treeNode21.ImageIndex = 8;
+            treeNode21.Name = "nodePosts";
+            treeNode21.SelectedImageIndex = 8;
+            treeNode21.Text = "Должности";
+            treeNode22.ImageIndex = 2;
+            treeNode22.Name = "nodeUsers";
+            treeNode22.SelectedImageIndex = 2;
+            treeNode22.Text = "Сотрудники";
+            treeNode23.ImageIndex = 4;
+            treeNode23.Name = "nodeCompany";
+            treeNode23.SelectedImageIndex = 4;
+            treeNode23.Text = "Предприятие";
+            treeNode24.ImageIndex = 1;
+            treeNode24.Name = "nodeMoves";
+            treeNode24.SelectedImageIndex = 1;
+            treeNode24.Text = "Перемещения";
+            treeNode25.ImageIndex = 11;
+            treeNode25.Name = "nodeServices";
+            treeNode25.SelectedImageIndex = 11;
+            treeNode25.Text = "Обслуживания";
+            treeNode26.ImageIndex = 0;
+            treeNode26.Name = "nodeEquipment";
+            treeNode26.SelectedImageIndex = 0;
+            treeNode26.Text = "Оборудование";
+            treeNode27.ImageIndex = 10;
+            treeNode27.Name = "nodeEqType";
+            treeNode27.SelectedImageIndex = 10;
+            treeNode27.Text = "Типы оборудования";
+            treeNode28.ImageIndex = 11;
+            treeNode28.Name = "nodeVendors";
+            treeNode28.SelectedImageIndex = 11;
+            treeNode28.Text = "Производители";
+            treeNode29.ImageIndex = 12;
+            treeNode29.Name = "nodeModels";
+            treeNode29.SelectedImageIndex = 12;
+            treeNode29.Text = "Модели";
+            treeNode30.ImageIndex = 13;
+            treeNode30.Name = "nodeConsumables";
+            treeNode30.SelectedImageIndex = 13;
+            treeNode30.Text = "Расходники";
+            treeNode31.ImageIndex = 4;
+            treeNode31.Name = "nodeProviders";
+            treeNode31.SelectedImageIndex = 4;
+            treeNode31.Text = "Поставщики";
+            treeNode32.ImageIndex = 9;
+            treeNode32.Name = "nodeCommon";
+            treeNode32.SelectedImageIndex = 9;
+            treeNode32.Text = "Общие разделы";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode10,
-            treeNode16});
+            treeNode23,
+            treeNode26,
+            treeNode32});
             this.treeMenu.SelectedImageIndex = 0;
             this.treeMenu.Size = new System.Drawing.Size(157, 709);
             this.treeMenu.TabIndex = 0;
@@ -220,6 +223,7 @@ namespace CompStore
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
+            this.menuView,
             this.menuReports,
             this.menuService,
             this.menuHelp});
@@ -293,7 +297,7 @@ namespace CompStore
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(138, 22);
+            this.menuProperties.Size = new System.Drawing.Size(180, 22);
             this.menuProperties.Text = "Параметры";
             this.menuProperties.Click += new System.EventHandler(this.PropertiesMenu);
             // 
@@ -450,7 +454,8 @@ namespace CompStore
             this.tLabelFilter,
             this.tMove,
             this.tFix,
-            this.tRefill});
+            this.tRefill,
+            this.tShowAll});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1021, 25);
@@ -626,6 +631,31 @@ namespace CompStore
             this.cmMove.Text = "Переместить";
             this.cmMove.Click += new System.EventHandler(this.Move);
             // 
+            // tShowAll
+            // 
+            this.tShowAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tShowAll.Image = ((System.Drawing.Image)(resources.GetObject("tShowAll.Image")));
+            this.tShowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tShowAll.Name = "tShowAll";
+            this.tShowAll.Size = new System.Drawing.Size(30, 22);
+            this.tShowAll.Text = "Все";
+            this.tShowAll.Click += new System.EventHandler(this.ShowAll);
+            // 
+            // menuView
+            // 
+            this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuShowAll});
+            this.menuView.Name = "menuView";
+            this.menuView.Size = new System.Drawing.Size(39, 20);
+            this.menuView.Text = "Вид";
+            // 
+            // menuShowAll
+            // 
+            this.menuShowAll.Name = "menuShowAll";
+            this.menuShowAll.Size = new System.Drawing.Size(180, 22);
+            this.menuShowAll.Text = "Показывать все";
+            this.menuShowAll.Click += new System.EventHandler(this.ShowAll);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -704,6 +734,9 @@ namespace CompStore
         private System.Windows.Forms.ImageList imageListThree;
         private System.Windows.Forms.ToolStripMenuItem menuService;
         private System.Windows.Forms.ToolStripMenuItem menuProperties;
+        private System.Windows.Forms.ToolStripButton tShowAll;
+        private System.Windows.Forms.ToolStripMenuItem menuView;
+        private System.Windows.Forms.ToolStripMenuItem menuShowAll;
     }
 }
 

@@ -54,8 +54,8 @@ namespace CompStore
             dateBuy.Checked = equipment.buy;
             dateBuy.Value = equipment.buyDate;
 
-            dateDec.Checked = equipment.dec;
-            dateDec.Value = equipment.decDate;
+            dateDec.Checked = equipment.dis;
+            dateDec.Value = equipment.disDate;
 
             textCom.DataBindings.Add("Text", equipment, "comment");
 
@@ -123,9 +123,11 @@ namespace CompStore
         private void OK(object sender, EventArgs e)
         {
             equipment.model = comboModel.SelectedValue != null ? (int)comboModel.SelectedValue : 0;
+            equipment.provider = comboProvider.SelectedValue != null ? (int)comboProvider.SelectedValue : 0;
             equipment.buy = dateBuy.Checked;
             equipment.buyDate = dateBuy.Value;
-            equipment.provider = comboProvider.SelectedValue != null ? (int)comboProvider.SelectedValue : 0;
+            equipment.dis = dateDec.Checked;
+            equipment.disDate = dateDec.Value;
             DialogResult = DialogResult.OK;
         }
     }

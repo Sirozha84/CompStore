@@ -17,8 +17,6 @@ namespace CompStore
         public int provider { get; set; }
         public bool buy { get; set; }
         public DateTime buyDate { get; set; }
-        public bool dec { get; set; }
-        public DateTime decDate { get; set; }
         public bool printer { get; set; }
         public int consumable { get; set; }
         public int user;
@@ -37,10 +35,11 @@ namespace CompStore
             str.SubItems.Add(ip);
             str.SubItems.Add(isDtText != "" ? DateTime.ParseExact(isDtText, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd.MM.yyyy") : "");
             str.SubItems.Add(buy ? buyDate.ToString("dd.MM.yyyy") : "");
-            str.SubItems.Add(dec ? decDate.ToString("dd.MM.yyyy") : "");
+            str.SubItems.Add(dis ? disDate.ToString("dd.MM.yyyy") : "");
             str.SubItems.Add(molText);
             str.SubItems.Add(comment);
             str.Tag = this;
+            SetColor(str);
             return str;
         }
 

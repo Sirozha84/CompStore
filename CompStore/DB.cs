@@ -351,8 +351,8 @@ namespace CompStore
                     equipment.provider = ReadInt(9);
                     equipment.buy = ReadBool(10);
                     equipment.buyDate = ReadDate(11);
-                    equipment.dec = ReadBool(12);
-                    equipment.decDate = ReadDate(13);
+                    equipment.dis = ReadBool(12);
+                    equipment.disDate = ReadDate(13);
                     equipment.comment = ReadStr(14);
                     equipment.nameText = ReadStr(15);
                     equipment.nameINText = ReadStr(16);
@@ -586,8 +586,8 @@ namespace CompStore
                     equipment.provider + "', '" +
                     (equipment.buy ? "1" : "0") + "', '" +
                     equipment.buyDate.ToString("yyyyMMdd") + "', '" +
-                    (equipment.dec ? "1" : "0") + "', '" +
-                    equipment.decDate.ToString("yyyyMMdd") + "', '" +
+                    (equipment.dis ? "1" : "0") + "', '" +
+                    equipment.disDate.ToString("yyyyMMdd") + "', '" +
                     (equipment.printer ? "1" : "0") + "', '" +
                     equipment.consumable + "', '" +
                     equipment.comment + "')";
@@ -725,10 +725,8 @@ namespace CompStore
                     "provider = '" + equipment.provider + "', " +
                     "buy = '" + (equipment.buy ? "1" : "0") + "', " +
                     "buydate = '" + equipment.buyDate.ToString("yyyyMMdd") + "', " +
-                    "dec = '" + (equipment.dec ? "1" : "0") + "', " +
-                    "decdate = '" + equipment.decDate.ToString("yyyyMMdd") + "', " +
-                    "printer = '" + (equipment.printer ? "1" : "0") + "', " +
-                    "consumable = '" + equipment.consumable + "', " +
+                    "dec = '" + (equipment.dis ? "1" : "0") + "', " +
+                    "decdate = '" + equipment.disDate.ToString("yyyyMMdd") + "', " +
                     "comment = '" + equipment.comment + "' WHERE ID = " + equipment.ID;
             }
             if (type == "moves")

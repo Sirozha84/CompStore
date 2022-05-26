@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace CompStore
 {
@@ -13,8 +12,6 @@ namespace CompStore
         public int dep { get; set; }
         public bool emp { get; set; }
         public DateTime empDate { get; set; }
-        public bool dis { get; set; }
-        public DateTime disDate { get; set; }
 
         public string postText;
         public string depText;
@@ -27,11 +24,7 @@ namespace CompStore
             str.SubItems.Add(roomText);
             str.SubItems.Add(comment);
             str.Tag = this;
-            if (dis)
-            {
-                str.ForeColor = Color.Gray;
-                str.BackColor = Color.LightGray;
-            }
+            SetColor(str);
             return str;
         }
 

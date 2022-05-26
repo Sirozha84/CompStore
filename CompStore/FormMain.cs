@@ -13,7 +13,7 @@ namespace CompStore
         string curType;         //Текущий тип элемента
         string curName;         //Текущий тип элемента (на человеческом)
         string[] tabs;          //Здесь храним имена вкладок
-
+        bool showAll;           //Показывать все элементы (включая уволенное/списанное)
         public FormMain()
         {
             InitializeComponent();
@@ -96,7 +96,8 @@ namespace CompStore
             tCopy.Visible = cmCopy.Visible = type == "equipments";
             tMove.Visible = type == "equipments";
             tFix.Visible = type == "equipments";
-            tRefill.Visible = type == "equipments";
+            menuShowAll.Enabled = tRefill.Visible = type == "equipments";
+            tShowAll.Visible = type == "users" | type == "equipments";
         }
         
         void PrepareListView(ListView list, string type)
@@ -212,6 +213,13 @@ namespace CompStore
             Application.Exit();
         }
 
+        private void ShowAll(object sender, EventArgs e)
+        {
+            showAll = !showAll;
+            menuShowAll.Checked = tShowAll.Checked = showAll;
+            ListViewRefresh();
+        }
+
         private void UserCard(object sender, EventArgs e)
         {
             if (curType != "users" || 
@@ -247,7 +255,11 @@ namespace CompStore
         {
             records = DB.Load(curType);
             if (curType == "users") equipments = DB.Load("equipments");
-            if (curType == "equipments") moves = DB.Load("moves");
+            if (curType == "equipments")
+            {
+                moves = DB.Load("moves");
+                services = DB.Load("services");
+            }
             ListViewDraw(null, null);
         }
 
@@ -255,11 +267,16 @@ namespace CompStore
         {
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
+            int count = 0;
             foreach (Record rec in records)
-                if (rec.Contains(tFilter.Text))
-                    listViewMain.Items.Add(rec.ToListView());
+                if (showAll | (!showAll & !rec.dis))
+                {
+                    if (rec.Contains(tFilter.Text))
+                        listViewMain.Items.Add(rec.ToListView());
+                    count++;
+                }
             listViewMain.EndUpdate();
-            StatusCount(records.Count, listViewMain);
+            StatusCount(count, listViewMain);
             ItemSelChange(null, null);
         }
 
@@ -291,21 +308,23 @@ namespace CompStore
             {
                 listViewAdd1.BeginUpdate();
                 listViewAdd1.Items.Clear();
-                listViewAdd2.BeginUpdate();
-                listViewAdd2.Items.Clear();
                 if (sel == 1)
                     foreach (Move m in moves)
                         foreach (ListViewItem item in listViewMain.SelectedItems)
                             if (((Equipment)item.Tag).ID == m.equipment)
                                 listViewAdd1.Items.Add(m.ToListView());
-                if (sel == 2)
+                listViewAdd1.EndUpdate();
+                tabControl.TabPages[0].Text = tabs[0] + ListCount(listViewAdd1);
+
+                listViewAdd2.BeginUpdate();
+                listViewAdd2.Items.Clear();
+                if (sel == 1)
                     foreach (Service s in services)
                         foreach (ListViewItem item in listViewMain.SelectedItems)
                             if (((Service)item.Tag).ID == s.equipment)
                                 listViewAdd2.Items.Add(s.ToListView());
-                listViewAdd1.EndUpdate();
                 listViewAdd2.EndUpdate();
-                tabControl.TabPages[0].Text = tabs[0] + ListCount(listViewAdd1);
+                tabControl.TabPages[1].Text = tabs[1] + ListCount(listViewAdd2);
             }
         }
 
