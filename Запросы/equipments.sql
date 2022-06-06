@@ -5,16 +5,17 @@ SELECT equipments.ID,
        equipments.buy,
        equipments.buydate,
        equipments.comment,
-       eqtypes.name || " " || brands.name || " " || models.name AS modelText,
+       eqtypes.name || " " || vendors.name || " " || models.name AS modelText,
        users.f || " " || users.i || " " || users.o AS userText,
-       buildings.name || ", " || rooms.name AS roomText
+       buildings.name || ", " || rooms.name AS roomText,
+       eqtypes.printer as printer
   FROM equipments
        LEFT JOIN
        models ON equipments.model = models.ID
        LEFT JOIN
        eqtypes ON models.eqtype = eqtypes.ID
        LEFT JOIN
-       brands ON models.brand = brands.ID
+       vendors ON models.vendor = vendors.ID
        LEFT JOIN
        (
            SELECT equipment,

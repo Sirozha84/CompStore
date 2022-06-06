@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace CompStore
 {
-    internal class Service : Record
+    public class Service : Record
     {
         public int equipment { get; set; }
         public DateTime date { get; set; }
@@ -11,6 +11,7 @@ namespace CompStore
         public int consumable { get; set; }
         public int counter { get; set; }
 
+        public string eqText;
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(date.ToString("dd.MM.yyyy"));

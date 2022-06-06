@@ -67,6 +67,8 @@ namespace CompStore
             // 
             // comboEquipment
             // 
+            this.comboEquipment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEquipment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEquipment.FormattingEnabled = true;
             this.comboEquipment.Location = new System.Drawing.Point(140, 12);
@@ -120,7 +122,7 @@ namespace CompStore
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(63, 150);
+            this.labelCom.Location = new System.Drawing.Point(61, 150);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 83;
@@ -128,6 +130,8 @@ namespace CompStore
             // 
             // comboUser
             // 
+            this.comboUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboUser.FormattingEnabled = true;
             this.comboUser.Location = new System.Drawing.Point(140, 39);
@@ -147,6 +151,8 @@ namespace CompStore
             // 
             // comboRoom
             // 
+            this.comboRoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboRoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRoom.FormattingEnabled = true;
             this.comboRoom.Location = new System.Drawing.Point(140, 66);
@@ -210,6 +216,8 @@ namespace CompStore
             // 
             // comboMOL
             // 
+            this.comboMOL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboMOL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMOL.FormattingEnabled = true;
             this.comboMOL.Location = new System.Drawing.Point(140, 119);

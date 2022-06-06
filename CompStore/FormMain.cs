@@ -95,8 +95,8 @@ namespace CompStore
             if (tabs.Length > 2) listViewAdd3.Parent = tabControl.TabPages[i++];
             tCopy.Visible = cmCopy.Visible = type == "equipments";
             tMove.Visible = type == "equipments";
-            tFix.Visible = type == "equipments";
-            menuShowAll.Enabled = tRefill.Visible = type == "equipments";
+            tService.Visible = type == "equipments";
+            menuShowAll.Enabled = type == "equipments";
             tShowAll.Visible = type == "users" | type == "equipments";
         }
         
@@ -287,8 +287,7 @@ namespace CompStore
             tEdit.Enabled = cmEdit.Enabled = sel == 1;
             tDelete.Enabled = cmDelete.Enabled = sel == 1;
             tMove.Enabled = cmMove.Enabled = sel > 0;
-            tFix.Enabled = sel == 1;    //Как будет в контекстном меню - добавить и его
-            tRefill.Enabled = sel == 1;
+            tService.Enabled = sel == 1;    //Как будет в контекстном меню - добавить и его
             menuUserCard.Enabled = curType == "users" & sel > 0;
 
             //Перерисовка нижней панели
@@ -321,7 +320,7 @@ namespace CompStore
                 if (sel == 1)
                     foreach (Service s in services)
                         foreach (ListViewItem item in listViewMain.SelectedItems)
-                            if (((Service)item.Tag).ID == s.equipment)
+                            if (((Equipment)item.Tag).ID == s.equipment)
                                 listViewAdd2.Items.Add(s.ToListView());
                 listViewAdd2.EndUpdate();
                 tabControl.TabPages[1].Text = tabs[1] + ListCount(listViewAdd2);
@@ -425,6 +424,19 @@ namespace CompStore
             }
         }
 
+        private void Service(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1) return;
+            Service service = new Service();
+            service.equipment = ((Equipment)listViewMain.SelectedItems[0].Tag).ID;
+            FormService form = new FormService(service);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.Add("services", service);
+                ListViewRefresh();
+            }
+        }
+
         private void MoveEditFromAdd(object sender, EventArgs e)
         {
             string t = "";
@@ -454,7 +466,7 @@ namespace CompStore
             if (curType == "users") return new FormUser((User)item);
             if (curType == "equipments") return new FormEquipment((Equipment)item);
             if (curType == "moves") return new FormMove((Move)item, false);
-            //if (curType == "services") return new Forms
+            if (curType == "services") return new FormService((Service)item);
             if (curType == "eqtypes") return new FormEqType((EqType)item);
             if (curType == "vendors") return new FormVendor((Vendor)item);
             if (curType == "models") return new FormModel((Model)item);
