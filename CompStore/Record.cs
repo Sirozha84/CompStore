@@ -12,6 +12,7 @@ namespace CompStore
         public string comment { get; set; }
 
         //Поля, которые не читаются из List<Record>, когда находятся в дочерних классах
+        public DateTime date { get; set; }
         public string nameINText { get; set; }
         public int room { get; set; }
         public bool dis { get; set; }

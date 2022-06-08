@@ -7,8 +7,6 @@ namespace CompStore
     {
         public int equipment { get; set; }
         public int user { get; set; }
-        public int room { get; set; }
-        public DateTime date { get; set; }
 
         public string eqText;
         public string userText;

@@ -100,7 +100,7 @@
             this.labelName.TabIndex = 9;
             this.labelName.Text = "Наименование:";
             // 
-            // FormConsumables
+            // FormConsumable
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,7 +113,8 @@
             this.Controls.Add(this.labelCom);
             this.Controls.Add(this.textName);
             this.Controls.Add(this.labelName);
-            this.Name = "FormConsumables";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Name = "FormConsumable";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
             this.PerformLayout();

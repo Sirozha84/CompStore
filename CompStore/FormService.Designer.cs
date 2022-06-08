@@ -34,7 +34,7 @@
             this.comboCon = new System.Windows.Forms.ComboBox();
             this.labelCon = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
-            this.dateMove = new System.Windows.Forms.DateTimePicker();
+            this.dateService = new System.Windows.Forms.DateTimePicker();
             this.comboEquipment = new System.Windows.Forms.ComboBox();
             this.labelEquipment = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
@@ -58,21 +58,23 @@
             // 
             this.buttonConAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonConAdd.Location = new System.Drawing.Point(450, 61);
+            this.buttonConAdd.Location = new System.Drawing.Point(450, 87);
             this.buttonConAdd.Name = "buttonConAdd";
             this.buttonConAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonConAdd.TabIndex = 106;
+            this.buttonConAdd.TabIndex = 5;
             this.buttonConAdd.UseVisualStyleBackColor = true;
+            this.buttonConAdd.Click += new System.EventHandler(this.ConsumableAdd);
             // 
             // buttonEquipmentAdd
             // 
             this.buttonEquipmentAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEquipmentAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonEquipmentAdd.Location = new System.Drawing.Point(450, 11);
+            this.buttonEquipmentAdd.Location = new System.Drawing.Point(450, 37);
             this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
             this.buttonEquipmentAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonEquipmentAdd.TabIndex = 104;
+            this.buttonEquipmentAdd.TabIndex = 2;
             this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
+            this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
             // 
             // comboCon
             // 
@@ -80,15 +82,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboCon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCon.FormattingEnabled = true;
-            this.comboCon.Location = new System.Drawing.Point(140, 62);
+            this.comboCon.Location = new System.Drawing.Point(140, 88);
             this.comboCon.Name = "comboCon";
             this.comboCon.Size = new System.Drawing.Size(305, 21);
-            this.comboCon.TabIndex = 98;
+            this.comboCon.TabIndex = 4;
             // 
             // labelCon
             // 
             this.labelCon.AutoSize = true;
-            this.labelCon.Location = new System.Drawing.Point(70, 65);
+            this.labelCon.Location = new System.Drawing.Point(70, 91);
             this.labelCon.Name = "labelCon";
             this.labelCon.Size = new System.Drawing.Size(64, 13);
             this.labelCon.TabIndex = 112;
@@ -97,18 +99,18 @@
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(22, 92);
+            this.labelDate.Location = new System.Drawing.Point(22, 15);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(112, 13);
             this.labelDate.TabIndex = 110;
             this.labelDate.Text = "Дата обслуживания:";
             // 
-            // dateMove
+            // dateService
             // 
-            this.dateMove.Location = new System.Drawing.Point(140, 89);
-            this.dateMove.Name = "dateMove";
-            this.dateMove.Size = new System.Drawing.Size(140, 20);
-            this.dateMove.TabIndex = 99;
+            this.dateService.Location = new System.Drawing.Point(140, 12);
+            this.dateService.Name = "dateService";
+            this.dateService.Size = new System.Drawing.Size(140, 20);
+            this.dateService.TabIndex = 0;
             // 
             // comboEquipment
             // 
@@ -116,16 +118,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEquipment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEquipment.FormattingEnabled = true;
-            this.comboEquipment.Location = new System.Drawing.Point(140, 12);
+            this.comboEquipment.Location = new System.Drawing.Point(140, 38);
             this.comboEquipment.Name = "comboEquipment";
             this.comboEquipment.Size = new System.Drawing.Size(305, 21);
-            this.comboEquipment.TabIndex = 96;
+            this.comboEquipment.TabIndex = 1;
             this.comboEquipment.SelectedIndexChanged += new System.EventHandler(this.EquipmentSelect);
             // 
             // labelEquipment
             // 
             this.labelEquipment.AutoSize = true;
-            this.labelEquipment.Location = new System.Drawing.Point(51, 15);
+            this.labelEquipment.Location = new System.Drawing.Point(51, 41);
             this.labelEquipment.Name = "labelEquipment";
             this.labelEquipment.Size = new System.Drawing.Size(83, 13);
             this.labelEquipment.TabIndex = 109;
@@ -137,7 +139,7 @@
             this.buttonOK.Location = new System.Drawing.Point(316, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 102;
+            this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -149,7 +151,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(397, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 103;
+            this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -162,7 +164,7 @@
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
             this.textCom.Size = new System.Drawing.Size(332, 79);
-            this.textCom.TabIndex = 101;
+            this.textCom.TabIndex = 7;
             // 
             // labelCom
             // 
@@ -176,10 +178,10 @@
             // checkPrinter
             // 
             this.checkPrinter.AutoSize = true;
-            this.checkPrinter.Location = new System.Drawing.Point(140, 39);
+            this.checkPrinter.Location = new System.Drawing.Point(140, 65);
             this.checkPrinter.Name = "checkPrinter";
             this.checkPrinter.Size = new System.Drawing.Size(75, 17);
-            this.checkPrinter.TabIndex = 114;
+            this.checkPrinter.TabIndex = 3;
             this.checkPrinter.Text = "Заправка";
             this.checkPrinter.UseVisualStyleBackColor = true;
             this.checkPrinter.CheckedChanged += new System.EventHandler(this.PrinterCheck);
@@ -189,7 +191,7 @@
             this.textCount.Location = new System.Drawing.Point(140, 115);
             this.textCount.Name = "textCount";
             this.textCount.Size = new System.Drawing.Size(100, 20);
-            this.textCount.TabIndex = 115;
+            this.textCount.TabIndex = 6;
             // 
             // FormService
             // 
@@ -206,13 +208,14 @@
             this.Controls.Add(this.comboCon);
             this.Controls.Add(this.labelCon);
             this.Controls.Add(this.labelDate);
-            this.Controls.Add(this.dateMove);
+            this.Controls.Add(this.dateService);
             this.Controls.Add(this.comboEquipment);
             this.Controls.Add(this.labelEquipment);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textCom);
             this.Controls.Add(this.labelCom);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormService";
@@ -231,7 +234,7 @@
         private System.Windows.Forms.ComboBox comboCon;
         private System.Windows.Forms.Label labelCon;
         private System.Windows.Forms.Label labelDate;
-        private System.Windows.Forms.DateTimePicker dateMove;
+        private System.Windows.Forms.DateTimePicker dateService;
         private System.Windows.Forms.ComboBox comboEquipment;
         private System.Windows.Forms.Label labelEquipment;
         private System.Windows.Forms.Button buttonOK;

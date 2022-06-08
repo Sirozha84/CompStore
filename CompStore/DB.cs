@@ -324,7 +324,8 @@ namespace CompStore
                     "users.ID, " +
                     "mols.ID, " +
                     "mols.f || \" \" || SUBSTR(mols.i, 1, 1) || \".\" || SUBSTR(mols.o, 1, 1) || \".\" AS molText, " +
-                    "eqtypes.printer as printer " +
+                    "eqtypes.printer as printer, " +
+                    "models.consumable " +
                     "FROM equipments " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
@@ -365,6 +366,7 @@ namespace CompStore
                     equipment.mol = ReadInt(22);
                     equipment.molText = ReadStr(23);
                     equipment.printer = ReadBool(24);
+                    equipment.consumable = ReadInt(25);
                     list.Add(equipment);
                 }
             }
@@ -420,12 +422,14 @@ namespace CompStore
                     "services.consumable, " +
                     "services.counter, " +
                     "services.comment, " +
-                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\" " +
+                    "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
+                    "consumables.name " +
                     "FROM services " +
                     "LEFT JOIN equipments ON services.equipment = equipments.ID " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN vendors ON models.vendor = vendors.ID " +
+                    "LEFT JOIN consumables ON services.consumable = consumables.ID " +
                     "ORDER BY services.date";
                 reader = com.ExecuteReader();
                 while (reader.Read())
@@ -439,6 +443,7 @@ namespace CompStore
                     service.counter = ReadInt(5);
                     service.comment = ReadStr(6);
                     service.eqText = ReadStr(7);
+                    service.cnText = ReadStr(8);
                     list.Add(service);
                 }
             }
@@ -782,6 +787,17 @@ namespace CompStore
                     "date = '" + move.date.ToString("yyyyMMdd") + "', " +
                     "mol = '" + move.mol + "', " +
                     "comment = '" + move.comment + "' WHERE ID = " + move.ID;
+            }
+            if (type == "services")
+            {
+                Service service = (Service)item;
+                com.CommandText = "UPDATE services SET " +
+                    "equipment = '" + service.equipment + "', " +
+                    "date = '" + service.date.ToString("yyyyMMdd") + "', " +
+                    "work = '" + service.work + "', " +
+                    "consumable = '" + service.consumable + "', " +
+                    "counter = '" + service.counter + "', " +
+                    "comment = '" + service.comment + "' WHERE ID = " + service.ID;
             }
             if (type == "eqtypes")
             {

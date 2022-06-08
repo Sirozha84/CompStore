@@ -405,7 +405,7 @@ namespace CompStore
             this.listViewAdd3.TabIndex = 5;
             this.listViewAdd3.UseCompatibleStateImageBehavior = false;
             this.listViewAdd3.View = System.Windows.Forms.View.Details;
-            this.listViewAdd3.DoubleClick += new System.EventHandler(this.MoveEditFromAdd);
+            this.listViewAdd3.DoubleClick += new System.EventHandler(this.EditSubItem);
             // 
             // listViewAdd2
             // 
@@ -419,7 +419,7 @@ namespace CompStore
             this.listViewAdd2.TabIndex = 4;
             this.listViewAdd2.UseCompatibleStateImageBehavior = false;
             this.listViewAdd2.View = System.Windows.Forms.View.Details;
-            this.listViewAdd2.DoubleClick += new System.EventHandler(this.MoveEditFromAdd);
+            this.listViewAdd2.DoubleClick += new System.EventHandler(this.EditSubItem);
             // 
             // listViewAdd1
             // 
@@ -433,7 +433,7 @@ namespace CompStore
             this.listViewAdd1.TabIndex = 3;
             this.listViewAdd1.UseCompatibleStateImageBehavior = false;
             this.listViewAdd1.View = System.Windows.Forms.View.Details;
-            this.listViewAdd1.DoubleClick += new System.EventHandler(this.MoveEditFromAdd);
+            this.listViewAdd1.DoubleClick += new System.EventHandler(this.EditSubItem);
             // 
             // splitterH
             // 

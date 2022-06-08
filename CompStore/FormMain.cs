@@ -142,8 +142,8 @@ namespace CompStore
             if (type == "equipments")
             {
                 list.Columns.Add("Оборудование", 200);
-                list.Columns.Add("Серийный номер", 160);
-                list.Columns.Add("Инвентарный номер", 160);
+                list.Columns.Add("Серийный номер", 120);
+                list.Columns.Add("Инвентарный номер", 120);
                 list.Columns.Add("Сотрудник", 100);
                 list.Columns.Add("Помещение", 100);
                 list.Columns.Add("Mac", 50);
@@ -157,19 +157,19 @@ namespace CompStore
             if (type == "moves")
             {
                 list.Columns.Add("Дата", 66);
-                list.Columns.Add("Оборудование", 200);
+                list.Columns.Add("Оборудование", 300);
                 list.Columns.Add("Ответственный", 200);
-                list.Columns.Add("Помещение", 100);
-                list.Columns.Add("М.О.Л.", 100);
-                list.Columns.Add("Примечание", 100);
+                list.Columns.Add("Помещение", 120);
+                list.Columns.Add("М.О.Л.", 120);
+                list.Columns.Add("Примечание", 120);
             }
             if (type == "services")
             {
                 list.Columns.Add("Дата", 66);
-                list.Columns.Add("Оборудование", 200);
+                list.Columns.Add("Оборудование", 300);
                 list.Columns.Add("Вид работ", 100);
                 list.Columns.Add("Расходник", 100);
-                list.Columns.Add("Счётчик", 50);
+                list.Columns.Add("Счётчик", 100);
                 list.Columns.Add("Примечание", 100);
             }
             if (type == "eqtypes")
@@ -414,7 +414,6 @@ namespace CompStore
             bool pack = listViewMain.SelectedIndices.Count > 1;
             Move move = new Move();
             if (!pack) move.equipment = ((Equipment)listViewMain.SelectedItems[0].Tag).ID;
-
             FormMove form = new FormMove(move, pack);
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -437,7 +436,7 @@ namespace CompStore
             }
         }
 
-        private void MoveEditFromAdd(object sender, EventArgs e)
+        private void EditSubItem(object sender, EventArgs e)
         {
             string t = "";
             Record subitem = null;
@@ -449,9 +448,16 @@ namespace CompStore
                 form = new FormMove((Move)subitem, false);
                 t = "moves";
             }
+            if (curType == "equipments" && tabControl.SelectedIndex == 1)
+            {
+                if (listViewAdd2.SelectedIndices.Count == 0) return;
+                subitem = (Service)listViewAdd2.SelectedItems[0].Tag;
+                form = new FormService((Service)subitem);
+                t = "services";
+            }
             if (t != "" && form.ShowDialog() == DialogResult.OK)
             {
-                DB.Update("moves", subitem);
+                DB.Update(t, subitem);
                 ListViewRefresh();
             }
         }

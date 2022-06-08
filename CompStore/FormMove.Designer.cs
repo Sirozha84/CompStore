@@ -52,7 +52,7 @@ namespace CompStore
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(24, 96);
+            this.labelDate.Location = new System.Drawing.Point(24, 15);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(110, 13);
             this.labelDate.TabIndex = 86;
@@ -60,10 +60,10 @@ namespace CompStore
             // 
             // dateMove
             // 
-            this.dateMove.Location = new System.Drawing.Point(140, 93);
+            this.dateMove.Location = new System.Drawing.Point(140, 12);
             this.dateMove.Name = "dateMove";
             this.dateMove.Size = new System.Drawing.Size(140, 20);
-            this.dateMove.TabIndex = 3;
+            this.dateMove.TabIndex = 0;
             // 
             // comboEquipment
             // 
@@ -71,16 +71,16 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEquipment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEquipment.FormattingEnabled = true;
-            this.comboEquipment.Location = new System.Drawing.Point(140, 12);
+            this.comboEquipment.Location = new System.Drawing.Point(140, 38);
             this.comboEquipment.Name = "comboEquipment";
             this.comboEquipment.Size = new System.Drawing.Size(305, 21);
-            this.comboEquipment.TabIndex = 0;
+            this.comboEquipment.TabIndex = 1;
             this.comboEquipment.SelectedIndexChanged += new System.EventHandler(this.EquipmentSelect);
             // 
             // labelEquipment
             // 
             this.labelEquipment.AutoSize = true;
-            this.labelEquipment.Location = new System.Drawing.Point(51, 15);
+            this.labelEquipment.Location = new System.Drawing.Point(51, 41);
             this.labelEquipment.Name = "labelEquipment";
             this.labelEquipment.Size = new System.Drawing.Size(83, 13);
             this.labelEquipment.TabIndex = 84;
@@ -92,7 +92,7 @@ namespace CompStore
             this.buttonOK.Location = new System.Drawing.Point(316, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 6;
+            this.buttonOK.TabIndex = 10;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -104,7 +104,7 @@ namespace CompStore
             this.buttonCancel.Location = new System.Drawing.Point(397, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.TabIndex = 11;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -117,7 +117,7 @@ namespace CompStore
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
             this.textCom.Size = new System.Drawing.Size(332, 73);
-            this.textCom.TabIndex = 5;
+            this.textCom.TabIndex = 9;
             // 
             // labelCom
             // 
@@ -134,16 +134,16 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboUser.FormattingEnabled = true;
-            this.comboUser.Location = new System.Drawing.Point(140, 39);
+            this.comboUser.Location = new System.Drawing.Point(140, 65);
             this.comboUser.Name = "comboUser";
             this.comboUser.Size = new System.Drawing.Size(305, 21);
-            this.comboUser.TabIndex = 1;
+            this.comboUser.TabIndex = 3;
             this.comboUser.SelectedIndexChanged += new System.EventHandler(this.UserSelect);
             // 
             // labelUser
             // 
             this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(71, 42);
+            this.labelUser.Location = new System.Drawing.Point(71, 68);
             this.labelUser.Name = "labelUser";
             this.labelUser.Size = new System.Drawing.Size(63, 13);
             this.labelUser.TabIndex = 88;
@@ -155,16 +155,16 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboRoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRoom.FormattingEnabled = true;
-            this.comboRoom.Location = new System.Drawing.Point(140, 66);
+            this.comboRoom.Location = new System.Drawing.Point(140, 92);
             this.comboRoom.Name = "comboRoom";
             this.comboRoom.Size = new System.Drawing.Size(305, 21);
-            this.comboRoom.TabIndex = 2;
+            this.comboRoom.TabIndex = 5;
             this.comboRoom.SelectedIndexChanged += new System.EventHandler(this.EnterCheck);
             // 
             // labelRoom
             // 
             this.labelRoom.AutoSize = true;
-            this.labelRoom.Location = new System.Drawing.Point(63, 69);
+            this.labelRoom.Location = new System.Drawing.Point(63, 95);
             this.labelRoom.Name = "labelRoom";
             this.labelRoom.Size = new System.Drawing.Size(71, 13);
             this.labelRoom.TabIndex = 90;
@@ -174,10 +174,10 @@ namespace CompStore
             // 
             this.buttonEquipmentAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEquipmentAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonEquipmentAdd.Location = new System.Drawing.Point(450, 11);
+            this.buttonEquipmentAdd.Location = new System.Drawing.Point(450, 37);
             this.buttonEquipmentAdd.Name = "buttonEquipmentAdd";
             this.buttonEquipmentAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonEquipmentAdd.TabIndex = 8;
+            this.buttonEquipmentAdd.TabIndex = 2;
             this.buttonEquipmentAdd.UseVisualStyleBackColor = true;
             this.buttonEquipmentAdd.Click += new System.EventHandler(this.EquipmentAdd);
             // 
@@ -185,10 +185,10 @@ namespace CompStore
             // 
             this.buttonUserAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUserAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonUserAdd.Location = new System.Drawing.Point(450, 38);
+            this.buttonUserAdd.Location = new System.Drawing.Point(450, 64);
             this.buttonUserAdd.Name = "buttonUserAdd";
             this.buttonUserAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonUserAdd.TabIndex = 9;
+            this.buttonUserAdd.TabIndex = 4;
             this.buttonUserAdd.UseVisualStyleBackColor = true;
             this.buttonUserAdd.Click += new System.EventHandler(this.UserAdd);
             // 
@@ -196,10 +196,10 @@ namespace CompStore
             // 
             this.buttonRoomAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRoomAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonRoomAdd.Location = new System.Drawing.Point(450, 65);
+            this.buttonRoomAdd.Location = new System.Drawing.Point(450, 91);
             this.buttonRoomAdd.Name = "buttonRoomAdd";
             this.buttonRoomAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonRoomAdd.TabIndex = 10;
+            this.buttonRoomAdd.TabIndex = 6;
             this.buttonRoomAdd.UseVisualStyleBackColor = true;
             this.buttonRoomAdd.Click += new System.EventHandler(this.RoomAdd);
             // 
@@ -210,7 +210,7 @@ namespace CompStore
             this.buttonMOLAdd.Location = new System.Drawing.Point(450, 118);
             this.buttonMOLAdd.Name = "buttonMOLAdd";
             this.buttonMOLAdd.Size = new System.Drawing.Size(23, 23);
-            this.buttonMOLAdd.TabIndex = 11;
+            this.buttonMOLAdd.TabIndex = 8;
             this.buttonMOLAdd.UseVisualStyleBackColor = true;
             this.buttonMOLAdd.Click += new System.EventHandler(this.MOLAdd);
             // 
@@ -223,7 +223,7 @@ namespace CompStore
             this.comboMOL.Location = new System.Drawing.Point(140, 119);
             this.comboMOL.Name = "comboMOL";
             this.comboMOL.Size = new System.Drawing.Size(305, 21);
-            this.comboMOL.TabIndex = 4;
+            this.comboMOL.TabIndex = 7;
             this.comboMOL.SelectedIndexChanged += new System.EventHandler(this.MOLSelect);
             // 
             // labelMOL
