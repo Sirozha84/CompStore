@@ -60,19 +60,12 @@ namespace CompStore
         private void EquipmentSelect(object sender, EventArgs e)
         {
             checkPrinter.Enabled = textCount.Enabled = equipment != null ? equipment.printer : false;
-            checkPrinter.Checked = false;
+            if (!checkPrinter.Enabled) checkPrinter.Checked = false;
             buttonOK.Enabled = comboEquipment.SelectedIndex >= 0;
-
             try
             {
                 int i = comboEquipment.SelectedValue != null ? (int)comboEquipment.SelectedValue : 0;
                 equipment = (Equipment)equipments.Find(o => o.ID == i);
-                /*if (isUser)
-                {
-                    checkPrinter.Enabled = textCount.Enabled = equipment != null ? equipment.printer : false;
-                    checkPrinter.Checked = false;
-                    buttonOK.Enabled = comboEquipment.SelectedIndex >= 0;
-                }*/
             }
             catch { }
         }
@@ -110,9 +103,9 @@ namespace CompStore
             {
                 DB.Add("consumables", consumable);
                 List<Record> consumables = DB.Load("consumables");
-                comboCon.DataSource = consumable;
+                comboCon.DataSource = consumables;
                 int max = 0;
-                foreach (Equipment c in consumables)
+                foreach (Consumable c in consumables)
                     if (max < c.ID) max = c.ID;
                 comboCon.SelectedValue = max;
             }

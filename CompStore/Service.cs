@@ -18,7 +18,7 @@ namespace CompStore
             str.SubItems.Add(eqText);
             string w = "";
             if (work == 1) w = "Ремонт";
-            if (work == 2) w = "Запрвака";
+            if (work == 2) w = "Заправка";
             str.SubItems.Add(w);
             str.SubItems.Add(cnText);
             str.SubItems.Add(counter.ToString("### ### ###"));

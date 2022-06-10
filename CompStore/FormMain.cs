@@ -168,9 +168,10 @@ namespace CompStore
                 list.Columns.Add("Дата", 66);
                 list.Columns.Add("Оборудование", 300);
                 list.Columns.Add("Вид работ", 100);
-                list.Columns.Add("Расходник", 100);
+                list.Columns.Add("Расходник", 200);
                 list.Columns.Add("Счётчик", 100);
-                list.Columns.Add("Примечание", 100);
+                list.Columns.Add("Примечание", 200);
+                list.Columns[4].TextAlign = HorizontalAlignment.Right;
             }
             if (type == "eqtypes")
             {
@@ -245,7 +246,7 @@ namespace CompStore
 
         private void About(object sender, EventArgs e)
         {
-            MessageBox.Show("CompStore\nВерсия: 0.2 (18.05.2022)\nАвтор: Сергей Гордеев", "О программе");
+            MessageBox.Show("CompStore\nВерсия: " + Program.version + "\nАвтор: Сергей Гордеев", "О программе");
         }
         #endregion
 
