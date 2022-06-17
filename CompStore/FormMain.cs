@@ -359,7 +359,6 @@ namespace CompStore
 
         private void ItemCopy(object sender, EventArgs e)   //Пока работает только для оборудования
         {
-            Record item = null;
             if (listViewMain.SelectedIndices.Count != 1) return;
             Equipment equipmentOr = (Equipment)listViewMain.SelectedItems[0].Tag;
             Equipment equipment = new Equipment();
@@ -373,7 +372,7 @@ namespace CompStore
             FormEquipment form = new FormEquipment(equipment);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                DB.Add(curType, item);
+                DB.Add(curType, equipment);
                 ListViewRefresh();
             }
         }
