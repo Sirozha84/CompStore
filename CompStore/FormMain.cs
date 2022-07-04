@@ -59,7 +59,7 @@ namespace CompStore
             if (treeMenu.SelectedNode.Name == "nodeModels")
                 PreparePage("models", "Модели");
             if (treeMenu.SelectedNode.Name == "nodeConsumables")
-                PreparePage("consumables", "Расходики");
+                PreparePage("consumables", "Расходники");
             if (treeMenu.SelectedNode.Name == "nodeProviders")
                 PreparePage("providers", "Поставщики");
 
