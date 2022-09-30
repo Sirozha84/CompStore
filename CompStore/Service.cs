@@ -12,6 +12,8 @@ namespace CompStore
 
         public string eqText;
         public string cnText;
+        public string usrText;
+        public string depText;
         public override ListViewItem ToListView()
         {
             ListViewItem str = new ListViewItem(date.ToString("dd.MM.yyyy"));
@@ -19,6 +21,8 @@ namespace CompStore
             string w = "";
             if (work == 1) w = "Ремонт";
             if (work == 2) w = "Заправка";
+            str.SubItems.Add(usrText);
+            str.SubItems.Add(depText);
             str.SubItems.Add(w);
             str.SubItems.Add(cnText);
             str.SubItems.Add(counter.ToString("### ### ###"));

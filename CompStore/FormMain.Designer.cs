@@ -559,8 +559,8 @@ namespace CompStore
             this.tService.Image = global::CompStore.Properties.Resources.fix;
             this.tService.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tService.Name = "tService";
-            this.tService.Size = new System.Drawing.Size(67, 22);
-            this.tService.Text = "Сервис";
+            this.tService.Size = new System.Drawing.Size(110, 22);
+            this.tService.Text = "Обслуживание";
             this.tService.Click += new System.EventHandler(this.Service);
             // 
             // tShowAll

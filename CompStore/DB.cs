@@ -318,6 +318,7 @@ namespace CompStore
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name AS nameText, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
+                    "users.dis, " +
                     "buildings.name || \", \" || rooms.name, " +
                     "m.date, " +
                     "providers.name, " +
@@ -359,14 +360,15 @@ namespace CompStore
                     equipment.nameText = ReadStr(15);
                     equipment.nameINText = ReadStr(16);
                     equipment.userText = ReadStr(17);
-                    equipment.roomText = ReadStr(18);
-                    equipment.isDtText = ReadStr(19);
-                    equipment.provText = ReadStr(20);
-                    equipment.user = ReadInt(21);
-                    equipment.mol = ReadInt(22);
-                    equipment.molText = ReadStr(23);
-                    equipment.printer = ReadBool(24);
-                    equipment.consumable = ReadInt(25);
+                    if (ReadBool(18)) equipment.userText += " (УВОЛЕН!)";
+                    equipment.roomText = ReadStr(19);
+                    equipment.isDtText = ReadStr(20);
+                    equipment.provText = ReadStr(21);
+                    equipment.user = ReadInt(22);
+                    equipment.mol = ReadInt(23);
+                    equipment.molText = ReadStr(24);
+                    equipment.printer = ReadBool(25);
+                    equipment.consumable = ReadInt(26);
                     list.Add(equipment);
                 }
             }
@@ -423,13 +425,18 @@ namespace CompStore
                     "services.counter, " +
                     "services.comment, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
-                    "consumables.name " +
+                    "consumables.name, " +
+                    "users.f || \" \" || SUBSTR(users.i, 1, 1) || \".\" || SUBSTR(users.o, 1, 1) || \".\" AS userText, " +
+                    "deps.name as depText " +
                     "FROM services " +
                     "LEFT JOIN equipments ON services.equipment = equipments.ID " +
                     "LEFT JOIN models ON equipments.model = models.ID " +
                     "LEFT JOIN eqtypes ON models.eqtype = eqtypes.ID " +
                     "LEFT JOIN vendors ON models.vendor = vendors.ID " +
                     "LEFT JOIN consumables ON services.consumable = consumables.ID " +
+                    "LEFT JOIN (SELECT equipment, user, room, max(date) FROM moves GROUP BY equipment) m ON equipments.ID = m.equipment " +
+                    "LEFT JOIN users ON m.user = users.ID " + 
+                    "LEFT JOIN deps ON users.dep = deps.ID " +
                     "ORDER BY services.date";
                 reader = com.ExecuteReader();
                 while (reader.Read())
@@ -444,6 +451,8 @@ namespace CompStore
                     service.comment = ReadStr(6);
                     service.eqText = ReadStr(7);
                     service.cnText = ReadStr(8);
+                    service.usrText = ReadStr(9);
+                    service.depText = ReadStr(10);
                     list.Add(service);
                 }
             }

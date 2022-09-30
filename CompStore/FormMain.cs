@@ -166,12 +166,14 @@ namespace CompStore
             if (type == "services")
             {
                 list.Columns.Add("Дата", 66);
-                list.Columns.Add("Оборудование", 300);
+                list.Columns.Add("Оборудование", 150);
+                list.Columns.Add("Сотрудник", 150);
+                list.Columns.Add("Подразделение", 100);
                 list.Columns.Add("Вид работ", 100);
-                list.Columns.Add("Расходник", 200);
+                list.Columns.Add("Расходник", 100);
                 list.Columns.Add("Счётчик", 100);
                 list.Columns.Add("Примечание", 200);
-                list.Columns[4].TextAlign = HorizontalAlignment.Right;
+                list.Columns[6].TextAlign = HorizontalAlignment.Right;
             }
             if (type == "eqtypes")
             {
