@@ -665,7 +665,7 @@ namespace CompStore
                 EqType eqType = (EqType)item;
                 com.CommandText = "INSERT INTO eqtypes (name, printer) VALUES ('" +
                     eqType.name + "'," +
-                    (eqType.printer ? "1" : "0") + "')";
+                    (eqType.printer ? "1" : "0") + ")";
             }
             if (type == "vendors")
             {

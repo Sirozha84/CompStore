@@ -44,7 +44,7 @@ namespace CompStore
             this.buttonOK.Location = new System.Drawing.Point(166, 69);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 20;
+            this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "Записать";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OK);
@@ -56,7 +56,7 @@ namespace CompStore
             this.buttonCancel.Location = new System.Drawing.Point(247, 69);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 19;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -67,7 +67,7 @@ namespace CompStore
             this.textName.Location = new System.Drawing.Point(90, 12);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(232, 20);
-            this.textName.TabIndex = 18;
+            this.textName.TabIndex = 0;
             this.textName.TextChanged += new System.EventHandler(this.CheckField);
             // 
             // labelName
@@ -85,7 +85,7 @@ namespace CompStore
             this.checkPrinter.Location = new System.Drawing.Point(90, 39);
             this.checkPrinter.Name = "checkPrinter";
             this.checkPrinter.Size = new System.Drawing.Size(88, 17);
-            this.checkPrinter.TabIndex = 21;
+            this.checkPrinter.TabIndex = 1;
             this.checkPrinter.Text = "Это принтер";
             this.checkPrinter.UseVisualStyleBackColor = true;
             // 
