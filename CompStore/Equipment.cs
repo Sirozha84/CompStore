@@ -51,7 +51,6 @@ namespace CompStore
                 iN.ToLower().Contains(search) |
                 userText.ToLower().Contains(search) |
                 roomText.ToLower().Contains(search) |
-                isDtText.ToLower().Contains(search) |
                 molText.ToLower().Contains(search) |
                 mac.ToLower().Contains(search) |
                 ip.ToLower().Contains(search) |
