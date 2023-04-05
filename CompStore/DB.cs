@@ -130,6 +130,7 @@ namespace CompStore
                 "[work] INTEGER, " +
                 "[consumable] INTEGER, " +
                 "[counter] INTEGER, " +
+                "[rate] INTEGER, " +
                 "[comment] TEXT)";
             com.ExecuteNonQuery();
 
@@ -423,6 +424,7 @@ namespace CompStore
                     "services.work, " +
                     "services.consumable, " +
                     "services.counter, " +
+                    "services.rate, " +
                     "services.comment, " +
                     "eqtypes.name || \" \" || vendors.name || \" \" || models.name || \" (\" || equipments.sn || \")\", " +
                     "consumables.name, " +
@@ -448,11 +450,12 @@ namespace CompStore
                     service.work = ReadInt(3);
                     service.consumable = ReadInt(4);
                     service.counter = ReadInt(5);
-                    service.comment = ReadStr(6);
-                    service.eqText = ReadStr(7);
-                    service.cnText = ReadStr(8);
-                    service.usrText = ReadStr(9);
-                    service.depText = ReadStr(10);
+                    service.rate = ReadInt(6);
+                    service.comment = ReadStr(7);
+                    service.eqText = ReadStr(8);
+                    service.cnText = ReadStr(9);
+                    service.usrText = ReadStr(10);
+                    service.depText = ReadStr(11);
                     list.Add(service);
                 }
             }
@@ -652,12 +655,13 @@ namespace CompStore
             if (type == "services")
             {
                 Service service = (Service)item;
-                com.CommandText = "INSERT INTO services (equipment, date, work, consumable, counter, comment) VALUES ('" +
+                com.CommandText = "INSERT INTO services (equipment, date, work, consumable, counter, rate, comment) VALUES ('" +
                     service.equipment + "', '" +
                     service.date.ToString("yyyyMMdd") + "', '" +
                     service.work + "', '" +
                     service.consumable + "', '" +
                     service.counter + "', '" +
+                    service.rate + "', '" +
                     service.comment + "')";
             }
             if (type == "eqtypes")
@@ -806,6 +810,7 @@ namespace CompStore
                     "work = '" + service.work + "', " +
                     "consumable = '" + service.consumable + "', " +
                     "counter = '" + service.counter + "', " +
+                    "rate = '" + service.rate + "', " +
                     "comment = '" + service.comment + "' WHERE ID = " + service.ID;
             }
             if (type == "eqtypes")

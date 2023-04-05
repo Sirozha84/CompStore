@@ -171,7 +171,8 @@ namespace CompStore
                 list.Columns.Add("Подразделение", 100);
                 list.Columns.Add("Вид работ", 100);
                 list.Columns.Add("Расходник", 100);
-                list.Columns.Add("Счётчик", 100);
+                list.Columns.Add("Счётчик", 80);
+                list.Columns.Add("Расход", 50);
                 list.Columns.Add("Примечание", 200);
                 list.Columns[6].TextAlign = HorizontalAlignment.Right;
             }
@@ -214,6 +215,18 @@ namespace CompStore
         private void Exit(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void CopyToBuffer(object sender, EventArgs e)
+        {
+            string text = "";
+            foreach (ListViewItem u in listViewMain.SelectedItems)
+            {
+                for (int i = 0; i < u.SubItems.Count; i++)
+                    text += u.SubItems[i].Text + "\t";
+                text += "\n";
+            }
+            Clipboard.SetText(text);
         }
 
         private void ShowAll(object sender, EventArgs e)
@@ -354,6 +367,7 @@ namespace CompStore
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Add(curType, item);
+                if (curType == "services") ((Service)item).RateCalc();
                 ListViewRefresh();
             }
         }
@@ -388,6 +402,7 @@ namespace CompStore
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Update(curType, item);
+                if (curType == "services") ((Service)item).RateCalc();
                 ListViewRefresh();
             }
         }
@@ -434,6 +449,7 @@ namespace CompStore
             if (form.ShowDialog() == DialogResult.OK)
             {
                 DB.Add("services", service);
+                service.RateCalc();
                 ListViewRefresh();
             }
         }
@@ -460,6 +476,7 @@ namespace CompStore
             if (t != "" && form.ShowDialog() == DialogResult.OK)
             {
                 DB.Update(t, subitem);
+                if (t == "services") ((Service)subitem).RateCalc();
                 ListViewRefresh();
             }
         }

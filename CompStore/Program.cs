@@ -8,7 +8,7 @@ namespace CompStore
 {
     static class Program
     {
-        public static string version = "0.4 (17.06.2022)";
+        public static string version = "0.5 (05.04.2023)";
 
         /// <summary>
         /// Главная точка входа для приложения.
