@@ -54,12 +54,15 @@ namespace CompStore
             this.buttonPostAdd = new System.Windows.Forms.Button();
             this.buttonDepAdd = new System.Windows.Forms.Button();
             this.buttonRoomAdd = new System.Windows.Forms.Button();
+            this.buttonActAdd = new System.Windows.Forms.Button();
+            this.comboAct = new System.Windows.Forms.ComboBox();
+            this.labelAct = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(266, 276);
+            this.buttonOK.Location = new System.Drawing.Point(266, 350);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 9;
@@ -71,7 +74,7 @@ namespace CompStore
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(347, 276);
+            this.buttonCancel.Location = new System.Drawing.Point(347, 350);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 10;
@@ -158,7 +161,7 @@ namespace CompStore
             // labelDateDis
             // 
             this.labelDateDis.AutoSize = true;
-            this.labelDateDis.Location = new System.Drawing.Point(66, 200);
+            this.labelDateDis.Location = new System.Drawing.Point(66, 227);
             this.labelDateDis.Name = "labelDateDis";
             this.labelDateDis.Size = new System.Drawing.Size(48, 13);
             this.labelDateDis.TabIndex = 73;
@@ -167,7 +170,7 @@ namespace CompStore
             // labelDateDep
             // 
             this.labelDateDep.AutoSize = true;
-            this.labelDateDep.Location = new System.Drawing.Point(67, 174);
+            this.labelDateDep.Location = new System.Drawing.Point(67, 201);
             this.labelDateDep.Name = "labelDateDep";
             this.labelDateDep.Size = new System.Drawing.Size(47, 13);
             this.labelDateDep.TabIndex = 72;
@@ -176,7 +179,7 @@ namespace CompStore
             // dateDis
             // 
             this.dateDis.Checked = false;
-            this.dateDis.Location = new System.Drawing.Point(120, 197);
+            this.dateDis.Location = new System.Drawing.Point(120, 224);
             this.dateDis.Name = "dateDis";
             this.dateDis.ShowCheckBox = true;
             this.dateDis.Size = new System.Drawing.Size(140, 20);
@@ -184,7 +187,7 @@ namespace CompStore
             // 
             // dateEmp
             // 
-            this.dateEmp.Location = new System.Drawing.Point(120, 171);
+            this.dateEmp.Location = new System.Drawing.Point(120, 198);
             this.dateEmp.Name = "dateEmp";
             this.dateEmp.ShowCheckBox = true;
             this.dateEmp.Size = new System.Drawing.Size(140, 20);
@@ -196,7 +199,7 @@ namespace CompStore
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboRoom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRoom.FormattingEnabled = true;
-            this.comboRoom.Location = new System.Drawing.Point(120, 144);
+            this.comboRoom.Location = new System.Drawing.Point(120, 171);
             this.comboRoom.Name = "comboRoom";
             this.comboRoom.Size = new System.Drawing.Size(275, 21);
             this.comboRoom.TabIndex = 5;
@@ -204,7 +207,7 @@ namespace CompStore
             // labelRoom
             // 
             this.labelRoom.AutoSize = true;
-            this.labelRoom.Location = new System.Drawing.Point(43, 147);
+            this.labelRoom.Location = new System.Drawing.Point(43, 174);
             this.labelRoom.Name = "labelRoom";
             this.labelRoom.Size = new System.Drawing.Size(71, 13);
             this.labelRoom.TabIndex = 68;
@@ -226,16 +229,16 @@ namespace CompStore
             this.textCom.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textCom.Location = new System.Drawing.Point(120, 223);
+            this.textCom.Location = new System.Drawing.Point(120, 250);
             this.textCom.Multiline = true;
             this.textCom.Name = "textCom";
-            this.textCom.Size = new System.Drawing.Size(302, 47);
+            this.textCom.Size = new System.Drawing.Size(302, 94);
             this.textCom.TabIndex = 8;
             // 
             // labelCom
             // 
             this.labelCom.AutoSize = true;
-            this.labelCom.Location = new System.Drawing.Point(41, 226);
+            this.labelCom.Location = new System.Drawing.Point(41, 253);
             this.labelCom.Name = "labelCom";
             this.labelCom.Size = new System.Drawing.Size(73, 13);
             this.labelCom.TabIndex = 65;
@@ -278,7 +281,7 @@ namespace CompStore
             // 
             this.buttonRoomAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRoomAdd.Image = global::CompStore.Properties.Resources.add;
-            this.buttonRoomAdd.Location = new System.Drawing.Point(400, 143);
+            this.buttonRoomAdd.Location = new System.Drawing.Point(400, 170);
             this.buttonRoomAdd.Name = "buttonRoomAdd";
             this.buttonRoomAdd.Size = new System.Drawing.Size(23, 23);
             this.buttonRoomAdd.TabIndex = 85;
@@ -286,34 +289,69 @@ namespace CompStore
             this.buttonRoomAdd.UseVisualStyleBackColor = true;
             this.buttonRoomAdd.Click += new System.EventHandler(this.RoomAdd);
             // 
+            // buttonActAdd
+            // 
+            this.buttonActAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonActAdd.Image = global::CompStore.Properties.Resources.add;
+            this.buttonActAdd.Location = new System.Drawing.Point(400, 143);
+            this.buttonActAdd.Name = "buttonActAdd";
+            this.buttonActAdd.Size = new System.Drawing.Size(23, 23);
+            this.buttonActAdd.TabIndex = 88;
+            this.toolTip.SetToolTip(this.buttonActAdd, "Добавить новый филиал");
+            this.buttonActAdd.UseVisualStyleBackColor = true;
+            this.buttonActAdd.Click += new System.EventHandler(this.ActAdd);
+            // 
+            // comboAct
+            // 
+            this.comboAct.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboAct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboAct.FormattingEnabled = true;
+            this.comboAct.Location = new System.Drawing.Point(120, 144);
+            this.comboAct.Name = "comboAct";
+            this.comboAct.Size = new System.Drawing.Size(275, 21);
+            this.comboAct.TabIndex = 86;
+            // 
+            // labelAct
+            // 
+            this.labelAct.AutoSize = true;
+            this.labelAct.Location = new System.Drawing.Point(12, 147);
+            this.labelAct.Name = "labelAct";
+            this.labelAct.Size = new System.Drawing.Size(102, 13);
+            this.labelAct.TabIndex = 87;
+            this.labelAct.Text = "Вид деятельности:";
+            // 
             // FormUser
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(434, 311);
-            this.Controls.Add(this.buttonRoomAdd);
-            this.Controls.Add(this.buttonDepAdd);
-            this.Controls.Add(this.buttonPostAdd);
-            this.Controls.Add(this.comboDep);
-            this.Controls.Add(this.labelDep);
-            this.Controls.Add(this.textO);
-            this.Controls.Add(this.labelO);
-            this.Controls.Add(this.textI);
-            this.Controls.Add(this.labelI);
-            this.Controls.Add(this.textF);
+            this.ClientSize = new System.Drawing.Size(434, 385);
             this.Controls.Add(this.labelF);
-            this.Controls.Add(this.labelDateDis);
-            this.Controls.Add(this.labelDateDep);
-            this.Controls.Add(this.dateDis);
-            this.Controls.Add(this.dateEmp);
-            this.Controls.Add(this.comboRoom);
-            this.Controls.Add(this.labelRoom);
-            this.Controls.Add(this.comboPost);
-            this.Controls.Add(this.textCom);
-            this.Controls.Add(this.labelCom);
+            this.Controls.Add(this.textF);
+            this.Controls.Add(this.labelI);
+            this.Controls.Add(this.textI);
+            this.Controls.Add(this.labelO);
+            this.Controls.Add(this.textO);
             this.Controls.Add(this.labelPost);
+            this.Controls.Add(this.comboPost);
+            this.Controls.Add(this.buttonPostAdd);
+            this.Controls.Add(this.labelDep);
+            this.Controls.Add(this.comboDep);
+            this.Controls.Add(this.buttonDepAdd);
+            this.Controls.Add(this.labelAct);
+            this.Controls.Add(this.comboAct);
+            this.Controls.Add(this.buttonActAdd);
+            this.Controls.Add(this.labelRoom);
+            this.Controls.Add(this.comboRoom);
+            this.Controls.Add(this.buttonRoomAdd);
+            this.Controls.Add(this.labelDateDep);
+            this.Controls.Add(this.dateEmp);
+            this.Controls.Add(this.labelDateDis);
+            this.Controls.Add(this.dateDis);
+            this.Controls.Add(this.labelCom);
+            this.Controls.Add(this.textCom);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -354,5 +392,8 @@ namespace CompStore
         private System.Windows.Forms.Button buttonPostAdd;
         private System.Windows.Forms.Button buttonDepAdd;
         private System.Windows.Forms.Button buttonRoomAdd;
+        private System.Windows.Forms.Button buttonActAdd;
+        private System.Windows.Forms.ComboBox comboAct;
+        private System.Windows.Forms.Label labelAct;
     }
 }

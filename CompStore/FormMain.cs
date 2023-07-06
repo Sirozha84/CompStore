@@ -37,6 +37,8 @@ namespace CompStore
                 PreparePage("deps", "Подразделения");
             if (treeMenu.SelectedNode.Name == "nodePosts")
                 PreparePage("posts", "Должности");
+            if (treeMenu.SelectedNode.Name == "nodeActivitys")
+                PreparePage("activitys", "Виды деятельности");
             if (treeMenu.SelectedNode.Name == "nodeUsers")
             {
                 PreparePage("users", "Сотрудники", "Оборудование");
@@ -128,16 +130,17 @@ namespace CompStore
                 list.Columns.Add("Примечание", 200);
             }
             if (type == "posts")
-            {
-                list.Columns.Add("Наименование", 200);
-            }
+                list.Columns.Add("Наименование", 400);
+            if (type == "activitys")
+                list.Columns.Add("Наименование", 400);
             if (type == "users")
             {
-                list.Columns.Add("Фамилия Имя Отчество", 200);
-                list.Columns.Add("Подразделение", 160);
-                list.Columns.Add("Должность", 160);
-                list.Columns.Add("Расположение", 280);
-                list.Columns.Add("Примечание", 140);
+                list.Columns.Add("Фамилия Имя Отчество", 180);
+                list.Columns.Add("Подразделение", 150);
+                list.Columns.Add("Должность", 150);
+                list.Columns.Add("Вид деятельности", 100);
+                list.Columns.Add("Расположение", 240);
+                list.Columns.Add("Примечание", 120);
             }
             if (type == "equipments")
             {
@@ -353,6 +356,7 @@ namespace CompStore
             if (curType == "rooms") item = new Room();
             if (curType == "deps") item = new Dep();
             if (curType == "posts") item = new Post();
+            if (curType == "activitys") item = new Activity();
             if (curType == "users") item = new User();
             if (curType == "equipments") item = new Equipment();
             if (curType == "moves") item = new Move();
@@ -488,6 +492,7 @@ namespace CompStore
             if (curType == "rooms") return new FormRoom((Room)item);
             if (curType == "deps") return new FormDep((Dep)item);
             if (curType == "posts") return new FormPost((Post)item);
+            if (curType == "activitys") return new FormActivity((Activity)item);
             if (curType == "users") return new FormUser((User)item);
             if (curType == "equipments") return new FormEquipment((Equipment)item);
             if (curType == "moves") return new FormMove((Move)item, false);

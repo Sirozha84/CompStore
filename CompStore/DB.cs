@@ -43,6 +43,11 @@ namespace CompStore
                 "[name] TEXT)";
             com.ExecuteNonQuery();
 
+            com.CommandText = "CREATE TABLE IF NOT EXISTS [activitys] ( " +
+                "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "[name] TEXT)";
+            com.ExecuteNonQuery();
+
             com.CommandText = "CREATE TABLE IF NOT EXISTS [deps] ( " +
                 "[ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "[name] TEXT, " +
@@ -64,6 +69,7 @@ namespace CompStore
                 "[o] TEXT, " +
                 "[post] INTEGER, " +
                 "[dep] INTEGER, " +
+                "[act] INTEGER, " +
                 "[room] INTEGER, " +
                 "[emp] TEXT, " +
                 "[empdate] TEXT, " +
@@ -249,6 +255,18 @@ namespace CompStore
                     list.Add(post);
                 }
             }
+            if (type == "activitys")
+            {
+                com.CommandText = "SELECT * FROM activitys ORDER BY name";
+                reader = com.ExecuteReader();
+                while (reader.Read())
+                {
+                    Activity activity = new Activity();
+                    activity.ID = ReadInt(0);
+                    activity.name = ReadStr(1);
+                    list.Add(activity);
+                }
+            }
             if (type == "users")
             {
                 com.CommandText = "SELECT " +
@@ -258,6 +276,7 @@ namespace CompStore
                     "users.o, " +
                     "users.post, " +
                     "users.dep, " +
+                    "users.act, " +
                     "users.room, " +
                     "users.emp, " +
                     "users.empdate, " +
@@ -267,10 +286,12 @@ namespace CompStore
                     "users.f || \" \" || users.i || \" \" || users.o, " +
                     "posts.name, " +
                     "deps.name, " +
+                    "activitys.name, " +
                     "filials.name || \", зд. \" || buildings.name || \", пом. \" || rooms.name " +
                     "FROM users " +
                     "LEFT JOIN posts ON users.post = posts.ID " +
                     "LEFT JOIN deps ON users.dep = deps.ID " +
+                    "LEFT JOIN activitys ON users.act = activitys.ID " +
                     "LEFT JOIN rooms ON users.room = rooms.ID " +
                     "LEFT JOIN buildings ON rooms.building = buildings.ID " +
                     "LEFT JOIN filials ON buildings.filial = filials.ID " +
@@ -285,16 +306,18 @@ namespace CompStore
                     user.o = ReadStr(3);
                     user.post = ReadInt(4);
                     user.dep = ReadInt(5);
-                    user.room = ReadInt(6);
-                    user.emp = ReadBool(7);
-                    user.empDate = ReadDate(8);
-                    user.dis = ReadBool(9);
-                    user.disDate = ReadDate(10);
-                    user.comment = ReadStr(11);
-                    user.nameText = ReadStr(12);
-                    user.postText = ReadStr(13, user.post);
-                    user.depText = ReadStr(14, user.dep);
-                    user.roomText = ReadStr(15, user.room);
+                    user.act = ReadInt(6);
+                    user.room = ReadInt(7);
+                    user.emp = ReadBool(8);
+                    user.empDate = ReadDate(9);
+                    user.dis = ReadBool(10);
+                    user.disDate = ReadDate(11);
+                    user.comment = ReadStr(12);
+                    user.nameText = ReadStr(13);
+                    user.postText = ReadStr(14, user.post);
+                    user.depText = ReadStr(15, user.dep);
+                    user.actText = ReadStr(16, user.act);
+                    user.roomText = ReadStr(17, user.room);
                     list.Add(user);
                 }
             }
@@ -604,16 +627,23 @@ namespace CompStore
                 com.CommandText = "INSERT INTO posts (name) VALUES ('" +
                     post.name + "')";
             }
+            if (type == "activitys")
+            {
+                Activity activity = (Activity)item;
+                com.CommandText = "INSERT INTO activitys (name) VALUES ('" +
+                    activity.name + "')";
+            }
             if (type == "users")
             {
                 User user = (User)item;
-                com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, room, " +
+                com.CommandText = "INSERT INTO users (type, f, i, o, post, dep, act, room, " +
                     "emp, empdate, dis, disdate, comment) VALUES ('u', '" +
                     user.f + "', '" +
                     user.i + "', '" +
                     user.o + "', '" +
                     user.post + "', '" +
                     user.dep + "', '" +
+                    user.act + "', '" +
                     user.room + "', '" +
                     (user.emp ? "1" : "0") + "', '" +
                     user.empDate.ToString("yyyyMMdd") + "', '" +
@@ -755,6 +785,12 @@ namespace CompStore
                 com.CommandText = "UPDATE posts SET " +
                     "name = '" + post.name + "' WHERE ID = " + post.ID;
             }
+            if (type == "activitys")
+            {
+                Activity activity = (Activity)item;
+                com.CommandText = "UPDATE activitys SET " +
+                    "name = '" + activity.name + "' WHERE ID = " + activity.ID;
+            }
             if (type == "users")
             {
                 User user = (User)item;
@@ -764,6 +800,7 @@ namespace CompStore
                     "o = '" + user.o + "', " +
                     "post = '" + user.post + "', " +
                     "dep = '" + user.dep + "', " +
+                    "act = '" + user.act + "', " +
                     "room = '" + user.room + "', " +
                     "emp = '" + (user.emp ? "1" : "0") + "', " +
                     "empdate = '" + user.empDate.ToString("yyyyMMdd") + "', " +

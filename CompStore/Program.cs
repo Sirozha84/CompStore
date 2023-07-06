@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CompStore
 {
     static class Program
     {
-        public static string version = "0.5 (05.04.2023)";
+        public static string version = "0.6 (06.07.2023)";
 
         /// <summary>
         /// Главная точка входа для приложения.

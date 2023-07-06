@@ -37,6 +37,11 @@ namespace CompStore
             comboDep.ValueMember = "ID";
             comboDep.SelectedValue = user.dep;
 
+            comboAct.DataSource = DB.Load("activitys");
+            comboAct.DisplayMember = "name";
+            comboAct.ValueMember = "ID";
+            comboAct.SelectedValue = user.act;
+
             comboRoom.DataSource = DB.Load("rooms");
             comboRoom.DisplayMember = "nameText";
             comboRoom.ValueMember = "ID";
@@ -76,6 +81,7 @@ namespace CompStore
         {
             user.post = comboPost.SelectedValue != null ? (int)comboPost.SelectedValue : 0;
             user.dep = comboDep.SelectedValue != null ? (int)comboDep.SelectedValue : 0;
+            user.act = comboAct.SelectedValue != null ? (int)comboAct.SelectedValue : 0;
             user.room = comboRoom.SelectedValue != null ? (int)comboRoom.SelectedValue : 0;
             user.emp = dateEmp.Checked;
             user.empDate = dateEmp.Value;
@@ -113,6 +119,22 @@ namespace CompStore
                 foreach (Dep f in depds)
                     if (max < f.ID) max = f.ID;
                 comboDep.SelectedValue = max;
+            }
+        }
+        
+        private void ActAdd(object sender, EventArgs e)
+        {
+            Activity activity = new Activity();
+            FormActivity form = new FormActivity(activity);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                DB.Add("activitys", activity);
+                List<Record> activitys = DB.Load("activitys");
+                comboAct.DataSource = activitys;
+                int max = 0;
+                foreach (Activity a in activitys)
+                    if (max < a.ID) max = a.ID;
+                comboAct.SelectedValue = max;
             }
         }
 
